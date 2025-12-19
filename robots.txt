@@ -1,0 +1,14 @@
+# robots.txt for MyLegalAid
+# https://myLegalAid.help
+
+User-agent: *
+Allow: /
+
+# Disallow portal pages (private content)
+Disallow: /portal/
+
+# Sitemap location
+Sitemap: https://myLegalAid.help/sitemap.xml
+
+# Crawl-delay (optional, be nice to crawlers)
+Crawl-delay: 1

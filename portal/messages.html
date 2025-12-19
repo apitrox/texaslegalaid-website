@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Primary Meta Tags -->
+  <title>Messages - Provider Portal | MyLegalAid</title>
+  <meta name="title" content="Messages - Provider Portal | MyLegalAid">
+  <meta name="description" content="Communicate with clients securely through the MyLegalAid Provider Portal.">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://myLegalAid.help/portal/messages.html">
+  
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#2D5A7B">
+  <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/TLA_Favicon_Solid_White.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#E8F2F8',
+              100: '#D0E4F2',
+              200: '#B8D4E8',
+              300: '#9DB4C7',
+              400: '#778DA9',
+              500: '#415A77',
+              600: '#2D5A7B',
+              700: '#1B263B',
+              800: '#0D1B2A',
+            },
+            secondary: {
+              100: '#FDF8E8',
+              200: '#F5E4B8',
+              300: '#EBD095',
+              400: '#E0BC74',
+              500: '#D4A853',
+            },
+          },
+          fontFamily: {
+            display: ['"Source Serif 4"', 'Georgia', 'serif'],
+            body: ['"IBM Plex Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/custom.css">
+  <style>
+    .portal-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: calc(100vh - 64px);
+    }
+    @media (max-width: 1023px) {
+      .portal-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .sidebar-link.active {
+      background: #2D5A7B;
+      color: white;
+    }
+    .message-list-item.active {
+      background: #E8F2F8;
+      border-left: 3px solid #2D5A7B;
+    }
+    .message-list-item.unread {
+      background: #f8fafc;
+    }
+    .message-list-item.unread::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: #2D5A7B;
+      border-radius: 50%;
+    }
+    .messages-container {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      height: calc(100vh - 180px);
+    }
+    @media (max-width: 1023px) {
+      .messages-container {
+        grid-template-columns: 1fr;
+      }
+      .message-thread {
+        display: none;
+      }
+      .message-thread.active {
+        display: flex;
+      }
+    }
+    .chat-bubble {
+      max-width: 80%;
+    }
+    .chat-bubble.sent {
+      background: #2D5A7B;
+      color: white;
+      margin-left: auto;
+      border-radius: 1rem 1rem 0.25rem 1rem;
+    }
+    .chat-bubble.received {
+      background: #f3f4f6;
+      color: #374151;
+      border-radius: 1rem 1rem 1rem 0.25rem;
+    }
+  </style>
+</head>
+<body class="font-body text-gray-800 bg-gray-100">
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <!-- Trial Mode Banner -->
+  <div class="trial-banner" role="alert">
+    <div class="container flex items-center justify-between">
+      <p><strong>Demo Mode:</strong> This is a preview of the provider portal</p>
+      <a href="/portal/register.html" class="btn btn-sm text-white border border-white hover:bg-white hover:text-primary-700">Register Your Organization</a>
+    </div>
+  </div>
+  
+  <!-- Navigation -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+      <div class="flex items-center justify-between">
+        <a href="/portal/" class="navbar-brand" aria-label="MyLegalAid Provider Portal">
+          <img src="/images/TLA_Logo_White_Transparent.png" alt="MyLegalAid" class="navbar-logo" width="160" height="40">
+        </a>
+        
+        <div class="flex items-center gap-4">
+          <a href="/" class="nav-link text-sm hidden sm:inline">Main Site</a>
+          <div class="flex items-center gap-2 text-sm">
+            <span class="hidden md:inline text-gray-600">Demo Provider</span>
+            <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center text-white font-semibold">D</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Portal Layout -->
+  <div class="portal-layout">
+    <!-- Sidebar -->
+    <aside class="bg-white border-r border-gray-200 hidden lg:block">
+      <nav class="p-4" aria-label="Portal navigation">
+        <ul class="space-y-1">
+          <li>
+            <a href="/portal/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="/portal/cases.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              Cases
+            </a>
+          </li>
+          <li>
+            <a href="/portal/messages.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+              </svg>
+              Messages
+              <span class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full ml-auto">3</span>
+            </a>
+          </li>
+          <li>
+            <a href="/portal/settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              Settings
+            </a>
+          </li>
+        </ul>
+        
+        <hr class="my-4">
+        
+        <ul>
+          <li>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+              </svg>
+              Sign Out
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main id="main-content" class="p-6">
+      <!-- Page Header -->
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold text-primary-800">Messages</h1>
+        <p class="text-gray-600">Communicate securely with clients</p>
+      </div>
+      
+      <!-- Messages Container -->
+      <div class="messages-container bg-white rounded-lg shadow-sm overflow-hidden">
+        <!-- Message List -->
+        <div class="border-r border-gray-200 flex flex-col">
+          <!-- Search -->
+          <div class="p-4 border-b border-gray-200">
+            <div class="relative">
+              <svg class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+              <input type="search" placeholder="Search messages..." class="form-control pl-10 text-sm">
+            </div>
+          </div>
+          
+          <!-- Conversations -->
+          <div class="flex-1 overflow-y-auto">
+            <ul>
+              <!-- Conversation 1 - Active/Unread -->
+              <li>
+                <button class="message-list-item active unread relative w-full text-left px-4 py-4 border-b border-gray-100 hover:bg-gray-50">
+                  <div class="flex items-start gap-3 pl-3">
+                    <div class="w-10 h-10 bg-secondary-300 rounded-full flex items-center justify-center font-semibold text-primary-800 flex-shrink-0">M</div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <span class="font-semibold text-primary-800 truncate">Maria G.</span>
+                        <span class="text-xs text-gray-500 flex-shrink-0">2h ago</span>
+                      </div>
+                      <p class="text-sm text-gray-600 truncate">#REF-2025-1847 • Child Custody</p>
+                      <p class="text-sm text-gray-700 truncate mt-1">Thank you for taking my case. I wanted to ask about...</p>
+                    </div>
+                  </div>
+                </button>
+              </li>
+              
+              <!-- Conversation 2 - Unread -->
+              <li>
+                <button class="message-list-item unread relative w-full text-left px-4 py-4 border-b border-gray-100 hover:bg-gray-50">
+                  <div class="flex items-start gap-3 pl-3">
+                    <div class="w-10 h-10 bg-primary-200 rounded-full flex items-center justify-center font-semibold text-primary-800 flex-shrink-0">J</div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <span class="font-semibold text-primary-800 truncate">James T.</span>
+                        <span class="text-xs text-gray-500 flex-shrink-0">1d ago</span>
+                      </div>
+                      <p class="text-sm text-gray-600 truncate">#REF-2025-1846 • Eviction</p>
+                      <p class="text-sm text-gray-700 truncate mt-1">I received the notice you mentioned. What should I...</p>
+                    </div>
+                  </div>
+                </button>
+              </li>
+              
+              <!-- Conversation 3 - Unread -->
+              <li>
+                <button class="message-list-item unread relative w-full text-left px-4 py-4 border-b border-gray-100 hover:bg-gray-50">
+                  <div class="flex items-start gap-3 pl-3">
+                    <div class="w-10 h-10 bg-green-200 rounded-full flex items-center justify-center font-semibold text-green-800 flex-shrink-0">S</div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <span class="font-semibold text-primary-800 truncate">Sandra L.</span>
+                        <span class="text-xs text-gray-500 flex-shrink-0">2d ago</span>
+                      </div>
+                      <p class="text-sm text-gray-600 truncate">#REF-2025-1845 • Protective Order</p>
+                      <p class="text-sm text-gray-700 truncate mt-1">The hearing date has been scheduled. I'm nervous...</p>
+                    </div>
+                  </div>
+                </button>
+              </li>
+              
+              <!-- Conversation 4 - Read -->
+              <li>
+                <button class="message-list-item relative w-full text-left px-4 py-4 border-b border-gray-100 hover:bg-gray-50">
+                  <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center font-semibold text-purple-800 flex-shrink-0">R</div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <span class="font-medium text-gray-700 truncate">Roberto M.</span>
+                        <span class="text-xs text-gray-500 flex-shrink-0">1w ago</span>
+                      </div>
+                      <p class="text-sm text-gray-600 truncate">#REF-2025-1839 • Immigration</p>
+                      <p class="text-sm text-gray-500 truncate mt-1">Thank you so much for your help!</p>
+                    </div>
+                  </div>
+                </button>
+              </li>
+              
+              <!-- Conversation 5 - Read -->
+              <li>
+                <button class="message-list-item relative w-full text-left px-4 py-4 border-b border-gray-100 hover:bg-gray-50">
+                  <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 bg-orange-200 rounded-full flex items-center justify-center font-semibold text-orange-800 flex-shrink-0">A</div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <span class="font-medium text-gray-700 truncate">Ashley K.</span>
+                        <span class="text-xs text-gray-500 flex-shrink-0">1w ago</span>
+                      </div>
+                      <p class="text-sm text-gray-600 truncate">#REF-2025-1835 • Consumer Debt</p>
+                      <p class="text-sm text-gray-500 truncate mt-1">I'll send those documents tomorrow morning.</p>
+                    </div>
+                  </div>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Message Thread -->
+        <div class="message-thread active flex flex-col">
+          <!-- Thread Header -->
+          <div class="p-4 border-b border-gray-200 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-secondary-300 rounded-full flex items-center justify-center font-semibold text-primary-800">M</div>
+              <div>
+                <h2 class="font-semibold text-primary-800">Maria G.</h2>
+                <p class="text-sm text-gray-500">#REF-2025-1847 • Child Custody</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <a href="#" class="btn btn-sm btn-outline">View Case</a>
+            </div>
+          </div>
+          
+          <!-- Messages -->
+          <div class="flex-1 overflow-y-auto p-4 space-y-4">
+            <!-- System Message -->
+            <div class="text-center text-sm text-gray-500 py-2">
+              <span class="bg-gray-100 px-3 py-1 rounded-full">Conversation started • Jan 15, 2025</span>
+            </div>
+            
+            <!-- Received Message -->
+            <div class="flex items-end gap-2">
+              <div class="w-8 h-8 bg-secondary-300 rounded-full flex items-center justify-center font-semibold text-primary-800 text-sm flex-shrink-0">M</div>
+              <div>
+                <div class="chat-bubble received px-4 py-3">
+                  <p>Hello, thank you for accepting my case. I'm really worried about the custody hearing next month.</p>
+                </div>
+                <span class="text-xs text-gray-500 mt-1 block">2:15 PM</span>
+              </div>
+            </div>
+            
+            <!-- Sent Message -->
+            <div class="flex items-end gap-2 justify-end">
+              <div>
+                <div class="chat-bubble sent px-4 py-3">
+                  <p>Hi Maria, thank you for reaching out. I understand this is a stressful time. I've reviewed your intake information and I'd like to schedule a call to discuss your case in more detail.</p>
+                </div>
+                <span class="text-xs text-gray-500 mt-1 block text-right">2:30 PM</span>
+              </div>
+            </div>
+            
+            <!-- Received Message -->
+            <div class="flex items-end gap-2">
+              <div class="w-8 h-8 bg-secondary-300 rounded-full flex items-center justify-center font-semibold text-primary-800 text-sm flex-shrink-0">M</div>
+              <div>
+                <div class="chat-bubble received px-4 py-3">
+                  <p>That would be great. I'm available any weekday after 5 PM. What documents should I have ready?</p>
+                </div>
+                <span class="text-xs text-gray-500 mt-1 block">2:45 PM</span>
+              </div>
+            </div>
+            
+            <!-- Sent Message -->
+            <div class="flex items-end gap-2 justify-end">
+              <div>
+                <div class="chat-bubble sent px-4 py-3">
+                  <p>Please gather the following if you have them:<br>• Birth certificate(s)<br>• Current custody agreement (if any)<br>• Recent communication records<br>• School records</p>
+                </div>
+                <span class="text-xs text-gray-500 mt-1 block text-right">3:00 PM</span>
+              </div>
+            </div>
+            
+            <!-- Today Divider -->
+            <div class="text-center text-sm text-gray-500 py-2">
+              <span class="bg-gray-100 px-3 py-1 rounded-full">Today</span>
+            </div>
+            
+            <!-- Received Message - Unread -->
+            <div class="flex items-end gap-2">
+              <div class="w-8 h-8 bg-secondary-300 rounded-full flex items-center justify-center font-semibold text-primary-800 text-sm flex-shrink-0">M</div>
+              <div>
+                <div class="chat-bubble received px-4 py-3">
+                  <p>Thank you for taking my case. I wanted to ask about what happens if my ex doesn't show up to the hearing?</p>
+                </div>
+                <span class="text-xs text-gray-500 mt-1 block">10:30 AM</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Message Input -->
+          <div class="p-4 border-t border-gray-200">
+            <form class="flex items-end gap-3">
+              <div class="flex-1">
+                <label for="message-input" class="sr-only">Type a message</label>
+                <textarea id="message-input" rows="2" placeholder="Type your message..." class="form-control resize-none"></textarea>
+              </div>
+              <div class="flex flex-col gap-2">
+                <button type="button" class="btn btn-outline p-2" aria-label="Attach file">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+                  </svg>
+                </button>
+                <button type="submit" class="btn btn-primary p-2" aria-label="Send message">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Mobile Bottom Navigation -->
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-40" aria-label="Mobile navigation">
+    <ul class="flex justify-around">
+      <li>
+        <a href="/portal/" class="flex flex-col items-center gap-1 p-2 text-gray-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span class="text-xs">Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="/portal/cases.html" class="flex flex-col items-center gap-1 p-2 text-gray-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <span class="text-xs">Cases</span>
+        </a>
+      </li>
+      <li>
+        <a href="/portal/messages.html" class="flex flex-col items-center gap-1 p-2 text-primary-600 relative">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+          </svg>
+          <span class="text-xs font-medium">Messages</span>
+          <span class="absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+        </a>
+      </li>
+      <li>
+        <a href="/portal/settings.html" class="flex flex-col items-center gap-1 p-2 text-gray-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span class="text-xs">Settings</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  <!-- Main JavaScript -->
+  <script src="/js/main.js"></script>
+  
+  <script>
+    // Message list item click handler
+    document.querySelectorAll('.message-list-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.message-list-item').forEach(function(i) {
+          i.classList.remove('active');
+        });
+        this.classList.add('active');
+        this.classList.remove('unread');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{
+  "name": "Texas Legal Aid - Free Legal Help Portal",
+  "short_name": "Texas Legal Aid",
+  "description": "Connect with free legal aid providers in Texas. Get help with family law, immigration, housing, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#2D5A7B",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["legal", "government", "social"],
+  "icons": [
+    {
+      "src": "/images/TLA_Favicon_Solid_White.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Get Legal Help",
+      "short_name": "Get Help",
+      "description": "Start your legal aid request",
+      "url": "/get-help.html",
+      "icons": [
+        {
+          "src": "/images/icons/shortcut-help.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "My Cases",
+      "short_name": "My Cases",
+      "description": "View your case status",
+      "url": "/my-cases.html",
+      "icons": [
+        {
+          "src": "/images/icons/shortcut-cases.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

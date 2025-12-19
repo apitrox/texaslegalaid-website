@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're Offline | MyLegalAid</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/TLA_Favicon_Solid_White.png">
+
+  <style>
+    :root {
+      --primary: #2D5A7B;
+      --secondary: #D4A853;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, var(--primary) 0%, #1B263B 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      color: white;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 480px;
+    }
+
+    .icon {
+      margin-bottom: 2rem;
+    }
+
+    .icon svg {
+      width: 120px;
+      height: 120px;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.125rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--secondary);
+      color: #1B263B;
+      font-weight: 600;
+      padding: 0.875rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .emergency {
+      margin-top: 3rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .emergency h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .emergency p {
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .emergency a {
+      color: var(--secondary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .retry {
+      margin-top: 1.5rem;
+    }
+
+    .retry button {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      padding: 0.625rem 1.25rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .retry button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="icon">
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="50" stroke="rgba(255,255,255,0.3)" stroke-width="4" fill="none" />
+        <path d="M30 60 L50 60 L55 50 L65 70 L70 55 L75 65 L90 65" stroke="#D4A853" stroke-width="4"
+          stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5" />
+        <path d="M35 40 L85 90" stroke="white" stroke-width="4" stroke-linecap="round" />
+        <path d="M85 40 L35 90" stroke="white" stroke-width="4" stroke-linecap="round" />
+      </svg>
+    </div>
+
+    <h1>You're Currently Offline</h1>
+    <p>It looks like you've lost your internet connection. Please check your connection and try again.</p>
+
+    <div class="retry">
+      <button onclick="window.location.reload()">
+        <svg style="width:16px;height:16px;margin-right:4px;vertical-align:middle;" fill="none" stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Try Again
+      </button>
+    </div>
+
+    <div class="emergency">
+      <h2>Need Immediate Help?</h2>
+      <p>If you're in an emergency situation:</p>
+      <p>📞 Call <a href="tel:911">911</a> for emergencies</p>
+      <p>📞 National Domestic Violence Hotline: <a href="tel:1-800-799-7233">1-800-799-7233</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Check for online status and reload when connected
+    window.addEventListener('online', function () {
+      window.location.reload();
+    });
+  </script>
+</body>
+
+</html>

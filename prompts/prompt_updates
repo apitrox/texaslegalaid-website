@@ -1,0 +1,19 @@
+
+
+For the `mylegalaid-website` project make the following changes:
+- Use `../images/TLA_Favicon_Solid_White.png` as the favicon for the application
+- Use `../images/TLA_Logo_White_Transparent.png` as the official log for the application
+- Use `../images/TLA_Hero_Square_Man_In_Wheelchair.png` as the hero image on the home page
+- Use `../images/TLA_Hero_..` as the hero image on various pages
+- Before making any changes, ask me any clarifying questions you may have. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `mylegalaid-website` project make the following changes:
+- Fix the links on the home page and any other pages that may be broken. For example, the page navigation links and others are not working. Test and fix all links.
+- Before making any changes, ask me any clarifying questions you may have. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
