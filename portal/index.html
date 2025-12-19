@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
+
   <!-- Primary Meta Tags -->
-  <title>Provider Portal - Dashboard | MyLegalAid</title>
-  <meta name="title" content="Provider Portal - Dashboard | MyLegalAid">
-  <meta name="description" content="Legal aid provider portal for managing case referrals and client intakes.">
-  <meta name="robots" content="noindex, nofollow">
-  
+  <title>Provider Portal | Texas Legal Aid</title>
+  <meta name="title" content="Provider Portal | Texas Legal Aid">
+  <meta name="description"
+    content="Legal aid provider portal for managing cases and client referrals through Texas Legal Aid.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://texaslegalaid.org/portal/">
+
   <!-- PWA -->
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="../manifest.json">
   <meta name="theme-color" content="#2D5A7B">
-  <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png">
-  
+  <link rel="apple-touch-icon" href="../images/icons/icon-192x192.png">
+
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/images/TLA_Favicon_Solid_White.png">
-  
+  <link rel="icon" type="image/png" href="../images/TLA_Favicon_Solid_White.png">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -58,321 +65,159 @@
       },
     }
   </script>
-  
+
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="/css/custom.css">
+  <link rel="stylesheet" href="../css/custom.css">
 </head>
-<body class="font-body text-gray-800 bg-gray-100">
+
+<body class="font-body text-gray-800 bg-gray-50">
   <!-- Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  
-  <!-- Trial Banner -->
-  <div class="trial-banner">
-    <strong>Demo Mode:</strong> This is a demonstration of the provider portal. In production, providers would authenticate to access this dashboard.
-  </div>
-  
+
   <!-- Navigation -->
-  <nav class="navbar bg-primary-800" aria-label="Provider portal navigation">
+  <nav class="navbar" aria-label="Main navigation">
     <div class="container">
       <div class="flex items-center justify-between">
-        <a href="/portal/" class="navbar-brand text-white" aria-label="Provider Portal Home">
-          <img src="/images/TLA_Logo_White_Transparent.png" alt="MyLegalAid" class="navbar-logo" width="160" height="40">
+        <a href="../index.html" class="navbar-brand" aria-label="Texas Legal Aid Home">
+          <img src="../images/TLA_Logo_White_Transparent.png" alt="Texas Legal Aid" class="navbar-logo" width="160"
+            height="40">
         </a>
-        
-        <div class="flex items-center gap-4">
-          <span class="text-white text-sm hidden md:inline">Texas Advocacy Project</span>
-          <button class="btn btn-outline text-white border-white hover:bg-white hover:text-primary-700 btn-sm">
-            Log Out
-          </button>
+
+        <button class="nav-toggle lg:hidden" type="button" aria-expanded="false" aria-controls="nav-menu"
+          aria-label="Toggle navigation">
+          <span class="nav-toggle-icon" aria-hidden="true"></span>
+        </button>
+
+        <div id="nav-menu" class="nav-menu">
+          <a href="../index.html" class="nav-link">Home</a>
+          <a href="../get-help.html" class="nav-link">Get Help</a>
+          <a href="../my-cases.html" class="nav-link">My Cases</a>
+          <a href="../resources.html" class="nav-link">Resources</a>
+          <a href="../about.html" class="nav-link">About</a>
+          <a href="tel:+15129942800" class="nav-link lg:hidden">
+            <svg class="inline-block w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Text or Call 24/7
+          </a>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="tel:+15129942800" class="nav-link flex items-center gap-1"
+            aria-label="Text or Call us at 512-994-2800">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <span class="text-xs opacity-75">24/7</span> 512-994-2800
+          </a>
+          <a href="../get-help.html" class="btn btn-primary">Get Help Now</a>
+          <a href="index.html"
+            class="btn btn-outline text-white border-white hover:bg-white hover:text-primary-700 active">Provider
+            Portal</a>
         </div>
       </div>
     </div>
   </nav>
-  
-  <!-- Sidebar + Main Layout -->
-  <div class="flex">
-    <!-- Sidebar -->
-    <aside class="hidden md:block w-64 bg-white shadow-md min-h-screen">
-      <nav class="py-4" aria-label="Provider portal menu">
-        <a href="/portal/" class="flex items-center gap-3 px-4 py-3 text-primary-700 bg-primary-50 border-l-4 border-primary-600 font-semibold">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-          </svg>
-          Dashboard
-        </a>
-        <a href="/portal/referrals.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-primary-700">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-          </svg>
-          Referrals
-          <span class="ml-auto bg-primary-600 text-white text-xs px-2 py-0.5 rounded-full">12</span>
-        </a>
-        <a href="/portal/cases.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-primary-700">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-          </svg>
-          Active Cases
-        </a>
-        <a href="/portal/clients.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-primary-700">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
-          Clients
-        </a>
-        <a href="/portal/reports.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-primary-700">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-          </svg>
-          Reports
-        </a>
-        <a href="/portal/settings.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-primary-700">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
-          Settings
-        </a>
-        <hr class="my-4 mx-4">
-        <a href="/" class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-primary-700 text-sm">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-          </svg>
-          Back to Main Site
-        </a>
-      </nav>
-    </aside>
-    
-    <!-- Main Content -->
-    <main id="main-content" class="flex-1 p-6">
-      <!-- Welcome Header -->
-      <div class="mb-8">
-        <h1 class="text-2xl font-bold text-primary-800 mb-2">Welcome back, Texas Advocacy Project</h1>
-        <p class="text-gray-600">Here's what's happening with your referrals today.</p>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <!-- Page Header -->
+    <section class="hero py-12">
+      <div class="container">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Provider Portal</h1>
+        <p class="text-lg opacity-90">Manage your cases and client referrals through Texas Legal Aid.</p>
       </div>
-      
-      <!-- Stats Grid -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div class="card bg-white">
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="text-2xl font-bold text-gray-900">12</div>
-              <div class="text-sm text-gray-500">New Referrals</div>
-            </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+      <div class="container max-w-4xl">
+        <div class="bg-white rounded-lg shadow-lg p-8 md:p-12 text-center">
+          <div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
           </div>
-        </div>
-        
-        <div class="card bg-white">
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="text-2xl font-bold text-gray-900">47</div>
-              <div class="text-sm text-gray-500">Active Cases</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card bg-white">
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-              <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="text-2xl font-bold text-gray-900">8</div>
-              <div class="text-sm text-gray-500">Pending Review</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card bg-white">
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="text-2xl font-bold text-gray-900">156</div>
-              <div class="text-sm text-gray-500">Clients Served (YTD)</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Recent Referrals -->
-      <div class="card bg-white mb-8">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-lg font-bold text-primary-800">New Referrals</h2>
-          <a href="/portal/referrals.html" class="text-primary-600 text-sm font-semibold hover:underline">View All →</a>
-        </div>
-        
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="text-left border-b">
-                <th class="pb-3 font-semibold text-gray-600">Case ID</th>
-                <th class="pb-3 font-semibold text-gray-600">Client</th>
-                <th class="pb-3 font-semibold text-gray-600">Legal Issue</th>
-                <th class="pb-3 font-semibold text-gray-600">Urgency</th>
-                <th class="pb-3 font-semibold text-gray-600">Received</th>
-                <th class="pb-3 font-semibold text-gray-600">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="py-3"><span class="font-mono text-xs">#MLA-2025-00201</span></td>
-                <td class="py-3">Maria G.</td>
-                <td class="py-3">Child Custody</td>
-                <td class="py-3"><span class="badge badge-pending">Urgent</span></td>
-                <td class="py-3">2 hours ago</td>
-                <td class="py-3">
-                  <button class="btn btn-primary btn-sm">Review</button>
-                </td>
-              </tr>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="py-3"><span class="font-mono text-xs">#MLA-2025-00198</span></td>
-                <td class="py-3">James T.</td>
-                <td class="py-3">Protective Order</td>
-                <td class="py-3"><span class="badge" style="background: #FFEBEE; color: #C62828;">Emergency</span></td>
-                <td class="py-3">4 hours ago</td>
-                <td class="py-3">
-                  <button class="btn btn-primary btn-sm">Review</button>
-                </td>
-              </tr>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="py-3"><span class="font-mono text-xs">#MLA-2025-00195</span></td>
-                <td class="py-3">Sofia R.</td>
-                <td class="py-3">Divorce</td>
-                <td class="py-3"><span class="badge badge-active">Standard</span></td>
-                <td class="py-3">Yesterday</td>
-                <td class="py-3">
-                  <button class="btn btn-primary btn-sm">Review</button>
-                </td>
-              </tr>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="py-3"><span class="font-mono text-xs">#MLA-2025-00192</span></td>
-                <td class="py-3">Carlos M.</td>
-                <td class="py-3">Child Support Modification</td>
-                <td class="py-3"><span class="badge badge-active">Standard</span></td>
-                <td class="py-3">Yesterday</td>
-                <td class="py-3">
-                  <button class="btn btn-primary btn-sm">Review</button>
-                </td>
-              </tr>
-              <tr class="hover:bg-gray-50">
-                <td class="py-3"><span class="font-mono text-xs">#MLA-2025-00189</span></td>
-                <td class="py-3">Angela W.</td>
-                <td class="py-3">Domestic Violence</td>
-                <td class="py-3"><span class="badge badge-pending">Urgent</span></td>
-                <td class="py-3">2 days ago</td>
-                <td class="py-3">
-                  <button class="btn btn-primary btn-sm">Review</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      
-      <!-- Activity & Quick Actions -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Recent Activity -->
-        <div class="card bg-white">
-          <h2 class="text-lg font-bold text-primary-800 mb-4">Recent Activity</h2>
-          <div class="space-y-4">
-            <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+
+          <h2 class="text-2xl font-bold text-primary-700 mb-4">Coming Soon</h2>
+          <p class="text-gray-600 mb-8 max-w-xl mx-auto">
+            We're building a powerful portal for legal aid providers to manage case referrals,
+            track client outcomes, and collaborate with our network of organizations.
+          </p>
+
+          <div class="bg-gray-50 rounded-lg p-6 mb-8">
+            <h3 class="font-semibold text-primary-800 mb-3">Features Coming:</h3>
+            <ul class="text-left text-gray-600 space-y-2 max-w-md mx-auto">
+              <li class="flex items-start gap-2">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
-              </div>
-              <div>
-                <p class="text-sm"><strong>Case #MLA-2025-00185</strong> marked as resolved</p>
-                <p class="text-xs text-gray-500">2 hours ago by Attorney Sarah J.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                Receive and manage client referrals
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
-              </div>
-              <div>
-                <p class="text-sm">New message from client in <strong>#MLA-2025-00172</strong></p>
-                <p class="text-xs text-gray-500">3 hours ago</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                Track case progress and outcomes
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
-              </div>
-              <div>
-                <p class="text-sm"><strong>Case #MLA-2025-00180</strong> accepted and assigned</p>
-                <p class="text-xs text-gray-500">5 hours ago by Attorney Michael K.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                Secure messaging with clients
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
-              </div>
-              <div>
-                <p class="text-sm">Court date reminder for <strong>#MLA-2025-00165</strong></p>
-                <p class="text-xs text-gray-500">Tomorrow at 9:00 AM</p>
-              </div>
-            </div>
+                Analytics and reporting dashboard
+              </li>
+            </ul>
           </div>
-        </div>
-        
-        <!-- Quick Actions -->
-        <div class="card bg-white">
-          <h2 class="text-lg font-bold text-primary-800 mb-4">Quick Actions</h2>
-          <div class="grid grid-cols-2 gap-3">
-            <a href="/portal/referrals.html" class="card bg-gray-50 hover:bg-primary-50 text-center p-4 transition">
-              <svg class="w-8 h-8 mx-auto mb-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="register.html" class="btn btn-primary">Join Our Network</a>
+            <a href="tel:+15129942800" class="btn btn-outline">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <span class="text-sm font-semibold text-primary-800">Review Referrals</span>
-            </a>
-            <a href="/portal/cases.html" class="card bg-gray-50 hover:bg-primary-50 text-center p-4 transition">
-              <svg class="w-8 h-8 mx-auto mb-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-              </svg>
-              <span class="text-sm font-semibold text-primary-800">View Cases</span>
-            </a>
-            <a href="/portal/reports.html" class="card bg-gray-50 hover:bg-primary-50 text-center p-4 transition">
-              <svg class="w-8 h-8 mx-auto mb-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-              </svg>
-              <span class="text-sm font-semibold text-primary-800">Run Reports</span>
-            </a>
-            <a href="/portal/settings.html" class="card bg-gray-50 hover:bg-primary-50 text-center p-4 transition">
-              <svg class="w-8 h-8 mx-auto mb-2 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-              <span class="text-sm font-semibold text-primary-800">Settings</span>
+              Text or Call 24/7: 512-994-2800
             </a>
           </div>
         </div>
       </div>
-    </main>
-  </div>
-  
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom text-center">
+        <p class="text-sm opacity-70">&copy; 2025 Texas Legal Aid. All rights reserved.</p>
+        <nav class="flex justify-center gap-4 text-sm mt-2">
+          <a href="../privacy-policy.html" class="opacity-70 hover:opacity-100">Privacy Policy</a>
+          <a href="../terms-of-use.html" class="opacity-70 hover:opacity-100">Terms of Use</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
   <!-- Main JavaScript -->
-  <script src="/js/main.js"></script>
+  <script src="../js/main.js"></script>
 </body>
+
 </html>

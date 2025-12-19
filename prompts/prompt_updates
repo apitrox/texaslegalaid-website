@@ -17,3 +17,43 @@ For the `mylegalaid-website` project make the following changes:
 - Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `mylegalaid-website` project make the following changes:
+- Use the image attached as the header area for every page. The image should be responsive and work on all devices. It should NOT be sticky, rather it should scroll with the page.
+- Move the logo from the top section of the header to the left of the words "Free Legal Help for Those Who Need It Most" and make it much larger.
+- Update the phrase "Connect with trusted legal aid providers in your area. Get help with family law, immigration, housing, domestic violence, and more — at no cost to you." to "Connect with trusted legal aid providers who can help with your legal issues — at no cost to you.".
+- Merge the two pages "Providers" and "Resources" into one page, titled "Resources". The page should have a list of resources that are available to the public. The page should also have a list of legal aid providers that are available to the public.
+- Update the page navigation to include the new "Resources" page.
+- Add a button to the right of the "Get Help Now" button that says "Provider Portal". Create a page for Provider Portal as a placeholder for now.
+- Update the page navigation to include the new "Provider Portal" page.
+- Wherever we have a call to action like "Get Help Now", include the phrase "Text or Call 24/7".
+- Wherever we show the phone number, include the phrase "Text or Call 24/7" and have a text icon and phone icon next to the phone number.
+- Whenever the user clicks a phone number or a call to action button or text, take the user to the dial page for the number, open the phone number in the default phone app on the user's device.
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `mylegalaid-website` project make the following changes:
+- Make the changes depicted in the image attached.
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `mylegalaid-website` project make the following changes:
+- On smaller screens, the navigation menu should change to a hamburger menu.
+- remove the white space around the logo. If helpful, use the image attached.
+- In the gold button, do not allow the text "Get Legal Help Now" to wrap to the next line.
+- in the button next to the gold button, make the phone number much larger and bold and on the second line the text "Text or Call 24/7".
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+
+
