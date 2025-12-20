@@ -6,3 +6,16 @@ For the `texaslegalaid-website` project make the following changes:
 - Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+
+For the `texaslegalaid-website` project make the following changes:
+- Build out the Provider Portal Dashboard. Here are some ideas:
+  - Features are: Referral Management, Provider Settings, Referral Settings, Analytics Dashboard
+  - maintain the organization's contact information, list of authorized users, and referral settings.  There can be multiple referral settings, each referral settings section can have a name, type of cases (area of law), maximum poverty level percentage, a checkbox or switch of some sort for the provider to indicate if they want the client's attestation to be done before sending the provider the referral, a slider labeled "Daily Capacity Meter" from 0 to 20, a slicer for "Weekly Capacity Meter" from 0 to 50 and a slider labeled "Monthly Capacity Meter from 0 to 100. Fill in more settings or profile options as you deem appropriate to make this page represent or be a prototype of a very professional provider profile settings page.
+  - 4 sections (Disability, Family Law, Immigration, Housing)
+  - sections of data should be collapsable/expandable by clicking or a twistie, when collapsed a summary of the settings should be displayed
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
