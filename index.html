@@ -255,8 +255,7 @@
                     class="w-full max-w-md mx-auto rounded-lg shadow-2xl hero-image">
                 </div>
                 <div class="carousel-slide" data-duration="3000">
-                  <img src="images/TLA_Hero_Square_Woman_On_Porch.png"
-                    alt="Woman on porch needing legal assistance"
+                  <img src="images/TLA_Hero_Square_Woman_On_Porch.png" alt="Woman on porch needing legal assistance"
                     class="w-full max-w-md mx-auto rounded-lg shadow-2xl hero-image">
                 </div>
               </div>
@@ -307,7 +306,7 @@
               <path
                 d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
             </svg>
-            <span>19+ Legal Aid Partners</span>
+            <span>Trusted Legal Aid Partners</span>
           </div>
         </div>
       </div>
@@ -750,98 +749,98 @@
 
   <!-- Hero Carousel JavaScript -->
   <script>
-    (function() {
-      const carousel = document.querySelector('.hero-carousel');
-      if (!carousel) return;
+      (function () {
+        const carousel = document.querySelector('.hero-carousel');
+        if (!carousel) return;
 
-      const track = carousel.querySelector('.carousel-track');
-      const slides = carousel.querySelectorAll('.carousel-slide');
-      const dots = carousel.querySelectorAll('.carousel-dot');
-      
-      let currentIndex = 0;
-      let timer = null;
-      let isPaused = false;
+        const track = carousel.querySelector('.carousel-track');
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const dots = carousel.querySelectorAll('.carousel-dot');
 
-      function showSlide(index) {
-        // Remove active class from all slides and dots
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => {
-          dot.classList.remove('active');
-          dot.setAttribute('aria-selected', 'false');
+        let currentIndex = 0;
+        let timer = null;
+        let isPaused = false;
+
+        function showSlide(index) {
+          // Remove active class from all slides and dots
+          slides.forEach(slide => slide.classList.remove('active'));
+          dots.forEach(dot => {
+            dot.classList.remove('active');
+            dot.setAttribute('aria-selected', 'false');
+          });
+
+          // Add active class to current slide and dot
+          slides[index].classList.add('active');
+          dots[index].classList.add('active');
+          dots[index].setAttribute('aria-selected', 'true');
+
+          // Update transform for slide effect
+          track.style.transform = `translateX(-${index * 100}%)`;
+
+          currentIndex = index;
+        }
+
+        function getSlideDelay() {
+          return parseInt(slides[currentIndex].getAttribute('data-duration')) || 3000;
+        }
+
+        function nextSlide() {
+          const next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+          scheduleNext();
+        }
+
+        function scheduleNext() {
+          clearTimeout(timer);
+          if (!isPaused) {
+            timer = setTimeout(nextSlide, getSlideDelay());
+          }
+        }
+
+        // Dot click handlers
+        dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => {
+            showSlide(index);
+            scheduleNext();
+          });
         });
 
-        // Add active class to current slide and dot
-        slides[index].classList.add('active');
-        dots[index].classList.add('active');
-        dots[index].setAttribute('aria-selected', 'true');
+        // Pause on hover
+        carousel.addEventListener('mouseenter', () => {
+          isPaused = true;
+          clearTimeout(timer);
+        });
 
-        // Update transform for slide effect
-        track.style.transform = `translateX(-${index * 100}%)`;
-        
-        currentIndex = index;
-      }
-
-      function getSlideDelay() {
-        return parseInt(slides[currentIndex].getAttribute('data-duration')) || 3000;
-      }
-
-      function nextSlide() {
-        const next = (currentIndex + 1) % slides.length;
-        showSlide(next);
-        scheduleNext();
-      }
-
-      function scheduleNext() {
-        clearTimeout(timer);
-        if (!isPaused) {
-          timer = setTimeout(nextSlide, getSlideDelay());
-        }
-      }
-
-      // Dot click handlers
-      dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-          showSlide(index);
+        carousel.addEventListener('mouseleave', () => {
+          isPaused = false;
           scheduleNext();
         });
-      });
 
-      // Pause on hover
-      carousel.addEventListener('mouseenter', () => {
-        isPaused = true;
-        clearTimeout(timer);
-      });
+        // Touch support for mobile - pause while touching
+        carousel.addEventListener('touchstart', () => {
+          isPaused = true;
+          clearTimeout(timer);
+        }, { passive: true });
 
-      carousel.addEventListener('mouseleave', () => {
-        isPaused = false;
-        scheduleNext();
-      });
-
-      // Touch support for mobile - pause while touching
-      carousel.addEventListener('touchstart', () => {
-        isPaused = true;
-        clearTimeout(timer);
-      }, { passive: true });
-
-      carousel.addEventListener('touchend', () => {
-        isPaused = false;
-        scheduleNext();
-      }, { passive: true });
-
-      // Keyboard navigation
-      carousel.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-          const prev = (currentIndex - 1 + slides.length) % slides.length;
-          showSlide(prev);
+        carousel.addEventListener('touchend', () => {
+          isPaused = false;
           scheduleNext();
-        } else if (e.key === 'ArrowRight') {
-          nextSlide();
-        }
-      });
+        }, { passive: true });
 
-      // Start the carousel
-      scheduleNext();
-    })();
+        // Keyboard navigation
+        carousel.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') {
+            const prev = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(prev);
+            scheduleNext();
+          } else if (e.key === 'ArrowRight') {
+            nextSlide();
+          }
+        });
+
+        // Start the carousel
+        scheduleNext();
+      })();
   </script>
 
   <!-- Main JavaScript -->
