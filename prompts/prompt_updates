@@ -50,3 +50,16 @@ For the `texaslegalaid-website` project make the following changes:
 - Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+
+For the `texaslegalaid-website` project make the following changes:
+- Use the image of the home page hero section I provided as a guide.
+- Update the phrase "Free Legal Help for Texans in Need" and always breaking after the word "Help".
+- Update the phrase "Connect with trusted legal aid providers who can help you with your legal needs - at no cost to you." and always breaking after the word "help".
+- Remove the existing button with the gold background.
+- Update the button with the phone number and the text by making it a gold background button with large bold black text.  The button should be a link to the phone number.
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
