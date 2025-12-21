@@ -19,3 +19,34 @@ For the `texaslegalaid-website` project make the following changes:
 - Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+
+For the `texaslegalaid-website` project make the following changes:
+- Remove Texas Legal Services Hotline.
+- Add the 3 federally funded programs as hotline resources, they are Lone Star Legal Aid, Legal Aid of NorthWest Texas, and Rio Grande Legal Aid. Look up their website links to the home page of each of their websites and their main phone number and add them to the list of hotlines.
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+
+For the `texaslegalaid-website` project make the following changes:
+- See the image provided, on the Resources page, merge the Hotlines and Legal Aid Providers into one section called "Hotlines &  Legal Aid Providers", and display in the same form as the card layout of the Legal Aid Providers section.
+- On the Resources page, remove the text above the Legal Aid Providers cards and the text and button below the Legal Aid Providers cards.
+- Throughout the entire website, remove any reference to the a number of legal aid providers (e.g. 19+ Legal Aid Providers).
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+
+For the `texaslegalaid-website` project make the following changes:
+- Update the caraousel of images on the home page to use `TLA_Hero_Square_Man_Homeless.png`. Make this new image the third image in the caraousel.
+- Move `TLA_Hero_Square_Man_Immigration_Arrest.png` to the second to the last image in the caraousel.
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
