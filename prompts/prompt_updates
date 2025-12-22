@@ -125,7 +125,7 @@ General rules:
 
 
 For the `texaslegalaid-website` project make the following changes:
-- On the `Home` page, in the About Texas Legal Aid section, in place of the team or mission image placeholder, use `../images/TLA_Staff_Photo.png`.
+- On the `Home` page, in the About Texas Legal Aid section, for the team photo `../images/TLA_Staff_Photo.png` do not resize or crop the photo, make the placeholder for the photo the same dimension ratio as the photo.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
