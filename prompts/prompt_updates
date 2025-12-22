@@ -42,7 +42,6 @@ For the `texaslegalaid-website` project make the following changes:
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
 
 
-
 For the `texaslegalaid-website` project make the following changes:
 - Update the caraousel of images on the home page to use `TLA_Hero_Square_Man_Homeless.png`. Make this new image the third image in the caraousel.
 - Move `TLA_Hero_Square_Man_Immigration_Arrest.png` to the second to the last image in the caraousel.
@@ -52,11 +51,18 @@ For the `texaslegalaid-website` project make the following changes:
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
 
 
-
 For the `texaslegalaid-website` project make the following changes:
 - Update the page navigation bar at the top of the home page and apply this exact same navigation to every page, except the secure provider portal pages.
 - Move the phone number and corresponding icons in the page navigation bar to the left of the Home page link. Make the phone number and icons much larger, about twice the size, and bold and thicker.
 - Remove the button labeled "Get Help Now".
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `texaslegalaid-website` project make the following changes:
+- On the Home page, remove the section titled "Our Partner Organizations", an image of this section is provided.
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
 - Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.

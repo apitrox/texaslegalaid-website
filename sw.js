@@ -12,7 +12,6 @@ const PRECACHE_ASSETS = [
   '/index.html',
   '/get-help.html',
   '/my-cases.html',
-  '/providers.html',
   '/about.html',
   '/resources.html',
   '/offline.html',
