@@ -133,3 +133,19 @@ General rules:
 - Use multiple agents to execute large implementation plans that are too long for one agent.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `texaslegalaid-website` project make the following changes:
+- Attached is an image of the Provider Portal Dashboard page.
+- Remove the "Register Your Organization" button from the yellow banner.
+- The yellow banner that reads: "" is to be on top of every portal page, except the login page
+- Remove the dark blue banner in its entirety, on the portal Dashboard and any other provider portal pages it may be on.
+- Add the logo (see `TLA_Logo_White.png`) to the left of the page title and organization name on all portal pages.
+- Some of the links on the left of the Dashboard page do not work properly. Fix them, test them. These same links should be on every provider portal page. Test/fix them on every provider portal page to be sure they work properly.
+---
+General rules:
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
