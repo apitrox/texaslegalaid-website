@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Referral Settings - Provider Portal | Texas Legal Aid</title>
-  <meta name="description" content="Configure your referral acceptance criteria for each area of law.">
+  <meta name="description" content="Configure your referral acceptance criteria for each Referral Channel.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="canonical" href="https://texaslegalaid.org/portal/referral-settings.html">
   <link rel="manifest" href="../manifest.json">
@@ -39,7 +39,7 @@
     .sidebar-link.active{background:#2D5A7B;color:white}
     .collapsible-header{cursor:pointer;user-select:none}
     .collapsible-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
-    .collapsible-section.open .collapsible-content{max-height:2000px}
+    .collapsible-section.open .collapsible-content{max-height:3000px}
     .collapsible-section.open .twistie{transform:rotate(90deg)}
     .twistie{transition:transform 0.2s ease}
     input[type="range"]{-webkit-appearance:none;width:100%;height:8px;border-radius:4px;background:#e5e7eb;outline:none}
@@ -51,6 +51,39 @@
     .toggle-switch input:checked+.toggle-slider{background-color:#2D5A7B}
     .toggle-switch input:checked+.toggle-slider:before{transform:translateX(24px)}
     .summary-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#f3f4f6;border-radius:9999px;font-size:12px;color:#4b5563}
+    .multi-select-dropdown{position:relative;width:100%}
+    .multi-select-selected{min-height:44px;padding:8px 12px;border:2px solid #d1d5db;border-radius:8px;background:white;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+    .multi-select-selected:focus{border-color:#2D5A7B;outline:none}
+    .multi-select-options{position:absolute;top:100%;left:0;right:0;max-height:300px;overflow-y:auto;background:white;border:2px solid #2D5A7B;border-radius:8px;margin-top:4px;box-shadow:0 4px 6px rgba(0,0,0,0.1);z-index:100;display:none}
+    .multi-select-options.open{display:block}
+    .multi-select-option{padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:8px}
+    .multi-select-option:hover{background:#f3f4f6}
+    .multi-select-option.all-option{border-bottom:2px solid #e5e7eb;font-weight:600;background:#f9fafb}
+    .multi-select-option input[type="checkbox"]{width:18px;height:18px;cursor:pointer;accent-color:#2D5A7B}
+    .multi-select-search{padding:8px 12px;border-bottom:1px solid #e5e7eb;position:sticky;top:0;background:white;z-index:1}
+    .multi-select-search input{width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;font-size:14px}
+    .help-icon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#2D5A7B;color:white;font-size:12px;font-weight:bold;cursor:help;margin-left:6px;position:relative;flex-shrink:0}
+    .tooltip{position:absolute;bottom:125%;left:50%;transform:translateX(-50%);background:#1B263B;color:white;padding:10px 14px;border-radius:6px;font-size:13px;line-height:1.4;opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:1000;width:280px;text-align:left;font-weight:normal}
+    .help-icon:hover .tooltip{opacity:1}
+    .tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#1B263B}
+    .settings-group{border:2px solid #e5e7eb;border-radius:12px;padding:20px;background:#f9fafb;margin-top:20px}
+    .settings-group-header{display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #e5e7eb}
+    .settings-group-title{font-size:16px;font-weight:600;color:#1B263B}
+    .notification-option{display:flex;flex-direction:column;gap:8px;padding:14px;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:12px;background:white;transition:border-color 0.2s}
+    .notification-option:last-child{margin-bottom:0}
+    .notification-option.checked{border-color:#2D5A7B;background:#f8fafc}
+    .notification-option-header{display:flex;align-items:center;gap:12px}
+    .notification-option-header input[type="checkbox"]{width:20px;height:20px;cursor:pointer;accent-color:#2D5A7B}
+    .notification-input-field{margin-top:8px;display:none;padding-left:32px}
+    .notification-input-field.active{display:block}
+    .notification-input-field input{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:14px}
+    .notification-input-field input:focus{border-color:#2D5A7B;outline:none;box-shadow:0 0 0 3px rgba(45,90,123,0.1)}
+    .notification-description{font-size:12px;color:#6b7280;padding-left:32px;margin-top:4px}
+    .county-display{display:flex;flex-wrap:wrap;gap:6px;max-width:100%}
+    .county-tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:#2D5A7B;color:white;border-radius:4px;font-size:13px}
+    .county-count{color:#6b7280;font-size:13px}
+    .updated-indicator{display:inline-block;width:8px;height:8px;background:#D4A853;border-radius:50%;margin-left:8px;animation:pulse 1.5s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
   </style>
 </head>
 <body class="font-body text-gray-800 bg-gray-100">
@@ -90,7 +123,7 @@
       </div>
 
       <div class="bg-white rounded-lg shadow-sm p-6 mb-4">
-        <p class="text-gray-600 mb-4">Configure your referral acceptance criteria for each area of law. Click a section to expand and edit settings.</p>
+        <p class="text-gray-600 mb-4">Configure your referral acceptance criteria for each Referral Channel. A Referral Channel defines how your organization receives and processes client referrals based on legal specialty, geographic coverage, and capacity. Click a channel to expand and edit its settings.</p>
       </div>
       <div class="space-y-4" id="referral-sections"></div>
       <div class="mt-6 flex justify-end"><button class="btn btn-primary">Save All Settings</button></div>
@@ -109,15 +142,208 @@
   <script src="../js/main.js"></script>
   <script>
     // Referral sections data
-    const sections = [
-      {id:'disability',name:'Disability Rights',color:'teal',cases:['SSI/SSDI Appeals','ADA Accommodations','Special Education'],fpl:200,daily:5,weekly:20,monthly:40,attestation:true,active:true},
-      {id:'family',name:'Family Law',color:'purple',cases:['Child Custody','Divorce','Child Support','Adoption'],fpl:150,daily:8,weekly:30,monthly:60,attestation:true,active:true},
-      {id:'immigration',name:'Immigration',color:'blue',cases:['DACA Renewal','Asylum','Family Petitions','Naturalization'],fpl:200,daily:4,weekly:15,monthly:35,attestation:false,active:true},
-      {id:'housing',name:'Housing',color:'orange',cases:['Eviction Defense','Fair Housing','Habitability','Section 8'],fpl:150,daily:6,weekly:25,monthly:50,attestation:true,active:true}
+    // Texas counties sorted alphabetically with population rank (1 = most populous, for display ordering)
+    const texasCounties = [
+      {name:'Anderson',popRank:75},{name:'Andrews',popRank:117},{name:'Angelina',popRank:54},{name:'Aransas',popRank:128},{name:'Archer',popRank:181},
+      {name:'Armstrong',popRank:240},{name:'Atascosa',popRank:63},{name:'Austin',popRank:106},{name:'Bailey',popRank:196},{name:'Bandera',popRank:121},
+      {name:'Bastrop',popRank:42},{name:'Baylor',popRank:222},{name:'Bee',popRank:102},{name:'Bell',popRank:17},{name:'Bexar',popRank:4},
+      {name:'Blanco',popRank:152},{name:'Borden',popRank:254},{name:'Bosque',popRank:136},{name:'Bowie',popRank:56},{name:'Brazoria',popRank:13},
+      {name:'Brazos',popRank:26},{name:'Brewster',popRank:185},{name:'Briscoe',popRank:241},{name:'Brooks',popRank:190},{name:'Brown',popRank:91},
+      {name:'Burleson',popRank:135},{name:'Burnet',popRank:64},{name:'Caldwell',popRank:68},{name:'Calhoun',popRank:126},{name:'Callahan',popRank:155},
+      {name:'Cameron',popRank:15},{name:'Camp',popRank:160},{name:'Carson',popRank:204},{name:'Cass',popRank:103},{name:'Castro',popRank:193},
+      {name:'Chambers',popRank:57},{name:'Cherokee',popRank:67},{name:'Childress',popRank:194},{name:'Clay',popRank:169},{name:'Cochran',popRank:229},
+      {name:'Coke',popRank:218},{name:'Coleman',popRank:175},{name:'Collin',popRank:6},{name:'Collingsworth',popRank:227},{name:'Colorado',popRank:119},
+      {name:'Comal',popRank:21},{name:'Comanche',popRank:154},{name:'Concho',popRank:223},{name:'Cooke',popRank:78},{name:'Coryell',popRank:48},
+      {name:'Cottle',popRank:248},{name:'Crane',popRank:189},{name:'Crockett',popRank:213},{name:'Crosby',popRank:202},{name:'Culberson',popRank:231},
+      {name:'Dallam',popRank:195},{name:'Dallas',popRank:2},{name:'Dawson',popRank:161},{name:'Deaf Smith',popRank:139},{name:'Delta',popRank:200},
+      {name:'Denton',popRank:7},{name:'DeWitt',popRank:114},{name:'Dickens',popRank:238},{name:'Dimmit',popRank:168},{name:'Donley',popRank:212},
+      {name:'Duval',popRank:170},{name:'Eastland',popRank:137},{name:'Ector',popRank:29},{name:'Edwards',popRank:234},{name:'Ellis',popRank:20},
+      {name:'El Paso',popRank:8},{name:'Erath',popRank:73},{name:'Falls',popRank:140},{name:'Fannin',popRank:88},{name:'Fayette',popRank:96},
+      {name:'Fisher',popRank:215},{name:'Floyd',popRank:199},{name:'Foard',popRank:247},{name:'Fort Bend',popRank:9},{name:'Franklin',popRank:171},
+      {name:'Freestone',popRank:131},{name:'Frio',popRank:134},{name:'Gaines',popRank:118},{name:'Galveston',popRank:18},{name:'Garza',popRank:205},
+      {name:'Gillespie',popRank:97},{name:'Glasscock',popRank:250},{name:'Goliad',popRank:191},{name:'Gonzales',popRank:111},{name:'Gray',popRank:127},
+      {name:'Grayson',popRank:28},{name:'Gregg',popRank:33},{name:'Grimes',popRank:99},{name:'Guadalupe',popRank:22},{name:'Hale',popRank:86},
+      {name:'Hall',popRank:225},{name:'Hamilton',popRank:174},{name:'Hansford',popRank:206},{name:'Hardeman',popRank:217},{name:'Hardin',popRank:61},
+      {name:'Harris',popRank:1},{name:'Harrison',popRank:53},{name:'Hartley',popRank:203},{name:'Haskell',popRank:201},{name:'Hays',popRank:16},
+      {name:'Hemphill',popRank:216},{name:'Henderson',popRank:47},{name:'Hidalgo',popRank:5},{name:'Hill',popRank:82},{name:'Hockley',popRank:122},
+      {name:'Hood',popRank:52},{name:'Hopkins',popRank:81},{name:'Houston',popRank:124},{name:'Howard',popRank:89},{name:'Hudspeth',popRank:219},
+      {name:'Hunt',popRank:35},{name:'Hutchinson',popRank:115},{name:'Irion',popRank:245},{name:'Jack',popRank:178},{name:'Jackson',popRank:157},
+      {name:'Jasper',popRank:87},{name:'Jeff Davis',popRank:237},{name:'Jefferson',popRank:24},{name:'Jim Hogg',popRank:209},{name:'Jim Wells',popRank:76},
+      {name:'Johnson',popRank:23},{name:'Jones',popRank:130},{name:'Karnes',popRank:143},{name:'Kaufman',popRank:25},{name:'Kendall',popRank:69},
+      {name:'Kenedy',popRank:253},{name:'Kent',popRank:251},{name:'Kerr',popRank:60},{name:'Kimble',popRank:208},{name:'King',popRank:252},
+      {name:'Kinney',popRank:221},{name:'Kleberg',popRank:100},{name:'Knox',popRank:214},{name:'Lamar',popRank:62},{name:'Lamb',popRank:149},
+      {name:'Lampasas',popRank:113},{name:'La Salle',popRank:192},{name:'Lavaca',popRank:132},{name:'Lee',popRank:120},{name:'Leon',popRank:129},
+      {name:'Liberty',popRank:41},{name:'Limestone',popRank:125},{name:'Lipscomb',popRank:236},{name:'Live Oak',popRank:164},{name:'Llano',popRank:116},
+      {name:'Loving',popRank:255},{name:'Lubbock',popRank:14},{name:'Lynn',popRank:198},{name:'Madison',popRank:156},{name:'Marion',popRank:180},
+      {name:'Martin',popRank:183},{name:'Mason',popRank:210},{name:'Matagorda',popRank:85},{name:'Maverick',popRank:55},{name:'McCulloch',popRank:176},
+      {name:'McLennan',popRank:19},{name:'McMullen',popRank:249},{name:'Medina',popRank:59},{name:'Menard',popRank:235},{name:'Midland',popRank:27},
+      {name:'Milam',popRank:101},{name:'Mills',popRank:188},{name:'Mitchell',popRank:179},{name:'Montague',popRank:112},{name:'Montgomery',popRank:10},
+      {name:'Moore',popRank:108},{name:'Morris',popRank:163},{name:'Motley',popRank:243},{name:'Nacogdoches',popRank:51},{name:'Navarro',popRank:58},
+      {name:'Newton',popRank:167},{name:'Nolan',popRank:142},{name:'Nueces',popRank:12},{name:'Ochiltree',popRank:173},{name:'Oldham',popRank:233},
+      {name:'Orange',popRank:43},{name:'Palo Pinto',popRank:98},{name:'Panola',popRank:123},{name:'Parker',popRank:30},{name:'Parmer',popRank:184},
+      {name:'Pecos',popRank:141},{name:'Polk',popRank:65},{name:'Potter',popRank:44},{name:'Presidio',popRank:197},{name:'Rains',popRank:159},
+      {name:'Randall',popRank:32},{name:'Reagan',popRank:220},{name:'Real',popRank:224},{name:'Red River',popRank:165},{name:'Reeves',popRank:145},
+      {name:'Refugio',popRank:197},{name:'Roberts',popRank:246},{name:'Robertson',popRank:138},{name:'Rockwall',popRank:45},{name:'Runnels',popRank:172},
+      {name:'Rusk',popRank:66},{name:'Sabine',popRank:166},{name:'San Augustine',popRank:186},{name:'San Jacinto',popRank:104},{name:'San Patricio',popRank:50},
+      {name:'San Saba',popRank:207},{name:'Schleicher',popRank:226},{name:'Scurry',popRank:133},{name:'Shackelford',popRank:228},{name:'Shelby',popRank:107},
+      {name:'Sherman',popRank:230},{name:'Smith',popRank:31},{name:'Somervell',popRank:177},{name:'Starr',popRank:49},{name:'Stephens',popRank:182},
+      {name:'Sterling',popRank:244},{name:'Stonewall',popRank:242},{name:'Sutton',popRank:211},{name:'Swisher',popRank:187},{name:'Tarrant',popRank:3},
+      {name:'Taylor',popRank:34},{name:'Terrell',popRank:239},{name:'Terry',popRank:153},{name:'Throckmorton',popRank:246},{name:'Titus',popRank:83},
+      {name:'Tom Green',popRank:37},{name:'Travis',popRank:11},{name:'Trinity',popRank:147},{name:'Tyler',popRank:144},{name:'Upshur',popRank:77},
+      {name:'Upton',popRank:232},{name:'Uvalde',popRank:95},{name:'Val Verde',popRank:70},{name:'Van Zandt',popRank:72},{name:'Victoria',popRank:39},
+      {name:'Walker',popRank:46},{name:'Waller',popRank:38},{name:'Ward',popRank:150},{name:'Washington',popRank:90},{name:'Webb',popRank:36},
+      {name:'Wharton',popRank:74},{name:'Wheeler',popRank:199},{name:'Wichita',popRank:40},{name:'Wilbarger',popRank:148},{name:'Willacy',popRank:151},
+      {name:'Williamson',popRank:12},{name:'Wilson',popRank:71},{name:'Winkler',popRank:189},{name:'Wise',popRank:46},{name:'Wood',popRank:79},
+      {name:'Yoakum',popRank:162},{name:'Young',popRank:146},{name:'Zapata',popRank:158},{name:'Zavala',popRank:167}
     ];
+
+    const sections = [
+      {id:'disability',name:'Disability Rights',color:'teal',cases:['SSI/SSDI Appeals','ADA Accommodations','Special Education'],counties:['Harris','Travis','Dallas'],allCounties:false,fpl:200,daily:5,weekly:20,monthly:40,attestation:true,active:true},
+      {id:'family',name:'Family Law',color:'purple',cases:['Child Custody','Divorce','Child Support','Adoption'],counties:[],allCounties:true,fpl:150,daily:8,weekly:30,monthly:60,attestation:true,active:true},
+      {id:'immigration',name:'Immigration',color:'blue',cases:['DACA Renewal','Asylum','Family Petitions','Naturalization'],counties:['Bexar','El Paso','Hidalgo','Cameron','Webb'],allCounties:false,fpl:200,daily:4,weekly:15,monthly:35,attestation:false,active:true},
+      {id:'housing',name:'Housing',color:'orange',cases:['Eviction Defense','Fair Housing','Habitability','Section 8'],counties:['Harris','Dallas','Tarrant','Bexar'],allCounties:false,fpl:150,daily:6,weekly:25,monthly:50,attestation:true,active:true}
+    ];
+
+    // Helper function to get county display text
+    function getCountyDisplayText(counties, allCounties) {
+      if (allCounties) return 'All counties';
+      if (counties.length === 0) return 'Select counties...';
+      
+      // Sort selected counties by population rank (most populous first)
+      const sortedCounties = [...counties].sort((a, b) => {
+        const aCounty = texasCounties.find(c => c.name === a);
+        const bCounty = texasCounties.find(c => c.name === b);
+        return (aCounty?.popRank || 999) - (bCounty?.popRank || 999);
+      });
+      
+      const mostPopulous = sortedCounties[0];
+      if (sortedCounties.length === 1) return mostPopulous;
+      return `${mostPopulous} +${sortedCounties.length - 1} more`;
+    }
+
+    // Helper function to generate county options HTML
+    function generateCountyOptionsHTML(sectionId, selectedCounties, allCounties) {
+      let optionsHTML = `
+        <div class="multi-select-search">
+          <input type="text" placeholder="Search counties..." onkeyup="filterCountyOptions('${sectionId}', this.value)" aria-label="Search counties">
+        </div>
+        <div class="multi-select-option all-option">
+          <input type="checkbox" id="${sectionId}-all-counties" ${allCounties ? 'checked' : ''} onchange="toggleAllCounties('${sectionId}', this.checked)">
+          <label for="${sectionId}-all-counties">All counties</label>
+        </div>
+      `;
+      texasCounties.forEach(county => {
+        const isChecked = selectedCounties.includes(county.name);
+        optionsHTML += `
+          <div class="multi-select-option county-option" data-county="${county.name.toLowerCase()}">
+            <input type="checkbox" id="${sectionId}-county-${county.name.replace(/\s+/g, '-')}" ${isChecked ? 'checked' : ''} ${allCounties ? 'disabled' : ''} onchange="toggleCounty('${sectionId}', '${county.name}', this.checked)">
+            <label for="${sectionId}-county-${county.name.replace(/\s+/g, '-')}">${county.name}</label>
+          </div>
+        `;
+      });
+      return optionsHTML;
+    }
+
+    // Toggle dropdown visibility
+    function toggleCountyDropdown(sectionId) {
+      const dropdown = document.getElementById(`${sectionId}-county-options`);
+      const allDropdowns = document.querySelectorAll('.multi-select-options');
+      allDropdowns.forEach(d => {
+        if (d.id !== `${sectionId}-county-options`) d.classList.remove('open');
+      });
+      dropdown.classList.toggle('open');
+      if (dropdown.classList.contains('open')) {
+        const searchInput = dropdown.querySelector('input[type="text"]');
+        if (searchInput) searchInput.focus();
+      }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.multi-select-dropdown')) {
+        document.querySelectorAll('.multi-select-options').forEach(d => d.classList.remove('open'));
+      }
+    });
+
+    // Filter county options
+    function filterCountyOptions(sectionId, searchText) {
+      const options = document.querySelectorAll(`#${sectionId}-county-options .county-option`);
+      const lowerSearch = searchText.toLowerCase();
+      options.forEach(opt => {
+        const countyName = opt.dataset.county;
+        opt.style.display = countyName.includes(lowerSearch) ? '' : 'none';
+      });
+    }
+
+    // Toggle all counties
+    function toggleAllCounties(sectionId, checked) {
+      const section = sections.find(s => s.id === sectionId);
+      if (!section) return;
+      
+      section.allCounties = checked;
+      if (checked) {
+        section.counties = [];
+      }
+      
+      // Update individual county checkboxes
+      const countyCheckboxes = document.querySelectorAll(`#${sectionId}-county-options .county-option input[type="checkbox"]`);
+      countyCheckboxes.forEach(cb => {
+        cb.disabled = checked;
+        if (checked) cb.checked = false;
+      });
+      
+      // Update display
+      updateCountyDisplay(sectionId);
+    }
+
+    // Toggle individual county
+    function toggleCounty(sectionId, countyName, checked) {
+      const section = sections.find(s => s.id === sectionId);
+      if (!section) return;
+      
+      if (checked) {
+        if (!section.counties.includes(countyName)) {
+          section.counties.push(countyName);
+        }
+      } else {
+        section.counties = section.counties.filter(c => c !== countyName);
+      }
+      
+      // Update display
+      updateCountyDisplay(sectionId);
+    }
+
+    // Update county display text
+    function updateCountyDisplay(sectionId) {
+      const section = sections.find(s => s.id === sectionId);
+      if (!section) return;
+      
+      const displayText = getCountyDisplayText(section.counties, section.allCounties);
+      const displayEl = document.getElementById(`${sectionId}-county-display`);
+      if (displayEl) {
+        displayEl.textContent = displayText;
+        displayEl.classList.toggle('text-gray-400', !section.allCounties && section.counties.length === 0);
+      }
+    }
+
+    // Validate counties selection on save
+    function validateCounties() {
+      let isValid = true;
+      sections.forEach(s => {
+        if (!s.allCounties && s.counties.length === 0) {
+          isValid = false;
+          const displayEl = document.getElementById(`${s.id}-county-display`);
+          if (displayEl) {
+            displayEl.closest('.multi-select-selected').classList.add('border-red-500');
+          }
+        }
+      });
+      return isValid;
+    }
 
     const container = document.getElementById('referral-sections');
     sections.forEach(s => {
+      const countyDisplayText = getCountyDisplayText(s.counties, s.allCounties);
       const summary = `${s.name} • Max ${s.fpl}% FPL • ${s.daily} daily / ${s.weekly} weekly${s.attestation?' • Attestation Required':''}`;
       container.innerHTML += `
         <div class="collapsible-section bg-white rounded-lg shadow-sm overflow-hidden" data-id="${s.id}">
@@ -136,6 +362,18 @@
                 <div><label class="block text-sm font-medium mb-1">Section Name</label><input type="text" class="form-control" value="${s.name}"></div>
                 <div><label class="block text-sm font-medium mb-1">Max Poverty Level (%)</label><input type="number" class="form-control" value="${s.fpl}" min="0" max="400"></div>
                 <div class="md:col-span-2"><label class="block text-sm font-medium mb-1">Case Types</label><input type="text" class="form-control" value="${s.cases.join(', ')}"></div>
+                <div class="md:col-span-2">
+                  <label class="block text-sm font-medium mb-1">Counties Served<span class="help-icon" aria-label="Help">?<span class="tooltip">Select which Texas counties this referral channel serves. Choose "All counties" or select specific counties. At least one option is required.</span></span></label>
+                  <div class="multi-select-dropdown">
+                    <div class="multi-select-selected" onclick="toggleCountyDropdown('${s.id}')" tabindex="0" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-label="Select counties served">
+                      <span id="${s.id}-county-display" class="${!s.allCounties && s.counties.length === 0 ? 'text-gray-400' : ''}">${countyDisplayText}</span>
+                      <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="multi-select-options" id="${s.id}-county-options" role="listbox">
+                      ${generateCountyOptionsHTML(s.id, s.counties, s.allCounties)}
+                    </div>
+                  </div>
+                </div>
                 <div class="md:col-span-2 flex items-center justify-between p-3 bg-gray-50 rounded-lg"><div><p class="font-medium">Require Client Attestation</p><p class="text-sm text-gray-500">Client must attest before referral is sent</p></div><label class="toggle-switch"><input type="checkbox" ${s.attestation?'checked':''}><span class="toggle-slider"></span></label></div>
               </div>
               <div class="mt-6 space-y-4">
