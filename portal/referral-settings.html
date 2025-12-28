@@ -313,7 +313,12 @@
       updateCountyDisplay(sectionId);
     }
 
-    // Update county display text
+    // Check if section has valid county selection
+    function hasValidCountySelection(section) {
+      return section.allCounties || section.counties.length > 0;
+    }
+
+    // Update county display text and active toggle state
     function updateCountyDisplay(sectionId) {
       const section = sections.find(s => s.id === sectionId);
       if (!section) return;
@@ -323,6 +328,62 @@
       if (displayEl) {
         displayEl.textContent = displayText;
         displayEl.classList.toggle('text-gray-400', !section.allCounties && section.counties.length === 0);
+      }
+      
+      // Update active toggle state based on county selection
+      updateActiveToggleState(sectionId);
+    }
+
+    // Update the Section Active toggle based on county validation
+    function updateActiveToggleState(sectionId) {
+      const section = sections.find(s => s.id === sectionId);
+      if (!section) return;
+      
+      const isValid = hasValidCountySelection(section);
+      const activeToggle = document.getElementById(`${sectionId}-active-toggle`);
+      const activeWarning = document.getElementById(`${sectionId}-active-warning`);
+      const headerBadge = document.querySelector(`[data-id="${sectionId}"] .collapsible-header span:last-child`);
+      
+      if (activeToggle) {
+        activeToggle.disabled = !isValid;
+        activeToggle.closest('.toggle-switch').classList.toggle('opacity-50', !isValid);
+        activeToggle.closest('.toggle-switch').classList.toggle('cursor-not-allowed', !isValid);
+        
+        // If no counties and currently active, force to inactive
+        if (!isValid && section.active) {
+          section.active = false;
+          activeToggle.checked = false;
+          if (headerBadge) {
+            headerBadge.className = 'px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-600';
+            headerBadge.textContent = 'Inactive';
+          }
+        }
+      }
+      
+      if (activeWarning) {
+        activeWarning.classList.toggle('hidden', isValid);
+      }
+    }
+
+    // Handle section active toggle change
+    function toggleSectionActive(sectionId, checked) {
+      const section = sections.find(s => s.id === sectionId);
+      if (!section) return;
+      
+      // Prevent activation if no counties selected
+      if (checked && !hasValidCountySelection(section)) {
+        const activeToggle = document.getElementById(`${sectionId}-active-toggle`);
+        if (activeToggle) activeToggle.checked = false;
+        return;
+      }
+      
+      section.active = checked;
+      
+      // Update header badge
+      const headerBadge = document.querySelector(`[data-id="${sectionId}"] .collapsible-header span:last-child`);
+      if (headerBadge) {
+        headerBadge.className = `px-2 py-1 rounded text-xs font-medium ${checked ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`;
+        headerBadge.textContent = checked ? 'Active' : 'Inactive';
       }
     }
 
@@ -381,7 +442,13 @@
                 <div><label class="block text-sm font-medium mb-2">Weekly Capacity: <span class="text-primary-600 font-bold" id="${s.id}-weekly-val">${s.weekly}</span></label><input type="range" min="0" max="50" value="${s.weekly}" oninput="document.getElementById('${s.id}-weekly-val').textContent=this.value"></div>
                 <div><label class="block text-sm font-medium mb-2">Monthly Capacity: <span class="text-primary-600 font-bold" id="${s.id}-monthly-val">${s.monthly}</span></label><input type="range" min="0" max="100" value="${s.monthly}" oninput="document.getElementById('${s.id}-monthly-val').textContent=this.value"></div>
               </div>
-              <div class="mt-4 flex items-center justify-between"><label class="toggle-switch flex items-center gap-2"><input type="checkbox" ${s.active?'checked':''}><span class="toggle-slider"></span></label><span class="text-sm font-medium">Section Active</span></div>
+              <div class="mt-4">
+                <div class="flex items-center justify-between">
+                  <label class="toggle-switch flex items-center gap-2 ${!s.allCounties && s.counties.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}"><input type="checkbox" id="${s.id}-active-toggle" ${s.active?'checked':''} ${!s.allCounties && s.counties.length === 0 ? 'disabled' : ''} onchange="toggleSectionActive('${s.id}', this.checked)"><span class="toggle-slider"></span></label>
+                  <span class="text-sm font-medium">Section Active</span>
+                </div>
+                <p id="${s.id}-active-warning" class="text-sm text-amber-600 mt-2 flex items-center gap-1 ${s.allCounties || s.counties.length > 0 ? 'hidden' : ''}"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>Select at least one county to activate this section</p>
+              </div>
             </div>
           </div>
         </div>`;
