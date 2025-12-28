@@ -198,10 +198,10 @@
     ];
 
     const sections = [
-      {id:'disability',name:'Disability Rights',color:'teal',cases:['SSI/SSDI Appeals','ADA Accommodations','Special Education'],counties:['Harris','Travis','Dallas'],allCounties:false,fpl:200,daily:5,weekly:20,monthly:40,attestation:true,active:true},
-      {id:'family',name:'Family Law',color:'purple',cases:['Child Custody','Divorce','Child Support','Adoption'],counties:[],allCounties:true,fpl:150,daily:8,weekly:30,monthly:60,attestation:true,active:true},
-      {id:'immigration',name:'Immigration',color:'blue',cases:['DACA Renewal','Asylum','Family Petitions','Naturalization'],counties:['Bexar','El Paso','Hidalgo','Cameron','Webb'],allCounties:false,fpl:200,daily:4,weekly:15,monthly:35,attestation:false,active:true},
-      {id:'housing',name:'Housing',color:'orange',cases:['Eviction Defense','Fair Housing','Habitability','Section 8'],counties:['Harris','Dallas','Tarrant','Bexar'],allCounties:false,fpl:150,daily:6,weekly:25,monthly:50,attestation:true,active:true}
+      {id:'disability',name:'Disability Rights',color:'teal',cases:['SSI/SSDI Appeals','ADA Accommodations','Special Education'],counties:['Harris','Travis','Dallas'],allCounties:false,fpl:200,daily:5,weekly:20,monthly:40,attestation:true,active:true,notifyText:true,notifyTextValue:'512-555-1234',notifyEmail:true,notifyEmailValue:'intake@example.org',notifyWebhook:false,notifyWebhookValue:''},
+      {id:'family',name:'Family Law',color:'purple',cases:['Child Custody','Divorce','Child Support','Adoption'],counties:[],allCounties:true,fpl:150,daily:8,weekly:30,monthly:60,attestation:true,active:true,notifyText:false,notifyTextValue:'',notifyEmail:true,notifyEmailValue:'family@example.org',notifyWebhook:false,notifyWebhookValue:''},
+      {id:'immigration',name:'Immigration',color:'blue',cases:['DACA Renewal','Asylum','Family Petitions','Naturalization'],counties:['Bexar','El Paso','Hidalgo','Cameron','Webb'],allCounties:false,fpl:200,daily:4,weekly:15,monthly:35,attestation:false,active:true,notifyText:true,notifyTextValue:'210-555-5678',notifyEmail:false,notifyEmailValue:'',notifyWebhook:true,notifyWebhookValue:'https://api.example.org/referrals'},
+      {id:'housing',name:'Housing',color:'orange',cases:['Eviction Defense','Fair Housing','Habitability','Section 8'],counties:['Harris','Dallas','Tarrant','Bexar'],allCounties:false,fpl:150,daily:6,weekly:25,monthly:50,attestation:true,active:true,notifyText:false,notifyTextValue:'',notifyEmail:true,notifyEmailValue:'housing@example.org',notifyWebhook:false,notifyWebhookValue:''}
     ];
 
     // Helper function to get county display text
@@ -387,6 +387,23 @@
       }
     }
 
+    // Toggle notification option (text, email, webhook)
+    function toggleNotificationOption(sectionId, type, checked) {
+      const option = document.getElementById(`${sectionId}-notify-${type}-option`);
+      const field = document.getElementById(`${sectionId}-notify-${type}-field`);
+      
+      if (option) {
+        option.classList.toggle('checked', checked);
+      }
+      if (field) {
+        field.classList.toggle('active', checked);
+        if (checked) {
+          const input = field.querySelector('input');
+          if (input) input.focus();
+        }
+      }
+    }
+
     // Validate counties selection on save
     function validateCounties() {
       let isValid = true;
@@ -448,6 +465,41 @@
                   <div><label class="block text-sm font-medium mb-2">Daily Capacity: <span class="text-primary-600 font-bold" id="${s.id}-daily-val">${s.daily}</span></label><input type="range" min="0" max="20" value="${s.daily}" oninput="document.getElementById('${s.id}-daily-val').textContent=this.value"></div>
                   <div><label class="block text-sm font-medium mb-2">Weekly Capacity: <span class="text-primary-600 font-bold" id="${s.id}-weekly-val">${s.weekly}</span></label><input type="range" min="0" max="50" value="${s.weekly}" oninput="document.getElementById('${s.id}-weekly-val').textContent=this.value"></div>
                   <div><label class="block text-sm font-medium mb-2">Monthly Capacity: <span class="text-primary-600 font-bold" id="${s.id}-monthly-val">${s.monthly}</span></label><input type="range" min="0" max="100" value="${s.monthly}" oninput="document.getElementById('${s.id}-monthly-val').textContent=this.value"></div>
+                </div>
+              </div>
+              <div class="settings-group mt-6">
+                <div class="settings-group-header">
+                  <span class="settings-group-title">Notification Preferences</span>
+                </div>
+                <div class="notification-option ${s.notifyText ? 'checked' : ''}" id="${s.id}-notify-text-option">
+                  <div class="notification-option-header">
+                    <input type="checkbox" id="${s.id}-notify-text" ${s.notifyText ? 'checked' : ''} onchange="toggleNotificationOption('${s.id}', 'text', this.checked)">
+                    <label for="${s.id}-notify-text" class="font-medium">Text Message</label>
+                    <span class="help-icon" aria-label="Help">?<span class="tooltip">If you'd like to receive a text message when you receive a referral from this Referral Channel, then enter the 10-digit phone number in the field. For multiple phone numbers, separate each with a comma.</span></span>
+                  </div>
+                  <div class="notification-input-field ${s.notifyText ? 'active' : ''}" id="${s.id}-notify-text-field">
+                    <input type="tel" placeholder="e.g., 512-555-1234" value="${s.notifyTextValue}" class="form-control">
+                  </div>
+                </div>
+                <div class="notification-option ${s.notifyEmail ? 'checked' : ''}" id="${s.id}-notify-email-option">
+                  <div class="notification-option-header">
+                    <input type="checkbox" id="${s.id}-notify-email" ${s.notifyEmail ? 'checked' : ''} onchange="toggleNotificationOption('${s.id}', 'email', this.checked)">
+                    <label for="${s.id}-notify-email" class="font-medium">Email</label>
+                    <span class="help-icon" aria-label="Help">?<span class="tooltip">If you'd like to receive an email when you receive a referral from this Referral Channel, then enter the email address in the field. For multiple email addresses, separate each with a comma.</span></span>
+                  </div>
+                  <div class="notification-input-field ${s.notifyEmail ? 'active' : ''}" id="${s.id}-notify-email-field">
+                    <input type="email" placeholder="e.g., intake@organization.org" value="${s.notifyEmailValue}" class="form-control">
+                  </div>
+                </div>
+                <div class="notification-option ${s.notifyWebhook ? 'checked' : ''}" id="${s.id}-notify-webhook-option">
+                  <div class="notification-option-header">
+                    <input type="checkbox" id="${s.id}-notify-webhook" ${s.notifyWebhook ? 'checked' : ''} onchange="toggleNotificationOption('${s.id}', 'webhook', this.checked)">
+                    <label for="${s.id}-notify-webhook" class="font-medium">Webhook</label>
+                    <span class="help-icon" aria-label="Help">?<span class="tooltip">If you'd like to execute a webhook when you receive a referral from this Referral Channel, then enter the URL of the webhook in the field. The referral data will be sent via POST in JSON format. Please see the documentation for the structure of the post data.</span></span>
+                  </div>
+                  <div class="notification-input-field ${s.notifyWebhook ? 'active' : ''}" id="${s.id}-notify-webhook-field">
+                    <input type="url" placeholder="e.g., https://api.example.org/referrals" value="${s.notifyWebhookValue}" class="form-control">
+                  </div>
                 </div>
               </div>
               <p id="${s.id}-active-warning" class="text-sm text-amber-600 mt-4 flex items-center gap-1 ${s.allCounties || s.counties.length > 0 ? 'hidden' : ''}"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>Select at least one county to activate this section</p>
