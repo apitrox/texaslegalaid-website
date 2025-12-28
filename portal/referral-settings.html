@@ -342,7 +342,7 @@
       const isValid = hasValidCountySelection(section);
       const activeToggle = document.getElementById(`${sectionId}-active-toggle`);
       const activeWarning = document.getElementById(`${sectionId}-active-warning`);
-      const headerBadge = document.querySelector(`[data-id="${sectionId}"] .collapsible-header span:last-child`);
+      const headerBadge = document.getElementById(`${sectionId}-header-badge`);
       
       if (activeToggle) {
         activeToggle.disabled = !isValid;
@@ -380,7 +380,7 @@
       section.active = checked;
       
       // Update header badge
-      const headerBadge = document.querySelector(`[data-id="${sectionId}"] .collapsible-header span:last-child`);
+      const headerBadge = document.getElementById(`${sectionId}-header-badge`);
       if (headerBadge) {
         headerBadge.className = `px-2 py-1 rounded text-xs font-medium ${checked ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`;
         headerBadge.textContent = checked ? 'Active' : 'Inactive';
@@ -415,7 +415,10 @@
               <h3 class="font-semibold text-primary-800">${s.name}</h3>
               <p class="text-sm text-gray-500 truncate collapsed-summary">${summary}</p>
             </div>
-            <span class="px-2 py-1 rounded text-xs font-medium ${s.active?'bg-green-100 text-green-800':'bg-gray-100 text-gray-600'}">${s.active?'Active':'Inactive'}</span>
+            <div class="flex items-center gap-3" onclick="event.stopPropagation()">
+              <label class="toggle-switch ${!s.allCounties && s.counties.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}"><input type="checkbox" id="${s.id}-active-toggle" ${s.active?'checked':''} ${!s.allCounties && s.counties.length === 0 ? 'disabled' : ''} onchange="toggleSectionActive('${s.id}', this.checked)"><span class="toggle-slider"></span></label>
+              <span id="${s.id}-header-badge" class="px-2 py-1 rounded text-xs font-medium ${s.active?'bg-green-100 text-green-800':'bg-gray-100 text-gray-600'}">${s.active?'Active':'Inactive'}</span>
+            </div>
           </div>
           <div class="collapsible-content">
             <div class="p-4 pt-0 border-t border-gray-100">
@@ -441,13 +444,7 @@
                 <div><label class="block text-sm font-medium mb-2">Weekly Capacity: <span class="text-primary-600 font-bold" id="${s.id}-weekly-val">${s.weekly}</span></label><input type="range" min="0" max="50" value="${s.weekly}" oninput="document.getElementById('${s.id}-weekly-val').textContent=this.value"></div>
                 <div><label class="block text-sm font-medium mb-2">Monthly Capacity: <span class="text-primary-600 font-bold" id="${s.id}-monthly-val">${s.monthly}</span></label><input type="range" min="0" max="100" value="${s.monthly}" oninput="document.getElementById('${s.id}-monthly-val').textContent=this.value"></div>
               </div>
-              <div class="mt-4">
-                <div class="flex items-center justify-between">
-                  <label class="toggle-switch flex items-center gap-2 ${!s.allCounties && s.counties.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}"><input type="checkbox" id="${s.id}-active-toggle" ${s.active?'checked':''} ${!s.allCounties && s.counties.length === 0 ? 'disabled' : ''} onchange="toggleSectionActive('${s.id}', this.checked)"><span class="toggle-slider"></span></label>
-                  <span class="text-sm font-medium">Section Active</span>
-                </div>
-                <p id="${s.id}-active-warning" class="text-sm text-amber-600 mt-2 flex items-center gap-1 ${s.allCounties || s.counties.length > 0 ? 'hidden' : ''}"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>Select at least one county to activate this section</p>
-              </div>
+              <p id="${s.id}-active-warning" class="text-sm text-amber-600 mt-4 flex items-center gap-1 ${s.allCounties || s.counties.length > 0 ? 'hidden' : ''}"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>Select at least one county to activate this section</p>
               <div class="mt-4 flex items-center justify-between p-3 bg-gray-50 rounded-lg"><div><p class="font-medium">Require Client Attestation</p><p class="text-sm text-gray-500">Client must eSign attestation before referral is sent</p></div><label class="toggle-switch"><input type="checkbox" ${s.attestation?'checked':''}><span class="toggle-slider"></span></label></div>
             </div>
           </div>
