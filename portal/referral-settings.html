@@ -439,10 +439,16 @@
                   </div>
                 </div>
               </div>
-              <div class="mt-6 space-y-4">
-                <div><label class="block text-sm font-medium mb-2">Daily Capacity: <span class="text-primary-600 font-bold" id="${s.id}-daily-val">${s.daily}</span></label><input type="range" min="0" max="20" value="${s.daily}" oninput="document.getElementById('${s.id}-daily-val').textContent=this.value"></div>
-                <div><label class="block text-sm font-medium mb-2">Weekly Capacity: <span class="text-primary-600 font-bold" id="${s.id}-weekly-val">${s.weekly}</span></label><input type="range" min="0" max="50" value="${s.weekly}" oninput="document.getElementById('${s.id}-weekly-val').textContent=this.value"></div>
-                <div><label class="block text-sm font-medium mb-2">Monthly Capacity: <span class="text-primary-600 font-bold" id="${s.id}-monthly-val">${s.monthly}</span></label><input type="range" min="0" max="100" value="${s.monthly}" oninput="document.getElementById('${s.id}-monthly-val').textContent=this.value"></div>
+              <div class="settings-group mt-6">
+                <div class="settings-group-header">
+                  <span class="settings-group-title">Capacity Meters</span>
+                  <span class="help-icon" aria-label="Help">?<span class="tooltip">Set each capacity meter. If the number of referrals is at or exceeds any one of the capacity meters, then this Referral Channel is not currently eligible for referrals.</span></span>
+                </div>
+                <div class="space-y-4">
+                  <div><label class="block text-sm font-medium mb-2">Daily Capacity: <span class="text-primary-600 font-bold" id="${s.id}-daily-val">${s.daily}</span></label><input type="range" min="0" max="20" value="${s.daily}" oninput="document.getElementById('${s.id}-daily-val').textContent=this.value"></div>
+                  <div><label class="block text-sm font-medium mb-2">Weekly Capacity: <span class="text-primary-600 font-bold" id="${s.id}-weekly-val">${s.weekly}</span></label><input type="range" min="0" max="50" value="${s.weekly}" oninput="document.getElementById('${s.id}-weekly-val').textContent=this.value"></div>
+                  <div><label class="block text-sm font-medium mb-2">Monthly Capacity: <span class="text-primary-600 font-bold" id="${s.id}-monthly-val">${s.monthly}</span></label><input type="range" min="0" max="100" value="${s.monthly}" oninput="document.getElementById('${s.id}-monthly-val').textContent=this.value"></div>
+                </div>
               </div>
               <p id="${s.id}-active-warning" class="text-sm text-amber-600 mt-4 flex items-center gap-1 ${s.allCounties || s.counties.length > 0 ? 'hidden' : ''}"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>Select at least one county to activate this section</p>
               <div class="mt-4 flex items-center justify-between p-3 bg-gray-50 rounded-lg"><div><p class="font-medium">Require Client Attestation</p><p class="text-sm text-gray-500">Client must eSign attestation before referral is sent</p></div><label class="toggle-switch"><input type="checkbox" ${s.attestation?'checked':''}><span class="toggle-slider"></span></label></div>
