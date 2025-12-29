@@ -119,7 +119,7 @@
       </div>
 
       <div class="bg-white rounded-lg shadow-sm p-6 mb-4">
-        <p class="text-gray-600 mb-4">Configure your referral acceptance criteria for each Referral Channel. A Referral Channel defines how your organization receives and processes client referrals based on legal specialty, geographic coverage, and capacity. Click a channel to expand and edit its settings. A referral will be sent to a Provider only once, even if it meets the settings of multipel Referral Channels.</p>
+        <p class="text-gray-600 mb-4">Configure your referral acceptance criteria for each Referral Channel. A Referral Channel defines how your organization receives and processes client referrals based on legal specialty, geographic coverage, and capacity. Click a channel to expand and edit its settings. A referral will be sent to a Provider only once, even if it meets the settings of multiple Referral Channels.</p>
         <button onclick="alert('This button is not fully functional for the purposes of this prototype.')" class="text-sm px-3 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors">+ Add Referral Channel</button>
       </div>
       <div class="space-y-4" id="referral-sections"></div>
@@ -630,6 +630,61 @@
       return isValid;
     }
 
+    // Update capacity value with validation constraints
+    // Weekly cannot be less than Daily, Monthly cannot be less than Weekly
+    function updateCapacity(sectionId, type, value) {
+      const section = sections.find(s => s.id === sectionId);
+      if (!section) return;
+      
+      const dailySlider = document.getElementById(`${sectionId}-daily-slider`);
+      const weeklySlider = document.getElementById(`${sectionId}-weekly-slider`);
+      const monthlySlider = document.getElementById(`${sectionId}-monthly-slider`);
+      const dailyVal = document.getElementById(`${sectionId}-daily-val`);
+      const weeklyVal = document.getElementById(`${sectionId}-weekly-val`);
+      const monthlyVal = document.getElementById(`${sectionId}-monthly-val`);
+      
+      if (type === 'daily') {
+        section.daily = value;
+        dailyVal.textContent = value;
+        // If weekly is now less than daily, bump weekly up
+        if (section.weekly < value) {
+          section.weekly = value;
+          weeklySlider.value = value;
+          weeklyVal.textContent = value;
+        }
+        // If monthly is now less than weekly, bump monthly up
+        if (section.monthly < section.weekly) {
+          section.monthly = section.weekly;
+          monthlySlider.value = section.weekly;
+          monthlyVal.textContent = section.weekly;
+        }
+      } else if (type === 'weekly') {
+        // Weekly cannot be less than daily
+        const minWeekly = section.daily;
+        const adjustedValue = Math.max(value, minWeekly);
+        section.weekly = adjustedValue;
+        weeklySlider.value = adjustedValue;
+        weeklyVal.textContent = adjustedValue;
+        // If monthly is now less than weekly, bump monthly up
+        if (section.monthly < adjustedValue) {
+          section.monthly = adjustedValue;
+          monthlySlider.value = adjustedValue;
+          monthlyVal.textContent = adjustedValue;
+        }
+      } else if (type === 'monthly') {
+        // Monthly cannot be less than weekly
+        const minMonthly = section.weekly;
+        const adjustedValue = Math.max(value, minMonthly);
+        section.monthly = adjustedValue;
+        monthlySlider.value = adjustedValue;
+        monthlyVal.textContent = adjustedValue;
+      }
+      
+      // Update the collapsed section summary
+      updateSectionSummary(sectionId);
+      markSectionChanged(sectionId);
+    }
+
     // Mark section as changed (enable Save button)
     function markSectionChanged(sectionId) {
       const saveBtn = document.getElementById(`${sectionId}-save-btn`);
@@ -734,9 +789,9 @@
                   <span class="help-icon" aria-label="Help">?<span class="tooltip">Set each capacity meter. If the number of referrals is at or exceeds any one of the capacity meters, then this Referral Channel is not currently eligible for referrals.</span></span>
                 </div>
                 <div class="space-y-4">
-                  <div><label class="block text-sm font-medium mb-2">Daily Max Capacity: <span class="text-primary-600 font-bold" id="${s.id}-daily-val">${s.daily}</span></label><input type="range" min="0" max="20" value="${s.daily}" oninput="document.getElementById('${s.id}-daily-val').textContent=this.value"></div>
-                  <div><label class="block text-sm font-medium mb-2">Weekly Max Capacity: <span class="text-primary-600 font-bold" id="${s.id}-weekly-val">${s.weekly}</span></label><input type="range" min="0" max="50" value="${s.weekly}" oninput="document.getElementById('${s.id}-weekly-val').textContent=this.value"></div>
-                  <div><label class="block text-sm font-medium mb-2">Monthly Max Capacity: <span class="text-primary-600 font-bold" id="${s.id}-monthly-val">${s.monthly}</span></label><input type="range" min="0" max="100" value="${s.monthly}" oninput="document.getElementById('${s.id}-monthly-val').textContent=this.value"></div>
+                  <div><label class="block text-sm font-medium mb-2">Daily Max Capacity: <span class="text-primary-600 font-bold" id="${s.id}-daily-val">${s.daily}</span></label><input type="range" id="${s.id}-daily-slider" min="0" max="20" value="${s.daily}" oninput="updateCapacity('${s.id}', 'daily', parseInt(this.value))"></div>
+                  <div><label class="block text-sm font-medium mb-2">Weekly Max Capacity: <span class="text-primary-600 font-bold" id="${s.id}-weekly-val">${s.weekly}</span></label><input type="range" id="${s.id}-weekly-slider" min="0" max="50" value="${s.weekly}" oninput="updateCapacity('${s.id}', 'weekly', parseInt(this.value))"></div>
+                  <div><label class="block text-sm font-medium mb-2">Monthly Max Capacity: <span class="text-primary-600 font-bold" id="${s.id}-monthly-val">${s.monthly}</span></label><input type="range" id="${s.id}-monthly-slider" min="0" max="100" value="${s.monthly}" oninput="updateCapacity('${s.id}', 'monthly', parseInt(this.value))"></div>
                 </div>
               </div>
               <div class="settings-group mt-6">
