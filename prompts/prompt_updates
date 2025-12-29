@@ -154,8 +154,7 @@ General rules:
 - These updates are on the referral-settings.html page.
 
 For the `texaslegalaid-website` project make the following changes:
-- Delete the file `../portal/settings.html` and remove all references to it 
-- Delete the file `../portal/register.html` and remove all references to it 
+- Change the name of the file from `../portal/index.html` to `../portal/login.html` 
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
