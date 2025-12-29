@@ -1534,6 +1534,11 @@ a:focus {
   margin-left: 6px;
   position: relative;
   flex-shrink: 0;
+  z-index: 1;
+}
+
+.help-icon:hover {
+  z-index: 9999;
 }
 
 .tooltip {
@@ -1550,10 +1555,11 @@ a:focus {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s;
-  z-index: 1000;
+  z-index: 99999;
   width: 280px;
   text-align: left;
   font-weight: normal;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .help-icon:hover .tooltip {
