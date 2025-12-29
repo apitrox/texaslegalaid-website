@@ -153,7 +153,7 @@ General rules:
 
 For the `texaslegalaid-website` project make the following changes:
 - These updates are on the referral-settings.html page.
-- Add a button in the informational area above the Referral Channel cards, at the location of the red box in the attached image, with the label "+ Add Referral Channel". For purposes of the prototype, when this button is clicked a notification message will display that reads "This button is not fully functional for the purposes of this prototype." The button is the same color as the Save buttons.
+- Change the label "Section Name" to "Referral Channel Name" and add a help icon that reads "This is any user specified name that will help you easily identify the purpose of this Referral Channel. A value is required."
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
