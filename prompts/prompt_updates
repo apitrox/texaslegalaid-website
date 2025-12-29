@@ -154,10 +154,7 @@ General rules:
 - These updates are on the referral-settings.html page.
 
 For the `texaslegalaid-website` project make the following changes:
-- using the image I provided 
-- Move `Cases` up 2 slots so that it is third from the top, right under the new `Referral Settings` 
-- Change the name in the left-side navigation panel from `Cases` to `Referred Cases` (this is the one you will move positions) 
-- Change the name of the file from `../portal/cases.html` to `../portal/referred-cases.html` 
+- Change the name of the file from `../portal/profile.html` to `../portal/provider-profile.html` 
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
