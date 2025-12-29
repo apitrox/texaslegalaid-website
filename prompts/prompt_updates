@@ -155,7 +155,7 @@ General rules:
 
 For the `texaslegalaid-website` project make the following changes:
 - These updates are on the `../portal/referral-settings.html` page. 
-- Change the name of the Referral Channel from "Crime Victim Civil Legal Services (CVCLS)" to "Crime Victim Assistance (CVCLS)" and remove Harris from the list of counties served.
+- Change the name of the Referral Channels "Disability Rights", "Family Law", "Housing", and "Immigration" by appending " (BCLS)" to the end of the name.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
