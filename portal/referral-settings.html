@@ -503,7 +503,7 @@
             <div class="p-4 pt-0 border-t border-gray-100">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div><label class="block text-sm font-medium mb-1">Referral Channel Name<span class="help-icon" aria-label="Help">?<span class="tooltip">This is any user specified name that will help you easily identify the purpose of this Referral Channel. A value is required.</span></span></label><input type="text" class="form-control" value="${s.name}"></div>
-                <div><label class="block text-sm font-medium mb-1">Max Poverty Level (%)</label><input type="number" class="form-control" value="${s.fpl}" min="0" max="400"></div>
+                <div><label class="block text-sm font-medium mb-1">Max Poverty Level (%)<span class="help-icon" aria-label="Help">?<span class="tooltip">The intake process will determine the client's poverty level using household size and household income information provided by the client. A referral will not be sent to the Provider using this Referral Channel if the referral's poverty level exceeds the Max Poverty Level value.</span></span></label><input type="number" class="form-control" value="${s.fpl}" min="0" max="400"></div>
                 <div class="md:col-span-2"><label class="block text-sm font-medium mb-1">Case Types</label><input type="text" class="form-control" value="${s.cases.join(', ')}"></div>
                 <div class="md:col-span-2">
                   <label class="block text-sm font-medium mb-1">Counties Served<span class="help-icon" aria-label="Help">?<span class="tooltip">Select which Texas counties this referral channel serves. Choose "All counties" or select specific counties. At least one option is required.</span></span></label>

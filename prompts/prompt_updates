@@ -155,7 +155,7 @@ General rules:
 
 For the `texaslegalaid-website` project make the following changes:
 - These updates are on the `../portal/referral-settings.html` pages.
-- Update the poverty level percent to be 125% for all Referral Channels. See highlighted area on attached image.
+- For each Referral Channel, add a help icon after the label "Max Poverty Level (%)" with the text "The intake process will determine the client's poverty level using household size and household income information provided by the client. A referral will not be sent to the Provider using this Referral Channel if the referral's poverty level exceeds the Max Poverty Level value."
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
