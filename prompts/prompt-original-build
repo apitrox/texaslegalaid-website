@@ -1,18 +1,19 @@
-# MyLegalAid Application Website - Comprehensive Build Prompt
+# TexasLegalAid Application Website
 
 ## Project Overview
 
-Build **MyLegalAid** — a mobile-first, AMP-compatible national legal aid intake portal that connects individuals seeking legal assistance with appropriate legal aid providers through conversational AI. The platform serves as both a public-facing intake system and a secure provider management hub.
+**TexasLegalAid** is a mobile-first, AMP-compatible national legal aid intake portal that connects individuals seeking legal assistance with appropriate legal aid providers. The platform serves as both a public-facing intake system and a secure provider portal.
 
 ---
 
 ## Core Mission & Purpose
 
-MyLegalAid democratizes access to justice by:
-1. **Simplifying intake** — Using conversational AI to guide users through eligibility determination
+TexasLegalAid democratizes access to justice by:
+1. **Simplifying intake** — Providing people in need of Legal Aid a single point of entry into the legal aid provider system
+1. **Integrate AI** — Using conversational AI to guide users through eligibility determination available 24/7 in many languages
 2. **Intelligent matching** — Connecting clients with providers based on geography, legal issue, case status, and provider capacity
 3. **Continuous access** — Allowing users to track referrals and case status over time
-4. **Provider empowerment** — Giving legal aid organizations tools to define their ideal client profiles and manage referrals
+4. **Provider empowerment** — Giving legal aid organizations tools to define their client profiles and manage referrals
 
 ---
 
