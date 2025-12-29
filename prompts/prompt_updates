@@ -154,7 +154,8 @@ General rules:
 - These updates are on the referral-settings.html page.
 
 For the `texaslegalaid-website` project make the following changes:
-- Change the name of the file from `../portal/index.html` to `../portal/login.html` 
+- These updates are on the `../portal/provider-profile.html` page.
+- Remove the sections titled "Practice Areas", "Service Area", "Capacity Settings", and "Notification Preferences"
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
