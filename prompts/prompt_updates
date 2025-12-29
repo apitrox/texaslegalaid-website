@@ -154,8 +154,10 @@ General rules:
 - These updates are on the referral-settings.html page.
 
 For the `texaslegalaid-website` project make the following changes:
-- These updates are on the `../portal/index.html` page. 
-- When the user clicks to Sign In the application tries to go to an invalid page. It should go to `../portal/analytics-dashboard.html` 
+- These updates are on the `../portal/referral-settings.html` page. 
+- In the Require Client Attestation section, remove the second line that reads "Client must eSign attestation before referral is sent". 
+- Add a help icon after the label "Require Client Attestation" that reads "If 'Yes', then the client must eSign an attestation document containing their poverty information and other eligibility criteria before a referral is sent. The attestation document and other information will be available to you with the referral.". 
+- In the Require Client Attestation section, to the right of the switcher, put a tag labeled "Yes" if the switcher is true or a labeled "No" if false. This Yes/No tag should be the same as the Active/Inactive tag in the header of a referral channel.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
