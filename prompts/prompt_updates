@@ -155,7 +155,8 @@ General rules:
 
 For the `texaslegalaid-website` project make the following changes:
 - These updates are on the `../portal/referral-settings.html` pages. 
-- For each Referral Channel, for the Case Types dropdown (see attached image) when the dropdown is clicked/opened, sort all selected items to the top in alphabetical order then below the selected items list all the unselected items in alphabetical order.
+- For each Referral Channel, for the Counties Served dropdown (see attached image), whichever items/counties are selected, list their names in the header of the dropdown area separated by a comma, showing a maximum of 5 counties and if more than 5 are selected then append on the text " +X more" where X is the number in addition to the 5 shown. Show the 5 most populous counties selected, in alphabetical order
+- For each Referral Channel, for the Counties Served dropdown (see attached image) when the dropdown is clicked/opened, sort all selected items/counties to the top in alphabetical order then below the selected items/counties list all the unselected items/counties in alphabetical order.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
