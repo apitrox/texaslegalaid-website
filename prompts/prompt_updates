@@ -151,9 +151,12 @@ General rules:
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
 
 
-For the `texaslegalaid-website` project make the following changes:
 - These updates are on the referral-settings.html page.
-- Change the label "Section Name" to "Referral Channel Name" and add a help icon that reads "This is any user specified name that will help you easily identify the purpose of this Referral Channel. A value is required."
+
+For the `texaslegalaid-website` project make the following changes:
+- On the Provider Portal pages, remove the border around the logo at the top of the page (see image), make the logo about 50% larger and with a transparent background. You can use the file `../TLA_Logo_White.png` for the logo.
+- Next to the logo, make the name of the organization larger and bold.
+- Next to the logo, make the page name (first line) for each of the portal pages these names: "Analytics Dashboard", "Provider Profile", "Team Members", "Referral Settings", "Referred Cases", "Messages", and "Integrations".
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
