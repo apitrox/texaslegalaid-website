@@ -122,7 +122,6 @@
         <p class="text-gray-600 mb-4">Configure your referral acceptance criteria for each Referral Channel. A Referral Channel defines how your organization receives and processes client referrals based on legal specialty, geographic coverage, and capacity. Click a channel to expand and edit its settings.</p>
       </div>
       <div class="space-y-4" id="referral-sections"></div>
-      <div class="mt-6 flex justify-end"><button class="btn btn-primary">Save All Settings</button></div>
     </main>
   </div>
 
@@ -432,6 +431,53 @@
       return isValid;
     }
 
+    // Mark section as changed (enable Save button)
+    function markSectionChanged(sectionId) {
+      const saveBtn = document.getElementById(`${sectionId}-save-btn`);
+      if (saveBtn) {
+        saveBtn.disabled = false;
+      }
+    }
+
+    // Save section changes
+    function saveSection(sectionId) {
+      const section = sections.find(s => s.id === sectionId);
+      if (!section) return;
+      
+      // Validate counties before saving
+      if (!hasValidCountySelection(section)) {
+        alert('Please select at least one county before saving.');
+        return;
+      }
+      
+      // In production, this would send data to the server
+      // For now, just disable the button to indicate saved state
+      const saveBtn = document.getElementById(`${sectionId}-save-btn`);
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        // Show brief "Saved!" feedback
+        const originalText = saveBtn.textContent;
+        saveBtn.textContent = 'Saved!';
+        setTimeout(() => {
+          saveBtn.textContent = originalText;
+        }, 1500);
+      }
+      
+      console.log(`Section ${sectionId} saved:`, section);
+    }
+
+    // Initialize change tracking for a section after DOM is ready
+    function initChangeTracking(sectionId) {
+      const sectionEl = document.querySelector(`[data-id="${sectionId}"]`);
+      if (!sectionEl) return;
+      
+      // Track changes on all form inputs within the section
+      sectionEl.querySelectorAll('input, select, textarea').forEach(input => {
+        const eventType = input.type === 'checkbox' || input.type === 'range' ? 'change' : 'input';
+        input.addEventListener(eventType, () => markSectionChanged(sectionId));
+      });
+    }
+
     const container = document.getElementById('referral-sections');
     sections.forEach(s => {
       const countyDisplayText = getCountyDisplayText(s.counties, s.allCounties);
@@ -447,6 +493,7 @@
               <p class="text-sm text-gray-500 truncate collapsed-summary">${summary}</p>
             </div>
             <div class="flex items-center gap-3" onclick="event.stopPropagation()">
+              <button id="${s.id}-save-btn" class="btn btn-primary text-sm px-3 py-1" disabled onclick="saveSection('${s.id}')" aria-label="Save ${s.name} settings">Save</button>
               <label class="toggle-switch ${!s.allCounties && s.counties.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}"><input type="checkbox" id="${s.id}-active-toggle" ${s.active?'checked':''} ${!s.allCounties && s.counties.length === 0 ? 'disabled' : ''} onchange="toggleSectionActive('${s.id}', this.checked)"><span class="toggle-slider"></span></label>
               <span id="${s.id}-header-badge" class="px-2 py-1 rounded text-xs font-medium ${s.active?'bg-green-100 text-green-800':'bg-gray-100 text-gray-600'}">${s.active?'Active':'Inactive'}</span>
             </div>
@@ -522,6 +569,9 @@
           </div>
         </div>`;
     });
+
+    // Initialize change tracking for all sections after DOM is ready
+    sections.forEach(s => initChangeTracking(s.id));
   </script>
   <script>
     // Resizable sidebar functionality
