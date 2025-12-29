@@ -154,8 +154,8 @@ General rules:
 - These updates are on the referral-settings.html page.
 
 For the `texaslegalaid-website` project make the following changes:
-- These updates are on the `../portal/referred-cases.html` page. 
-- See image provided. Add a button with a download icon and label "Generate Grantor Reports". The button does nothing at this time.
+- These updates are on the `../portal/referral-settings.html` page. 
+- Delete the Disability Rights Referral Channel.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
