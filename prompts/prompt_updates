@@ -155,8 +155,7 @@ General rules:
 
 For the `texaslegalaid-website` project make the following changes:
 - These updates are on the `../portal/referral-settings.html` pages. 
-- For each Referral Channel, convert the select on Case Types (see attached image) into a dropdown where each case type is individually selectable with a check box. Create a comprehensive list of Case Types to display in the dropdown using the case types used in each of the existing Referral Channels and leveraging your knowledge of any other case types served by legal aid organizations. Whichever items/case types are selected, list their names in the header of the dropdown area separated by a comma, showing a maximum of 3 case types and if more than 3 are selected then append on the text " +X more" where X is the number in addition to the 3 shown. Show case types in alphabetical order, both in the dropdown header and in the dropdown itself.
-- Add a help icon to the right of the "Case Types" label that reads "Select which case types this referral channel serves. At least 1 case type is required. A referral will not be sent to Provider using this Referral Channel unless the referral's case type is selected."
+- For each Referral Channel, for the Case Types dropdown (see attached image) when the dropdown is clicked/opened, sort all selected items to the top in alphabetical order then below the selected items list all the unselected items in alphabetical order.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
