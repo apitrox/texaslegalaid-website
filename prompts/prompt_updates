@@ -154,8 +154,9 @@ General rules:
 - These updates are on the referral-settings.html page.
 
 For the `texaslegalaid-website` project make the following changes:
-- These updates are on the `../portal/referral-settings.html` page. 
-- Delete the Disability Rights Referral Channel.
+- These updates apply to the footer area. 
+- Add a disclaimer in the footer that reads "This site is for general informational purposes only. The information on this site is not legal advice and should not be used in place of legal advice. Consult a lawyer for legal advice. 
+- Make the footer of every page, except `../portal/..` pages, identical. 
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
