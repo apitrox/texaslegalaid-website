@@ -217,6 +217,23 @@
       return `${mostPopulous} +${sortedCounties.length - 1} more`;
     }
 
+    // Helper function to get county header display text for collapsed section
+    function getCountyHeaderText(counties, allCounties) {
+      if (allCounties) return 'All Counties';
+      if (counties.length === 0) return 'No Counties';
+      
+      // Sort selected counties by population rank (most populous first)
+      const sortedCounties = [...counties].sort((a, b) => {
+        const aCounty = texasCounties.find(c => c.name === a);
+        const bCounty = texasCounties.find(c => c.name === b);
+        return (aCounty?.popRank || 999) - (bCounty?.popRank || 999);
+      });
+      
+      const mostPopulous = sortedCounties[0];
+      if (sortedCounties.length === 1) return `${mostPopulous} County`;
+      return `${mostPopulous} County +${sortedCounties.length - 1} more`;
+    }
+
     // Helper function to generate county options HTML
     function generateCountyOptionsHTML(sectionId, selectedCounties, allCounties) {
       let optionsHTML = `
@@ -418,7 +435,8 @@
     const container = document.getElementById('referral-sections');
     sections.forEach(s => {
       const countyDisplayText = getCountyDisplayText(s.counties, s.allCounties);
-      const summary = `${s.name} • Max ${s.fpl}% FPL • ${s.daily} daily / ${s.weekly} weekly${s.attestation?' • Attestation Required':''}`;
+      const countyHeaderText = getCountyHeaderText(s.counties, s.allCounties);
+      const summary = `${s.name} • Max ${s.fpl}% FPL • ${s.daily} daily / ${s.weekly} Max Referrals • ${countyHeaderText}`;
       container.innerHTML += `
         <div class="collapsible-section bg-white rounded-lg shadow-sm overflow-hidden" data-id="${s.id}">
           <div class="collapsible-header p-4 flex items-center gap-4 hover:bg-gray-50" onclick="this.parentElement.classList.toggle('open')">

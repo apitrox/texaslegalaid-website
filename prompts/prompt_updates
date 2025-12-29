@@ -153,8 +153,7 @@ General rules:
 
 For the `texaslegalaid-website` project make the following changes:
 - These updates are on the referral-settings.html page.
-- In the Referral Channel header, after the word "weekly" insert the words " Max Referrals".
-- In the Referral Channel header, 
+- In the Referral Channel header, change X daily / Y weekly to Xd / Yw / Zm, where X, Y and Z are the number of daily, weekly and monthly referrals, respectively.Name the most populous county selected, followed by the word "County" and if there are more than one show "+X more" where X is the number of additional counties selected.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
