@@ -154,9 +154,8 @@ General rules:
 - These updates are on the referral-settings.html page.
 
 For the `texaslegalaid-website` project make the following changes:
-- These updates are on the `../portal/referral-settings.html` pages. 
-- For each Referral Channel, for the Capacity Meters, do not allow the value of the Weekly Max Capacity meter to be set less than the value of the Daily Max Capacity meter. 
-- For each Referral Channel, for the Capacity Meters, do not allow the value of the Monthly Max Capacity meter to be set less than the value of the Weekly Max Capacity meter. 
+- These updates are on the `../portal/index.html` page. 
+- When the user clicks to Sign In the application tries to go to an invalid page. It should go to `../portal/analytics-dashboard.html` 
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
