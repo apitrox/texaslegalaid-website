@@ -155,7 +155,8 @@ General rules:
 
 For the `texaslegalaid-website` project make the following changes:
 - These updates apply to the footer area. 
-- Make the copyright year (e.g. 2025) dynamic so that it always displays the current year.
+- Make 3 columns of content in the footer area. Leftmost column is the logo. Middle column is the text paragraphs with legal disclosures and privacy, copyright, etc. Right most column is the Quick Links. Left and right columns should always be as narrow as possible to hold the content without wrapping and middle column should resize with the page.
+- Make all the text in the middle column the same size and color, and that being the same as the text above the footer area on the home page that starts with "Don't face your".
 - Make the footer of every page identical, except `../portal/..` pages which do not have a footer area. 
 ---
 General rules:
