@@ -155,7 +155,7 @@ General rules:
 
 For the `texaslegalaid-website` project make the following changes:
 - These updates are on the `../portal/referral-settings.html` page. 
-- Add a Referral Channel with the name " Crime Victim Civil Legal Services (CVCLS)". List it in alphabetical order. Set FPL at 187.5%. Determine appropriate Case Types. Set counties to Harris, Dallas, Tarrant, Travis, Behar, El Paso, Denton and Collin. Set capacity meters at 2d 5w 10m. Set notification at Text and Webhook. Set require attestation to Yes. Set to Active.
+- Add a Referral Channel with the name "Veteran Services (LAV)". List it in alphabetical order. Set FPL at 200%. Determine appropriate Case Types. Set counties to Dallas, Tarrant, Denton, Collin, Lubbock, Potter. Set capacity meters at 2d 8w 20m. Set notification at Text and Webhook. Set require attestation to Yes. Set to Active.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
