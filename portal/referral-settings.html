@@ -413,7 +413,7 @@
       if (!section) return;
       
       const countyHeaderText = getCountyHeaderText(section.counties, section.allCounties);
-      const summary = `Max Capacities ${section.daily}d / ${section.weekly}w / ${section.monthly}m • Max ${section.fpl}% FPL • ${countyHeaderText}`;
+      const summary = `Max Capacities ${section.daily}d ${section.weekly}w ${section.monthly}m  ●  Max ${section.fpl}% FPL  ●  ${countyHeaderText}`;
       
       const summaryEl = document.querySelector(`[data-id="${sectionId}"] .collapsed-summary`);
       if (summaryEl) {
@@ -754,7 +754,7 @@
       const countyDisplayText = getCountyDisplayText(s.counties, s.allCounties);
       const countyHeaderText = getCountyHeaderText(s.counties, s.allCounties);
       const caseTypeDisplayText = getCaseTypeDisplayText(s.cases);
-      const summary = `Max Capacities ${s.daily}d / ${s.weekly}w / ${s.monthly}m • Max ${s.fpl}% FPL • ${countyHeaderText}`;
+      const summary = `Max Capacities ${s.daily}d ${s.weekly}w ${s.monthly}m  ●  Max ${s.fpl}% FPL  ●  ${countyHeaderText}`;
       container.innerHTML += `
         <div class="collapsible-section bg-white rounded-lg shadow-sm overflow-hidden" data-id="${s.id}">
           <div class="collapsible-header p-4 flex items-center gap-4 hover:bg-gray-50" onclick="this.parentElement.classList.toggle('open')">
