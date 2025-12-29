@@ -436,7 +436,7 @@
     sections.forEach(s => {
       const countyDisplayText = getCountyDisplayText(s.counties, s.allCounties);
       const countyHeaderText = getCountyHeaderText(s.counties, s.allCounties);
-      const summary = `${s.name} • Max ${s.fpl}% FPL • ${s.daily}d / ${s.weekly}w / ${s.monthly}m • ${countyHeaderText}`;
+      const summary = `Max Capacities ${s.daily}d / ${s.weekly}w / ${s.monthly}m • Max ${s.fpl}% FPL • ${countyHeaderText}`;
       container.innerHTML += `
         <div class="collapsible-section bg-white rounded-lg shadow-sm overflow-hidden" data-id="${s.id}">
           <div class="collapsible-header p-4 flex items-center gap-4 hover:bg-gray-50" onclick="this.parentElement.classList.toggle('open')">
