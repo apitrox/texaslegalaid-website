@@ -789,9 +789,9 @@
                   <span class="help-icon" aria-label="Help">?<span class="tooltip">Set each capacity meter. If the number of referrals is at or exceeds any one of the capacity meters, then this Referral Channel is not currently eligible for referrals.</span></span>
                 </div>
                 <div class="space-y-4">
-                  <div><label class="block text-sm font-medium mb-2">Daily Max Capacity: <span class="text-primary-600 font-bold" id="${s.id}-daily-val">${s.daily}</span></label><input type="range" id="${s.id}-daily-slider" min="0" max="20" value="${s.daily}" oninput="updateCapacity('${s.id}', 'daily', parseInt(this.value))"></div>
-                  <div><label class="block text-sm font-medium mb-2">Weekly Max Capacity: <span class="text-primary-600 font-bold" id="${s.id}-weekly-val">${s.weekly}</span></label><input type="range" id="${s.id}-weekly-slider" min="0" max="50" value="${s.weekly}" oninput="updateCapacity('${s.id}', 'weekly', parseInt(this.value))"></div>
-                  <div><label class="block text-sm font-medium mb-2">Monthly Max Capacity: <span class="text-primary-600 font-bold" id="${s.id}-monthly-val">${s.monthly}</span></label><input type="range" id="${s.id}-monthly-slider" min="0" max="100" value="${s.monthly}" oninput="updateCapacity('${s.id}', 'monthly', parseInt(this.value))"></div>
+                  <div><label class="block text-sm font-medium mb-2">Daily Max Referrals: <span class="text-primary-600 font-bold" id="${s.id}-daily-val">${s.daily}</span></label><input type="range" id="${s.id}-daily-slider" min="0" max="20" value="${s.daily}" oninput="updateCapacity('${s.id}', 'daily', parseInt(this.value))"></div>
+                  <div><label class="block text-sm font-medium mb-2">Weekly Max Referrals: <span class="text-primary-600 font-bold" id="${s.id}-weekly-val">${s.weekly}</span></label><input type="range" id="${s.id}-weekly-slider" min="0" max="50" value="${s.weekly}" oninput="updateCapacity('${s.id}', 'weekly', parseInt(this.value))"></div>
+                  <div><label class="block text-sm font-medium mb-2">Monthly Max Referrals: <span class="text-primary-600 font-bold" id="${s.id}-monthly-val">${s.monthly}</span></label><input type="range" id="${s.id}-monthly-slider" min="0" max="100" value="${s.monthly}" oninput="updateCapacity('${s.id}', 'monthly', parseInt(this.value))"></div>
                 </div>
               </div>
               <div class="settings-group mt-6">
