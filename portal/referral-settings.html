@@ -493,7 +493,7 @@
               <p class="text-sm text-gray-500 truncate collapsed-summary">${summary}</p>
             </div>
             <div class="flex items-center gap-3" onclick="event.stopPropagation()">
-              <button id="${s.id}-save-btn" class="btn btn-primary text-sm px-3 py-1" disabled onclick="saveSection('${s.id}')" aria-label="Save ${s.name} settings">Save</button>
+              <button id="${s.id}-save-btn" class="text-xs px-2 py-1 bg-primary-600 text-white rounded hover:bg-primary-700 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors" disabled onclick="saveSection('${s.id}')" aria-label="Save ${s.name} settings">Save</button>
               <label class="toggle-switch ${!s.allCounties && s.counties.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}"><input type="checkbox" id="${s.id}-active-toggle" ${s.active?'checked':''} ${!s.allCounties && s.counties.length === 0 ? 'disabled' : ''} onchange="toggleSectionActive('${s.id}', this.checked)"><span class="toggle-slider"></span></label>
               <span id="${s.id}-header-badge" class="px-2 py-1 rounded text-xs font-medium ${s.active?'bg-green-100 text-green-800':'bg-gray-100 text-gray-600'}">${s.active?'Active':'Inactive'}</span>
             </div>
