@@ -154,8 +154,9 @@ General rules:
 - These updates are on the referral-settings.html page.
 
 For the `texaslegalaid-website` project make the following changes:
-- On the `../portal/dashboard.html` page remove the Analytics button.
-- Change the logo on all `../portal/..` pages to use `../TLA_Logo_White.png` for the logo. When you put the logo on these pages, make the area around the outside of the outside circle transparent, not white.
+- use the image I provided
+- Change the name in the left-side navigation panel from `Dashboard` to `Analytics Dashboard`
+- Change the name in the left-side navigation panel from `Profile` to `Analytics Dashboard`
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
