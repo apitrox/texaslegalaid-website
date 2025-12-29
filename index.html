@@ -689,7 +689,7 @@
       </div>
 
       <div class="footer-bottom flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-sm opacity-70">&copy; 2025 Texas Legal Aid. All rights reserved.</p>
+        <p class="text-sm opacity-70">&copy; <span id="copyright-year"></span> Texas Legal Aid. All rights reserved.</p>
         <nav class="flex gap-4 text-sm">
           <a href="privacy-policy.html" class="opacity-70 hover:opacity-100">Privacy Policy</a>
           <a href="terms-of-use.html" class="opacity-70 hover:opacity-100">Terms of Use</a>
@@ -698,6 +698,11 @@
       </div>
     </div>
   </footer>
+
+  <!-- Dynamic Copyright Year -->
+  <script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
 
   <!-- PWA Install Prompt -->
   <div class="pwa-install-prompt" role="dialog" aria-label="Install app prompt">

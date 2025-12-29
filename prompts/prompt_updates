@@ -151,31 +151,12 @@ General rules:
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
 
 
-- These updates are on the referral-settings.html page.
+
 
 For the `texaslegalaid-website` project make the following changes:
 - These updates apply to the footer area. 
-- Make the copyright year 
+- Make the copyright year (e.g. 2025) dynamic so that it always displays the current year.
 - Make the footer of every page identical, except `../portal/..` pages which do not have a footer area. 
----
-General rules:
-- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
-- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
-- Use multiple agents to execute large implementation plans that are too long for one agent.
-- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
-- All changes must comply with the specifications contained in `../prompts/application-specifications`.
-- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
-
-
-For the `texaslegalaid-website` project make the following changes:
-- I am providing you an image of the Provider Profile - Referral Settings page, which I refer to for this update.
-- Add an option for geographic area, under Case Types. This should be a dropdown of all counties in Texas, in alphabetical order. In the dropdown the user can click to select or deselect any individual county(s). A list of the selected counties will be listed separated by comma space. There is also an option for "All counties".
-- Change the text "Client must attest before referral is sent" to "Client must eSign attestation before referral is sent."
-- Group the 3 capacity slider in a visible group labeled "Capacity Meters"
-- Add an option group below Capacity Meters labeled "Notification Preference" and giving the user the option to check either "Text ", "Email" or "Webhook". If checked each will then display an entry field to enter a phone number, email address, or url. In small print add descriptions or explanations where appropriate.
-- Add help icons where appropriate that when hovered over will pop-up a display with a detailed instruction/explanation.
-- When a setting is updated, update the display of appropriately.
-- Come up with a good name for these areas of law, such as call them Referral Pods, but something better than that, and use it in the explanation at the top of the page.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
