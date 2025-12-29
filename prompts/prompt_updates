@@ -154,8 +154,8 @@ General rules:
 - These updates are on the referral-settings.html page.
 
 For the `texaslegalaid-website` project make the following changes:
-- These updates are on the `../portal/..` pages.
-- Update the Prototype Mode banner language sentence from "In production, the application would require additional authentication to access the Provider Dashboard." to "In prototype mode, several features in the provder portal are intentionally configured to not be fully functional."
+- These updates are on the `../portal/referral-settings.html` pages.
+- Update the poverty level percent to be 125% for all Referral Channels. See highlighted area on attached image.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
