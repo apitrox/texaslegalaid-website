@@ -348,7 +348,7 @@ a:focus {
 .hero-carousel {
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
 }
 
 .carousel-track {

@@ -169,7 +169,7 @@ General rules:
 
 
 For the `texaslegalaid-website` project make the following changes:
-- in the hero section on the Home page, for the phrase "Free Legal Help for Texans in Need", do not break before the word "for" as shown in the attached image
+- in the hero section on the Home page (see attached image), reduce the padding around the carousel to about 1/8 inch equivalent
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
