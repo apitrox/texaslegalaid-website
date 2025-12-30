@@ -169,7 +169,10 @@ General rules:
 
 
 For the `texaslegalaid-website` project make the following changes:
-- in the hero section on the Home page (see attached image), for the carousel, when the carousel transitions from the last (7th) image in the list to the first image make the transition to be the same as the other transitions from image to image.
+- on the Home page, using the attached image, update the description in each of the cards as follows:
+- 1. change from "Answer a few simple questions about your legal issue. We'll keep your information confidential and secure." to "Talk with our helpful agent about your legal issue and situation."
+- 2. change from "We connect you with legal aid providers who specialize in your type of case and serve your area." to "Get connected with a legal aid provider with expertise in your legal issue."
+- 3. change from "A legal professional will review your case and provide guidance, representation, or resources to help you." to "Work with an attorney to get the advice and representation you need."
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
