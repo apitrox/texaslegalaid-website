@@ -48,7 +48,8 @@ TexasLegalAid democratizes access to justice by:
 - Schema.org structured data (LegalService, Organization, FAQPage, HowTo)
 - Open Graph and Twitter Card meta tags
 - Canonical URLs and hreflang for future localization
-- XML sitemap generation
+- XML sitemap generation, updated as appropriate whenever there is an update to the site
+- sitemap.html page containing a link to every other page on the site and updated as appropriate whenever there is an update to the site
 - robots.txt configuration
 - Core Web Vitals optimization (LCP < 2.5s, FID < 100ms, CLS < 0.1)
 
