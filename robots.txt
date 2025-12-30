@@ -24,5 +24,15 @@ Disallow: /
 User-agent: YandexBot
 Disallow: /
 
+# Block Internet Archive / Wayback Machine
+User-agent: ia_archiver
+Disallow: /
+
+User-agent: archive.org_bot
+Disallow: /
+
+User-agent: special_archiver
+Disallow: /
+
 # No sitemap - site is not to be indexed
 # Sitemap: none
