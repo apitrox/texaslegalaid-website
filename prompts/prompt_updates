@@ -166,7 +166,11 @@ General rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- Update the Privacy Policy page at `../privacy-policy.html` by changing the last updated date to November 12, 2025 and removing the Contact Us section (see images)
+- Rewrite the Terms of Use page at `../terms-of-use.html` by using the language found at `https://txlrs.org/terms-of-use.html` (also found in the project `txlrs-website` on page `../terms-of-use.html`). Copy the language word for word with the following exceptions:
+  - Use the name Texas Legal Aid in place of Texas Lawyer Referral Service.
+  - Use network of legal aid providers in plac eof network of lawyers.
+  - update any colors and fonts to be consistent with colors and fonts used on the `texaslegalaid-website` application website
+  - Use the last updated date of November 12, 2025
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
