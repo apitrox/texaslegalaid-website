@@ -152,7 +152,7 @@ General rules:
 
 
 
-For the `texaslegalaid-website` project make the following changes:
+For the `texaslegalaid-website` application website project make the following changes:
 - These updates apply to the footer area. 
 - Under Quick Links, the Provider Portal link does not work. Link it to `../portal/index.html`
 - Remove the white space around the outside circle of the logo.
@@ -168,9 +168,22 @@ General rules:
 
 
 
-For the `texaslegalaid-website` project make the following changes:
+For the `texaslegalaid-website` application website project make the following changes:
 - on the Home page, we want to evaluate and update the "Legal Help Areas" section to be sure it contains a comprehensive list of legal help areas. I have attached an image of the current "Legal Help Areas" section. I have also attached several other images that contain legal help areas that we assist with and may need to be incorporated into our "Legal Help Areas" section. Evaluate the other images and update our "Legal Help Areas" section to be sure that it includes a comprehensive list of all legal help areas, including those in the other images. Always keep "Other Issues" as the last card listed in the "Legal Help Areas" section.
 - Do not duplicate legal help areas, but you can take a category of legal aid areas and make it into multiple cards.
+---
+General Rules:
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- All changes must comply with the specifications contained in `../prompts/application-specifications`.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+
+For the `texaslegalaid-website` application website project make the following changes:
+- Update all of the fonts used on the application website to use the same/equivalent font as is used on the apple.com website. This includes content, cards and headings. Retain font characteristics such as bold, size and italics, but use the same font as on the apple.com website. 
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
