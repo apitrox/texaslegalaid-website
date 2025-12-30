@@ -1,14 +1,28 @@
-# robots.txt for MyLegalAid
-# https://myLegalAid.help
+# robots.txt for Texas Legal Aid
+# https://texaslegalaid.org
 
+# Block all robots from indexing or crawling this site
 User-agent: *
-Allow: /
+Disallow: /
 
-# Disallow portal pages (private content)
-Disallow: /portal/
+# Block specific search engine bots
+User-agent: Googlebot
+Disallow: /
 
-# Sitemap location
-Sitemap: https://myLegalAid.help/sitemap.xml
+User-agent: Bingbot
+Disallow: /
 
-# Crawl-delay (optional, be nice to crawlers)
-Crawl-delay: 1
+User-agent: Yahoo! Slurp
+Disallow: /
+
+User-agent: DuckDuckBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+# No sitemap - site is not to be indexed
+# Sitemap: none

@@ -183,7 +183,7 @@ General Rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- Increase the size of all fonts used in the website by 1 size, excluding the header, footer, hero sections and call to action sections. We are trying to make the website easier to read for people who have challenged vision. 
+- Prevent the Wayback Machine, or `https://web.archive.org/` or `https://web.archive.org/`, from crawling, searching, reading, archiving, saving or indexing the site (this includes all pages on the site)
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
