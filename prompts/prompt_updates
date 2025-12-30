@@ -166,9 +166,7 @@ General rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- In the footer of the Home page:
-- Add "Home" as the first quick link listed under the label "Quick Links" and reduce the space between the quick links to about 60% of what it is.
-- Change the word "Accessibility" to "Site Map" and create an link to a Site Map page. The Site Map page should be modeled after `https://www.apple.com/sitemap/` but the pages and headings should map to the pages and heading on this `texaslegalaid-website` application website and the page title should be "Texas Legal Aid Site Map". The main objective of the Site Map page is to have a link to every other page on the `texaslegalaid-website` application website.
+- Update the content of the Privacy Policy page using the content from the Privacy Policy page at `https://txlrs.org/privacy-policy.html` as a model. Exclude the Contact Us section from the Privacy Policy page on `texaslegalaid-website` application website. Use the same colors, fonts, etc. as we have used on the `texaslegalaid-website` application website to remain consistent.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
@@ -181,7 +179,7 @@ General Rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- Update all of the fonts used on the application website to use the same/equivalent font as is used on the apple.com website. This includes content, cards and headings. Retain font characteristics such as bold, size and italics, but use the same font as on the apple.com website. 
+- Increase the size of all fonts used in the website by 1 size, excluding the header, footer, hero sections and call to action sections. We are trying to make the website easier to read for people who have challenged vision. 
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.

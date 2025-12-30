@@ -4,6 +4,155 @@
    Design Philosophy: "Accessible Authority" - calm, trustworthy, human, clear
    ========================================================================== */
 
+/* ==========================================================================
+   Accessibility Font Size Increase (+2px)
+   Applied to content sections, excluding: header, footer, hero, CTA
+   ========================================================================== */
+
+/* Main content sections - increase base font size */
+main .section:not(.hero):not(.cta-section) {
+  font-size: 1.125rem; /* 18px instead of 16px */
+}
+
+main .section:not(.hero):not(.cta-section) p {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.7;
+}
+
+/* Headings in content sections - increase by ~2px equivalent */
+main .section:not(.hero):not(.cta-section) h2 {
+  font-size: 2rem; /* ~32px, was ~30px */
+}
+
+main .section:not(.hero):not(.cta-section) h3 {
+  font-size: 1.625rem; /* 26px, was 24px */
+}
+
+main .section:not(.hero):not(.cta-section) h4 {
+  font-size: 1.375rem; /* 22px, was 20px */
+}
+
+@media (min-width: 768px) {
+  main .section:not(.hero):not(.cta-section) h2 {
+    font-size: 2.5rem; /* 40px, was ~36px */
+  }
+
+  main .section:not(.hero):not(.cta-section) h3 {
+    font-size: 2.125rem; /* 34px, was 30px */
+  }
+
+  main .section:not(.hero):not(.cta-section) h4 {
+    font-size: 1.625rem; /* 26px, was 24px */
+  }
+}
+
+/* Card content - increase readability */
+main .section:not(.hero):not(.cta-section) .card-text,
+main .section:not(.hero):not(.cta-section) .card p {
+  font-size: 1.0625rem; /* 17px, was 15px */
+}
+
+/* Accordion content - increase for FAQ readability */
+main .accordion-content {
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.7;
+}
+
+main .accordion-button {
+  font-size: 1.0625rem; /* 17px */
+}
+
+/* Form labels and text - increase for accessibility */
+main .section:not(.hero):not(.cta-section) .form-label {
+  font-size: 1.0625rem; /* 17px */
+}
+
+main .section:not(.hero):not(.cta-section) .form-control {
+  font-size: 1.0625rem; /* 17px */
+}
+
+main .section:not(.hero):not(.cta-section) .form-text,
+main .section:not(.hero):not(.cta-section) .form-error {
+  font-size: 0.9375rem; /* 15px, was 14px */
+}
+
+/* Legal Help Areas cards - increase text size */
+main .section:not(.hero):not(.cta-section) .feature-card h3,
+main .section:not(.hero):not(.cta-section) [class*="text-sm"] {
+  font-size: 1rem !important; /* 16px, was 14px */
+}
+
+/* Increase text-xs to text-sm equivalent (14px, was 12px) */
+main .section:not(.hero):not(.cta-section) [class*="text-xs"] {
+  font-size: 0.875rem !important; /* 14px, was 12px */
+}
+
+/* Provider cards - increase text */
+main .provider-name {
+  font-size: 1.1875rem; /* 19px, was 18px */
+}
+
+/* Case cards and list items */
+main .case-title {
+  font-size: 1.0625rem; /* 17px */
+}
+
+main .case-meta,
+main .case-id {
+  font-size: 0.9375rem; /* 15px, was 14px */
+}
+
+/* Alert messages in content */
+main .alert {
+  font-size: 1.0625rem; /* 17px */
+}
+
+/* Badge text - slightly larger for readability */
+main .badge {
+  font-size: 0.8125rem; /* 13px, was 12px */
+}
+
+/* Links in content sections */
+main .section:not(.hero):not(.cta-section) a {
+  font-size: inherit;
+}
+
+/* Privacy Policy, Terms of Use, Site Map pages - increase body text */
+main:not(:has(.hero)) .section p,
+main:not(:has(.hero)) .section li {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.7;
+}
+
+main:not(:has(.hero)) .section h2 {
+  font-size: 1.75rem; /* 28px */
+}
+
+main:not(:has(.hero)) .section h3 {
+  font-size: 1.5rem; /* 24px */
+}
+
+@media (min-width: 768px) {
+  main:not(:has(.hero)) .section h2 {
+    font-size: 2.25rem; /* 36px */
+  }
+
+  main:not(:has(.hero)) .section h3 {
+    font-size: 1.875rem; /* 30px */
+  }
+}
+
+/* Resources page - provider cards */
+main .provider-card p {
+  font-size: 1.0625rem; /* 17px */
+}
+
+/* My Cases page - case information */
+main .section:not(.hero):not(.cta-section) .text-gray-600,
+main .section:not(.hero):not(.cta-section) .text-gray-700 {
+  font-size: 1.0625rem; /* 17px */
+}
+
 /* CSS Custom Properties - Design Tokens */
 :root {
   /* Primary Colors - Deep Trust Blue Scale */
