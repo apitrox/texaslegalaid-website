@@ -169,10 +169,7 @@ General rules:
 
 
 For the `texaslegalaid-website` project make the following changes:
-- At the bottom of the Home page (see image)
-  - make the "Get Started Now" button link to the same thing as the button next to it with the phone number.
-  - put the text message icong in the phone number button to the left of the phone number icon, like it is in the navigation at the top of the page.
-  - In the phone button, make the phone number much larger and bolder to set it apart for the other text label of the button.
+- delete the two cards at the bottom of the `../my-cases.html` page shown in the attached image
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
@@ -181,5 +178,3 @@ General rules:
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - All changes must comply with the specifications contained in `../prompts/application-specifications`.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
-
-/resources.html
