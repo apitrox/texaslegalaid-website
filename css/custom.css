@@ -352,19 +352,27 @@ a:focus {
 }
 
 .carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
+  position: relative;
+  width: 100%;
 }
 
 .carousel-slide {
-  flex: 0 0 100%;
-  min-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.6s ease-in-out;
+  pointer-events: none;
+}
+
+.carousel-slide:first-child {
+  position: relative;
 }
 
 .carousel-slide.active {
   opacity: 1;
+  pointer-events: auto;
 }
 
 /* Carousel dots navigation */

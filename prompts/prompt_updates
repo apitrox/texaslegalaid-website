@@ -169,7 +169,7 @@ General rules:
 
 
 For the `texaslegalaid-website` project make the following changes:
-- in the hero section on the Home page (see attached image), for the gold Call-to-Action button, make the icons and text on the second line of the button label 30% larger. Do not increase the height of the button, rather reduce the amount of space/padding between the first and second lines of label content in the button.
+- in the hero section on the Home page (see attached image), for the carousel, when the carousel transitions from the last (7th) image in the list to the first image make the transition to be the same as the other transitions from image to image.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
