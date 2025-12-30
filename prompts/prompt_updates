@@ -152,7 +152,6 @@ General rules:
 
 
 
-
 For the `texaslegalaid-website` project make the following changes:
 - These updates apply to the footer area. 
 - Under Quick Links, the Provider Portal link does not work. Link it to `../portal/index.html`
@@ -168,8 +167,9 @@ General rules:
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
 
 
+
 For the `texaslegalaid-website` project make the following changes:
-- in the hero section on the Home page (see attached image), reduce the padding around the carousel to about 1/8 inch equivalent
+- in the hero section on the Home page (see attached image), for the gold Call-to-Action button, make the phone number 50% larger, bolder, thicker. Make the text in the button that is under the phone number larger so the width is about the same width as the resized phone number. Significantly reduce the padding around the label in the button to reduce the size of the button relative the the label in the button, so the label in the button fills more of the button and displays less gold background.
 ---
 General rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
