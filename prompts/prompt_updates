@@ -166,3 +166,17 @@ General rules:
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - All changes must comply with the specifications contained in `../prompts/application-specifications`.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `texaslegalaid-website` project make the following changes:
+- On the `../resources.html` page, remove the 3 cards at the bottom of the page and shown in the attached image.
+---
+General rules:
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- All changes must comply with the specifications contained in `../prompts/application-specifications`.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+/resources.html
