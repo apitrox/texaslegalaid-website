@@ -155,8 +155,8 @@ General rules:
 
 For the `texaslegalaid-website` project make the following changes:
 - These updates apply to the footer area. 
-- Referring to the image of the footer I provided, make all the text in the red circle one size smaller. Make the last 2 rows in the middle column, highlighted in yellow, centered in the middle column.
-- Remove the white space around the outside circle of the logo, or use `../images/TLA_Logo_White_Transparent.png` to accomplish this.
+- Under Quick Links, the Provider Portal link does not work. Link it to `../portal/index.html`
+- Remove the white space around the outside circle of the logo.
 - Make the footer of every page identical, except `../portal/..` pages which do not have a footer area. 
 ---
 General rules:
