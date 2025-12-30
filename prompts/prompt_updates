@@ -166,7 +166,7 @@ General rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- Update the content of the Privacy Policy page using the content from the Privacy Policy page at `https://txlrs.org/privacy-policy.html` as a model. Exclude the Contact Us section from the Privacy Policy page on `texaslegalaid-website` application website. Use the same colors, fonts, etc. as we have used on the `texaslegalaid-website` application website to remain consistent.
+- Update the Privacy Policy page at `../privacy-policy.html` by changing the last updated date to November 12, 2025 and removing the Contact Us section (see images)
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
