@@ -76,8 +76,7 @@ main .section:not(.hero):not(.cta-section) .form-error {
   font-size: 0.9375rem; /* 15px, was 14px */
 }
 
-/* Legal Help Areas cards - increase text size */
-main .section:not(.hero):not(.cta-section) .feature-card h3,
+/* Legal Help Areas cards - increase text size (but not feature-card titles) */
 main .section:not(.hero):not(.cta-section) [class*="text-sm"] {
   font-size: 1rem !important; /* 16px, was 14px */
 }
