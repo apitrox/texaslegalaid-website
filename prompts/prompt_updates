@@ -167,7 +167,7 @@ General rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- in the hero section on the Home page `../index.html`, do not pause the carousel when the moouse over.
+- in the hero section on the Home page `../index.html`, do not pause the carousel when the moouse hovers over it. only pause the carousel when the mouse is used to select carousel images by clicking the navigation buttons at the bottom of the carousel.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.

@@ -841,23 +841,12 @@
           }
         }
 
-        // Dot click handlers
+        // Dot click handlers - pause briefly when clicking dots
         dots.forEach((dot, index) => {
           dot.addEventListener('click', () => {
             showSlide(index);
             scheduleNext();
           });
-        });
-
-        // Pause on hover
-        carousel.addEventListener('mouseenter', () => {
-          isPaused = true;
-          clearTimeout(timer);
-        });
-
-        carousel.addEventListener('mouseleave', () => {
-          isPaused = false;
-          scheduleNext();
         });
 
         // Touch support for mobile - pause while touching
