@@ -167,7 +167,8 @@ General rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- Insert a call to action area at the bottom of the My Cases page, `../my-cases.html`, and make this call to action section exactly the same as the call to action section at the bottom of the Get Help page, `../get-help.html`.
+- Update the call to action area at the bottom of the Resources page, `../resources.html`. Change the text from "These resources are helpful, but sometimes you need an attorney. Submit a request and we'll connect you with free legal help." to "These resources are helpful, but sometimes you need an attorney. One of our knowledgeable agents is available to assist you 24/7. Call now.".
+- Change the gold call to action button to be the same as the gold call to action button on the Home page.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
