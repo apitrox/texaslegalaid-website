@@ -167,11 +167,9 @@ General rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- Rewrite the Terms of Use page at `../terms-of-use.html` by using the language found at `https://txlrs.org/terms-of-use.html` (also found in the project `txlrs-website` on page `../terms-of-use.html`). Copy the language word for word with the following exceptions:
-  - Use the name Texas Legal Aid in place of Texas Lawyer Referral Service.
-  - Use network of legal aid providers in plac eof network of lawyers.
-  - update any colors and fonts to be consistent with colors and fonts used on the `texaslegalaid-website` application website
-  - Use the last updated date of November 12, 2025
+- Replace the call to action located at the bottom of the Get Help page, `../get-help.html`, see attached image.
+- Replace it with a call to action section similar to what is on the Home page, `../index.html`, see attached image.
+- The wording on the new call to action on the Get Help page should be "Need Help?", then "If you prefer to speak with someone directly, call us. One of your knowledgable agents is available to take your call 24/7.", then the call to action gold button.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
