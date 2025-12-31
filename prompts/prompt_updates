@@ -167,7 +167,7 @@ General rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- On the Home page `../index.html` on the Wills & Estate card, see attached image, change the description from "Powers of attorney, planning" to "POAs, DNRs, wills, planning"
+- On the Home page `../index.html` in the How It Works section cards, make the title of each card bold and 4 points larger, use the same dark blue that we use for other titles, these are "1. Tell Us Your Situation", "2. Get Matched", and "3. Receive Legal Help".
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
