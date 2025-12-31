@@ -848,12 +848,13 @@ a:focus {
   box-shadow: var(--shadow-md);
   padding: var(--space-lg);
   transition: all var(--transition-normal);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 2px solid rgba(0, 0, 0, 0.05);
 }
 
 .card:hover {
   box-shadow: var(--shadow-xl);
   transform: translateY(-4px);
+  border-color: var(--color-primary-600);
 }
 
 /* Glassmorphism card variant */
