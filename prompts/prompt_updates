@@ -153,6 +153,7 @@ General rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
+- In the footer, before the copyright symbol, put the word "Copyright ", see attached image.
 - Be sure the footer of every page identical to the footer on the Home page, except `../portal/..` pages which do not have a footer area. 
 ---
 General rules:
