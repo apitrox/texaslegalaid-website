@@ -865,7 +865,7 @@ a:focus {
 }
 
 .card-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-primary-700);
   margin-bottom: var(--space-sm);
