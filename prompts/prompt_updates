@@ -167,9 +167,7 @@ General rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- Replace the call to action located at the bottom of the Get Help page, `../get-help.html`, see attached image.
-- Replace it with a call to action section similar to what is on the Home page, `../index.html`, see attached image.
-- The wording on the new call to action on the Get Help page should be "Need Help?", then "If you prefer to speak with someone directly, call us. One of your knowledgable agents is available to take your call 24/7.", then the call to action gold button.
+- Insert a call to action area at the bottom of the My Cases page, `../my-cases.html`, and make this call to action section exactly the same as the call to action section at the bottom of the Get Help page, `../get-help.html`.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
