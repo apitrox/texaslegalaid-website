@@ -153,7 +153,7 @@ General rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- In the footer, before the copyright symbol, put the word "Copyright ", see attached image.
+- In the footer, replace the log with the same logo that is in the hero section on the Home page, see attached images, that is a circle logo with a white interior background.
 - Be sure the footer of every page identical to the footer on the Home page, except `../portal/..` pages which do not have a footer area. 
 ---
 General rules:
