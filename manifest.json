@@ -20,10 +20,10 @@
   ],
   "shortcuts": [
     {
-      "name": "Get Legal Help",
-      "short_name": "Get Help",
+      "name": "Apply Online",
+      "short_name": "Apply Online",
       "description": "Start your legal aid request",
-      "url": "/get-help.html",
+      "url": "/apply-online.html",
       "icons": [
         {
           "src": "/images/icons/shortcut-help.png",

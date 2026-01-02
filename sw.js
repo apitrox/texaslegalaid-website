@@ -10,7 +10,7 @@ const OFFLINE_URL = '/offline.html';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/get-help.html',
+  '/apply-online.html',
   '/my-cases.html',
   '/about.html',
   '/resources.html',

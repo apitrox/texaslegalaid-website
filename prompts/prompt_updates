@@ -182,7 +182,8 @@ General Rules:
 
 /clear
 For the `texaslegalaid-website` application website project make the following changes:
--  on the `../family-help-link.html` page remove the blue "More questions coming soon" section show in the attached image.
+-  In the page navigation area in the header, see attached image, change "Get Help" to "Apply Online". Make this change on all pages and all locations in the application website.
+- Change the name of the file from `../get-help.html` to `../apply-online.html` and change all references to the old filename `../get-help.html` to be to the new filename `../apply-online.html`
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
