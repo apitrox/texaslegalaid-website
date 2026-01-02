@@ -54,6 +54,14 @@
         updateScreeningLabelsStep2();
       });
     });
+
+    // Listen for CPS question changes to show/hide Family Helpline
+    const cpsInputs = form.querySelectorAll('input[name="cps_involved"]');
+    cpsInputs.forEach(input => {
+      input.addEventListener('change', function() {
+        toggleFamilyHelpline();
+      });
+    });
   }
 
   /**
@@ -434,6 +442,26 @@
       }
       if (healthLabel) {
         healthLabel.textContent = 'Does the child have a mental or physical health condition or disability? (required)';
+      }
+    }
+  }
+
+  /**
+   * Toggle Family Helpline visibility based on CPS question answer
+   */
+  function toggleFamilyHelpline() {
+    const cpsAnswer = form.querySelector('input[name="cps_involved"]:checked')?.value;
+    const helplineBox = document.getElementById('family-helpline-box');
+
+    if (helplineBox) {
+      if (cpsAnswer === 'yes') {
+        helplineBox.style.display = 'block';
+        // Scroll to the helpline box
+        setTimeout(() => {
+          helplineBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      } else {
+        helplineBox.style.display = 'none';
       }
     }
   }
