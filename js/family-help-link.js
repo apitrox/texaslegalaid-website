@@ -189,6 +189,43 @@
   }
 
   /**
+   * Restore data to current step from saved formData
+   */
+  function restoreStepData(stepElement) {
+    const inputs = stepElement.querySelectorAll('input, select, textarea');
+
+    inputs.forEach(input => {
+      const savedValue = formData[input.name];
+
+      if (savedValue === undefined || savedValue === null) {
+        return; // No saved data for this field
+      }
+
+      if (input.type === 'radio') {
+        // Check radio button if its value matches saved value
+        if (input.value === savedValue) {
+          input.checked = true;
+        }
+      } else if (input.type === 'checkbox') {
+        // Check checkbox if its value is in the saved array
+        if (Array.isArray(savedValue) && savedValue.includes(input.value)) {
+          input.checked = true;
+        }
+      } else if (input.tagName === 'SELECT' && input.multiple) {
+        // Select multiple options
+        if (Array.isArray(savedValue)) {
+          Array.from(input.options).forEach(option => {
+            option.selected = savedValue.includes(option.value);
+          });
+        }
+      } else {
+        // Text, textarea, select (single)
+        input.value = savedValue;
+      }
+    });
+  }
+
+  /**
    * Determine next step based on current answers
    */
   function determineNextStep() {
@@ -246,10 +283,25 @@
       // Update screen reader announcement
       announceStep(stepNumber);
 
+      // Restore form selections from saved data
+      restoreStepData(stepElement);
+
       // Scroll to top of form
       stepElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-      // Special handling for step 3 (screening questions)
+      // Special handling for step 2b (who needs help with screening questions)
+      if (stepNumber === '2b') {
+        // Restore screening questions visibility and parent question
+        const applicantType = formData.applicant_type;
+        if (applicantType) {
+          showScreeningQuestions();
+          updateScreeningLabelsStep2();
+        }
+        // Restore Family Helpline visibility based on saved CPS answer
+        toggleFamilyHelpline();
+      }
+
+      // Special handling for step 3 (screening questions - deprecated but kept for compatibility)
       if (stepNumber === '3') {
         updateStep3Display();
       }
