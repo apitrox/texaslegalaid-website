@@ -166,8 +166,9 @@ General rules:
 
 
 
+/clear
 For the `texaslegalaid-website` application website project make the following changes:
-- On the Home page `../index.html` in the How It Works section cards, make the title of each card Larger font size, these are "1. Tell Us Your Situation", "2. Get Matched", and "3. Receive Legal Help".
+- Prevent the Wayback Machine, or `https://web.archive.org/` or `https://archive.org/`, from crawling, searching, reading, archiving, saving or indexing the site (this includes all pages on the site)
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
@@ -179,8 +180,9 @@ General Rules:
 
 
 
+/clear
 For the `texaslegalaid-website` application website project make the following changes:
-- Prevent the Wayback Machine, or `https://web.archive.org/` or `https://archive.org/`, from crawling, searching, reading, archiving, saving or indexing the site (this includes all pages on the site)
+-  on the `../family-help-link.html` page remove the blue "More questions coming soon" section show in the attached image.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
