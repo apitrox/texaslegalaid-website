@@ -302,6 +302,122 @@
               </div>
             </div>
 
+            <!-- Screening Questions (shown after selecting applicant type) -->
+            <div id="screening-questions-container" style="display: none;">
+
+              <!-- Conditional question for caregivers only -->
+              <div class="bg-secondary-100 rounded-lg p-6 mb-6" id="parent-question-step2" style="display: none;">
+                <label class="block text-lg font-semibold text-primary-700 mb-4">Are you the parent of the child? (required)</label>
+
+                <div class="space-y-3">
+                  <label
+                    class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                    <input type="radio" name="is_parent" value="yes" class="w-5 h-5 accent-primary-600">
+                    <span class="ml-3 text-base">Yes</span>
+                  </label>
+
+                  <label
+                    class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                    <input type="radio" name="is_parent" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="ml-3 text-base">No</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Foster care experience -->
+              <div class="bg-secondary-100 rounded-lg p-6 mb-6">
+                <label class="block text-lg font-semibold text-primary-700 mb-4" id="foster-care-label-step2">Have you had any experience in foster care? (required)</label>
+
+                <div class="space-y-3">
+                  <label
+                    class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                    <input type="radio" name="foster_care" value="yes" class="w-5 h-5 accent-primary-600" required>
+                    <span class="ml-3 text-base">Yes</span>
+                  </label>
+
+                  <label
+                    class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                    <input type="radio" name="foster_care" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="ml-3 text-base">No</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- CPS involvement -->
+              <div class="bg-secondary-100 rounded-lg p-6 mb-6">
+                <label class="block text-lg font-semibold text-primary-700 mb-4">Is CPS (Child Protective Services or Child Protective Investigations) involved with your family right now? (required)</label>
+
+                <div class="space-y-3">
+                  <label
+                    class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                    <input type="radio" name="cps_involved" value="yes" class="w-5 h-5 accent-primary-600" required>
+                    <span class="ml-3 text-base">Yes</span>
+                  </label>
+
+                  <label
+                    class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                    <input type="radio" name="cps_involved" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="ml-3 text-base">No</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Family Helpline Info Box -->
+              <div class="alert alert-info mb-6">
+                <svg class="alert-icon" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd" />
+                </svg>
+                <div class="alert-content">
+                  <p class="alert-title font-bold text-lg">Family Helpline</p>
+                  <p class="mb-2">Speak with an experienced child welfare attorney about Child Protective Services (CPS) issues in Texas. Our attorneys will make sure you know your rights and understand your legal options.</p>
+                  <p class="mb-2">All calls are anonymous. To protect your identity, referrals will not be made through Family Help Link. <strong>Instead, call the Family Helpline directly at <a href="tel:8448885565" class="font-bold underline">844-888-5565</a>.</strong></p>
+                  <p class="mb-2"><strong>Hours:</strong> Monday - Friday, 9:00 AM - 6:00 PM</p>
+                  <p class="text-sm">The Family Helpline provides free legal information and can connect you with resources and referrals. However, the Family Helpline cannot represent you in court.</p>
+                </div>
+              </div>
+
+              <!-- Violence/abuse -->
+              <div class="bg-secondary-100 rounded-lg p-6 mb-6">
+                <label class="block text-lg font-semibold text-primary-700 mb-4" id="violence-label-step2">Have you been the victim of family violence, child abuse, or sexual violence? (required)</label>
+
+                <div class="space-y-3">
+                  <label
+                    class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                    <input type="radio" name="violence_victim" value="yes" class="w-5 h-5 accent-primary-600" required>
+                    <span class="ml-3 text-base">Yes</span>
+                  </label>
+
+                  <label
+                    class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                    <input type="radio" name="violence_victim" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="ml-3 text-base">No</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Health condition/disability -->
+              <div class="bg-secondary-100 rounded-lg p-6 mb-6">
+                <label class="block text-lg font-semibold text-primary-700 mb-4" id="health-label-step2">Do you have a mental or physical health condition or disability? (required)</label>
+
+                <div class="space-y-3">
+                  <label
+                    class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                    <input type="radio" name="health_condition" value="yes" class="w-5 h-5 accent-primary-600" required>
+                    <span class="ml-3 text-base">Yes</span>
+                  </label>
+
+                  <label
+                    class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                    <input type="radio" name="health_condition" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="ml-3 text-base">No</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
             <div class="flex justify-between">
               <button type="button" class="btn btn-outline" data-step-back>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

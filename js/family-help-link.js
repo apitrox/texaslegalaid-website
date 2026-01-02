@@ -46,10 +46,13 @@
       showResourcesBtn.addEventListener('click', handleShowResources);
     }
 
-    // Listen for applicant type changes to update Step 3 labels
+    // Listen for applicant type changes to show screening questions and update labels
     const applicantTypeInputs = form.querySelectorAll('input[name="applicant_type"]');
     applicantTypeInputs.forEach(input => {
-      input.addEventListener('change', updateScreeningLabels);
+      input.addEventListener('change', function() {
+        showScreeningQuestions();
+        updateScreeningLabelsStep2();
+      });
     });
   }
 
@@ -185,15 +188,15 @@
       // From Welcome page
       const termsAgreement = formData.terms_agreement;
       if (termsAgreement === 'yes') {
-        return '2b'; // Go to "Who needs help" page
+        return '2b'; // Go to "Who needs help" page (which now includes screening questions)
       } else if (termsAgreement === 'no') {
         return '2a'; // Go to "Self-help resources" page
       }
     } else if (currentStep === '2b') {
-      // From "Who needs help" page
-      return '3'; // Go to screening questions
+      // From "Who needs help" page (now includes screening questions)
+      return '4'; // Go directly to legal issue category
     } else if (currentStep === '3') {
-      // From screening questions
+      // From screening questions (Step 3 is now deprecated but kept for backward compatibility)
       return '4'; // Go to legal issue category
     }
 
@@ -326,6 +329,78 @@
 
     // Update question labels based on applicant type
     updateScreeningLabels();
+  }
+
+  /**
+   * Show screening questions in Step 2 when applicant type is selected
+   */
+  function showScreeningQuestions() {
+    const applicantType = form.querySelector('input[name="applicant_type"]:checked')?.value;
+    const screeningContainer = document.getElementById('screening-questions-container');
+    const parentQuestionStep2 = document.getElementById('parent-question-step2');
+
+    if (applicantType && screeningContainer) {
+      // Show the screening questions container
+      screeningContainer.style.display = 'block';
+
+      // Show/hide parent question based on applicant type
+      if (parentQuestionStep2) {
+        if (applicantType === 'caregiver') {
+          parentQuestionStep2.style.display = 'block';
+          // Make parent question required
+          const parentInputs = parentQuestionStep2.querySelectorAll('input[name="is_parent"]');
+          parentInputs.forEach(input => input.required = true);
+        } else {
+          parentQuestionStep2.style.display = 'none';
+          // Make parent question not required
+          const parentInputs = parentQuestionStep2.querySelectorAll('input[name="is_parent"]');
+          parentInputs.forEach(input => {
+            input.required = false;
+            input.checked = false;
+          });
+        }
+      }
+
+      // Scroll to the screening questions
+      setTimeout(() => {
+        screeningContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+  }
+
+  /**
+   * Update screening question labels in Step 2 based on applicant type
+   */
+  function updateScreeningLabelsStep2() {
+    const applicantType = form.querySelector('input[name="applicant_type"]:checked')?.value;
+
+    const fosterCareLabelStep2 = document.getElementById('foster-care-label-step2');
+    const violenceLabelStep2 = document.getElementById('violence-label-step2');
+    const healthLabelStep2 = document.getElementById('health-label-step2');
+
+    if (applicantType === 'myself') {
+      // Youth/young adult applying for themselves
+      if (fosterCareLabelStep2) {
+        fosterCareLabelStep2.textContent = 'Have you had any experience in foster care? (required)';
+      }
+      if (violenceLabelStep2) {
+        violenceLabelStep2.textContent = 'Have you been the victim of family violence, child abuse, or sexual violence? (required)';
+      }
+      if (healthLabelStep2) {
+        healthLabelStep2.textContent = 'Do you have a mental or physical health condition or disability? (required)';
+      }
+    } else if (applicantType === 'caregiver') {
+      // Caregiver applying on behalf of child
+      if (fosterCareLabelStep2) {
+        fosterCareLabelStep2.textContent = 'Have you or the child in your care had any experience in foster care? (required)';
+      }
+      if (violenceLabelStep2) {
+        violenceLabelStep2.textContent = 'Have you or a child in your care been the victim of family violence, child abuse, or sexual violence? (required)';
+      }
+      if (healthLabelStep2) {
+        healthLabelStep2.textContent = 'Does the child have a mental or physical health condition or disability? (required)';
+      }
+    }
   }
 
   /**
