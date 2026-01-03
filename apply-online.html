@@ -273,6 +273,23 @@
               </label>
             </div>
 
+            <!-- Age Question (Only for Public Benefits) -->
+            <div id="age-question" class="mb-6" style="display: none;">
+              <fieldset>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Are you 60 years of age or older?<span class="text-red-600">*</span></legend>
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="age_60_or_older" value="yes" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Yes</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="age_60_or_older" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">No</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
             <div class="flex justify-end">
               <button type="button" class="btn btn-primary" data-step-next id="step1-continue" disabled>
                 Continue
@@ -614,15 +631,53 @@
   <!-- Step 1 Continue Button Enable Script -->
   <script>
     // Enable Continue button on Step 1 when a legal area is selected
+    // Show age question only when Public Benefits is selected
     document.addEventListener('DOMContentLoaded', function() {
       const legalAreaInputs = document.querySelectorAll('input[name="legal_area"]');
       const step1ContinueBtn = document.getElementById('step1-continue');
+      const ageQuestion = document.getElementById('age-question');
+      const ageInputs = document.querySelectorAll('input[name="age_60_or_older"]');
+
+      // Function to check if Continue should be enabled
+      function updateContinueButton() {
+        const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+        if (!selectedLegalArea) {
+          step1ContinueBtn.disabled = true;
+          return;
+        }
+
+        // If Public Benefits is selected, require age question to be answered
+        if (selectedLegalArea.value === 'benefits') {
+          const ageSelected = document.querySelector('input[name="age_60_or_older"]:checked');
+          step1ContinueBtn.disabled = !ageSelected;
+        } else {
+          step1ContinueBtn.disabled = false;
+        }
+      }
 
       if (legalAreaInputs.length > 0 && step1ContinueBtn) {
         legalAreaInputs.forEach(input => {
           input.addEventListener('change', function() {
-            step1ContinueBtn.disabled = false;
+            // Show age question only for Public Benefits
+            if (this.value === 'benefits') {
+              ageQuestion.style.display = 'block';
+              // Make age question required
+              ageInputs.forEach(ageInput => ageInput.setAttribute('required', ''));
+            } else {
+              ageQuestion.style.display = 'none';
+              // Remove required attribute and clear selection
+              ageInputs.forEach(ageInput => {
+                ageInput.removeAttribute('required');
+                ageInput.checked = false;
+              });
+            }
+            updateContinueButton();
           });
+        });
+
+        // Also listen for changes on age question
+        ageInputs.forEach(input => {
+          input.addEventListener('change', updateContinueButton);
         });
       }
     });
