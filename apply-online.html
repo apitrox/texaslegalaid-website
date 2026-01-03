@@ -671,6 +671,79 @@
             </div>
           </div>
 
+          <!-- Step: Household Info (for Public Benefits + Age No + Medicare No path) -->
+          <div class="form-step" data-step="household" id="step-household-info" style="display: none;">
+            <h2 class="text-xl font-bold text-primary-700 mb-4">Household Information</h2>
+            <p class="text-gray-600 mb-6">Please provide information about your household.</p>
+
+            <div class="form-group">
+              <label for="household_size" class="form-label form-label-required">
+                How many persons are in your household?
+                <span class="help-icon" aria-label="Help">?<span class="tooltip">This is the total number of people, adults and children, who live in your household. If one of the people who live in the household pays child support for any child/ren that do not live in the household, also include that child/ren.</span></span>
+              </label>
+              <select id="household_size" name="household_size" class="form-control form-select" required>
+                <option value="">Select household size...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="household_income" class="form-label form-label-required">
+                What is your monthly household income?
+                <span class="help-icon" aria-label="Help">?<span class="tooltip">This is the total amount of income earned on average, per month, from all people who live in your household. This is gross income, before deduction of any taxes, withholdings, etc.</span></span>
+              </label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                <input type="number" id="household_income" name="household_income" class="form-control pl-7"
+                  min="0" max="400000" step="1" required placeholder="0">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="p-4 bg-primary-50 rounded-lg border border-primary-200">
+                <p class="text-lg font-semibold text-primary-800">
+                  Poverty percent: <span id="poverty-percent-display">--</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex justify-between">
+              <button type="button" class="btn btn-outline" id="household-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="household-submit-btn">
+                Submit Form
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
           <!-- Step 3: Details (for other paths) -->
           <div class="form-step" data-step="3" style="display: none;">
             <h2 class="text-xl font-bold text-primary-700 mb-4">Tell us more about your situation</h2>
@@ -1220,6 +1293,171 @@
           // Show urgent notification and Family Help Link card again
           if (urgentNotification) urgentNotification.style.display = 'flex';
           if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+
+          // Scroll to top
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+    });
+  </script>
+
+  <!-- Public Benefits Household Info Flow Script (for Age No + Medicare No path) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const step1ContinueBtn = document.getElementById('step1-continue');
+      const stepHouseholdInfo = document.getElementById('step-household-info');
+      const stepThankYou = document.getElementById('step-thank-you');
+      const step1 = document.querySelector('[data-step="1"]');
+      const urgentNotification = document.getElementById('urgent-notification');
+      const familyHelpLinkCard = document.getElementById('family-help-link-card');
+      const householdBackBtn = document.getElementById('household-back-btn');
+      const householdSubmitBtn = document.getElementById('household-submit-btn');
+      const householdSizeSelect = document.getElementById('household_size');
+      const householdIncomeInput = document.getElementById('household_income');
+      const povertyPercentDisplay = document.getElementById('poverty-percent-display');
+
+      // Store poverty guideline data
+      let povertyGuidelines = {};
+      let calculatedPovertyPercent = null;
+
+      // Fetch poverty guidelines from HHS API
+      async function fetchPovertyGuideline(year, householdSize) {
+        try {
+          const response = await fetch(`https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines/api/${year}/US/${householdSize}`);
+          if (response.ok) {
+            const data = await response.json();
+            // The API returns the annual poverty guideline
+            // We need to convert to monthly by dividing by 12
+            if (data && data.data && data.data.income) {
+              return data.data.income / 12;
+            }
+          }
+          return null;
+        } catch (error) {
+          console.log(`Error fetching poverty guideline for year ${year}:`, error);
+          return null;
+        }
+      }
+
+      // Calculate poverty percent
+      async function calculatePovertyPercent() {
+        const householdSize = parseInt(householdSizeSelect.value);
+        const monthlyIncome = parseFloat(householdIncomeInput.value);
+
+        if (!householdSize || isNaN(monthlyIncome)) {
+          povertyPercentDisplay.textContent = '--';
+          calculatedPovertyPercent = null;
+          return;
+        }
+
+        // Try current year first, then previous year
+        const currentYear = new Date().getFullYear();
+        let monthlyPovertyLevel = await fetchPovertyGuideline(currentYear, householdSize);
+
+        if (!monthlyPovertyLevel) {
+          // Try previous year
+          monthlyPovertyLevel = await fetchPovertyGuideline(currentYear - 1, householdSize);
+        }
+
+        if (monthlyPovertyLevel) {
+          // Calculate poverty percent: (income / poverty level) * 100
+          calculatedPovertyPercent = Math.round((monthlyIncome / monthlyPovertyLevel) * 100);
+          povertyPercentDisplay.textContent = calculatedPovertyPercent + '%';
+        } else {
+          // Fallback to 2024 federal poverty guidelines for 48 contiguous states
+          // These are annual amounts, divide by 12 for monthly
+          const fallbackPovertyLevels = {
+            1: 15060, 2: 20440, 3: 25820, 4: 31200, 5: 36580,
+            6: 41960, 7: 47340, 8: 52720
+          };
+          // For households > 8, add $5,380 per additional person
+          let annualPovertyLevel;
+          if (householdSize <= 8) {
+            annualPovertyLevel = fallbackPovertyLevels[householdSize];
+          } else {
+            annualPovertyLevel = fallbackPovertyLevels[8] + (householdSize - 8) * 5380;
+          }
+          const monthlyFallback = annualPovertyLevel / 12;
+          calculatedPovertyPercent = Math.round((monthlyIncome / monthlyFallback) * 100);
+          povertyPercentDisplay.textContent = calculatedPovertyPercent + '%';
+        }
+      }
+
+      // Listen for changes to household size and income
+      if (householdSizeSelect) {
+        householdSizeSelect.addEventListener('change', calculatePovertyPercent);
+      }
+      if (householdIncomeInput) {
+        householdIncomeInput.addEventListener('input', calculatePovertyPercent);
+      }
+
+      // Override Step 1 Continue for Public Benefits + Age No + Medicare No path
+      if (step1ContinueBtn) {
+        step1ContinueBtn.addEventListener('click', function(e) {
+          const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+          const ageSelected = document.querySelector('input[name="age_60_or_older"]:checked');
+          const medicareSelected = document.querySelector('input[name="has_medicare"]:checked');
+
+          // If Public Benefits + Age 60+ = No + Medicare = No, go to Household Info step
+          if (selectedLegalArea && selectedLegalArea.value === 'benefits' &&
+              ageSelected && ageSelected.value === 'no' &&
+              medicareSelected && medicareSelected.value === 'no') {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Hide Step 1, show Household Info step
+            step1.style.display = 'none';
+            stepHouseholdInfo.style.display = 'block';
+
+            // Hide urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'none';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
+
+            // Scroll to top of form
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Handle Back button on Household Info step
+      if (householdBackBtn) {
+        householdBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          // Hide Household Info step, show Step 1
+          stepHouseholdInfo.style.display = 'none';
+          step1.style.display = 'block';
+
+          // Show urgent notification and Family Help Link card again
+          if (urgentNotification) urgentNotification.style.display = 'flex';
+          if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+
+          // Scroll to top
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Handle Submit Form button on Household Info step
+      if (householdSubmitBtn) {
+        householdSubmitBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          // Validate required fields
+          if (!householdSizeSelect.value) {
+            householdSizeSelect.focus();
+            return;
+          }
+          if (!householdIncomeInput.value || isNaN(parseFloat(householdIncomeInput.value))) {
+            householdIncomeInput.focus();
+            return;
+          }
+
+          // Store poverty percent in a global variable for form submission
+          window.calculatedPovertyPercent = calculatedPovertyPercent;
+
+          // Hide Household Info step, show Thank You
+          stepHouseholdInfo.style.display = 'none';
+          stepThankYou.style.display = 'block';
 
           // Scroll to top
           document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
