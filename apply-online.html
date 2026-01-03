@@ -708,21 +708,37 @@
 
             <div class="form-group">
               <label for="household_income" class="form-label form-label-required">
-                What is your monthly household income?
-                <span class="help-icon" aria-label="Help">?<span class="tooltip">This is the total amount of income earned on average, per month, from all people who live in your household. This is gross income, before deduction of any taxes, withholdings, etc.</span></span>
+                What is your household income?
+                <span class="help-icon" aria-label="Help">?<span class="tooltip">This is the total amount of income earned on average from all people who live in your household. This is gross income, before deducting any taxes, withholdings, etc.</span></span>
               </label>
-              <div class="relative">
-                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
-                <input type="number" id="household_income" name="household_income" class="form-control pl-7"
-                  min="0" max="400000" step="1" required placeholder="0">
+              <div class="flex gap-3">
+                <div class="relative flex-1">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                  <input type="number" id="household_income" name="household_income" class="form-control pl-7"
+                    min="0" max="400000" step="1" required placeholder="0">
+                </div>
+                <select id="income_frequency" name="income_frequency" class="form-control form-select w-auto" required>
+                  <option value="monthly">Monthly</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
               </div>
             </div>
 
             <div class="form-group">
               <div class="p-4 bg-primary-50 rounded-lg border border-primary-200">
-                <p class="text-lg font-semibold text-primary-800">
+                <p class="text-base text-primary-800 mb-1">
+                  Annual household income: <span id="annual-income-display" class="font-semibold">--</span>
+                </p>
+                <p class="text-lg font-semibold text-primary-800 mb-2">
                   Poverty percent: <span id="poverty-percent-display">--</span>
                 </p>
+                <a href="https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-sm text-primary-600 hover:text-primary-800 underline">
+                  HHS Poverty Guidelines
+                </a>
               </div>
             </div>
 
@@ -1658,7 +1674,9 @@
       const householdContinueBtn = document.getElementById('household-continue-btn');
       const householdSizeSelect = document.getElementById('household_size');
       const householdIncomeInput = document.getElementById('household_income');
+      const incomeFrequencySelect = document.getElementById('income_frequency');
       const povertyPercentDisplay = document.getElementById('poverty-percent-display');
+      const annualIncomeDisplay = document.getElementById('annual-income-display');
 
       // Contact Info step elements
       const contactBackBtn = document.getElementById('pb-nm-contact-back-btn');
@@ -1690,53 +1708,77 @@
       // Calculate poverty percent
       async function calculatePovertyPercent() {
         const householdSize = parseInt(householdSizeSelect.value);
-        const monthlyIncome = parseFloat(householdIncomeInput.value);
+        const incomeValue = parseFloat(householdIncomeInput.value);
+        const frequency = incomeFrequencySelect ? incomeFrequencySelect.value : 'monthly';
 
-        if (!householdSize || isNaN(monthlyIncome)) {
+        if (!householdSize || isNaN(incomeValue)) {
           povertyPercentDisplay.textContent = '--';
+          if (annualIncomeDisplay) annualIncomeDisplay.textContent = '--';
           calculatedPovertyPercent = null;
           return;
         }
 
-        // Try current year first, then previous year
-        const currentYear = new Date().getFullYear();
-        let monthlyPovertyLevel = await fetchPovertyGuideline(currentYear, householdSize);
-
-        if (!monthlyPovertyLevel) {
-          // Try previous year
-          monthlyPovertyLevel = await fetchPovertyGuideline(currentYear - 1, householdSize);
+        // Convert income to annual based on frequency
+        let annualIncome;
+        if (frequency === 'weekly') {
+          annualIncome = incomeValue * 52;
+        } else if (frequency === 'monthly') {
+          annualIncome = incomeValue * 12;
+        } else {
+          // yearly
+          annualIncome = incomeValue;
         }
 
-        if (monthlyPovertyLevel) {
-          // Calculate poverty percent: (income / poverty level) * 100
-          calculatedPovertyPercent = Math.round((monthlyIncome / monthlyPovertyLevel) * 100);
+        // Display annual income
+        if (annualIncomeDisplay) {
+          annualIncomeDisplay.textContent = '$' + Math.round(annualIncome).toLocaleString();
+        }
+
+        // Try current year first, then previous year
+        const currentYear = new Date().getFullYear();
+        let annualPovertyLevel = await fetchPovertyGuideline(currentYear, householdSize);
+
+        if (!annualPovertyLevel) {
+          // Try previous year
+          annualPovertyLevel = await fetchPovertyGuideline(currentYear - 1, householdSize);
+        }
+
+        // Note: fetchPovertyGuideline returns monthly value (divided by 12), so multiply back
+        if (annualPovertyLevel) {
+          annualPovertyLevel = annualPovertyLevel * 12;
+        }
+
+        if (annualPovertyLevel) {
+          // Calculate poverty percent: (annual income / annual poverty level) * 100
+          calculatedPovertyPercent = Math.round((annualIncome / annualPovertyLevel) * 100);
           povertyPercentDisplay.textContent = calculatedPovertyPercent + '%';
         } else {
           // Fallback to 2024 federal poverty guidelines for 48 contiguous states
-          // These are annual amounts, divide by 12 for monthly
           const fallbackPovertyLevels = {
             1: 15060, 2: 20440, 3: 25820, 4: 31200, 5: 36580,
             6: 41960, 7: 47340, 8: 52720
           };
           // For households > 8, add $5,380 per additional person
-          let annualPovertyLevel;
+          let fallbackAnnualLevel;
           if (householdSize <= 8) {
-            annualPovertyLevel = fallbackPovertyLevels[householdSize];
+            fallbackAnnualLevel = fallbackPovertyLevels[householdSize];
           } else {
-            annualPovertyLevel = fallbackPovertyLevels[8] + (householdSize - 8) * 5380;
+            fallbackAnnualLevel = fallbackPovertyLevels[8] + (householdSize - 8) * 5380;
           }
-          const monthlyFallback = annualPovertyLevel / 12;
-          calculatedPovertyPercent = Math.round((monthlyIncome / monthlyFallback) * 100);
+          calculatedPovertyPercent = Math.round((annualIncome / fallbackAnnualLevel) * 100);
           povertyPercentDisplay.textContent = calculatedPovertyPercent + '%';
         }
       }
 
-      // Listen for changes to household size and income
+      // Listen for changes to household size, income, and frequency
       if (householdSizeSelect) {
         householdSizeSelect.addEventListener('change', calculatePovertyPercent);
       }
       if (householdIncomeInput) {
         householdIncomeInput.addEventListener('input', calculatePovertyPercent);
+      }
+      if (incomeFrequencySelect) {
+        incomeFrequencySelect.addEventListener('change', calculatePovertyPercent);
       }
 
       // Override Step 1 Continue for Public Benefits + Age No + Medicare No path
