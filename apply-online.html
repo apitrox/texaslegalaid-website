@@ -718,8 +718,8 @@
                     min="0" max="400000" step="1" required placeholder="0">
                 </div>
                 <select id="income_frequency" name="income_frequency" class="form-control form-select w-auto" required>
-                  <option value="monthly">Monthly</option>
                   <option value="weekly">Weekly</option>
+                  <option value="monthly" selected>Monthly</option>
                   <option value="yearly">Yearly</option>
                 </select>
               </div>
@@ -730,8 +730,8 @@
                 <p class="text-base text-primary-800 mb-1">
                   Annual household income: <span id="annual-income-display" class="font-semibold">--</span>
                 </p>
-                <p class="text-lg font-semibold text-primary-800 mb-2">
-                  Poverty percent: <span id="poverty-percent-display">--</span>
+                <p class="text-lg text-primary-800 mb-2">
+                  Poverty percent: <span id="poverty-percent-display" class="font-semibold">--</span>
                 </p>
                 <a href="https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines"
                    target="_blank"
