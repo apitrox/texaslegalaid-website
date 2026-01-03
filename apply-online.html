@@ -1753,8 +1753,17 @@
             e.preventDefault();
             e.stopPropagation();
 
-            // Hide Step 1, show Household Info step
+            // Hide Step 1 and any other steps that might be showing
             step1.style.display = 'none';
+
+            // Explicitly hide the Age 60+ Contact Info step (step-pb-contact) to prevent overlap
+            const stepPbContact = document.getElementById('step-pb-contact');
+            if (stepPbContact) stepPbContact.style.display = 'none';
+
+            // Hide the No Medicare Contact Info step as well
+            if (stepContactInfo) stepContactInfo.style.display = 'none';
+
+            // Show Household Info step
             stepHouseholdInfo.style.display = 'block';
 
             // Hide urgent notification and Family Help Link card
@@ -1803,8 +1812,15 @@
           // Store poverty percent in a global variable for form submission
           window.calculatedPovertyPercent = calculatedPovertyPercent;
 
-          // Hide Household Info step, show Contact Info step
+          // Hide Household Info step and any other steps
           stepHouseholdInfo.style.display = 'none';
+          step1.style.display = 'none';
+
+          // Explicitly hide the Age 60+ Contact Info step to prevent overlap
+          const stepPbContact = document.getElementById('step-pb-contact');
+          if (stepPbContact) stepPbContact.style.display = 'none';
+
+          // Show Contact Info step
           stepContactInfo.style.display = 'block';
 
           // Scroll to top
@@ -1817,8 +1833,13 @@
         contactBackBtn.addEventListener('click', function(e) {
           e.preventDefault();
 
-          // Hide Contact Info step, show Household Info step
+          // Hide all steps first
           stepContactInfo.style.display = 'none';
+          step1.style.display = 'none';
+          const stepPbContact = document.getElementById('step-pb-contact');
+          if (stepPbContact) stepPbContact.style.display = 'none';
+
+          // Show Household Info step
           stepHouseholdInfo.style.display = 'block';
 
           // Scroll to top
@@ -1849,8 +1870,14 @@
             return;
           }
 
-          // Hide Contact Info step, show Thank You
+          // Hide all steps
           stepContactInfo.style.display = 'none';
+          stepHouseholdInfo.style.display = 'none';
+          step1.style.display = 'none';
+          const stepPbContact = document.getElementById('step-pb-contact');
+          if (stepPbContact) stepPbContact.style.display = 'none';
+
+          // Show Thank You
           stepThankYou.style.display = 'block';
 
           // Scroll to top
