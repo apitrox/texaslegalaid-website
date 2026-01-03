@@ -207,6 +207,16 @@
           }
         });
 
+        // Show urgent notification and Family Help Link only on step 1
+        const urgentNotification = document.getElementById('urgent-notification');
+        const familyHelpLinkCard = document.getElementById('family-help-link-card');
+        if (urgentNotification) {
+          urgentNotification.style.display = stepIndex === 0 ? 'flex' : 'none';
+        }
+        if (familyHelpLinkCard) {
+          familyHelpLinkCard.style.display = stepIndex === 0 ? 'block' : 'none';
+        }
+
         // Announce step change for screen readers
         const announcement = document.querySelector('.step-announcement');
         if (announcement) {

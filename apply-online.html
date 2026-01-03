@@ -135,7 +135,8 @@
       <div class="container max-w-2xl">
 
         <!-- Urgency Check -->
-        <div class="alert alert-warning mb-6">
+        <!-- Urgent Notification - Only shown on Step 1 -->
+        <div id="urgent-notification" class="alert alert-warning mb-6">
           <svg class="alert-icon" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
             <path fill-rule="evenodd"
               d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
@@ -147,8 +148,8 @@
           </div>
         </div>
 
-        <!-- Texas Family Help Link Card -->
-        <a href="family-help-link.html" class="block mb-8 no-underline group" aria-label="Go to Texas Family Help Link application">
+        <!-- Texas Family Help Link Card - Only shown on Step 1 -->
+        <a id="family-help-link-card" href="family-help-link.html" class="block mb-8 no-underline group" aria-label="Go to Texas Family Help Link application">
           <div class="card bg-white border-2 border-gray-200 hover:border-primary-300 hover:shadow-xl transition-all duration-300 p-6">
             <div class="flex flex-col gap-4">
               <div>
@@ -167,28 +168,7 @@
           </div>
         </a>
 
-        <!-- Progress Steps -->
-        <div class="progress-steps mb-8" aria-label="Form progress">
-          <div class="progress-step is-active">
-            <div class="progress-step-number">1</div>
-            <span class="progress-step-label hidden sm:block">Your Issue</span>
-          </div>
-          <div class="progress-step">
-            <div class="progress-step-number">2</div>
-            <span class="progress-step-label hidden sm:block">Details</span>
-          </div>
-          <div class="progress-step">
-            <div class="progress-step-number">3</div>
-            <span class="progress-step-label hidden sm:block">Contact</span>
-          </div>
-          <div class="progress-step">
-            <div class="progress-step-number">4</div>
-            <span class="progress-step-label hidden sm:block">Review</span>
-          </div>
-        </div>
-
-        <!-- Screen Reader Step Announcement -->
-        <div class="step-announcement sr-only" aria-live="polite">Step 1 of 4</div>
+<!-- Progress bar removed per design requirements -->
 
         <!-- Intake Form -->
         <form id="intake-form" data-validate data-multi-step data-form-name="intake" action="/api/intake" method="POST"
@@ -349,7 +329,7 @@
                 <option value="legal_aid">Another Legal Aid Organization</option>
                 <option value="court">Court or Legal System</option>
                 <option value="community">Community Organization</option>
-                <option value="advertisement">Advertisement</option>
+                <option value="referred_professional">Referred by an attorney, doctor, counselor, or other professional</option>
                 <option value="other">Other</option>
               </select>
             </div>
@@ -1166,6 +1146,8 @@
       const stepPbContact = document.getElementById('step-pb-contact');
       const stepThankYou = document.getElementById('step-thank-you');
       const step1 = document.querySelector('[data-step="1"]');
+      const urgentNotification = document.getElementById('urgent-notification');
+      const familyHelpLinkCard = document.getElementById('family-help-link-card');
 
       // Override Step 1 Continue for Public Benefits + Age 60+ = Yes path
       if (step1ContinueBtn) {
@@ -1182,6 +1164,10 @@
             // Hide Step 1, show Step 2 (pb-contact)
             step1.style.display = 'none';
             stepPbContact.style.display = 'block';
+
+            // Hide urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'none';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
 
             // Scroll to top of form
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
@@ -1230,6 +1216,10 @@
           // Hide Step 2, show Step 1
           stepPbContact.style.display = 'none';
           step1.style.display = 'block';
+
+          // Show urgent notification and Family Help Link card again
+          if (urgentNotification) urgentNotification.style.display = 'flex';
+          if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
 
           // Scroll to top
           document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
