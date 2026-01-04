@@ -767,19 +767,19 @@
 
           <!-- Step: Crime Victim Question (for poverty <= 200%) -->
           <div class="form-step" data-step="crime-victim" id="step-crime-victim" style="display: none;">
-            <div class="form-group">
-              <label class="form-label form-label-required">Were you a victim of a violent crime and need assistance applying for crime victims' compensation?</label>
-              <div class="radio-group mt-3">
-                <label class="radio-label">
-                  <input type="radio" name="crime_victim" value="yes" required>
-                  <span>Yes</span>
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Were you a victim of a violent crime and need assistance applying for crime victims' compensation?<span class="text-red-600">*</span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="crime_victim" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
                 </label>
-                <label class="radio-label">
-                  <input type="radio" name="crime_victim" value="no">
-                  <span>No</span>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="crime_victim" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
                 </label>
               </div>
-            </div>
+            </fieldset>
 
             <div class="flex justify-between mt-8">
               <button type="button" class="btn btn-outline" id="crime-victim-back-btn">
@@ -787,29 +787,29 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                 </svg>
-                Previous
+                Back
               </button>
               <button type="button" class="btn btn-primary" id="crime-victim-continue-btn" disabled>
-                Submit Form
+                Continue
               </button>
             </div>
           </div>
 
           <!-- Step: Veterans Question (for crime_victim = no) -->
           <div class="form-step" data-step="veterans" id="step-veterans" style="display: none;">
-            <div class="form-group">
-              <label class="form-label form-label-required">Are you a veteran, a spouse of a veteran, or a dependent of a veteran?</label>
-              <div class="radio-group mt-3">
-                <label class="radio-label">
-                  <input type="radio" name="is_veteran" value="yes" required>
-                  <span>Yes</span>
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you a veteran, a spouse of a veteran, or a dependent of a veteran?<span class="text-red-600">*</span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="is_veteran" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
                 </label>
-                <label class="radio-label">
-                  <input type="radio" name="is_veteran" value="no">
-                  <span>No</span>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="is_veteran" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
                 </label>
               </div>
-            </div>
+            </fieldset>
 
             <div class="flex justify-between mt-8">
               <button type="button" class="btn btn-outline" id="veterans-back-btn">
@@ -817,29 +817,29 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                 </svg>
-                Previous
+                Back
               </button>
               <button type="button" class="btn btn-primary" id="veterans-continue-btn" disabled>
-                Submit Form
+                Continue
               </button>
             </div>
           </div>
 
           <!-- Step: Child Care Question (for is_veteran = no) -->
           <div class="form-step" data-step="child-care" id="step-child-care" style="display: none;">
-            <div class="form-group">
-              <label class="form-label form-label-required">Are you taking care of a child who is not your own, like a grandchild, niece, or nephew, and having trouble getting or keeping benefits for you or the child?</label>
-              <div class="radio-group mt-3">
-                <label class="radio-label">
-                  <input type="radio" name="child_care" value="yes" required>
-                  <span>Yes</span>
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you taking care of a child who is not your own, like a grandchild, niece, or nephew, and having trouble getting or keeping benefits for you or the child?<span class="text-red-600">*</span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="child_care" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
                 </label>
-                <label class="radio-label">
-                  <input type="radio" name="child_care" value="no">
-                  <span>No</span>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="child_care" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
                 </label>
               </div>
-            </div>
+            </fieldset>
 
             <div class="flex justify-between mt-8">
               <button type="button" class="btn btn-outline" id="child-care-back-btn">
@@ -847,10 +847,10 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                 </svg>
-                Previous
+                Back
               </button>
               <button type="button" class="btn btn-primary" id="child-care-continue-btn" disabled>
-                Submit Form
+                Continue
               </button>
             </div>
           </div>
