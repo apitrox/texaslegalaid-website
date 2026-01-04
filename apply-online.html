@@ -1694,6 +1694,29 @@
                 placeholder="Please describe your situation..."></textarea>
             </div>
 
+            <div class="form-group">
+              <div class="p-4 bg-primary-50 rounded-lg border border-primary-200">
+                <p class="text-base text-primary-800 mb-1">
+                  Annual household income: <span id="contact-annual-income-display" class="font-semibold">--</span>
+                </p>
+                <p class="text-lg text-primary-800 mb-2">
+                  Poverty percent: <span id="contact-poverty-percent-display" class="font-semibold">--</span>
+                </p>
+                <a href="https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-sm text-primary-600 hover:text-primary-800 underline block">
+                  HHS Poverty Guidelines
+                </a>
+                <a href="https://teajf.org/grants/docs/2024/2025%20TAJF%20REV%20Income%20Guideline%20chart%202025.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-sm text-primary-600 hover:text-primary-800 underline block">
+                  TAJF 2025 Financial Income Guidelines
+                </a>
+              </div>
+            </div>
+
             <div class="flex justify-between">
               <button type="button" class="btn btn-outline" id="pb-nm-contact-back-btn">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -2571,6 +2594,7 @@
             // Elder Law + poverty ≤ 200% -> Contact Info directly
             stepHouseholdInfo.style.display = 'none';
             stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
@@ -2623,6 +2647,19 @@
       // Clear radio selection helper
       function clearRadioGroup(name) {
         document.querySelectorAll(`input[name="${name}"]`).forEach(r => r.checked = false);
+      }
+
+      // Populate Contact Info income/poverty values from Household Info
+      function populateContactInfoIncomeValues() {
+        const contactAnnualIncomeDisplay = document.getElementById('contact-annual-income-display');
+        const contactPovertyPercentDisplay = document.getElementById('contact-poverty-percent-display');
+
+        if (contactAnnualIncomeDisplay && annualIncomeDisplay) {
+          contactAnnualIncomeDisplay.textContent = annualIncomeDisplay.textContent;
+        }
+        if (contactPovertyPercentDisplay && povertyPercentDisplay) {
+          contactPovertyPercentDisplay.textContent = povertyPercentDisplay.textContent;
+        }
       }
 
       // Veterans Yes/No change handler
@@ -2706,6 +2743,7 @@
           if (selected.value === 'yes') {
             // Go to Contact Info
             stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
           } else {
             // Go to Veterans question
             if (stepVeterans) stepVeterans.style.display = 'block';
@@ -2758,6 +2796,7 @@
           if (veteranType === 'veteran' || veteranType === 'spouse' || veteranType === 'dependent_under_18') {
             if (stepVeterans) stepVeterans.style.display = 'none';
             stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
@@ -2771,6 +2810,7 @@
               // Go to Contact Info
               if (stepVeterans) stepVeterans.style.display = 'none';
               stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
             } else {
               // Go to Child Care question
               if (stepVeterans) stepVeterans.style.display = 'none';
@@ -2817,12 +2857,14 @@
           if (selected.value === 'yes') {
             // Go to Contact Info
             stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
           } else {
             // Child care = no: check poverty percent
             // If poverty <= 125%, go to Contact Info; otherwise redirect to not-eligible-resources
             if (calculatedPovertyPercent !== null && calculatedPovertyPercent <= 125) {
               stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
               document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
             } else {
               // Redirect to not-eligible-resources.html and disable back button
@@ -3028,6 +3070,7 @@
           if (crVeteranType === 'veteran' || crVeteranType === 'spouse' || crVeteranType === 'dependent_under_18') {
             stepCrVeterans.style.display = 'none';
             stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
@@ -3040,6 +3083,7 @@
             stepCrVeterans.style.display = 'none';
             if (crGuardianshipSelected.value === 'yes') {
               stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
             } else {
               // No guardianship -> not eligible
               window.location.replace('not-eligible-resources.html');
@@ -3082,6 +3126,7 @@
             if (housingTypeSelected.value === 'identity_theft') {
               step1.style.display = 'none';
               stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
 
               // Hide urgent notification and Family Help Link card
               if (urgentNotification) urgentNotification.style.display = 'none';
@@ -3097,6 +3142,7 @@
               if (sexualAssaultSelected && sexualAssaultSelected.value === 'yes') {
                 step1.style.display = 'none';
                 stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
 
                 // Hide urgent notification and Family Help Link card
                 if (urgentNotification) urgentNotification.style.display = 'none';
@@ -3224,6 +3270,7 @@
           if (housingAge60Selected.value === 'yes') {
             // Age 60+ = yes -> Contact Info
             stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
           } else {
             // Age 60+ = no -> not eligible
             window.location.replace('not-eligible-resources.html');
@@ -3265,6 +3312,7 @@
           if (housingVeteranType === 'veteran' || housingVeteranType === 'spouse' || housingVeteranType === 'dependent_under_18') {
             stepHousingVeterans.style.display = 'none';
             stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
@@ -3277,6 +3325,7 @@
             stepHousingVeterans.style.display = 'none';
             if (housingGuardianshipSelected.value === 'yes') {
               stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
             } else {
               // No guardianship -> not eligible
               window.location.replace('not-eligible-resources.html');
@@ -3551,6 +3600,7 @@
             // Pension = yes -> Contact Info
             stepElderPension.style.display = 'none';
             stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
@@ -3563,6 +3613,7 @@
             // Violence = yes -> Contact Info
             stepElderPension.style.display = 'none';
             stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
           } else {
             // Violence = no -> Elder Age 60+ question
             stepElderPension.style.display = 'none';
@@ -3605,6 +3656,7 @@
           if (elderAge60Selected.value === 'yes') {
             // Age 60+ = yes -> Contact Info
             stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
           } else {
             // Age 60+ = no -> not eligible
             window.location.replace('not-eligible-resources.html');
