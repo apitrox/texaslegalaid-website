@@ -259,8 +259,7 @@ General Rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
--  Update the document
-- On the `../apply-online.html` page, on the Contact Info page just above the buttons navigation buttons, insert a blue informational area, the exact same as the blue informational area that is on the Household Information page just above the buttons on that page. If the user has gone through the Household Information page to get to the Contact Info page then the values of "Annual household income" and "Poverty percent" will be carried forward from the Household Information page to the Contact Info page, if not then the section will still be displayed on the Contact Info page but without values.
+-  Update the document/file named `../general-application-page-flow.md` by generating a complete page flow of the online application that starts with the `../apply-online.html` page. This should be similar to a flow chart document containing every logic condition. Questions or page names can be abbreviated or nicknamed, but must be consistent. This document will be updated whenever the online application is updated.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
