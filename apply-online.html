@@ -768,9 +768,25 @@
             </div>
 
             <div class="form-group">
+              <label for="income_year" class="form-label form-label-required">
+                What year is this information for?
+                <span class="help-icon" aria-label="Help">?<span class="tooltip">Select the year for which the information you provided above (size and income) is for, which should be the latest year of information that is available to you.</span></span>
+              </label>
+              <select id="income_year" name="income_year" class="form-control form-select" required>
+                <!-- Options populated dynamically via JavaScript -->
+              </select>
+            </div>
+
+            <div class="form-group">
               <div class="p-4 bg-primary-50 rounded-lg border border-primary-200">
                 <p class="text-base text-primary-800 mb-1">
+                  Household size: <span id="household-size-display" class="font-semibold">--</span>
+                </p>
+                <p class="text-base text-primary-800 mb-1">
                   Annual household income: <span id="annual-income-display" class="font-semibold">--</span>
+                </p>
+                <p class="text-base text-primary-800 mb-1">
+                  Year: <span id="income-year-display" class="font-semibold">--</span>
                 </p>
                 <p class="text-lg text-primary-800 mb-2">
                   Poverty percent: <span id="poverty-percent-display" class="font-semibold">--</span>
@@ -1697,7 +1713,13 @@
             <div class="form-group">
               <div class="p-4 bg-primary-50 rounded-lg border border-primary-200">
                 <p class="text-base text-primary-800 mb-1">
+                  Household size: <span id="contact-household-size-display" class="font-semibold">--</span>
+                </p>
+                <p class="text-base text-primary-800 mb-1">
                   Annual household income: <span id="contact-annual-income-display" class="font-semibold">--</span>
+                </p>
+                <p class="text-base text-primary-800 mb-1">
+                  Year: <span id="contact-income-year-display" class="font-semibold">--</span>
                 </p>
                 <p class="text-lg text-primary-800 mb-2">
                   Poverty percent: <span id="contact-poverty-percent-display" class="font-semibold">--</span>
@@ -2384,8 +2406,11 @@
       const householdSizeSelect = document.getElementById('household_size');
       const householdIncomeInput = document.getElementById('household_income');
       const incomeFrequencySelect = document.getElementById('income_frequency');
+      const incomeYearSelect = document.getElementById('income_year');
       const povertyPercentDisplay = document.getElementById('poverty-percent-display');
       const annualIncomeDisplay = document.getElementById('annual-income-display');
+      const householdSizeDisplay = document.getElementById('household-size-display');
+      const incomeYearDisplay = document.getElementById('income-year-display');
 
       // Contact Info step elements
       const contactBackBtn = document.getElementById('pb-nm-contact-back-btn');
@@ -2394,6 +2419,21 @@
       // Store poverty guideline data
       let povertyGuidelines = {};
       let calculatedPovertyPercent = null;
+
+      // Populate year dropdown (current year down to 2021)
+      function populateYearDropdown() {
+        if (!incomeYearSelect) return;
+        const currentYear = new Date().getFullYear();
+        incomeYearSelect.innerHTML = '';
+        for (let year = currentYear; year >= 2021; year--) {
+          const option = document.createElement('option');
+          option.value = year;
+          option.textContent = year;
+          if (year === currentYear) option.selected = true;
+          incomeYearSelect.appendChild(option);
+        }
+      }
+      populateYearDropdown();
 
       // Fetch poverty guidelines from HHS API
       async function fetchPovertyGuideline(year, householdSize) {
@@ -2419,6 +2459,17 @@
         const householdSize = parseInt(householdSizeSelect.value);
         const incomeValue = parseFloat(householdIncomeInput.value);
         const frequency = incomeFrequencySelect ? incomeFrequencySelect.value : 'monthly';
+        const selectedYear = incomeYearSelect ? parseInt(incomeYearSelect.value) : new Date().getFullYear();
+
+        // Update household size display
+        if (householdSizeDisplay) {
+          householdSizeDisplay.textContent = householdSize ? householdSize : '--';
+        }
+
+        // Update year display
+        if (incomeYearDisplay) {
+          incomeYearDisplay.textContent = selectedYear ? selectedYear : '--';
+        }
 
         if (!householdSize || isNaN(incomeValue)) {
           povertyPercentDisplay.textContent = '--';
@@ -2443,13 +2494,12 @@
           annualIncomeDisplay.textContent = '$' + Math.round(annualIncome).toLocaleString();
         }
 
-        // Try current year first, then previous year
-        const currentYear = new Date().getFullYear();
-        let annualPovertyLevel = await fetchPovertyGuideline(currentYear, householdSize);
+        // Use the user-selected year for the poverty guideline API call
+        let annualPovertyLevel = await fetchPovertyGuideline(selectedYear, householdSize);
 
         if (!annualPovertyLevel) {
-          // Try previous year
-          annualPovertyLevel = await fetchPovertyGuideline(currentYear - 1, householdSize);
+          // Try previous year if selected year not available
+          annualPovertyLevel = await fetchPovertyGuideline(selectedYear - 1, householdSize);
         }
 
         // Note: fetchPovertyGuideline returns monthly value (divided by 12), so multiply back
@@ -2479,7 +2529,7 @@
         }
       }
 
-      // Listen for changes to household size, income, and frequency
+      // Listen for changes to household size, income, frequency, and year
       if (householdSizeSelect) {
         householdSizeSelect.addEventListener('change', calculatePovertyPercent);
       }
@@ -2488,6 +2538,9 @@
       }
       if (incomeFrequencySelect) {
         incomeFrequencySelect.addEventListener('change', calculatePovertyPercent);
+      }
+      if (incomeYearSelect) {
+        incomeYearSelect.addEventListener('change', calculatePovertyPercent);
       }
 
       // Override Step 1 Continue for Public Benefits paths that go to Household Info
@@ -2651,11 +2704,19 @@
 
       // Populate Contact Info income/poverty values from Household Info
       function populateContactInfoIncomeValues() {
+        const contactHouseholdSizeDisplay = document.getElementById('contact-household-size-display');
         const contactAnnualIncomeDisplay = document.getElementById('contact-annual-income-display');
+        const contactIncomeYearDisplay = document.getElementById('contact-income-year-display');
         const contactPovertyPercentDisplay = document.getElementById('contact-poverty-percent-display');
 
+        if (contactHouseholdSizeDisplay && householdSizeDisplay) {
+          contactHouseholdSizeDisplay.textContent = householdSizeDisplay.textContent;
+        }
         if (contactAnnualIncomeDisplay && annualIncomeDisplay) {
           contactAnnualIncomeDisplay.textContent = annualIncomeDisplay.textContent;
+        }
+        if (contactIncomeYearDisplay && incomeYearDisplay) {
+          contactIncomeYearDisplay.textContent = incomeYearDisplay.textContent;
         }
         if (contactPovertyPercentDisplay && povertyPercentDisplay) {
           contactPovertyPercentDisplay.textContent = povertyPercentDisplay.textContent;
