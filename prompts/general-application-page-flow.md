@@ -14,13 +14,14 @@ This document provides a complete flow chart of all logic conditions in the onli
 3. [Criminal Record Flow](#3-criminal-record-flow)
 4. [Housing & Debt Flow](#4-housing--debt-flow)
 5. [Elder Law Flow](#5-elder-law-flow)
-6. [Other Legal Areas](#6-other-legal-areas)
-7. [Household Info Step](#7-household-info-step)
-8. [Screening Questions](#8-screening-questions)
-9. [Contact Info Step](#9-contact-info-step)
-10. [Poverty Thresholds Summary](#10-poverty-thresholds-summary)
-11. [Radio Button Reference](#11-radio-button-reference)
-12. [Complete Flow Diagram](#12-complete-flow-diagram)
+6. [Family Law Flow](#6-family-law-flow)
+7. [Other Legal Areas](#7-other-legal-areas)
+8. [Household Info Step](#8-household-info-step)
+9. [Screening Questions](#9-screening-questions)
+10. [Contact Info Step](#10-contact-info-step)
+11. [Poverty Thresholds Summary](#11-poverty-thresholds-summary)
+12. [Radio Button Reference](#12-radio-button-reference)
+13. [Complete Flow Diagram](#13-complete-flow-diagram)
 
 ---
 
@@ -232,20 +233,57 @@ Elder Pension Question (elder_pension)
 
 ---
 
-## 6. Other Legal Areas
+## 6. Family Law Flow
+
+```
+Family Law Selected
+│
+├─► Safety Concerns Question (family_safety)
+│   "Are you seeking help with divorce, custody, or a family matter
+│   due to safety concerns regarding your spouse or your child's other parent?"
+│   │
+│   ├─► YES ─────────────────────────────────────► Household Info (125%)
+│   │                                              │
+│   │                                              ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│   │                                              │
+│   │                                              └─► poverty > 125% ─► NOT ELIGIBLE
+│   │
+│   └─► NO
+│       │
+│       ├─► Best Fit Question (family_best_fit)
+│       │   "Which of the following best fits your situation?"
+│       │   │
+│       │   ├─► raising_child ──────────────────► Household Info (125%)
+│       │   │   ("I'm raising a child who is      │
+│       │   │   not my biological or adopted      ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│       │   │   child and want to establish a     │
+│       │   │   legal relationship")              └─► poverty > 125% ─► NOT ELIGIBLE
+│       │   │
+│       │   └─► other_family ───────────────────► Household Info (125%)
+│       │       ("I'm seeking help with divorce,  │
+│       │       custody, child support, or        ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│       │       other family matter")             │
+│       │                                         └─► poverty > 125% ─► NOT ELIGIBLE
+```
+
+**Abbreviations:**
+- NOT ELIGIBLE = Redirect to `not-eligible-resources.html`
+
+---
+
+## 7. Other Legal Areas
 
 The following legal areas proceed through standard form flow without specialized branching:
 
 | Legal Area | Flow |
 |------------|------|
-| Family Law | Step 1 → Standard multi-step form |
 | Military & Benefits | Step 1 → Standard multi-step form |
 | Violence & Abuse | Step 1 → Standard multi-step form |
 | Other | Step 1 → Standard multi-step form |
 
 ---
 
-## 7. Household Info Step
+## 8. Household Info Step
 
 **Step ID:** `step-household-info`
 
@@ -253,6 +291,8 @@ The following legal areas proceed through standard form flow without specialized
 - Public Benefits: Age 60+ = No, Medicare = No
 - Public Benefits: Age 60+ = No, Medicare = Yes, Dispute = No
 - Elder Law: Deceased = Yes, Veterans = Yes (eligible types)
+- Family Law: Safety = Yes
+- Family Law: Safety = No, Best Fit = (any option)
 
 **Form Fields:**
 - `household_size` - Number of persons (1-20)
@@ -289,7 +329,7 @@ From Public Benefits Path:
 │
 ├─► poverty > 200% ──────────────────► NOT ELIGIBLE
 │
-└─► poverty ≤ 200% ──────────────────► Crime Victim Question ──► [See Section 8]
+└─► poverty ≤ 200% ──────────────────► Crime Victim Question ──► [See Section 9]
 
 
 From Elder Law Veterans Path:
@@ -297,15 +337,22 @@ From Elder Law Veterans Path:
 ├─► poverty > 200% ──────────────────► NOT ELIGIBLE
 │
 └─► poverty ≤ 200% ──────────────────► Contact Info ──► Thank You
+
+
+From Family Law Path:
+│
+├─► poverty > 125% ──────────────────► NOT ELIGIBLE
+│
+└─► poverty ≤ 125% ──────────────────► Contact Info ──► Thank You
 ```
 
 ---
 
-## 8. Screening Questions
+## 9. Screening Questions
 
 **Used by:** Public Benefits path after Household Info (poverty ≤ 200%)
 
-### 8.1 Crime Victim Question
+### 9.1 Crime Victim Question
 
 **Step ID:** `step-crime-victim`
 **Radio Name:** `crime_victim`
@@ -319,7 +366,7 @@ applying for crime victims' compensation?"
 └─► NO ──────────────────────────────► Veterans Question
 ```
 
-### 8.2 Veterans Question
+### 9.2 Veterans Question
 
 **Step ID:** `step-veterans`
 **Radio Name:** `is_veteran`
@@ -346,7 +393,7 @@ applying for crime victims' compensation?"
     │   └─► other ───────────────────► Child Care Question
 ```
 
-### 8.3 Child Care Question
+### 9.3 Child Care Question
 
 **Step ID:** `step-child-care`
 **Radio Name:** `child_care`
@@ -365,7 +412,7 @@ applying for crime victims' compensation?"
 
 ---
 
-## 9. Contact Info Step
+## 10. Contact Info Step
 
 **Step ID:** `step-pb-contact-no-medicare`
 
@@ -408,17 +455,18 @@ Priority order for determining previous step:
 
 ---
 
-## 10. Poverty Thresholds Summary
+## 11. Poverty Thresholds Summary
 
 | Path | Initial Threshold | Secondary Threshold |
 |------|-------------------|---------------------|
 | Public Benefits → Household Info | 200% | 125% (Child Care = No) |
 | Elder Law → Veterans → Household Info | 200% | N/A |
+| Family Law → Household Info | 125% | N/A |
 | All Other Paths | N/A | N/A |
 
 ---
 
-## 11. Radio Button Reference
+## 12. Radio Button Reference
 
 ### Step 1 Questions
 | Name | Values |
@@ -429,6 +477,13 @@ Priority order for determining previous step:
 | `medicare_dispute` | yes, no |
 | `housing_type` | identity_theft, early_termination, other_housing, something_else |
 | `housing_sexual_assault` | yes, no |
+| `family_safety` | yes, no |
+
+### Family Law Questions
+| Name | Values |
+|------|--------|
+| `family_safety` | yes, no |
+| `family_best_fit` | raising_child, other_family |
 
 ### Criminal Record Questions
 | Name | Values |
@@ -476,7 +531,7 @@ Priority order for determining previous step:
 
 ---
 
-## 12. Complete Flow Diagram
+## 13. Complete Flow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -590,6 +645,7 @@ All paths leading to `not-eligible-resources.html`:
 | Elder Law | Deceased = Yes, Guardianship = No |
 | Elder Law | Deceased = Yes, Household poverty > 200% |
 | Elder Law | Deceased = No, Pension = No, Violence = No, Age 60+ = No |
+| Family Law | Household Info poverty > 125% |
 
 ---
 
@@ -606,10 +662,12 @@ Paths that go directly to Contact Info without additional screening:
 7. Elder Law + Pension = No, Violence = Yes
 8. Elder Law + Pension = No, Violence = No, Age 60+ = Yes
 9. Public Benefits + Age 60+ = Yes
-10. Screening: Crime Victim = Yes
-11. Screening: Veterans = Yes (eligible types)
-12. Screening: Child Care = Yes
-13. Screening: Child Care = No AND poverty ≤ 125%
+10. Family Law + Safety = Yes AND poverty ≤ 125%
+11. Family Law + Safety = No + Best Fit AND poverty ≤ 125%
+12. Screening: Crime Victim = Yes
+13. Screening: Veterans = Yes (eligible types)
+14. Screening: Child Care = Yes
+15. Screening: Child Care = No AND poverty ≤ 125%
 
 ---
 

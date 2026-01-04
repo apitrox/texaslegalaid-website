@@ -346,6 +346,23 @@
               </fieldset>
             </div>
 
+            <!-- Family Law Sub-question: Safety concerns (Only for Family Law) -->
+            <div id="family-safety-question" class="mb-6" style="display: none;">
+              <fieldset>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Are you seeking help with divorce, custody, or a family matter due to safety concerns regarding your spouse or your child's other <span class="whitespace-nowrap">parent?<span class="text-red-600">*</span></span></legend>
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="family_safety" value="yes" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Yes</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="family_safety" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">No</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
             <div class="flex justify-end">
               <button type="button" class="btn btn-primary" id="step1-continue" disabled>
                 Continue
@@ -1384,6 +1401,39 @@
             </div>
           </div>
 
+          <!-- Step: Family Law Best Fit Question (for family_safety = no) -->
+          <div class="form-step" data-step="family-best-fit" id="step-family-best-fit" style="display: none;">
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Which of the following best fits your <span class="whitespace-nowrap">situation?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="family_best_fit" value="raising_child" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">I'm raising a child who is not my biological or adopted child and want to establish a legal relationship</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="family_best_fit" value="other_family" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm seeking help with divorce, custody, child support, or other family matter</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="family-best-fit-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="family-best-fit-continue-btn" disabled>
+                Continue
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
           <!-- Step: Contact Info (for Public Benefits + Age No + Medicare No path - after Household Info) -->
           <div class="form-step" data-step="pb-contact-no-medicare" id="step-pb-contact-no-medicare" style="display: none;">
             <h2 class="text-xl font-bold text-primary-700 mb-4">Your Contact Information</h2>
@@ -2107,6 +2157,10 @@
       const housingSexualAssaultQuestion = document.getElementById('housing-sexual-assault-question');
       const housingSexualAssaultInputs = document.querySelectorAll('input[name="housing_sexual_assault"]');
 
+      // Family Law sub-question elements
+      const familySafetyQuestion = document.getElementById('family-safety-question');
+      const familySafetyInputs = document.querySelectorAll('input[name="family_safety"]');
+
       // Function to check if Continue should be enabled
       function updateContinueButton() {
         const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
@@ -2153,6 +2207,10 @@
           } else {
             step1ContinueBtn.disabled = false;
           }
+        } else if (selectedLegalArea.value === 'family') {
+          // Family Law: require safety question to be selected
+          const familySafetySelected = document.querySelector('input[name="family_safety"]:checked');
+          step1ContinueBtn.disabled = !familySafetySelected;
         } else {
           step1ContinueBtn.disabled = false;
         }
@@ -2239,6 +2297,23 @@
         }
       }
 
+      // Function to update Family Law safety question visibility
+      function updateFamilySafetyVisibility() {
+        const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+
+        // Show Family Law safety question only if Family Law is selected
+        if (selectedLegalArea && selectedLegalArea.value === 'family') {
+          familySafetyQuestion.style.display = 'block';
+          familySafetyInputs.forEach(input => input.setAttribute('required', ''));
+        } else {
+          familySafetyQuestion.style.display = 'none';
+          familySafetyInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+        }
+      }
+
       if (legalAreaInputs.length > 0 && step1ContinueBtn) {
         legalAreaInputs.forEach(input => {
           input.addEventListener('change', function() {
@@ -2259,6 +2334,7 @@
             updateMedicareDisputeVisibility();
             updateHousingTypeVisibility();
             updateHousingSexualAssaultVisibility();
+            updateFamilySafetyVisibility();
             updateContinueButton();
           });
         });
@@ -2295,6 +2371,11 @@
 
         // Also listen for changes on Housing sexual assault question
         housingSexualAssaultInputs.forEach(input => {
+          input.addEventListener('change', updateContinueButton);
+        });
+
+        // Also listen for changes on Family Law safety question
+        familySafetyInputs.forEach(input => {
           input.addEventListener('change', updateContinueButton);
         });
       }
@@ -2601,13 +2682,28 @@
             // Go back to Elder Law Veterans step
             const stepElderVeterans = document.getElementById('step-elder-veterans');
             if (stepElderVeterans) stepElderVeterans.style.display = 'block';
+          // Check if we came from Family Law path
           } else {
-            // Go back to Step 1
-            step1.style.display = 'block';
+            const familySafetyAnswer = document.querySelector('input[name="family_safety"]:checked');
+            const familyBestFitAnswer = document.querySelector('input[name="family_best_fit"]:checked');
 
-            // Show urgent notification and Family Help Link card again
-            if (urgentNotification) urgentNotification.style.display = 'flex';
-            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+            if (familySafetyAnswer && familySafetyAnswer.value === 'yes') {
+              // Family Law safety = yes -> Go back to Step 1
+              step1.style.display = 'block';
+              // Show urgent notification and Family Help Link card
+              if (urgentNotification) urgentNotification.style.display = 'flex';
+              if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+            } else if (familyBestFitAnswer) {
+              // Family Law safety = no, answered best fit -> Go back to Best Fit step
+              const stepFamilyBestFit = document.getElementById('step-family-best-fit');
+              if (stepFamilyBestFit) stepFamilyBestFit.style.display = 'block';
+            } else {
+              // Default: Go back to Step 1
+              step1.style.display = 'block';
+              // Show urgent notification and Family Help Link card again
+              if (urgentNotification) urgentNotification.style.display = 'flex';
+              if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+            }
           }
 
           // Scroll to top
@@ -2645,6 +2741,25 @@
             }
 
             // Elder Law + poverty ≤ 200% -> Contact Info directly
+            stepHouseholdInfo.style.display = 'none';
+            stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // Check if we came from Family Law path (via family_safety selection)
+          const familySafetyAnswer = document.querySelector('input[name="family_safety"]:checked');
+
+          if (familySafetyAnswer) {
+            // Family Law path - uses 125% poverty threshold
+            if (calculatedPovertyPercent > 125) {
+              // Redirect to not-eligible-resources.html and disable back button
+              window.location.replace('not-eligible-resources.html');
+              return;
+            }
+
+            // Family Law + poverty ≤ 125% -> Contact Info directly
             stepHouseholdInfo.style.display = 'none';
             stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
@@ -3726,6 +3841,84 @@
         });
       }
 
+      // =====================================================
+      // Family Law Flow
+      // =====================================================
+      const stepFamilyBestFit = document.getElementById('step-family-best-fit');
+      const familyBestFitBackBtn = document.getElementById('family-best-fit-back-btn');
+      const familyBestFitContinueBtn = document.getElementById('family-best-fit-continue-btn');
+      const familyBestFitInputs = document.querySelectorAll('input[name="family_best_fit"]');
+
+      // Step 1 Continue for Family Law
+      if (step1ContinueBtn) {
+        step1ContinueBtn.addEventListener('click', function(e) {
+          const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+          const familySafetySelected = document.querySelector('input[name="family_safety"]:checked');
+
+          // If Family Law is selected
+          if (selectedLegalArea && selectedLegalArea.value === 'family' && familySafetySelected) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Hide urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'none';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
+
+            if (familySafetySelected.value === 'yes') {
+              // Safety = yes -> Household Info (125% threshold)
+              step1.style.display = 'none';
+              stepHouseholdInfo.style.display = 'block';
+            } else {
+              // Safety = no -> Best Fit question
+              step1.style.display = 'none';
+              stepFamilyBestFit.style.display = 'block';
+            }
+
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Enable Family Best Fit Continue button when a selection is made
+      familyBestFitInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          familyBestFitContinueBtn.disabled = false;
+        });
+      });
+
+      // Family Best Fit Back Button
+      if (familyBestFitBackBtn) {
+        familyBestFitBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          stepFamilyBestFit.style.display = 'none';
+          step1.style.display = 'block';
+
+          // Show urgent notification and Family Help Link card
+          if (urgentNotification) urgentNotification.style.display = 'flex';
+          if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+
+          // Clear Family Best Fit selection
+          clearRadioGroup('family_best_fit');
+          familyBestFitContinueBtn.disabled = true;
+
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Family Best Fit Continue Button
+      if (familyBestFitContinueBtn) {
+        familyBestFitContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const familyBestFitSelected = document.querySelector('input[name="family_best_fit"]:checked');
+          if (!familyBestFitSelected) return;
+
+          // Both options go to Household Info (125% threshold)
+          stepFamilyBestFit.style.display = 'none';
+          stepHouseholdInfo.style.display = 'block';
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
       // Handle Back button on Contact Info step - navigate back based on path
       if (contactBackBtn) {
         contactBackBtn.addEventListener('click', function(e) {
@@ -3750,8 +3943,15 @@
           const elderViolenceAnswer = document.querySelector('input[name="elder_violence"]:checked');
           const elderAge60Answer = document.querySelector('input[name="elder_age_60"]:checked');
 
-          // Check if came from Elder Law paths first
-          if (elderAge60Answer) {
+          // Family Law path answers
+          const familySafetyAnswer = document.querySelector('input[name="family_safety"]:checked');
+
+          // Check if came from Family Law path first
+          if (familySafetyAnswer) {
+            // Came from Family Law via Household Info
+            stepHouseholdInfo.style.display = 'block';
+          // Check if came from Elder Law paths
+          } else if (elderAge60Answer) {
             // Came from Elder Law Age 60+ (Deceased=No → Pension=No → Violence=No → Age60=Yes)
             const stepElderAge60 = document.getElementById('step-elder-age-60');
             if (stepElderAge60) stepElderAge60.style.display = 'block';
