@@ -363,6 +363,69 @@
               </fieldset>
             </div>
 
+            <!-- Military & Benefits Sub-question: Veteran or Dependent (Only for Military & Benefits) -->
+            <div id="military-veteran-question" class="mb-6" style="display: none;">
+              <fieldset>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Are you a veteran, a spouse of a veteran, or a dependent of a <span class="whitespace-nowrap">veteran?<span class="text-red-600">*</span></span></legend>
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="military_is_veteran" value="yes" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Yes</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="military_is_veteran" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">No</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- Military & Benefits Sub-question: Veteran Type (Only for military_is_veteran = yes) -->
+            <div id="military-veteran-type-question" class="mb-6" style="display: none;">
+              <fieldset>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Which best describes <span class="whitespace-nowrap">you?<span class="text-red-600">*</span></span></legend>
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="military_veteran_type" value="veteran" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">I'm a veteran</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="military_veteran_type" value="spouse" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">I'm the spouse or surviving spouse of a veteran</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="military_veteran_type" value="dependent_under_18" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">I'm the dependant of a veteran (and I'm under 18)</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="military_veteran_type" value="dependent_over_18" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">I'm the dependant of a veteran (and I'm over 18)</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="military_veteran_type" value="other" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Other</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- Military & Benefits Sub-question: Guardianship (Only for military_veteran_type = dependent_over_18) -->
+            <div id="military-guardianship-question" class="mb-6" style="display: none;">
+              <fieldset>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Does the veteran have guardianship over yourself (the <span class="whitespace-nowrap">dependent)?<span class="text-red-600">*</span></span></legend>
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="military_has_guardianship" value="yes" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Yes</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="military_has_guardianship" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">No</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
             <div class="flex justify-end">
               <button type="button" class="btn btn-primary" id="step1-continue" disabled>
                 Continue
@@ -2161,6 +2224,14 @@
       const familySafetyQuestion = document.getElementById('family-safety-question');
       const familySafetyInputs = document.querySelectorAll('input[name="family_safety"]');
 
+      // Military & Benefits sub-question elements
+      const militaryVeteranQuestion = document.getElementById('military-veteran-question');
+      const militaryVeteranInputs = document.querySelectorAll('input[name="military_is_veteran"]');
+      const militaryVeteranTypeQuestion = document.getElementById('military-veteran-type-question');
+      const militaryVeteranTypeInputs = document.querySelectorAll('input[name="military_veteran_type"]');
+      const militaryGuardianshipQuestion = document.getElementById('military-guardianship-question');
+      const militaryGuardianshipInputs = document.querySelectorAll('input[name="military_has_guardianship"]');
+
       // Function to check if Continue should be enabled
       function updateContinueButton() {
         const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
@@ -2211,6 +2282,30 @@
           // Family Law: require safety question to be selected
           const familySafetySelected = document.querySelector('input[name="family_safety"]:checked');
           step1ContinueBtn.disabled = !familySafetySelected;
+        } else if (selectedLegalArea.value === 'military') {
+          // Military & Benefits: require veteran question to be answered
+          const militaryVeteranSelected = document.querySelector('input[name="military_is_veteran"]:checked');
+          if (!militaryVeteranSelected) {
+            step1ContinueBtn.disabled = true;
+            return;
+          }
+          // If veteran = yes, require veteran type question
+          if (militaryVeteranSelected.value === 'yes') {
+            const militaryVeteranTypeSelected = document.querySelector('input[name="military_veteran_type"]:checked');
+            if (!militaryVeteranTypeSelected) {
+              step1ContinueBtn.disabled = true;
+              return;
+            }
+            // If dependent_over_18, require guardianship question
+            if (militaryVeteranTypeSelected.value === 'dependent_over_18') {
+              const militaryGuardianshipSelected = document.querySelector('input[name="military_has_guardianship"]:checked');
+              step1ContinueBtn.disabled = !militaryGuardianshipSelected;
+            } else {
+              step1ContinueBtn.disabled = false;
+            }
+          } else {
+            step1ContinueBtn.disabled = false;
+          }
         } else {
           step1ContinueBtn.disabled = false;
         }
@@ -2314,6 +2409,80 @@
         }
       }
 
+      // Function to update Military & Benefits veteran question visibility
+      function updateMilitaryVeteranVisibility() {
+        const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+
+        // Show Military veteran question only if Military & Benefits is selected
+        if (selectedLegalArea && selectedLegalArea.value === 'military') {
+          militaryVeteranQuestion.style.display = 'block';
+          militaryVeteranInputs.forEach(input => input.setAttribute('required', ''));
+        } else {
+          militaryVeteranQuestion.style.display = 'none';
+          militaryVeteranInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+          // Also hide veteran type and guardianship questions
+          militaryVeteranTypeQuestion.style.display = 'none';
+          militaryVeteranTypeInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+          militaryGuardianshipQuestion.style.display = 'none';
+          militaryGuardianshipInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+        }
+      }
+
+      // Function to update Military veteran type question visibility
+      function updateMilitaryVeteranTypeVisibility() {
+        const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+        const militaryVeteranSelected = document.querySelector('input[name="military_is_veteran"]:checked');
+
+        // Show veteran type question only if Military + veteran = yes
+        if (selectedLegalArea && selectedLegalArea.value === 'military' &&
+            militaryVeteranSelected && militaryVeteranSelected.value === 'yes') {
+          militaryVeteranTypeQuestion.style.display = 'block';
+          militaryVeteranTypeInputs.forEach(input => input.setAttribute('required', ''));
+        } else {
+          militaryVeteranTypeQuestion.style.display = 'none';
+          militaryVeteranTypeInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+          // Also hide guardianship question
+          militaryGuardianshipQuestion.style.display = 'none';
+          militaryGuardianshipInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+        }
+      }
+
+      // Function to update Military guardianship question visibility
+      function updateMilitaryGuardianshipVisibility() {
+        const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+        const militaryVeteranSelected = document.querySelector('input[name="military_is_veteran"]:checked');
+        const militaryVeteranTypeSelected = document.querySelector('input[name="military_veteran_type"]:checked');
+
+        // Show guardianship question only if Military + veteran = yes + type = dependent_over_18
+        if (selectedLegalArea && selectedLegalArea.value === 'military' &&
+            militaryVeteranSelected && militaryVeteranSelected.value === 'yes' &&
+            militaryVeteranTypeSelected && militaryVeteranTypeSelected.value === 'dependent_over_18') {
+          militaryGuardianshipQuestion.style.display = 'block';
+          militaryGuardianshipInputs.forEach(input => input.setAttribute('required', ''));
+        } else {
+          militaryGuardianshipQuestion.style.display = 'none';
+          militaryGuardianshipInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+        }
+      }
+
       if (legalAreaInputs.length > 0 && step1ContinueBtn) {
         legalAreaInputs.forEach(input => {
           input.addEventListener('change', function() {
@@ -2335,6 +2504,7 @@
             updateHousingTypeVisibility();
             updateHousingSexualAssaultVisibility();
             updateFamilySafetyVisibility();
+            updateMilitaryVeteranVisibility();
             updateContinueButton();
           });
         });
@@ -2376,6 +2546,27 @@
 
         // Also listen for changes on Family Law safety question
         familySafetyInputs.forEach(input => {
+          input.addEventListener('change', updateContinueButton);
+        });
+
+        // Also listen for changes on Military veteran question
+        militaryVeteranInputs.forEach(input => {
+          input.addEventListener('change', function() {
+            updateMilitaryVeteranTypeVisibility();
+            updateContinueButton();
+          });
+        });
+
+        // Also listen for changes on Military veteran type question
+        militaryVeteranTypeInputs.forEach(input => {
+          input.addEventListener('change', function() {
+            updateMilitaryGuardianshipVisibility();
+            updateContinueButton();
+          });
+        });
+
+        // Also listen for changes on Military guardianship question
+        militaryGuardianshipInputs.forEach(input => {
           input.addEventListener('change', updateContinueButton);
         });
       }
@@ -2676,33 +2867,43 @@
           // Hide Household Info step
           stepHouseholdInfo.style.display = 'none';
 
+          // Check if we came from Military & Benefits path (military_is_veteran = no)
+          const militaryIsVeteranAnswerBack = document.querySelector('input[name="military_is_veteran"]:checked');
+          if (militaryIsVeteranAnswerBack && militaryIsVeteranAnswerBack.value === 'no') {
+            // Military non-veteran path -> Go back to Step 1
+            step1.style.display = 'block';
+            // Show urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'flex';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
           // Check if we came from Elder Law path
-          const elderIsVeteranAnswer = document.querySelector('input[name="elder_is_veteran"]:checked');
-          if (elderIsVeteranAnswer) {
-            // Go back to Elder Law Veterans step
-            const stepElderVeterans = document.getElementById('step-elder-veterans');
-            if (stepElderVeterans) stepElderVeterans.style.display = 'block';
-          // Check if we came from Family Law path
           } else {
-            const familySafetyAnswer = document.querySelector('input[name="family_safety"]:checked');
-            const familyBestFitAnswer = document.querySelector('input[name="family_best_fit"]:checked');
-
-            if (familySafetyAnswer && familySafetyAnswer.value === 'yes') {
-              // Family Law safety = yes -> Go back to Step 1
-              step1.style.display = 'block';
-              // Show urgent notification and Family Help Link card
-              if (urgentNotification) urgentNotification.style.display = 'flex';
-              if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
-            } else if (familyBestFitAnswer) {
-              // Family Law safety = no, answered best fit -> Go back to Best Fit step
-              const stepFamilyBestFit = document.getElementById('step-family-best-fit');
-              if (stepFamilyBestFit) stepFamilyBestFit.style.display = 'block';
+            const elderIsVeteranAnswer = document.querySelector('input[name="elder_is_veteran"]:checked');
+            if (elderIsVeteranAnswer) {
+              // Go back to Elder Law Veterans step
+              const stepElderVeterans = document.getElementById('step-elder-veterans');
+              if (stepElderVeterans) stepElderVeterans.style.display = 'block';
+            // Check if we came from Family Law path
             } else {
-              // Default: Go back to Step 1
-              step1.style.display = 'block';
-              // Show urgent notification and Family Help Link card again
-              if (urgentNotification) urgentNotification.style.display = 'flex';
-              if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+              const familySafetyAnswer = document.querySelector('input[name="family_safety"]:checked');
+              const familyBestFitAnswer = document.querySelector('input[name="family_best_fit"]:checked');
+
+              if (familySafetyAnswer && familySafetyAnswer.value === 'yes') {
+                // Family Law safety = yes -> Go back to Step 1
+                step1.style.display = 'block';
+                // Show urgent notification and Family Help Link card
+                if (urgentNotification) urgentNotification.style.display = 'flex';
+                if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+              } else if (familyBestFitAnswer) {
+                // Family Law safety = no, answered best fit -> Go back to Best Fit step
+                const stepFamilyBestFit = document.getElementById('step-family-best-fit');
+                if (stepFamilyBestFit) stepFamilyBestFit.style.display = 'block';
+              } else {
+                // Default: Go back to Step 1
+                step1.style.display = 'block';
+                // Show urgent notification and Family Help Link card again
+                if (urgentNotification) urgentNotification.style.display = 'flex';
+                if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+              }
             }
           }
 
@@ -2760,6 +2961,25 @@
             }
 
             // Family Law + poverty ≤ 125% -> Contact Info directly
+            stepHouseholdInfo.style.display = 'none';
+            stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // Check if we came from Military & Benefits path (via military_is_veteran = no)
+          const militaryIsVeteranAnswer = document.querySelector('input[name="military_is_veteran"]:checked');
+
+          if (militaryIsVeteranAnswer && militaryIsVeteranAnswer.value === 'no') {
+            // Military & Benefits non-veteran path - uses 125% poverty threshold
+            if (calculatedPovertyPercent > 125) {
+              // Redirect to not-eligible-resources.html and disable back button
+              window.location.replace('not-eligible-resources.html');
+              return;
+            }
+
+            // Military non-veteran + poverty ≤ 125% -> Contact Info directly
             stepHouseholdInfo.style.display = 'none';
             stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
@@ -3919,6 +4139,70 @@
         });
       }
 
+      // =====================================================
+      // Military & Benefits Flow
+      // =====================================================
+
+      // Step 1 Continue for Military & Benefits
+      if (step1ContinueBtn) {
+        step1ContinueBtn.addEventListener('click', function(e) {
+          const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+          const militaryVeteranSelected = document.querySelector('input[name="military_is_veteran"]:checked');
+
+          // If Military & Benefits is selected
+          if (selectedLegalArea && selectedLegalArea.value === 'military' && militaryVeteranSelected) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Hide urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'none';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
+
+            if (militaryVeteranSelected.value === 'no') {
+              // Veteran = no -> Household Info (125% threshold)
+              step1.style.display = 'none';
+              stepHouseholdInfo.style.display = 'block';
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              return;
+            }
+
+            // Veteran = yes, check veteran type
+            const militaryVeteranTypeSelected = document.querySelector('input[name="military_veteran_type"]:checked');
+            if (!militaryVeteranTypeSelected) return;
+
+            // Check veteran type for routing
+            if (militaryVeteranTypeSelected.value === 'other') {
+              // Other -> Not Eligible
+              window.location.replace('not-eligible-resources.html');
+              return;
+            }
+
+            if (militaryVeteranTypeSelected.value === 'dependent_over_18') {
+              // Dependent over 18 -> Check guardianship
+              const militaryGuardianshipSelected = document.querySelector('input[name="military_has_guardianship"]:checked');
+              if (!militaryGuardianshipSelected) return;
+
+              if (militaryGuardianshipSelected.value === 'yes') {
+                // Guardianship = yes -> Contact Info
+                step1.style.display = 'none';
+                stepContactInfo.style.display = 'block';
+                populateContactInfoIncomeValues();
+              } else {
+                // Guardianship = no -> Not Eligible
+                window.location.replace('not-eligible-resources.html');
+              }
+            } else {
+              // Veteran, spouse, dependent_under_18 -> Contact Info
+              step1.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+              populateContactInfoIncomeValues();
+            }
+
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
       // Handle Back button on Contact Info step - navigate back based on path
       if (contactBackBtn) {
         contactBackBtn.addEventListener('click', function(e) {
@@ -3946,8 +4230,24 @@
           // Family Law path answers
           const familySafetyAnswer = document.querySelector('input[name="family_safety"]:checked');
 
-          // Check if came from Family Law path first
-          if (familySafetyAnswer) {
+          // Military & Benefits path answers
+          const militaryIsVeteranAnswer = document.querySelector('input[name="military_is_veteran"]:checked');
+          const militaryVeteranTypeAnswer = document.querySelector('input[name="military_veteran_type"]:checked');
+
+          // Check if came from Military & Benefits path first
+          if (militaryIsVeteranAnswer) {
+            if (militaryIsVeteranAnswer.value === 'yes') {
+              // Came from Military veteran path directly to Contact Info -> go back to Step 1
+              step1.style.display = 'block';
+              // Show urgent notification and Family Help Link card
+              if (urgentNotification) urgentNotification.style.display = 'flex';
+              if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+            } else {
+              // Came from Military non-veteran path via Household Info -> go back to Household Info
+              stepHouseholdInfo.style.display = 'block';
+            }
+          // Check if came from Family Law path
+          } else if (familySafetyAnswer) {
             // Came from Family Law via Household Info
             stepHouseholdInfo.style.display = 'block';
           // Check if came from Elder Law paths
