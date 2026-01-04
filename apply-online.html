@@ -304,6 +304,48 @@
               </fieldset>
             </div>
 
+            <!-- Housing Sub-question: Which would you like help with? (Only for Housing & Debt) -->
+            <div id="housing-type-question" class="mb-6" style="display: none;">
+              <fieldset>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Which would you like help <span class="whitespace-nowrap">with?<span class="text-red-600">*</span></span></legend>
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="housing_type" value="identity_theft" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Identity Theft</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="housing_type" value="early_termination" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Early termination of a house or apartment lease</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="housing_type" value="other_housing" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Other housing or apartment issue (such as repairs or evictions)</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="housing_type" value="something_else" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Something else</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- Housing Sub-question: Lease early termination for sexual assault (Only for early_termination) -->
+            <div id="housing-sexual-assault-question" class="mb-6" style="display: none;">
+              <fieldset>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Are you interested in ending the lease early for safety reasons following a sexual <span class="whitespace-nowrap">assault?<span class="text-red-600">*</span></span></legend>
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="housing_sexual_assault" value="yes" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Yes</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="housing_sexual_assault" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">No</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
             <div class="flex justify-end">
               <button type="button" class="btn btn-primary" data-step-next id="step1-continue" disabled>
                 Continue
@@ -1014,6 +1056,78 @@
             </div>
           </div>
 
+          <!-- Step: Housing Veterans Question (for Housing & Debt path) -->
+          <div class="form-step" data-step="housing-veterans" id="step-housing-veterans" style="display: none;">
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you a veteran, a spouse of a veteran, or a dependent of a <span class="whitespace-nowrap">veteran?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_is_veteran" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_is_veteran" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Conditional: Which best describes you? (shown when housing_is_veteran = yes) -->
+            <fieldset id="housing-veteran-type-question" class="mt-6" style="display: none;">
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Which best describes <span class="whitespace-nowrap">you?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_veteran_type" value="veteran" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm a veteran</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_veteran_type" value="spouse" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the spouse or surviving spouse of a veteran</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_veteran_type" value="dependent_under_18" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the dependant of a veteran (and I'm under 18)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_veteran_type" value="dependent_over_18" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the dependant of a veteran (and I'm over 18)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_veteran_type" value="other" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">Other</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Conditional: Guardianship question (shown when housing_veteran_type = dependent_over_18) -->
+            <fieldset id="housing-guardianship-question" class="mt-6" style="display: none;">
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Does the veteran have guardianship over yourself (the <span class="whitespace-nowrap">dependent)?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_has_guardianship" value="yes" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_has_guardianship" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="housing-veterans-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="housing-veterans-continue-btn" disabled>
+                Continue
+              </button>
+            </div>
+          </div>
+
           <!-- Step: Contact Info (for Public Benefits + Age No + Medicare No path - after Household Info) -->
           <div class="form-step" data-step="pb-contact-no-medicare" id="step-pb-contact-no-medicare" style="display: none;">
             <h2 class="text-xl font-bold text-primary-700 mb-4">Your Contact Information</h2>
@@ -1702,6 +1816,12 @@
       const medicareDisputeQuestion = document.getElementById('medicare-dispute-question');
       const medicareDisputeInputs = document.querySelectorAll('input[name="medicare_dispute"]');
 
+      // Housing & Debt sub-question elements
+      const housingTypeQuestion = document.getElementById('housing-type-question');
+      const housingTypeInputs = document.querySelectorAll('input[name="housing_type"]');
+      const housingSexualAssaultQuestion = document.getElementById('housing-sexual-assault-question');
+      const housingSexualAssaultInputs = document.querySelectorAll('input[name="housing_sexual_assault"]');
+
       // Function to check if Continue should be enabled
       function updateContinueButton() {
         const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
@@ -1731,6 +1851,20 @@
             } else {
               step1ContinueBtn.disabled = false;
             }
+          } else {
+            step1ContinueBtn.disabled = false;
+          }
+        } else if (selectedLegalArea.value === 'housing') {
+          // Housing & Debt: require housing type to be selected
+          const housingTypeSelected = document.querySelector('input[name="housing_type"]:checked');
+          if (!housingTypeSelected) {
+            step1ContinueBtn.disabled = true;
+            return;
+          }
+          // If early_termination, also require sexual assault question
+          if (housingTypeSelected.value === 'early_termination') {
+            const sexualAssaultSelected = document.querySelector('input[name="housing_sexual_assault"]:checked');
+            step1ContinueBtn.disabled = !sexualAssaultSelected;
           } else {
             step1ContinueBtn.disabled = false;
           }
@@ -1778,6 +1912,48 @@
         }
       }
 
+      // Function to update Housing type question visibility
+      function updateHousingTypeVisibility() {
+        const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+
+        // Show Housing type question only if Housing & Debt is selected
+        if (selectedLegalArea && selectedLegalArea.value === 'housing') {
+          housingTypeQuestion.style.display = 'block';
+          housingTypeInputs.forEach(input => input.setAttribute('required', ''));
+        } else {
+          housingTypeQuestion.style.display = 'none';
+          housingTypeInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+          // Also hide sexual assault question
+          housingSexualAssaultQuestion.style.display = 'none';
+          housingSexualAssaultInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+        }
+      }
+
+      // Function to update Housing sexual assault question visibility
+      function updateHousingSexualAssaultVisibility() {
+        const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+        const housingTypeSelected = document.querySelector('input[name="housing_type"]:checked');
+
+        // Show sexual assault question only if Housing + early_termination
+        if (selectedLegalArea && selectedLegalArea.value === 'housing' &&
+            housingTypeSelected && housingTypeSelected.value === 'early_termination') {
+          housingSexualAssaultQuestion.style.display = 'block';
+          housingSexualAssaultInputs.forEach(input => input.setAttribute('required', ''));
+        } else {
+          housingSexualAssaultQuestion.style.display = 'none';
+          housingSexualAssaultInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+        }
+      }
+
       if (legalAreaInputs.length > 0 && step1ContinueBtn) {
         legalAreaInputs.forEach(input => {
           input.addEventListener('change', function() {
@@ -1796,6 +1972,8 @@
             }
             updateMedicareVisibility();
             updateMedicareDisputeVisibility();
+            updateHousingTypeVisibility();
+            updateHousingSexualAssaultVisibility();
             updateContinueButton();
           });
         });
@@ -1819,6 +1997,19 @@
 
         // Also listen for changes on Medicare dispute question
         medicareDisputeInputs.forEach(input => {
+          input.addEventListener('change', updateContinueButton);
+        });
+
+        // Also listen for changes on Housing type question
+        housingTypeInputs.forEach(input => {
+          input.addEventListener('change', function() {
+            updateHousingSexualAssaultVisibility();
+            updateContinueButton();
+          });
+        });
+
+        // Also listen for changes on Housing sexual assault question
+        housingSexualAssaultInputs.forEach(input => {
           input.addEventListener('change', updateContinueButton);
         });
       }
@@ -2596,6 +2787,173 @@
         });
       }
 
+      // =====================================================
+      // Housing & Debt Flow
+      // =====================================================
+      const stepHousingVeterans = document.getElementById('step-housing-veterans');
+      const housingVeteransBackBtn = document.getElementById('housing-veterans-back-btn');
+      const housingVeteransContinueBtn = document.getElementById('housing-veterans-continue-btn');
+      const housingVeteranTypeQuestion = document.getElementById('housing-veteran-type-question');
+      const housingGuardianshipQuestion = document.getElementById('housing-guardianship-question');
+
+      // Step 1 Continue for Housing & Debt
+      if (step1ContinueBtn) {
+        step1ContinueBtn.addEventListener('click', function(e) {
+          const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+
+          // If Housing is selected
+          if (selectedLegalArea && selectedLegalArea.value === 'housing') {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const housingTypeSelected = document.querySelector('input[name="housing_type"]:checked');
+            if (!housingTypeSelected) return;
+
+            // If early_termination + sexual_assault = yes, go directly to Contact Info
+            if (housingTypeSelected.value === 'early_termination') {
+              const sexualAssaultSelected = document.querySelector('input[name="housing_sexual_assault"]:checked');
+              if (sexualAssaultSelected && sexualAssaultSelected.value === 'yes') {
+                step1.style.display = 'none';
+                stepContactInfo.style.display = 'block';
+
+                // Hide urgent notification and Family Help Link card
+                if (urgentNotification) urgentNotification.style.display = 'none';
+                if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
+
+                document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+                return;
+              }
+            }
+
+            // All other Housing paths go to Housing Veterans question
+            step1.style.display = 'none';
+            stepHousingVeterans.style.display = 'block';
+
+            // Hide urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'none';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
+
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Housing Veterans radio change - show/hide veteran type question
+      const housingIsVeteranInputs = document.querySelectorAll('input[name="housing_is_veteran"]');
+      const housingVeteranTypeInputs = document.querySelectorAll('input[name="housing_veteran_type"]');
+      const housingGuardianshipInputs = document.querySelectorAll('input[name="housing_has_guardianship"]');
+
+      housingIsVeteranInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          if (this.value === 'yes') {
+            housingVeteranTypeQuestion.style.display = 'block';
+            // Disable continue until veteran_type is answered
+            housingVeteransContinueBtn.disabled = true;
+          } else {
+            housingVeteranTypeQuestion.style.display = 'none';
+            housingGuardianshipQuestion.style.display = 'none';
+            // Clear selections
+            clearRadioGroup('housing_veteran_type');
+            clearRadioGroup('housing_has_guardianship');
+            // Enable continue for 'no' (will redirect to not-eligible)
+            housingVeteransContinueBtn.disabled = false;
+          }
+        });
+      });
+
+      housingVeteranTypeInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          if (this.value === 'dependent_over_18') {
+            housingGuardianshipQuestion.style.display = 'block';
+            housingVeteransContinueBtn.disabled = true;
+          } else {
+            housingGuardianshipQuestion.style.display = 'none';
+            clearRadioGroup('housing_has_guardianship');
+            housingVeteransContinueBtn.disabled = false;
+          }
+        });
+      });
+
+      housingGuardianshipInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          housingVeteransContinueBtn.disabled = false;
+        });
+      });
+
+      // Housing Veterans Back Button
+      if (housingVeteransBackBtn) {
+        housingVeteransBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          stepHousingVeterans.style.display = 'none';
+          step1.style.display = 'block';
+
+          // Show urgent notification and Family Help Link card
+          if (urgentNotification) urgentNotification.style.display = 'flex';
+          if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+
+          // Clear Housing veteran selections
+          clearRadioGroup('housing_is_veteran');
+          clearRadioGroup('housing_veteran_type');
+          clearRadioGroup('housing_has_guardianship');
+          housingVeteranTypeQuestion.style.display = 'none';
+          housingGuardianshipQuestion.style.display = 'none';
+          housingVeteransContinueBtn.disabled = true;
+
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Housing Veterans Continue Button
+      if (housingVeteransContinueBtn) {
+        housingVeteransContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const housingIsVeteranSelected = document.querySelector('input[name="housing_is_veteran"]:checked');
+          if (!housingIsVeteranSelected) return;
+
+          if (housingIsVeteranSelected.value === 'no') {
+            // Not a veteran -> not eligible
+            window.location.replace('not-eligible-resources.html');
+            return;
+          }
+
+          // Is veteran = yes, check veteran type
+          const housingVeteranTypeSelected = document.querySelector('input[name="housing_veteran_type"]:checked');
+          if (!housingVeteranTypeSelected) return;
+
+          const housingVeteranType = housingVeteranTypeSelected.value;
+
+          // First 3 options (veteran, spouse, dependent_under_18) -> Contact Info
+          if (housingVeteranType === 'veteran' || housingVeteranType === 'spouse' || housingVeteranType === 'dependent_under_18') {
+            stepHousingVeterans.style.display = 'none';
+            stepContactInfo.style.display = 'block';
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // dependent_over_18 -> check guardianship
+          if (housingVeteranType === 'dependent_over_18') {
+            const housingGuardianshipSelected = document.querySelector('input[name="housing_has_guardianship"]:checked');
+            if (!housingGuardianshipSelected) return;
+
+            stepHousingVeterans.style.display = 'none';
+            if (housingGuardianshipSelected.value === 'yes') {
+              stepContactInfo.style.display = 'block';
+            } else {
+              // No guardianship -> not eligible
+              window.location.replace('not-eligible-resources.html');
+            }
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // Other -> not eligible
+          if (housingVeteranType === 'other') {
+            window.location.replace('not-eligible-resources.html');
+            return;
+          }
+        });
+      }
+
       // Handle Back button on Contact Info step - navigate back based on path
       if (contactBackBtn) {
         contactBackBtn.addEventListener('click', function(e) {
@@ -2609,9 +2967,22 @@
           const veteransAnswer = document.querySelector('input[name="is_veteran"]:checked');
           const childCareAnswer = document.querySelector('input[name="child_care"]:checked');
           const crIsVeteranAnswer = document.querySelector('input[name="cr_is_veteran"]:checked');
+          const housingIsVeteranAnswer = document.querySelector('input[name="housing_is_veteran"]:checked');
+          const housingTypeAnswer = document.querySelector('input[name="housing_type"]:checked');
+          const housingSexualAssaultAnswer = document.querySelector('input[name="housing_sexual_assault"]:checked');
 
-          // Check if came from Criminal Record path
-          if (crIsVeteranAnswer) {
+          // Check if came from Housing path (sexual assault = yes goes directly to contact info)
+          if (housingTypeAnswer && housingTypeAnswer.value === 'early_termination' &&
+              housingSexualAssaultAnswer && housingSexualAssaultAnswer.value === 'yes') {
+            // Came directly from Step 1 (Housing + early_termination + sexual assault = yes)
+            step1.style.display = 'block';
+            // Show urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'flex';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+          } else if (housingIsVeteranAnswer) {
+            // Came from Housing Veterans
+            if (stepHousingVeterans) stepHousingVeterans.style.display = 'block';
+          } else if (crIsVeteranAnswer) {
             // Came from CR Veterans
             if (stepCrVeterans) stepCrVeterans.style.display = 'block';
           } else if (childCareAnswer) {
