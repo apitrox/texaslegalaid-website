@@ -256,7 +256,7 @@
             <!-- Age Question (Only for Public Benefits) -->
             <div id="age-question" class="mb-6" style="display: none;">
               <fieldset>
-                <legend class="text-lg font-semibold text-primary-800 mb-3">Are you 60 years of age or older?<span class="text-red-600">*</span></legend>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Are you 60 years of age or <span class="whitespace-nowrap">older?<span class="text-red-600">*</span></span></legend>
                 <div class="flex flex-col gap-2">
                   <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
                     <input type="radio" name="age_60_or_older" value="yes" class="w-5 h-5 accent-primary-600">
@@ -273,7 +273,7 @@
             <!-- Medicare Question (Only for Public Benefits + Age "No") -->
             <div id="medicare-question" class="mb-6" style="display: none;">
               <fieldset>
-                <legend class="text-lg font-semibold text-primary-800 mb-3">Do you have health insurance through Medicare?<span class="text-red-600">*</span></legend>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Do you have health insurance through <span class="whitespace-nowrap">Medicare?<span class="text-red-600">*</span></span></legend>
                 <div class="flex flex-col gap-2">
                   <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
                     <input type="radio" name="has_medicare" value="yes" class="w-5 h-5 accent-primary-600">
@@ -290,7 +290,7 @@
             <!-- Medicare Dispute Question (Only for Public Benefits + Age "No" + Medicare "Yes") -->
             <div id="medicare-dispute-question" class="mb-6" style="display: none;">
               <fieldset>
-                <legend class="text-lg font-semibold text-primary-800 mb-3">Does your issue involve a dispute involving Medicare?<span class="text-red-600">*</span></legend>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Does your issue involve a dispute involving <span class="whitespace-nowrap">Medicare?<span class="text-red-600">*</span></span></legend>
                 <div class="flex flex-col gap-2">
                   <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
                     <input type="radio" name="medicare_dispute" value="yes" class="w-5 h-5 accent-primary-600">
@@ -768,7 +768,7 @@
           <!-- Step: Crime Victim Question (for poverty <= 200%) -->
           <div class="form-step" data-step="crime-victim" id="step-crime-victim" style="display: none;">
             <fieldset>
-              <legend class="text-lg font-semibold text-primary-800 mb-3">Were you a victim of a violent crime and need assistance applying for crime victims' compensation?<span class="text-red-600">*</span></legend>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Were you a victim of a violent crime and need assistance applying for crime victims' <span class="whitespace-nowrap">compensation?<span class="text-red-600">*</span></span></legend>
               <div class="flex flex-col gap-2">
                 <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
                   <input type="radio" name="crime_victim" value="yes" class="w-5 h-5 accent-primary-600" required>
@@ -798,7 +798,7 @@
           <!-- Step: Veterans Question (for crime_victim = no) -->
           <div class="form-step" data-step="veterans" id="step-veterans" style="display: none;">
             <fieldset>
-              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you a veteran, a spouse of a veteran, or a dependent of a veteran?<span class="text-red-600">*</span></legend>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you a veteran, a spouse of a veteran, or a dependent of a <span class="whitespace-nowrap">veteran?<span class="text-red-600">*</span></span></legend>
               <div class="flex flex-col gap-2">
                 <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
                   <input type="radio" name="is_veteran" value="yes" class="w-5 h-5 accent-primary-600" required>
@@ -813,7 +813,7 @@
 
             <!-- Conditional: Which best describes you? (shown when is_veteran = yes) -->
             <fieldset id="veteran-type-question" class="mt-6" style="display: none;">
-              <legend class="text-lg font-semibold text-primary-800 mb-3">Which best describes you?<span class="text-red-600">*</span></legend>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Which best describes <span class="whitespace-nowrap">you?<span class="text-red-600">*</span></span></legend>
               <div class="flex flex-col gap-2">
                 <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
                   <input type="radio" name="veteran_type" value="veteran" class="w-5 h-5 accent-primary-600">
@@ -840,7 +840,7 @@
 
             <!-- Conditional: Guardianship question (shown when veteran_type = dependent_over_18) -->
             <fieldset id="guardianship-question" class="mt-6" style="display: none;">
-              <legend class="text-lg font-semibold text-primary-800 mb-3">Does the veteran have guardianship over yourself (the dependent)?<span class="text-red-600">*</span></legend>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Does the veteran have guardianship over yourself (the <span class="whitespace-nowrap">dependent)?<span class="text-red-600">*</span></span></legend>
               <div class="flex flex-col gap-2">
                 <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
                   <input type="radio" name="has_guardianship" value="yes" class="w-5 h-5 accent-primary-600">
@@ -870,7 +870,7 @@
           <!-- Step: Child Care Question (for is_veteran = no) -->
           <div class="form-step" data-step="child-care" id="step-child-care" style="display: none;">
             <fieldset>
-              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you taking care of a child who is not your own, like a grandchild, niece, or nephew, and having trouble getting or keeping benefits for you or the child?<span class="text-red-600">*</span></legend>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you taking care of a child who is not your own, like a grandchild, niece, or nephew, and having trouble getting or keeping benefits for you or the <span class="whitespace-nowrap">child?<span class="text-red-600">*</span></span></legend>
               <div class="flex flex-col gap-2">
                 <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
                   <input type="radio" name="child_care" value="yes" class="w-5 h-5 accent-primary-600" required>
@@ -1447,7 +1447,7 @@
               <div class="form-check">
                 <input type="checkbox" id="consent_contact" name="consent_contact" class="form-check-input" required>
                 <label for="consent_contact" class="form-check-label">
-                  I consent to be contacted by phone, text, or email about my case. <span class="text-red-600">*</span>
+                  I consent to be contacted by phone, text, or email about my <span class="whitespace-nowrap">case.<span class="text-red-600">*</span></span>
                 </label>
               </div>
             </div>
@@ -1458,7 +1458,7 @@
                 <label for="consent_terms" class="form-check-label">
                   I have read and agree to the <a href="terms-of-use.html" target="_blank"
                     class="text-primary-600">Terms of Use</a> and <a href="privacy-policy.html" target="_blank"
-                    class="text-primary-600">Privacy Policy</a>. <span class="text-red-600">*</span>
+                    class="text-primary-600">Privacy <span class="whitespace-nowrap">Policy</a>.<span class="text-red-600">*</span></span>
                 </label>
               </div>
             </div>
