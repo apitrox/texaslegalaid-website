@@ -228,7 +228,8 @@ General Rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
-- Update the page `../not-eligible-resources.html` using `../not-eligible-resources.md`. Any resources that are on `../not-eligible-resources.md` and not on `../not-eligible-resources.html` are to be included on `../not-eligible-resources.html`. If an entire section is on `../not-eligible-resources.md` and not on `../not-eligible-resources.html`, then include that entire section, with heading, on `../not-eligible-resources.html`. Keep the format of `../not-eligible-resources.html` the same as it currently is, just add additional resources information.
+-  See any attached image(s) or file(s) for reference.
+- On the `../apply-online.html` page, on the Contact Info page just above the buttons navigation buttons, insert a blue informational area, the exact same as the blue informational area that is on the Household Information page just above the buttons on that page. If the user has gone through the Household Information page to get to the Contact Info page then the values of "Annual household income" and "Poverty percent" will be carried forward from the Household Information page to the Contact Info page, if not then the section will still be displayed on the Contact Info page but without values.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
@@ -241,7 +242,25 @@ General Rules:
 
 For the `texaslegalaid-website` application website project make the following changes:
 -  See any attached image(s) or file(s) for reference.
-- On the `../apply-online.html` page, if the user selects "Housing & Debt" and second the user selects Other housing..., third the user selects No to the veterans question, then take the user to the page asking if they are 60 or older. If the user answers "Yes" to being 60 or older and Contineue, take the user to the Contact Info page because people 60 or older are assumed to qualify for legal aid due to their age, however, if the user answers "No" to being 60 or older take the user to the Not Eligible page.
+- On the `../apply-online.html` page, if the user selects "Elder Law", then take the user to a new page asking about retirement funds of a deceased person. If the user answers "Yes" they are taken to a new page asking about veteran status, if the user answers "No" they are taken to a new page asking about pension or 401(k).
+- If the user selects "Yes" to the veteran status question, they are prompted with a second question with 5 options. Selecting any one of the first 3 options and Continue will take the user to the Household Information page, and from there if their Poverty Level is at or below 200% to the Contact Info page, else if over 200% to the Not Eligible page.  If the user selects "Yes" to the 4th option "...over 18" another question will be displayed on the same page as show in an attached image. If the user selects the 5th option, "Other", and Continue they will be taken to the Not Eligible page.
+- If the user answers the "...over 18" response and then answers "Yes" to the dependent question, the user will be taken to the Household Information page and from there be directed to the Contact Info page if their Poverty Level is at or below 200% or to the Not Eligible page if above 200%. If the user answers "No" to the dependent question then on Continue they will be taken to the Not Eligible page.
+- If the user answers "Yes" to the question of pension or 401(k), then on Continue they will be taken to the Contact Info page. If the user answers "No" to the question of pension or 401(k), then they will be prompted with another question on the same page asking about physical violence (see attached image). 
+- If the user answers "Yes" to the physical violence question then on Continue they will be taken to the Contact Info page. If the user answers "No" to the physical violence question then on Continue they will be take to a new page and asked if they are 60 years of age or older (see attached image). 
+- If the user answers "Yes" to the age 60 years or older question then on Continue they will be taken to the Contact Info page.  If the user answers "No" to the age 60 years or older question then on Continue they will be taken to the Not Eligible page.  
+---
+General Rules:
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- All changes must comply with the specifications contained in `../prompts/application-specifications`.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `texaslegalaid-website` application website project make the following changes:
+-  Update the document
+- On the `../apply-online.html` page, on the Contact Info page just above the buttons navigation buttons, insert a blue informational area, the exact same as the blue informational area that is on the Household Information page just above the buttons on that page. If the user has gone through the Household Information page to get to the Contact Info page then the values of "Annual household income" and "Poverty percent" will be carried forward from the Household Information page to the Contact Info page, if not then the section will still be displayed on the Contact Info page but without values.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
