@@ -897,6 +897,123 @@
             </div>
           </div>
 
+          <!-- Step: Defense Attorney Question (for Criminal Record Expungement) -->
+          <div class="form-step" data-step="defense-attorney" id="step-defense-attorney" style="display: none;">
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you looking for a defense attorney — someone to represent you in a criminal case that may lead to fines or <span class="whitespace-nowrap">incarceration?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="defense_attorney" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="defense_attorney" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Conditional: Did the alleged crime occur in Texas? (shown when defense_attorney = no) -->
+            <fieldset id="texas-crime-question" class="mt-6" style="display: none;">
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Did the alleged crime occur in <span class="whitespace-nowrap">Texas?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="texas_crime" value="yes" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="texas_crime" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="defense-attorney-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="defense-attorney-continue-btn" disabled>
+                Continue
+              </button>
+            </div>
+          </div>
+
+          <!-- Step: Criminal Record Veterans Question (for texas_crime = yes) -->
+          <div class="form-step" data-step="cr-veterans" id="step-cr-veterans" style="display: none;">
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you a veteran, spouse, or dependent of a <span class="whitespace-nowrap">veteran?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="cr_is_veteran" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="cr_is_veteran" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Conditional: Which best describes you? (shown when cr_is_veteran = yes) -->
+            <fieldset id="cr-veteran-type-question" class="mt-6" style="display: none;">
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Which best describes <span class="whitespace-nowrap">you?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="cr_veteran_type" value="veteran" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm a veteran</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="cr_veteran_type" value="spouse" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the spouse or surviving spouse of a veteran</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="cr_veteran_type" value="dependent_under_18" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the dependant of a veteran (and I'm under 18)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="cr_veteran_type" value="dependent_over_18" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the dependant of a veteran (and I'm over 18)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="cr_veteran_type" value="other" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">Other</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Conditional: Guardianship question (shown when cr_veteran_type = dependent_over_18) -->
+            <fieldset id="cr-guardianship-question" class="mt-6" style="display: none;">
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Does the veteran have guardianship over yourself (the <span class="whitespace-nowrap">dependent)?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="cr_has_guardianship" value="yes" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="cr_has_guardianship" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="cr-veterans-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="cr-veterans-continue-btn" disabled>
+                Continue
+              </button>
+            </div>
+          </div>
+
           <!-- Step: Contact Info (for Public Benefits + Age No + Medicare No path - after Household Info) -->
           <div class="form-step" data-step="pb-contact-no-medicare" id="step-pb-contact-no-medicare" style="display: none;">
             <h2 class="text-xl font-bold text-primary-700 mb-4">Your Contact Information</h2>
@@ -1919,17 +2036,24 @@
         incomeFrequencySelect.addEventListener('change', calculatePovertyPercent);
       }
 
-      // Override Step 1 Continue for Public Benefits + Age No + Medicare No path
+      // Override Step 1 Continue for Public Benefits paths that go to Household Info
       if (step1ContinueBtn) {
         step1ContinueBtn.addEventListener('click', function(e) {
           const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
           const ageSelected = document.querySelector('input[name="age_60_or_older"]:checked');
           const medicareSelected = document.querySelector('input[name="has_medicare"]:checked');
+          const medicareDisputeSelected = document.querySelector('input[name="medicare_dispute"]:checked');
 
-          // If Public Benefits + Age 60+ = No + Medicare = No, go to Household Info step
-          if (selectedLegalArea && selectedLegalArea.value === 'benefits' &&
-              ageSelected && ageSelected.value === 'no' &&
-              medicareSelected && medicareSelected.value === 'no') {
+          // Check if this is a Public Benefits path that should go to Household Info:
+          // Path 1: Public Benefits + Age 60+ = No + Medicare = No
+          // Path 2: Public Benefits + Age 60+ = No + Medicare = Yes + Medicare Dispute = No
+          const isPublicBenefits = selectedLegalArea && selectedLegalArea.value === 'benefits';
+          const isAgeNo = ageSelected && ageSelected.value === 'no';
+          const isMedicareNo = medicareSelected && medicareSelected.value === 'no';
+          const isMedicareYesDisputeNo = medicareSelected && medicareSelected.value === 'yes' &&
+                                          medicareDisputeSelected && medicareDisputeSelected.value === 'no';
+
+          if (isPublicBenefits && isAgeNo && (isMedicareNo || isMedicareYesDisputeNo)) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -2235,8 +2359,239 @@
             stepContactInfo.style.display = 'block';
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
           } else {
-            // Redirect to not-eligible-resources.html and disable back button
+            // Child care = no: check poverty percent
+            // If poverty <= 125%, go to Contact Info; otherwise redirect to not-eligible-resources
+            if (calculatedPovertyPercent !== null && calculatedPovertyPercent <= 125) {
+              stepContactInfo.style.display = 'block';
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            } else {
+              // Redirect to not-eligible-resources.html and disable back button
+              window.location.replace('not-eligible-resources.html');
+            }
+          }
+        });
+      }
+
+      // =====================================================
+      // Criminal Record Expungement Flow
+      // =====================================================
+      const stepDefenseAttorney = document.getElementById('step-defense-attorney');
+      const stepCrVeterans = document.getElementById('step-cr-veterans');
+      const defenseAttorneyBackBtn = document.getElementById('defense-attorney-back-btn');
+      const defenseAttorneyContinueBtn = document.getElementById('defense-attorney-continue-btn');
+      const crVeteransBackBtn = document.getElementById('cr-veterans-back-btn');
+      const crVeteransContinueBtn = document.getElementById('cr-veterans-continue-btn');
+      const texasCrimeQuestion = document.getElementById('texas-crime-question');
+      const crVeteranTypeQuestion = document.getElementById('cr-veteran-type-question');
+      const crGuardianshipQuestion = document.getElementById('cr-guardianship-question');
+
+      // Step 1 Continue for Criminal Record Expungement
+      if (step1ContinueBtn) {
+        step1ContinueBtn.addEventListener('click', function(e) {
+          const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+
+          // If Criminal Record is selected, go to Defense Attorney question
+          if (selectedLegalArea && selectedLegalArea.value === 'criminal-record') {
+            e.preventDefault();
+            e.stopPropagation();
+
+            step1.style.display = 'none';
+            stepDefenseAttorney.style.display = 'block';
+
+            // Hide urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'none';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
+
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Defense Attorney radio change - show/hide Texas crime question
+      const defenseAttorneyInputs = document.querySelectorAll('input[name="defense_attorney"]');
+      const texasCrimeInputs = document.querySelectorAll('input[name="texas_crime"]');
+
+      defenseAttorneyInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          if (this.value === 'no') {
+            texasCrimeQuestion.style.display = 'block';
+            // Disable continue until texas_crime is answered
+            defenseAttorneyContinueBtn.disabled = true;
+          } else {
+            texasCrimeQuestion.style.display = 'none';
+            // Clear texas_crime selection
+            clearRadioGroup('texas_crime');
+            // Enable continue for 'yes' (will redirect to not-eligible)
+            defenseAttorneyContinueBtn.disabled = false;
+          }
+        });
+      });
+
+      texasCrimeInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          defenseAttorneyContinueBtn.disabled = false;
+        });
+      });
+
+      // Defense Attorney Back Button
+      if (defenseAttorneyBackBtn) {
+        defenseAttorneyBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          stepDefenseAttorney.style.display = 'none';
+          step1.style.display = 'block';
+
+          // Show urgent notification and Family Help Link card
+          if (urgentNotification) urgentNotification.style.display = 'flex';
+          if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+
+          // Clear selections
+          clearRadioGroup('defense_attorney');
+          clearRadioGroup('texas_crime');
+          texasCrimeQuestion.style.display = 'none';
+          defenseAttorneyContinueBtn.disabled = true;
+
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Defense Attorney Continue Button
+      if (defenseAttorneyContinueBtn) {
+        defenseAttorneyContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const defenseSelected = document.querySelector('input[name="defense_attorney"]:checked');
+          if (!defenseSelected) return;
+
+          if (defenseSelected.value === 'yes') {
+            // Looking for defense attorney -> not eligible
             window.location.replace('not-eligible-resources.html');
+            return;
+          }
+
+          // Defense attorney = no, check Texas crime
+          const texasCrimeSelected = document.querySelector('input[name="texas_crime"]:checked');
+          if (!texasCrimeSelected) return;
+
+          if (texasCrimeSelected.value === 'no') {
+            // Crime not in Texas -> not eligible
+            window.location.replace('not-eligible-resources.html');
+            return;
+          }
+
+          // Texas crime = yes -> go to CR Veterans question
+          stepDefenseAttorney.style.display = 'none';
+          stepCrVeterans.style.display = 'block';
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // CR Veterans radio change - show/hide veteran type question
+      const crIsVeteranInputs = document.querySelectorAll('input[name="cr_is_veteran"]');
+      const crVeteranTypeInputs = document.querySelectorAll('input[name="cr_veteran_type"]');
+      const crGuardianshipInputs = document.querySelectorAll('input[name="cr_has_guardianship"]');
+
+      crIsVeteranInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          if (this.value === 'yes') {
+            crVeteranTypeQuestion.style.display = 'block';
+            // Disable continue until veteran_type is answered
+            crVeteransContinueBtn.disabled = true;
+          } else {
+            crVeteranTypeQuestion.style.display = 'none';
+            crGuardianshipQuestion.style.display = 'none';
+            // Clear selections
+            clearRadioGroup('cr_veteran_type');
+            clearRadioGroup('cr_has_guardianship');
+            // Enable continue for 'no' (will redirect to not-eligible)
+            crVeteransContinueBtn.disabled = false;
+          }
+        });
+      });
+
+      crVeteranTypeInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          if (this.value === 'dependent_over_18') {
+            crGuardianshipQuestion.style.display = 'block';
+            crVeteransContinueBtn.disabled = true;
+          } else {
+            crGuardianshipQuestion.style.display = 'none';
+            clearRadioGroup('cr_has_guardianship');
+            crVeteransContinueBtn.disabled = false;
+          }
+        });
+      });
+
+      crGuardianshipInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          crVeteransContinueBtn.disabled = false;
+        });
+      });
+
+      // CR Veterans Back Button
+      if (crVeteransBackBtn) {
+        crVeteransBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          stepCrVeterans.style.display = 'none';
+          stepDefenseAttorney.style.display = 'block';
+
+          // Clear CR veteran selections
+          clearRadioGroup('cr_is_veteran');
+          clearRadioGroup('cr_veteran_type');
+          clearRadioGroup('cr_has_guardianship');
+          crVeteranTypeQuestion.style.display = 'none';
+          crGuardianshipQuestion.style.display = 'none';
+          crVeteransContinueBtn.disabled = true;
+
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // CR Veterans Continue Button
+      if (crVeteransContinueBtn) {
+        crVeteransContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const crIsVeteranSelected = document.querySelector('input[name="cr_is_veteran"]:checked');
+          if (!crIsVeteranSelected) return;
+
+          if (crIsVeteranSelected.value === 'no') {
+            // Not a veteran -> not eligible
+            window.location.replace('not-eligible-resources.html');
+            return;
+          }
+
+          // Is veteran = yes, check veteran type
+          const crVeteranTypeSelected = document.querySelector('input[name="cr_veteran_type"]:checked');
+          if (!crVeteranTypeSelected) return;
+
+          const crVeteranType = crVeteranTypeSelected.value;
+
+          // First 3 options (veteran, spouse, dependent_under_18) -> Contact Info
+          if (crVeteranType === 'veteran' || crVeteranType === 'spouse' || crVeteranType === 'dependent_under_18') {
+            stepCrVeterans.style.display = 'none';
+            stepContactInfo.style.display = 'block';
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // dependent_over_18 -> check guardianship
+          if (crVeteranType === 'dependent_over_18') {
+            const crGuardianshipSelected = document.querySelector('input[name="cr_has_guardianship"]:checked');
+            if (!crGuardianshipSelected) return;
+
+            stepCrVeterans.style.display = 'none';
+            if (crGuardianshipSelected.value === 'yes') {
+              stepContactInfo.style.display = 'block';
+            } else {
+              // No guardianship -> not eligible
+              window.location.replace('not-eligible-resources.html');
+            }
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // Other -> not eligible
+          if (crVeteranType === 'other') {
+            window.location.replace('not-eligible-resources.html');
+            return;
           }
         });
       }
@@ -2253,9 +2608,14 @@
           const crimeVictimAnswer = document.querySelector('input[name="crime_victim"]:checked');
           const veteransAnswer = document.querySelector('input[name="is_veteran"]:checked');
           const childCareAnswer = document.querySelector('input[name="child_care"]:checked');
+          const crIsVeteranAnswer = document.querySelector('input[name="cr_is_veteran"]:checked');
 
-          if (childCareAnswer && childCareAnswer.value === 'yes') {
-            // Came from Child Care
+          // Check if came from Criminal Record path
+          if (crIsVeteranAnswer) {
+            // Came from CR Veterans
+            if (stepCrVeterans) stepCrVeterans.style.display = 'block';
+          } else if (childCareAnswer) {
+            // Came from Child Care (either yes or no with poverty <= 125%)
             if (stepChildCare) stepChildCare.style.display = 'block';
           } else if (veteransAnswer && veteransAnswer.value === 'yes') {
             // Came from Veterans
