@@ -291,15 +291,34 @@ Military & Benefits Selected
 │       ├─► Military Veteran Type (military_veteran_type)
 │       │   "Which best describes you?"
 │       │   │
-│       │   ├─► veteran ─────────────────────────► Contact Info ──► Thank You
-│       │   ├─► spouse ──────────────────────────► Contact Info ──► Thank You
-│       │   ├─► dependent_under_18 ──────────────► Contact Info ──► Thank You
+│       │   ├─► veteran ─────────────────────────► Household Info (200%)
+│       │   │                                       │
+│       │   │                                       ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+│       │   │                                       │
+│       │   │                                       └─► poverty > 200% ─► NOT ELIGIBLE
+│       │   │
+│       │   ├─► spouse ──────────────────────────► Household Info (200%)
+│       │   │                                       │
+│       │   │                                       ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+│       │   │                                       │
+│       │   │                                       └─► poverty > 200% ─► NOT ELIGIBLE
+│       │   │
+│       │   ├─► dependent_under_18 ──────────────► Household Info (125%)
+│       │   │                                       │
+│       │   │                                       ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│       │   │                                       │
+│       │   │                                       └─► poverty > 125% ─► NOT ELIGIBLE
 │       │   │
 │       │   ├─► dependent_over_18
 │       │   │   │
 │       │   │   ├─► Military Guardianship (military_has_guardianship)
 │       │   │   │   "Does the veteran have guardianship over yourself (the dependent)?"
-│       │   │   │   ├─► YES ─────────────────────► Contact Info ──► Thank You
+│       │   │   │   ├─► YES ─────────────────────► Household Info (125%)
+│       │   │   │   │                               │
+│       │   │   │   │                               ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│       │   │   │   │                               │
+│       │   │   │   │                               └─► poverty > 125% ─► NOT ELIGIBLE
+│       │   │   │   │
 │       │   │   │   └─► NO ──────────────────────► NOT ELIGIBLE
 │       │   │
 │       │   └─► other ───────────────────────────► NOT ELIGIBLE
@@ -332,6 +351,9 @@ The following legal areas proceed through standard form flow without specialized
 - Family Law: Safety = Yes
 - Family Law: Safety = No, Best Fit = (any option)
 - Military & Benefits: Veterans = No
+- Military & Benefits: Veterans = Yes, Type = veteran or spouse
+- Military & Benefits: Veterans = Yes, Type = dependent_under_18
+- Military & Benefits: Veterans = Yes, Type = dependent_over_18, Guardianship = Yes
 
 **Form Fields:**
 - `household_size` - Number of persons (1-20)
@@ -386,6 +408,20 @@ From Family Law Path:
 
 
 From Military & Benefits Path (Veterans = No):
+│
+├─► poverty > 125% ──────────────────► NOT ELIGIBLE
+│
+└─► poverty ≤ 125% ──────────────────► Contact Info ──► Thank You
+
+
+From Military & Benefits Path (Veterans = Yes, Type = veteran or spouse):
+│
+├─► poverty > 200% ──────────────────► NOT ELIGIBLE
+│
+└─► poverty ≤ 200% ──────────────────► Contact Info ──► Thank You
+
+
+From Military & Benefits Path (Veterans = Yes, Type = dependent):
 │
 ├─► poverty > 125% ──────────────────► NOT ELIGIBLE
 │
@@ -483,22 +519,21 @@ applying for crime victims' compensation?"
 
 **Back Button Navigation Logic:**
 Priority order for determining previous step:
-1. `military_is_veteran` = yes → Step 1 (came from Military veteran path)
-2. `military_is_veteran` = no → Household Info (came from Military non-veteran path)
-3. `family_safety` answered → Household Info
-4. `elder_age_60` answered → Elder Age 60 step
-5. `elder_violence` = yes → Elder Pension step
-6. `elder_pension` = yes → Elder Pension step
-7. `elder_is_veteran` answered → Household Info
-8. `housing_type` = identity_theft → Step 1
-9. `housing_type` = early_termination AND `housing_sexual_assault` = yes → Step 1
-10. `housing_age_60` answered → Housing Age 60 step
-11. `housing_is_veteran` answered → Housing Veterans step
-12. `cr_is_veteran` answered → CR Veterans step
-13. `child_care` answered → Child Care step
-14. `is_veteran` = yes → Veterans step
-15. `crime_victim` = yes → Crime Victim step
-16. Default → Household Info
+1. `military_is_veteran` answered → Household Info (all Military paths go through Household Info)
+2. `family_safety` answered → Household Info
+3. `elder_age_60` answered → Elder Age 60 step
+4. `elder_violence` = yes → Elder Pension step
+5. `elder_pension` = yes → Elder Pension step
+6. `elder_is_veteran` answered → Household Info
+7. `housing_type` = identity_theft → Step 1
+8. `housing_type` = early_termination AND `housing_sexual_assault` = yes → Step 1
+9. `housing_age_60` answered → Housing Age 60 step
+10. `housing_is_veteran` answered → Housing Veterans step
+11. `cr_is_veteran` answered → CR Veterans step
+12. `child_care` answered → Child Care step
+13. `is_veteran` = yes → Veterans step
+14. `crime_victim` = yes → Crime Victim step
+15. Default → Household Info
 
 **Submit Action:** Show Thank You page
 
@@ -512,6 +547,8 @@ Priority order for determining previous step:
 | Elder Law → Veterans → Household Info | 200% | N/A |
 | Family Law → Household Info | 125% | N/A |
 | Military & Benefits → Veterans = No → Household Info | 125% | N/A |
+| Military & Benefits → Veterans = Yes → veteran/spouse → Household Info | 200% | N/A |
+| Military & Benefits → Veterans = Yes → dependent → Household Info | 125% | N/A |
 | All Other Paths | N/A | N/A |
 
 ---
@@ -709,6 +746,8 @@ All paths leading to `not-eligible-resources.html`:
 | Military & Benefits | Veteran Type = Other |
 | Military & Benefits | Guardianship = No |
 | Military & Benefits | Veterans = No AND Household poverty > 125% |
+| Military & Benefits | Veterans = Yes, veteran/spouse AND Household poverty > 200% |
+| Military & Benefits | Veterans = Yes, dependent AND Household poverty > 125% |
 
 ---
 
@@ -727,12 +766,13 @@ Paths that go directly to Contact Info without additional screening:
 9. Public Benefits + Age 60+ = Yes
 10. Family Law + Safety = Yes AND poverty ≤ 125%
 11. Family Law + Safety = No + Best Fit AND poverty ≤ 125%
-12. Military & Benefits + Veterans = Yes (eligible types: veteran, spouse, dependent_under_18, dependent_over_18 + guardianship)
-13. Military & Benefits + Veterans = No AND poverty ≤ 125%
-14. Screening: Crime Victim = Yes
-15. Screening: Veterans = Yes (eligible types)
-16. Screening: Child Care = Yes
-17. Screening: Child Care = No AND poverty ≤ 125%
+12. Military & Benefits + Veterans = Yes, veteran/spouse AND poverty ≤ 200%
+13. Military & Benefits + Veterans = Yes, dependent AND poverty ≤ 125%
+14. Military & Benefits + Veterans = No AND poverty ≤ 125%
+15. Screening: Crime Victim = Yes
+16. Screening: Veterans = Yes (eligible types)
+17. Screening: Child Care = Yes
+18. Screening: Child Care = No AND poverty ≤ 125%
 
 ---
 

@@ -2867,10 +2867,10 @@
           // Hide Household Info step
           stepHouseholdInfo.style.display = 'none';
 
-          // Check if we came from Military & Benefits path (military_is_veteran = no)
+          // Check if we came from Military & Benefits path (any path - all go through Household Info)
           const militaryIsVeteranAnswerBack = document.querySelector('input[name="military_is_veteran"]:checked');
-          if (militaryIsVeteranAnswerBack && militaryIsVeteranAnswerBack.value === 'no') {
-            // Military non-veteran path -> Go back to Step 1
+          if (militaryIsVeteranAnswerBack) {
+            // All Military paths -> Go back to Step 1
             step1.style.display = 'block';
             // Show urgent notification and Family Help Link card
             if (urgentNotification) urgentNotification.style.display = 'flex';
@@ -2968,23 +2968,53 @@
             return;
           }
 
-          // Check if we came from Military & Benefits path (via military_is_veteran = no)
+          // Check if we came from Military & Benefits path
           const militaryIsVeteranAnswer = document.querySelector('input[name="military_is_veteran"]:checked');
+          const militaryVeteranTypeAnswer = document.querySelector('input[name="military_veteran_type"]:checked');
 
-          if (militaryIsVeteranAnswer && militaryIsVeteranAnswer.value === 'no') {
-            // Military & Benefits non-veteran path - uses 125% poverty threshold
-            if (calculatedPovertyPercent > 125) {
-              // Redirect to not-eligible-resources.html and disable back button
-              window.location.replace('not-eligible-resources.html');
+          if (militaryIsVeteranAnswer) {
+            if (militaryIsVeteranAnswer.value === 'no') {
+              // Military & Benefits non-veteran path - uses 125% poverty threshold
+              if (calculatedPovertyPercent > 125) {
+                window.location.replace('not-eligible-resources.html');
+                return;
+              }
+              // Military non-veteran + poverty ≤ 125% -> Contact Info directly
+              stepHouseholdInfo.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+              populateContactInfoIncomeValues();
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
-            }
+            } else if (militaryIsVeteranAnswer.value === 'yes' && militaryVeteranTypeAnswer) {
+              // Military & Benefits veteran path - check veteran type for threshold
+              const veteranType = militaryVeteranTypeAnswer.value;
 
-            // Military non-veteran + poverty ≤ 125% -> Contact Info directly
-            stepHouseholdInfo.style.display = 'none';
-            stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
-            return;
+              if (veteranType === 'veteran' || veteranType === 'spouse') {
+                // Veteran or spouse - uses 200% poverty threshold
+                if (calculatedPovertyPercent > 200) {
+                  window.location.replace('not-eligible-resources.html');
+                  return;
+                }
+                // Military veteran/spouse + poverty ≤ 200% -> Contact Info directly
+                stepHouseholdInfo.style.display = 'none';
+                stepContactInfo.style.display = 'block';
+                populateContactInfoIncomeValues();
+                document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+                return;
+              } else if (veteranType === 'dependent_under_18' || veteranType === 'dependent_over_18') {
+                // Dependents - uses 125% poverty threshold
+                if (calculatedPovertyPercent > 125) {
+                  window.location.replace('not-eligible-resources.html');
+                  return;
+                }
+                // Military dependent + poverty ≤ 125% -> Contact Info directly
+                stepHouseholdInfo.style.display = 'none';
+                stepContactInfo.style.display = 'block';
+                populateContactInfoIncomeValues();
+                document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+                return;
+              }
+            }
           }
 
           // Public Benefits path - uses 200% poverty threshold as well (then continues to screening)
@@ -4183,19 +4213,21 @@
               if (!militaryGuardianshipSelected) return;
 
               if (militaryGuardianshipSelected.value === 'yes') {
-                // Guardianship = yes -> Contact Info
+                // Guardianship = yes -> Household Info (125% threshold)
                 step1.style.display = 'none';
-                stepContactInfo.style.display = 'block';
-                populateContactInfoIncomeValues();
+                stepHouseholdInfo.style.display = 'block';
               } else {
                 // Guardianship = no -> Not Eligible
                 window.location.replace('not-eligible-resources.html');
               }
-            } else {
-              // Veteran, spouse, dependent_under_18 -> Contact Info
+            } else if (militaryVeteranTypeSelected.value === 'dependent_under_18') {
+              // Dependent under 18 -> Household Info (125% threshold)
               step1.style.display = 'none';
-              stepContactInfo.style.display = 'block';
-              populateContactInfoIncomeValues();
+              stepHouseholdInfo.style.display = 'block';
+            } else {
+              // Veteran, spouse -> Household Info (200% threshold)
+              step1.style.display = 'none';
+              stepHouseholdInfo.style.display = 'block';
             }
 
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
@@ -4236,16 +4268,8 @@
 
           // Check if came from Military & Benefits path first
           if (militaryIsVeteranAnswer) {
-            if (militaryIsVeteranAnswer.value === 'yes') {
-              // Came from Military veteran path directly to Contact Info -> go back to Step 1
-              step1.style.display = 'block';
-              // Show urgent notification and Family Help Link card
-              if (urgentNotification) urgentNotification.style.display = 'flex';
-              if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
-            } else {
-              // Came from Military non-veteran path via Household Info -> go back to Household Info
-              stepHouseholdInfo.style.display = 'block';
-            }
+            // All Military paths go through Household Info now -> go back to Household Info
+            stepHouseholdInfo.style.display = 'block';
           // Check if came from Family Law path
           } else if (familySafetyAnswer) {
             // Came from Family Law via Household Info
