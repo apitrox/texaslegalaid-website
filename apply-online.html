@@ -811,6 +811,48 @@
               </div>
             </fieldset>
 
+            <!-- Conditional: Which best describes you? (shown when is_veteran = yes) -->
+            <fieldset id="veteran-type-question" class="mt-6" style="display: none;">
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Which best describes you?<span class="text-red-600">*</span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="veteran_type" value="veteran" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm a veteran</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="veteran_type" value="spouse" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the spouse or surviving spouse of a veteran</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="veteran_type" value="dependent_under_18" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the dependant of a veteran (and I'm under 18)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="veteran_type" value="dependent_over_18" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the dependant of a veteran (and I'm over 18)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="veteran_type" value="other" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">Other</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Conditional: Guardianship question (shown when veteran_type = dependent_over_18) -->
+            <fieldset id="guardianship-question" class="mt-6" style="display: none;">
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Does the veteran have guardianship over yourself (the dependent)?<span class="text-red-600">*</span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="has_guardianship" value="yes" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="has_guardianship" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
             <div class="flex justify-between mt-8">
               <button type="button" class="btn btn-outline" id="veterans-back-btn">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -1989,8 +2031,62 @@
 
       const veteransRadios = document.querySelectorAll('input[name="is_veteran"]');
       const veteransContinueBtn = document.getElementById('veterans-continue-btn');
+      const veteranTypeQuestion = document.getElementById('veteran-type-question');
+      const guardianshipQuestion = document.getElementById('guardianship-question');
+      const veteranTypeRadios = document.querySelectorAll('input[name="veteran_type"]');
+      const guardianshipRadios = document.querySelectorAll('input[name="has_guardianship"]');
+
+      // Clear radio selection helper
+      function clearRadioGroup(name) {
+        document.querySelectorAll(`input[name="${name}"]`).forEach(r => r.checked = false);
+      }
+
+      // Veterans Yes/No change handler
       veteransRadios.forEach(radio => {
         radio.addEventListener('change', function() {
+          if (this.value === 'yes') {
+            // Show veteran type question
+            if (veteranTypeQuestion) veteranTypeQuestion.style.display = 'block';
+            // Clear and hide guardianship question
+            clearRadioGroup('has_guardianship');
+            if (guardianshipQuestion) guardianshipQuestion.style.display = 'none';
+            // Disable continue until veteran type is selected
+            if (veteransContinueBtn) veteransContinueBtn.disabled = true;
+          } else {
+            // Hide both conditional questions
+            if (veteranTypeQuestion) veteranTypeQuestion.style.display = 'none';
+            if (guardianshipQuestion) guardianshipQuestion.style.display = 'none';
+            // Clear selections
+            clearRadioGroup('veteran_type');
+            clearRadioGroup('has_guardianship');
+            // Enable continue
+            if (veteransContinueBtn) veteransContinueBtn.disabled = false;
+          }
+        });
+      });
+
+      // Veteran type change handler
+      veteranTypeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value === 'dependent_over_18') {
+            // Show guardianship question
+            if (guardianshipQuestion) guardianshipQuestion.style.display = 'block';
+            // Disable continue until guardianship is answered
+            if (veteransContinueBtn) veteransContinueBtn.disabled = true;
+          } else {
+            // Hide guardianship question
+            if (guardianshipQuestion) guardianshipQuestion.style.display = 'none';
+            clearRadioGroup('has_guardianship');
+            // Enable continue
+            if (veteransContinueBtn) veteransContinueBtn.disabled = false;
+          }
+        });
+      });
+
+      // Guardianship change handler
+      guardianshipRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          // Enable continue when guardianship is answered
           if (veteransContinueBtn) veteransContinueBtn.disabled = false;
         });
       });
@@ -2039,6 +2135,14 @@
       if (veteransBackBtn) {
         veteransBackBtn.addEventListener('click', function(e) {
           e.preventDefault();
+          // Reset conditional questions
+          if (veteranTypeQuestion) veteranTypeQuestion.style.display = 'none';
+          if (guardianshipQuestion) guardianshipQuestion.style.display = 'none';
+          clearRadioGroup('is_veteran');
+          clearRadioGroup('veteran_type');
+          clearRadioGroup('has_guardianship');
+          if (veteransContinueBtn) veteransContinueBtn.disabled = true;
+
           if (stepVeterans) stepVeterans.style.display = 'none';
           if (stepCrimeVictim) stepCrimeVictim.style.display = 'block';
           document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
@@ -2049,19 +2153,56 @@
       if (veteransContinueBtn) {
         veteransContinueBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          const selected = document.querySelector('input[name="is_veteran"]:checked');
-          if (!selected) return;
+          const isVeteranSelected = document.querySelector('input[name="is_veteran"]:checked');
+          if (!isVeteranSelected) return;
 
-          if (stepVeterans) stepVeterans.style.display = 'none';
-
-          if (selected.value === 'yes') {
-            // Go to Contact Info
-            stepContactInfo.style.display = 'block';
-          } else {
+          if (isVeteranSelected.value === 'no') {
             // Go to Child Care question
+            if (stepVeterans) stepVeterans.style.display = 'none';
             if (stepChildCare) stepChildCare.style.display = 'block';
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
           }
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+
+          // is_veteran = yes, check veteran_type
+          const veteranTypeSelected = document.querySelector('input[name="veteran_type"]:checked');
+          if (!veteranTypeSelected) return;
+
+          const veteranType = veteranTypeSelected.value;
+
+          // First 3 options (veteran, spouse, dependent_under_18) -> Contact Info
+          if (veteranType === 'veteran' || veteranType === 'spouse' || veteranType === 'dependent_under_18') {
+            if (stepVeterans) stepVeterans.style.display = 'none';
+            stepContactInfo.style.display = 'block';
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // dependent_over_18 -> check guardianship
+          if (veteranType === 'dependent_over_18') {
+            const guardianshipSelected = document.querySelector('input[name="has_guardianship"]:checked');
+            if (!guardianshipSelected) return;
+
+            if (guardianshipSelected.value === 'yes') {
+              // Go to Contact Info
+              if (stepVeterans) stepVeterans.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+            } else {
+              // Go to Child Care question
+              if (stepVeterans) stepVeterans.style.display = 'none';
+              if (stepChildCare) stepChildCare.style.display = 'block';
+            }
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // Other -> Go to Child Care question
+          if (veteranType === 'other') {
+            if (stepVeterans) stepVeterans.style.display = 'none';
+            if (stepChildCare) stepChildCare.style.display = 'block';
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
         });
       }
 
@@ -2070,6 +2211,10 @@
       if (childCareBackBtn) {
         childCareBackBtn.addEventListener('click', function(e) {
           e.preventDefault();
+          // Reset child care selection
+          clearRadioGroup('child_care');
+          if (childCareContinueBtn) childCareContinueBtn.disabled = true;
+
           if (stepChildCare) stepChildCare.style.display = 'none';
           if (stepVeterans) stepVeterans.style.display = 'block';
           document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
