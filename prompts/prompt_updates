@@ -180,9 +180,68 @@ General Rules:
 
 
 
-/clear
+/compact
+
 For the `texaslegalaid-website` application website project make the following changes:
--  At the `../apply-online.html` page, update the eight cards (see attached image) to reflect the reflect the items in the attached image that start with "Accessing Public Benefits, like SNAP, Medicaid, Medicare, SSI, SSDI, and TANF", plus an "Other" card which we already have. Keep the order of the cards in the same order (right to left, top to bottom) as the items in the list. For the cards you will need to take the items in the list and create a title/label and a description, like current cards. The user will be able to select one and only one card, then click Continue. The Continue button will be disabled until a card is selected.
+-  See attached image(s) for referrence.
+- On the `../apply-online.html` page, when the user answers Public Benefits, No, No, then Continue takes the user to the Household Information page asking for household size and household income. Household size is a selectable list from 1 to 20 and household income must be an integer from 0 to 400,000.
+- Next to the household size label, put a help icon (like other help icons in our application) with a tooltip that reads "This is the total number of people, adults and children, who live in your household. If one of the people who live in the household pays child support for any child/ren that do not live in the household, also include that child/ren.".
+- Next to the household income label, put a help icon (like other help icons in our application) with a tooltip that reads "This is the total amount of income earned on average, from all people who live in your household. This is gross income, before deducting any taxes, withholdings, etc.".
+- After the user has entered the household size and household income, calculate their poverty percent using current year (or latest year if current year is not available) HHS poverty numbers. Display the poverty number as a percent, and rounded to the nearest whole percent. Recalculate whenever one of the numbers is changed. The label shall be "Poverty percent: " and the number shall be displayed like 104%. Use poverty guidelines for the 48 Continguous States or assume the person lives in Texas. Use this API endpoint ``https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines/api/[YEAR]/[STATE]/[HOUSEHOLD_SIZE]`` If you don't get valid data returned using the current year, then use the previous year, particularly if it is during the first couple months of the current year. Then, divide the user's household income by the amount returned by the api call (which is 100% poverty level), multiply by 100, round to the nearest whole number, and this is our percent poverty level. Display this number and remember it in memory.
+---
+General Rules:
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- All changes must comply with the specifications contained in `../prompts/application-specifications`.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+
+/compact
+
+For the `texaslegalaid-website` application website project make the following changes:
+-  See any attached image(s) or file(s) for reference.
+- create a `../not-eligible-resources.html` page using the attached file as the content for this page, Household Information page, insert another line/link under HHS Poverty Guidelines that reads "TAJF 2025 Financial Income Guidelines" and links to `https://teajf.org/grants/docs/2024/2025%20TAJF%20REV%20Income%20Guideline%20chart%202025.pdf
+---
+General Rules:
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- All changes must comply with the specifications contained in `../prompts/application-specifications`.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `texaslegalaid-website` application website project make the following changes:
+-  See any attached image(s) or file(s) for reference.
+- On the `../apply-online.html` page, Household Information page, insert another line/link under HHS Poverty Guidelines that reads "TAJF 2025 Financial Income Guidelines" and links to `https://teajf.org/grants/docs/2024/2025%20TAJF%20REV%20Income%20Guideline%20chart%202025.pdf
+---
+General Rules:
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- All changes must comply with the specifications contained in `../prompts/application-specifications`.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `texaslegalaid-website` application website project make the following changes:
+- Update the page `../not-eligible-resources.html` using `../not-eligible-resources.md`. Any resources that are on `../not-eligible-resources.md` and not on `../not-eligible-resources.html` are to be included on `../not-eligible-resources.html`. If an entire section is on `../not-eligible-resources.md` and not on `../not-eligible-resources.html`, then include that entire section, with heading, on `../not-eligible-resources.html`. Keep the format of `../not-eligible-resources.html` the same as it currently is, just add additional resources information.
+---
+General Rules:
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- All changes must comply with the specifications contained in `../prompts/application-specifications`.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `texaslegalaid-website` application website project make the following changes:
+-  See any attached image(s) or file(s) for reference.
+- On the `../apply-online.html` page, if the user selects "Housing & Debt" a second question is displayed on the same page, and if 'Early termination ...' option is selected then a third question is displayed on the same page.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
