@@ -1179,6 +1179,195 @@
             </div>
           </div>
 
+          <!-- Step: Elder Law Deceased Retirement Funds Question -->
+          <div class="form-step" data-step="elder-deceased" id="step-elder-deceased" style="display: none;">
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Does your issue involve accessing the retirement or other funds and property of a person who is now <span class="whitespace-nowrap">deceased?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_deceased" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_deceased" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="elder-deceased-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="elder-deceased-continue-btn" disabled>
+                Continue
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step: Elder Law Veterans Question (for deceased = yes) -->
+          <div class="form-step" data-step="elder-veterans" id="step-elder-veterans" style="display: none;">
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you a veteran, a spouse of a veteran, or a dependent of a <span class="whitespace-nowrap">veteran?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_is_veteran" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_is_veteran" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Conditional: Which best describes you? (shown when elder_is_veteran = yes) -->
+            <fieldset id="elder-veteran-type-question" class="mt-6" style="display: none;">
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Which best describes <span class="whitespace-nowrap">you?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_veteran_type" value="veteran" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm a veteran</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_veteran_type" value="spouse" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the spouse or surviving spouse of a veteran</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_veteran_type" value="dependent_under_18" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the dependant of a veteran (and I'm under 18)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_veteran_type" value="dependent_over_18" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">I'm the dependant of a veteran (and I'm over 18)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_veteran_type" value="other" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">Other</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Conditional: Guardianship question (shown when elder_veteran_type = dependent_over_18) -->
+            <fieldset id="elder-guardianship-question" class="mt-6" style="display: none;">
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Does the veteran have guardianship over yourself (the <span class="whitespace-nowrap">dependent)?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_has_guardianship" value="yes" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_has_guardianship" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="elder-veterans-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="elder-veterans-continue-btn" disabled>
+                Continue
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step: Elder Law Pension/401(k) Question (for deceased = no) -->
+          <div class="form-step" data-step="elder-pension" id="step-elder-pension" style="display: none;">
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Does your issue involve a retirement plan — like a pension or a <span class="whitespace-nowrap">401(k)?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_pension" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_pension" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Conditional: Physical violence question (shown when elder_pension = no) -->
+            <fieldset id="elder-violence-question" class="mt-6" style="display: none;">
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Does your issue involve physical violence against an elderly <span class="whitespace-nowrap">person?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_violence" value="yes" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_violence" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="elder-pension-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="elder-pension-continue-btn" disabled>
+                Continue
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step: Elder Law Age 60+ Question (for pension = no + violence = no) -->
+          <div class="form-step" data-step="elder-age-60" id="step-elder-age-60" style="display: none;">
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you 60 years of age or <span class="whitespace-nowrap">older?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_age_60" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="elder_age_60" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="elder-age-60-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="elder-age-60-continue-btn" disabled>
+                Continue
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
           <!-- Step: Contact Info (for Public Benefits + Age No + Medicare No path - after Household Info) -->
           <div class="form-step" data-step="pb-contact-no-medicare" id="step-pb-contact-no-medicare" style="display: none;">
             <h2 class="text-xl font-bold text-primary-700 mb-4">Your Contact Information</h2>
@@ -2327,13 +2516,23 @@
         householdBackBtn.addEventListener('click', function(e) {
           e.preventDefault();
 
-          // Hide Household Info step, show Step 1
+          // Hide Household Info step
           stepHouseholdInfo.style.display = 'none';
-          step1.style.display = 'block';
 
-          // Show urgent notification and Family Help Link card again
-          if (urgentNotification) urgentNotification.style.display = 'flex';
-          if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+          // Check if we came from Elder Law path
+          const elderIsVeteranAnswer = document.querySelector('input[name="elder_is_veteran"]:checked');
+          if (elderIsVeteranAnswer) {
+            // Go back to Elder Law Veterans step
+            const stepElderVeterans = document.getElementById('step-elder-veterans');
+            if (stepElderVeterans) stepElderVeterans.style.display = 'block';
+          } else {
+            // Go back to Step 1
+            step1.style.display = 'block';
+
+            // Show urgent notification and Family Help Link card again
+            if (urgentNotification) urgentNotification.style.display = 'flex';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+          }
 
           // Scroll to top
           document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
@@ -2358,6 +2557,25 @@
           // Store poverty percent in a global variable for form submission
           window.calculatedPovertyPercent = calculatedPovertyPercent;
 
+          // Check if we came from Elder Law path (via elder_is_veteran selection)
+          const elderIsVeteranAnswer = document.querySelector('input[name="elder_is_veteran"]:checked');
+
+          if (elderIsVeteranAnswer) {
+            // Elder Law path - uses 200% poverty threshold
+            if (calculatedPovertyPercent > 200) {
+              // Redirect to not-eligible-resources.html and disable back button
+              window.location.replace('not-eligible-resources.html');
+              return;
+            }
+
+            // Elder Law + poverty ≤ 200% -> Contact Info directly
+            stepHouseholdInfo.style.display = 'none';
+            stepContactInfo.style.display = 'block';
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // Public Benefits path - uses 200% poverty threshold as well (then continues to screening)
           // Check poverty level - if > 200%, redirect to not-eligible-resources
           if (calculatedPovertyPercent > 200) {
             // Redirect to not-eligible-resources.html and disable back button
@@ -3075,6 +3293,326 @@
         });
       }
 
+      // =====================================================
+      // Elder Law Flow
+      // =====================================================
+      const stepElderDeceased = document.getElementById('step-elder-deceased');
+      const elderDeceasedBackBtn = document.getElementById('elder-deceased-back-btn');
+      const elderDeceasedContinueBtn = document.getElementById('elder-deceased-continue-btn');
+      const elderDeceasedInputs = document.querySelectorAll('input[name="elder_deceased"]');
+
+      const stepElderVeterans = document.getElementById('step-elder-veterans');
+      const elderVeteransBackBtn = document.getElementById('elder-veterans-back-btn');
+      const elderVeteransContinueBtn = document.getElementById('elder-veterans-continue-btn');
+      const elderVeteranTypeQuestion = document.getElementById('elder-veteran-type-question');
+      const elderGuardianshipQuestion = document.getElementById('elder-guardianship-question');
+      const elderIsVeteranInputs = document.querySelectorAll('input[name="elder_is_veteran"]');
+      const elderVeteranTypeInputs = document.querySelectorAll('input[name="elder_veteran_type"]');
+      const elderGuardianshipInputs = document.querySelectorAll('input[name="elder_has_guardianship"]');
+
+      const stepElderPension = document.getElementById('step-elder-pension');
+      const elderPensionBackBtn = document.getElementById('elder-pension-back-btn');
+      const elderPensionContinueBtn = document.getElementById('elder-pension-continue-btn');
+      const elderPensionInputs = document.querySelectorAll('input[name="elder_pension"]');
+      const elderViolenceQuestion = document.getElementById('elder-violence-question');
+      const elderViolenceInputs = document.querySelectorAll('input[name="elder_violence"]');
+
+      const stepElderAge60 = document.getElementById('step-elder-age-60');
+      const elderAge60BackBtn = document.getElementById('elder-age-60-back-btn');
+      const elderAge60ContinueBtn = document.getElementById('elder-age-60-continue-btn');
+      const elderAge60Inputs = document.querySelectorAll('input[name="elder_age_60"]');
+
+      // Step 1 Continue for Elder Law
+      if (step1ContinueBtn) {
+        step1ContinueBtn.addEventListener('click', function(e) {
+          const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+
+          // If Elder Law is selected, go to Deceased question
+          if (selectedLegalArea && selectedLegalArea.value === 'elder-law') {
+            e.preventDefault();
+            e.stopPropagation();
+
+            step1.style.display = 'none';
+            stepElderDeceased.style.display = 'block';
+
+            // Hide urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'none';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
+
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Enable Elder Deceased Continue button when a selection is made
+      elderDeceasedInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          elderDeceasedContinueBtn.disabled = false;
+        });
+      });
+
+      // Elder Deceased Back Button
+      if (elderDeceasedBackBtn) {
+        elderDeceasedBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          stepElderDeceased.style.display = 'none';
+          step1.style.display = 'block';
+
+          // Show urgent notification and Family Help Link card
+          if (urgentNotification) urgentNotification.style.display = 'flex';
+          if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+
+          // Clear Elder Deceased selection
+          clearRadioGroup('elder_deceased');
+          elderDeceasedContinueBtn.disabled = true;
+
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Elder Deceased Continue Button
+      if (elderDeceasedContinueBtn) {
+        elderDeceasedContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const elderDeceasedSelected = document.querySelector('input[name="elder_deceased"]:checked');
+          if (!elderDeceasedSelected) return;
+
+          stepElderDeceased.style.display = 'none';
+          if (elderDeceasedSelected.value === 'yes') {
+            // Deceased = yes -> Elder Veterans question
+            stepElderVeterans.style.display = 'block';
+          } else {
+            // Deceased = no -> Elder Pension question
+            stepElderPension.style.display = 'block';
+          }
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Elder Veterans radio change - show/hide veteran type question
+      elderIsVeteranInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          if (this.value === 'yes') {
+            elderVeteranTypeQuestion.style.display = 'block';
+            // Disable continue until veteran_type is answered
+            elderVeteransContinueBtn.disabled = true;
+          } else {
+            elderVeteranTypeQuestion.style.display = 'none';
+            elderGuardianshipQuestion.style.display = 'none';
+            // Clear selections
+            clearRadioGroup('elder_veteran_type');
+            clearRadioGroup('elder_has_guardianship');
+            // Enable continue for 'no' (will redirect to not-eligible)
+            elderVeteransContinueBtn.disabled = false;
+          }
+        });
+      });
+
+      // Elder Veteran Type radio change - show/hide guardianship question
+      elderVeteranTypeInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          if (this.value === 'dependent_over_18') {
+            elderGuardianshipQuestion.style.display = 'block';
+            elderVeteransContinueBtn.disabled = true;
+          } else {
+            elderGuardianshipQuestion.style.display = 'none';
+            clearRadioGroup('elder_has_guardianship');
+            elderVeteransContinueBtn.disabled = false;
+          }
+        });
+      });
+
+      // Elder Guardianship radio change - enable continue
+      elderGuardianshipInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          elderVeteransContinueBtn.disabled = false;
+        });
+      });
+
+      // Elder Veterans Back Button
+      if (elderVeteransBackBtn) {
+        elderVeteransBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          stepElderVeterans.style.display = 'none';
+          stepElderDeceased.style.display = 'block';
+
+          // Clear Elder veteran selections
+          clearRadioGroup('elder_is_veteran');
+          clearRadioGroup('elder_veteran_type');
+          clearRadioGroup('elder_has_guardianship');
+          elderVeteranTypeQuestion.style.display = 'none';
+          elderGuardianshipQuestion.style.display = 'none';
+          elderVeteransContinueBtn.disabled = true;
+
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Elder Veterans Continue Button
+      if (elderVeteransContinueBtn) {
+        elderVeteransContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const elderIsVeteranSelected = document.querySelector('input[name="elder_is_veteran"]:checked');
+          if (!elderIsVeteranSelected) return;
+
+          if (elderIsVeteranSelected.value === 'no') {
+            // Not a veteran -> not eligible
+            window.location.replace('not-eligible-resources.html');
+            return;
+          }
+
+          // Is veteran = yes, check veteran type
+          const elderVeteranTypeSelected = document.querySelector('input[name="elder_veteran_type"]:checked');
+          if (!elderVeteranTypeSelected) return;
+
+          const elderVeteranType = elderVeteranTypeSelected.value;
+
+          // First 3 options (veteran, spouse, dependent_under_18) -> Household Info (200% threshold)
+          if (elderVeteranType === 'veteran' || elderVeteranType === 'spouse' || elderVeteranType === 'dependent_under_18') {
+            stepElderVeterans.style.display = 'none';
+            stepHouseholdInfo.style.display = 'block';
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // dependent_over_18 -> check guardianship
+          if (elderVeteranType === 'dependent_over_18') {
+            const elderGuardianshipSelected = document.querySelector('input[name="elder_has_guardianship"]:checked');
+            if (!elderGuardianshipSelected) return;
+
+            if (elderGuardianshipSelected.value === 'yes') {
+              // Guardianship = yes -> Household Info (200% threshold)
+              stepElderVeterans.style.display = 'none';
+              stepHouseholdInfo.style.display = 'block';
+            } else {
+              // Guardianship = no -> not eligible
+              window.location.replace('not-eligible-resources.html');
+            }
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // Other -> not eligible
+          if (elderVeteranType === 'other') {
+            window.location.replace('not-eligible-resources.html');
+            return;
+          }
+        });
+      }
+
+      // Elder Pension radio change - show/hide violence question
+      elderPensionInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          if (this.value === 'no') {
+            elderViolenceQuestion.style.display = 'block';
+            // Disable continue until violence is answered
+            elderPensionContinueBtn.disabled = true;
+          } else {
+            elderViolenceQuestion.style.display = 'none';
+            clearRadioGroup('elder_violence');
+            // Enable continue for 'yes' (goes to Contact Info)
+            elderPensionContinueBtn.disabled = false;
+          }
+        });
+      });
+
+      // Elder Violence radio change - enable continue
+      elderViolenceInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          elderPensionContinueBtn.disabled = false;
+        });
+      });
+
+      // Elder Pension Back Button
+      if (elderPensionBackBtn) {
+        elderPensionBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          stepElderPension.style.display = 'none';
+          stepElderDeceased.style.display = 'block';
+
+          // Clear Elder pension selections
+          clearRadioGroup('elder_pension');
+          clearRadioGroup('elder_violence');
+          elderViolenceQuestion.style.display = 'none';
+          elderPensionContinueBtn.disabled = true;
+
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Elder Pension Continue Button
+      if (elderPensionContinueBtn) {
+        elderPensionContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const elderPensionSelected = document.querySelector('input[name="elder_pension"]:checked');
+          if (!elderPensionSelected) return;
+
+          if (elderPensionSelected.value === 'yes') {
+            // Pension = yes -> Contact Info
+            stepElderPension.style.display = 'none';
+            stepContactInfo.style.display = 'block';
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // Pension = no, check violence
+          const elderViolenceSelected = document.querySelector('input[name="elder_violence"]:checked');
+          if (!elderViolenceSelected) return;
+
+          if (elderViolenceSelected.value === 'yes') {
+            // Violence = yes -> Contact Info
+            stepElderPension.style.display = 'none';
+            stepContactInfo.style.display = 'block';
+          } else {
+            // Violence = no -> Elder Age 60+ question
+            stepElderPension.style.display = 'none';
+            stepElderAge60.style.display = 'block';
+          }
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Enable Elder Age 60+ Continue button when a selection is made
+      elderAge60Inputs.forEach(input => {
+        input.addEventListener('change', function() {
+          elderAge60ContinueBtn.disabled = false;
+        });
+      });
+
+      // Elder Age 60+ Back Button
+      if (elderAge60BackBtn) {
+        elderAge60BackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          stepElderAge60.style.display = 'none';
+          stepElderPension.style.display = 'block';
+
+          // Clear Elder Age 60 selection
+          clearRadioGroup('elder_age_60');
+          elderAge60ContinueBtn.disabled = true;
+
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Elder Age 60+ Continue Button
+      if (elderAge60ContinueBtn) {
+        elderAge60ContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const elderAge60Selected = document.querySelector('input[name="elder_age_60"]:checked');
+          if (!elderAge60Selected) return;
+
+          stepElderAge60.style.display = 'none';
+          if (elderAge60Selected.value === 'yes') {
+            // Age 60+ = yes -> Contact Info
+            stepContactInfo.style.display = 'block';
+          } else {
+            // Age 60+ = no -> not eligible
+            window.location.replace('not-eligible-resources.html');
+          }
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
       // Handle Back button on Contact Info step - navigate back based on path
       if (contactBackBtn) {
         contactBackBtn.addEventListener('click', function(e) {
@@ -3093,8 +3631,30 @@
           const housingSexualAssaultAnswer = document.querySelector('input[name="housing_sexual_assault"]:checked');
           const housingAge60Answer = document.querySelector('input[name="housing_age_60"]:checked');
 
+          // Elder Law path answers
+          const elderIsVeteranAnswer = document.querySelector('input[name="elder_is_veteran"]:checked');
+          const elderPensionAnswer = document.querySelector('input[name="elder_pension"]:checked');
+          const elderViolenceAnswer = document.querySelector('input[name="elder_violence"]:checked');
+          const elderAge60Answer = document.querySelector('input[name="elder_age_60"]:checked');
+
+          // Check if came from Elder Law paths first
+          if (elderAge60Answer) {
+            // Came from Elder Law Age 60+ (Deceased=No → Pension=No → Violence=No → Age60=Yes)
+            const stepElderAge60 = document.getElementById('step-elder-age-60');
+            if (stepElderAge60) stepElderAge60.style.display = 'block';
+          } else if (elderViolenceAnswer && elderViolenceAnswer.value === 'yes') {
+            // Came from Elder Law Violence (Deceased=No → Pension=No → Violence=Yes)
+            const stepElderPension = document.getElementById('step-elder-pension');
+            if (stepElderPension) stepElderPension.style.display = 'block';
+          } else if (elderPensionAnswer && elderPensionAnswer.value === 'yes') {
+            // Came from Elder Law Pension (Deceased=No → Pension=Yes)
+            const stepElderPension = document.getElementById('step-elder-pension');
+            if (stepElderPension) stepElderPension.style.display = 'block';
+          } else if (elderIsVeteranAnswer) {
+            // Came from Elder Law Veterans path via Household Info
+            stepHouseholdInfo.style.display = 'block';
           // Check if came from Housing path (identity_theft or sexual assault = yes goes directly to contact info)
-          if (housingTypeAnswer && housingTypeAnswer.value === 'identity_theft') {
+          } else if (housingTypeAnswer && housingTypeAnswer.value === 'identity_theft') {
             // Came directly from Step 1 (Housing + identity_theft)
             step1.style.display = 'block';
             // Show urgent notification and Family Help Link card
