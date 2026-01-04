@@ -709,7 +709,7 @@
             <div class="form-group">
               <label for="household_income" class="form-label form-label-required">
                 What is your household income?
-                <span class="help-icon" aria-label="Help">?<span class="tooltip">This is the total amount of income earned on average from all people who live in your household. This is gross income, before deducting any taxes, withholdings, etc.</span></span>
+                <span class="help-icon" aria-label="Help">?<span class="tooltip">This is the total income of all people who live in your household. This is gross income, before deducting taxes, withholdings, etc. You may specify the amount as a weekly, monthly or yearly amount.</span></span>
               </label>
               <div class="flex gap-3">
                 <div class="relative flex-1">
@@ -761,6 +761,96 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step: Crime Victim Question (for poverty <= 200%) -->
+          <div class="form-step" data-step="crime-victim" id="step-crime-victim" style="display: none;">
+            <div class="form-group">
+              <label class="form-label form-label-required">Were you a victim of a violent crime and need assistance applying for crime victims' compensation?</label>
+              <div class="radio-group mt-3">
+                <label class="radio-label">
+                  <input type="radio" name="crime_victim" value="yes" required>
+                  <span>Yes</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="crime_victim" value="no">
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="crime-victim-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Previous
+              </button>
+              <button type="button" class="btn btn-primary" id="crime-victim-continue-btn" disabled>
+                Submit Form
+              </button>
+            </div>
+          </div>
+
+          <!-- Step: Veterans Question (for crime_victim = no) -->
+          <div class="form-step" data-step="veterans" id="step-veterans" style="display: none;">
+            <div class="form-group">
+              <label class="form-label form-label-required">Are you a veteran, a spouse of a veteran, or a dependent of a veteran?</label>
+              <div class="radio-group mt-3">
+                <label class="radio-label">
+                  <input type="radio" name="is_veteran" value="yes" required>
+                  <span>Yes</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="is_veteran" value="no">
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="veterans-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Previous
+              </button>
+              <button type="button" class="btn btn-primary" id="veterans-continue-btn" disabled>
+                Submit Form
+              </button>
+            </div>
+          </div>
+
+          <!-- Step: Child Care Question (for is_veteran = no) -->
+          <div class="form-step" data-step="child-care" id="step-child-care" style="display: none;">
+            <div class="form-group">
+              <label class="form-label form-label-required">Are you taking care of a child who is not your own, like a grandchild, niece, or nephew, and having trouble getting or keeping benefits for you or the child?</label>
+              <div class="radio-group mt-3">
+                <label class="radio-label">
+                  <input type="radio" name="child_care" value="yes" required>
+                  <span>Yes</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="child_care" value="no">
+                  <span>No</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="child-care-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Previous
+              </button>
+              <button type="button" class="btn btn-primary" id="child-care-continue-btn" disabled>
+                Submit Form
               </button>
             </div>
           </div>
@@ -1842,7 +1932,7 @@
         });
       }
 
-      // Handle Continue button on Household Info step - navigate to Contact Info
+      // Handle Continue button on Household Info step - check poverty level
       if (householdContinueBtn) {
         householdContinueBtn.addEventListener('click', function(e) {
           e.preventDefault();
@@ -1860,35 +1950,178 @@
           // Store poverty percent in a global variable for form submission
           window.calculatedPovertyPercent = calculatedPovertyPercent;
 
-          // Hide Household Info step and any other steps
+          // Check poverty level - if > 200%, redirect to not-eligible-resources
+          if (calculatedPovertyPercent > 200) {
+            // Redirect to not-eligible-resources.html and disable back button
+            window.location.replace('not-eligible-resources.html');
+            return;
+          }
+
+          // Hide all other steps
           stepHouseholdInfo.style.display = 'none';
           step1.style.display = 'none';
-
-          // Explicitly hide the Age 60+ Contact Info step to prevent overlap
+          stepContactInfo.style.display = 'none';
           const stepPbContact = document.getElementById('step-pb-contact');
           if (stepPbContact) stepPbContact.style.display = 'none';
 
-          // Show Contact Info step
-          stepContactInfo.style.display = 'block';
+          // Show Crime Victim question step
+          const stepCrimeVictim = document.getElementById('step-crime-victim');
+          if (stepCrimeVictim) stepCrimeVictim.style.display = 'block';
 
           // Scroll to top
           document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
-      // Handle Back button on Contact Info step - navigate back to Household Info
+      // Screening Question Steps - Element references
+      const stepCrimeVictim = document.getElementById('step-crime-victim');
+      const stepVeterans = document.getElementById('step-veterans');
+      const stepChildCare = document.getElementById('step-child-care');
+
+      // Enable/disable buttons based on radio selection for screening questions
+      const crimeVictimRadios = document.querySelectorAll('input[name="crime_victim"]');
+      const crimeVictimContinueBtn = document.getElementById('crime-victim-continue-btn');
+      crimeVictimRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (crimeVictimContinueBtn) crimeVictimContinueBtn.disabled = false;
+        });
+      });
+
+      const veteransRadios = document.querySelectorAll('input[name="is_veteran"]');
+      const veteransContinueBtn = document.getElementById('veterans-continue-btn');
+      veteransRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (veteransContinueBtn) veteransContinueBtn.disabled = false;
+        });
+      });
+
+      const childCareRadios = document.querySelectorAll('input[name="child_care"]');
+      const childCareContinueBtn = document.getElementById('child-care-continue-btn');
+      childCareRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (childCareContinueBtn) childCareContinueBtn.disabled = false;
+        });
+      });
+
+      // Crime Victim Back Button - go back to Household Info
+      const crimeVictimBackBtn = document.getElementById('crime-victim-back-btn');
+      if (crimeVictimBackBtn) {
+        crimeVictimBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (stepCrimeVictim) stepCrimeVictim.style.display = 'none';
+          stepHouseholdInfo.style.display = 'block';
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Crime Victim Continue Button
+      if (crimeVictimContinueBtn) {
+        crimeVictimContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const selected = document.querySelector('input[name="crime_victim"]:checked');
+          if (!selected) return;
+
+          if (stepCrimeVictim) stepCrimeVictim.style.display = 'none';
+
+          if (selected.value === 'yes') {
+            // Go to Contact Info
+            stepContactInfo.style.display = 'block';
+          } else {
+            // Go to Veterans question
+            if (stepVeterans) stepVeterans.style.display = 'block';
+          }
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Veterans Back Button - go back to Crime Victim
+      const veteransBackBtn = document.getElementById('veterans-back-btn');
+      if (veteransBackBtn) {
+        veteransBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (stepVeterans) stepVeterans.style.display = 'none';
+          if (stepCrimeVictim) stepCrimeVictim.style.display = 'block';
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Veterans Continue Button
+      if (veteransContinueBtn) {
+        veteransContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const selected = document.querySelector('input[name="is_veteran"]:checked');
+          if (!selected) return;
+
+          if (stepVeterans) stepVeterans.style.display = 'none';
+
+          if (selected.value === 'yes') {
+            // Go to Contact Info
+            stepContactInfo.style.display = 'block';
+          } else {
+            // Go to Child Care question
+            if (stepChildCare) stepChildCare.style.display = 'block';
+          }
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Child Care Back Button - go back to Veterans
+      const childCareBackBtn = document.getElementById('child-care-back-btn');
+      if (childCareBackBtn) {
+        childCareBackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (stepChildCare) stepChildCare.style.display = 'none';
+          if (stepVeterans) stepVeterans.style.display = 'block';
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Child Care Continue Button
+      if (childCareContinueBtn) {
+        childCareContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const selected = document.querySelector('input[name="child_care"]:checked');
+          if (!selected) return;
+
+          if (stepChildCare) stepChildCare.style.display = 'none';
+
+          if (selected.value === 'yes') {
+            // Go to Contact Info
+            stepContactInfo.style.display = 'block';
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          } else {
+            // Redirect to not-eligible-resources.html and disable back button
+            window.location.replace('not-eligible-resources.html');
+          }
+        });
+      }
+
+      // Handle Back button on Contact Info step - navigate back based on path
       if (contactBackBtn) {
         contactBackBtn.addEventListener('click', function(e) {
           e.preventDefault();
 
-          // Hide all steps first
+          // Hide Contact Info step
           stepContactInfo.style.display = 'none';
-          step1.style.display = 'none';
-          const stepPbContact = document.getElementById('step-pb-contact');
-          if (stepPbContact) stepPbContact.style.display = 'none';
 
-          // Show Household Info step
-          stepHouseholdInfo.style.display = 'block';
+          // Determine which step to go back to based on answers
+          const crimeVictimAnswer = document.querySelector('input[name="crime_victim"]:checked');
+          const veteransAnswer = document.querySelector('input[name="is_veteran"]:checked');
+          const childCareAnswer = document.querySelector('input[name="child_care"]:checked');
+
+          if (childCareAnswer && childCareAnswer.value === 'yes') {
+            // Came from Child Care
+            if (stepChildCare) stepChildCare.style.display = 'block';
+          } else if (veteransAnswer && veteransAnswer.value === 'yes') {
+            // Came from Veterans
+            if (stepVeterans) stepVeterans.style.display = 'block';
+          } else if (crimeVictimAnswer && crimeVictimAnswer.value === 'yes') {
+            // Came from Crime Victim
+            if (stepCrimeVictim) stepCrimeVictim.style.display = 'block';
+          } else {
+            // Default: go back to Household Info
+            stepHouseholdInfo.style.display = 'block';
+          }
 
           // Scroll to top
           document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
@@ -1922,6 +2155,9 @@
           stepContactInfo.style.display = 'none';
           stepHouseholdInfo.style.display = 'none';
           step1.style.display = 'none';
+          if (stepCrimeVictim) stepCrimeVictim.style.display = 'none';
+          if (stepVeterans) stepVeterans.style.display = 'none';
+          if (stepChildCare) stepChildCare.style.display = 'none';
           const stepPbContact = document.getElementById('step-pb-contact');
           if (stepPbContact) stepPbContact.style.display = 'none';
 
