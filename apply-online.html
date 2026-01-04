@@ -3021,12 +3021,12 @@
           const housingIsVeteranSelected = document.querySelector('input[name="housing_is_veteran"]:checked');
           if (!housingIsVeteranSelected) return;
 
-          // Check if housing_type is "something_else"
+          // Check housing_type for routing
           const housingTypeSelected = document.querySelector('input[name="housing_type"]:checked');
 
           if (housingIsVeteranSelected.value === 'no') {
-            // If housing_type = something_else and is_veteran = no -> go to Housing Age 60+ question
-            if (housingTypeSelected && housingTypeSelected.value === 'something_else') {
+            // If housing_type = something_else OR other_housing and is_veteran = no -> go to Housing Age 60+ question
+            if (housingTypeSelected && (housingTypeSelected.value === 'something_else' || housingTypeSelected.value === 'other_housing')) {
               stepHousingVeterans.style.display = 'none';
               stepHousingAge60.style.display = 'block';
               document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
