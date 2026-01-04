@@ -2809,6 +2809,19 @@
             const housingTypeSelected = document.querySelector('input[name="housing_type"]:checked');
             if (!housingTypeSelected) return;
 
+            // If identity_theft, go directly to Contact Info
+            if (housingTypeSelected.value === 'identity_theft') {
+              step1.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+
+              // Hide urgent notification and Family Help Link card
+              if (urgentNotification) urgentNotification.style.display = 'none';
+              if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
+
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              return;
+            }
+
             // If early_termination + sexual_assault = yes, go directly to Contact Info
             if (housingTypeSelected.value === 'early_termination') {
               const sexualAssaultSelected = document.querySelector('input[name="housing_sexual_assault"]:checked');
@@ -2971,8 +2984,14 @@
           const housingTypeAnswer = document.querySelector('input[name="housing_type"]:checked');
           const housingSexualAssaultAnswer = document.querySelector('input[name="housing_sexual_assault"]:checked');
 
-          // Check if came from Housing path (sexual assault = yes goes directly to contact info)
-          if (housingTypeAnswer && housingTypeAnswer.value === 'early_termination' &&
+          // Check if came from Housing path (identity_theft or sexual assault = yes goes directly to contact info)
+          if (housingTypeAnswer && housingTypeAnswer.value === 'identity_theft') {
+            // Came directly from Step 1 (Housing + identity_theft)
+            step1.style.display = 'block';
+            // Show urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'flex';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+          } else if (housingTypeAnswer && housingTypeAnswer.value === 'early_termination' &&
               housingSexualAssaultAnswer && housingSexualAssaultAnswer.value === 'yes') {
             // Came directly from Step 1 (Housing + early_termination + sexual assault = yes)
             step1.style.display = 'block';
