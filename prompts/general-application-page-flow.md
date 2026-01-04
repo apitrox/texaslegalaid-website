@@ -16,13 +16,14 @@ This document provides a complete flow chart of all logic conditions in the onli
 5. [Elder Law Flow](#5-elder-law-flow)
 6. [Family Law Flow](#6-family-law-flow)
 7. [Military & Benefits Flow](#7-military--benefits-flow)
-8. [Other Legal Areas](#8-other-legal-areas)
-9. [Household Info Step](#9-household-info-step)
-10. [Screening Questions](#10-screening-questions)
-11. [Contact Info Step](#11-contact-info-step)
-12. [Poverty Thresholds Summary](#12-poverty-thresholds-summary)
-13. [Radio Button Reference](#13-radio-button-reference)
-14. [Complete Flow Diagram](#14-complete-flow-diagram)
+8. [Violence & Abuse Flow](#8-violence--abuse-flow)
+9. [Other Legal Areas](#9-other-legal-areas)
+10. [Household Info Step](#10-household-info-step)
+11. [Screening Questions](#11-screening-questions)
+12. [Contact Info Step](#12-contact-info-step)
+13. [Poverty Thresholds Summary](#13-poverty-thresholds-summary)
+14. [Radio Button Reference](#14-radio-button-reference)
+15. [Complete Flow Diagram](#15-complete-flow-diagram)
 
 ---
 
@@ -329,18 +330,43 @@ Military & Benefits Selected
 
 ---
 
-## 8. Other Legal Areas
+## 8. Violence & Abuse Flow
+
+```
+Violence & Abuse Selected
+│
+├─► Sexual Assault Question (violence_sexual_assault)
+│   "Does your issue involve sexual assault?"
+│   │
+│   ├─► YES ─────────────────────────────────► Household Info (200%)
+│   │                                           │
+│   │                                           ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+│   │                                           │
+│   │                                           └─► poverty > 200% ─► NOT ELIGIBLE
+│   │
+│   └─► NO ──────────────────────────────────► Household Info (125%)
+│                                               │
+│                                               ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│                                               │
+│                                               └─► poverty > 125% ─► NOT ELIGIBLE
+```
+
+**Abbreviations:**
+- NOT ELIGIBLE = Redirect to `not-eligible-resources.html`
+
+---
+
+## 9. Other Legal Areas
 
 The following legal areas proceed through standard form flow without specialized branching:
 
 | Legal Area | Flow |
 |------------|------|
-| Violence & Abuse | Step 1 → Standard multi-step form |
 | Other | Step 1 → Standard multi-step form |
 
 ---
 
-## 9. Household Info Step
+## 10. Household Info Step
 
 **Step ID:** `step-household-info`
 
@@ -354,6 +380,8 @@ The following legal areas proceed through standard form flow without specialized
 - Military & Benefits: Veterans = Yes, Type = veteran or spouse
 - Military & Benefits: Veterans = Yes, Type = dependent_under_18
 - Military & Benefits: Veterans = Yes, Type = dependent_over_18, Guardianship = Yes
+- Violence & Abuse: Sexual Assault = Yes (200% threshold)
+- Violence & Abuse: Sexual Assault = No (125% threshold)
 
 **Form Fields:**
 - `household_size` - Number of persons (1-20)
@@ -426,11 +454,25 @@ From Military & Benefits Path (Veterans = Yes, Type = dependent):
 ├─► poverty > 125% ──────────────────► NOT ELIGIBLE
 │
 └─► poverty ≤ 125% ──────────────────► Contact Info ──► Thank You
+
+
+From Violence & Abuse Path (Sexual Assault = Yes):
+│
+├─► poverty > 200% ──────────────────► NOT ELIGIBLE
+│
+└─► poverty ≤ 200% ──────────────────► Contact Info ──► Thank You
+
+
+From Violence & Abuse Path (Sexual Assault = No):
+│
+├─► poverty > 125% ──────────────────► NOT ELIGIBLE
+│
+└─► poverty ≤ 125% ──────────────────► Contact Info ──► Thank You
 ```
 
 ---
 
-## 10. Screening Questions
+## 11. Screening Questions
 
 **Used by:** Public Benefits path after Household Info (poverty ≤ 200%)
 
@@ -494,7 +536,7 @@ applying for crime victims' compensation?"
 
 ---
 
-## 11. Contact Info Step
+## 12. Contact Info Step
 
 **Step ID:** `step-pb-contact-no-medicare`
 
@@ -519,27 +561,28 @@ applying for crime victims' compensation?"
 
 **Back Button Navigation Logic:**
 Priority order for determining previous step:
-1. `military_is_veteran` answered → Household Info (all Military paths go through Household Info)
-2. `family_safety` answered → Household Info
-3. `elder_age_60` answered → Elder Age 60 step
-4. `elder_violence` = yes → Elder Pension step
-5. `elder_pension` = yes → Elder Pension step
-6. `elder_is_veteran` answered → Household Info
-7. `housing_type` = identity_theft → Step 1
-8. `housing_type` = early_termination AND `housing_sexual_assault` = yes → Step 1
-9. `housing_age_60` answered → Housing Age 60 step
-10. `housing_is_veteran` answered → Housing Veterans step
-11. `cr_is_veteran` answered → CR Veterans step
-12. `child_care` answered → Child Care step
-13. `is_veteran` = yes → Veterans step
-14. `crime_victim` = yes → Crime Victim step
-15. Default → Household Info
+1. `violence_sexual_assault` answered → Household Info (all Violence paths go through Household Info)
+2. `military_is_veteran` answered → Household Info (all Military paths go through Household Info)
+3. `family_safety` answered → Household Info
+4. `elder_age_60` answered → Elder Age 60 step
+5. `elder_violence` = yes → Elder Pension step
+6. `elder_pension` = yes → Elder Pension step
+7. `elder_is_veteran` answered → Household Info
+8. `housing_type` = identity_theft → Step 1
+9. `housing_type` = early_termination AND `housing_sexual_assault` = yes → Step 1
+10. `housing_age_60` answered → Housing Age 60 step
+11. `housing_is_veteran` answered → Housing Veterans step
+12. `cr_is_veteran` answered → CR Veterans step
+13. `child_care` answered → Child Care step
+14. `is_veteran` = yes → Veterans step
+15. `crime_victim` = yes → Crime Victim step
+16. Default → Household Info
 
 **Submit Action:** Show Thank You page
 
 ---
 
-## 12. Poverty Thresholds Summary
+## 13. Poverty Thresholds Summary
 
 | Path | Initial Threshold | Secondary Threshold |
 |------|-------------------|---------------------|
@@ -549,11 +592,13 @@ Priority order for determining previous step:
 | Military & Benefits → Veterans = No → Household Info | 125% | N/A |
 | Military & Benefits → Veterans = Yes → veteran/spouse → Household Info | 200% | N/A |
 | Military & Benefits → Veterans = Yes → dependent → Household Info | 125% | N/A |
+| Violence & Abuse → Sexual Assault = Yes → Household Info | 200% | N/A |
+| Violence & Abuse → Sexual Assault = No → Household Info | 125% | N/A |
 | All Other Paths | N/A | N/A |
 
 ---
 
-## 13. Radio Button Reference
+## 14. Radio Button Reference
 
 ### Step 1 Questions
 | Name | Values |
@@ -610,6 +655,11 @@ Priority order for determining previous step:
 | `military_veteran_type` | veteran, spouse, dependent_under_18, dependent_over_18, other |
 | `military_has_guardianship` | yes, no |
 
+### Violence & Abuse Questions
+| Name | Values |
+|------|--------|
+| `violence_sexual_assault` | yes, no |
+
 ### Screening Questions
 | Name | Values |
 |------|--------|
@@ -628,7 +678,7 @@ Priority order for determining previous step:
 
 ---
 
-## 14. Complete Flow Diagram
+## 15. Complete Flow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -748,6 +798,8 @@ All paths leading to `not-eligible-resources.html`:
 | Military & Benefits | Veterans = No AND Household poverty > 125% |
 | Military & Benefits | Veterans = Yes, veteran/spouse AND Household poverty > 200% |
 | Military & Benefits | Veterans = Yes, dependent AND Household poverty > 125% |
+| Violence & Abuse | Sexual Assault = Yes AND Household poverty > 200% |
+| Violence & Abuse | Sexual Assault = No AND Household poverty > 125% |
 
 ---
 
@@ -769,10 +821,12 @@ Paths that go directly to Contact Info without additional screening:
 12. Military & Benefits + Veterans = Yes, veteran/spouse AND poverty ≤ 200%
 13. Military & Benefits + Veterans = Yes, dependent AND poverty ≤ 125%
 14. Military & Benefits + Veterans = No AND poverty ≤ 125%
-15. Screening: Crime Victim = Yes
-16. Screening: Veterans = Yes (eligible types)
-17. Screening: Child Care = Yes
-18. Screening: Child Care = No AND poverty ≤ 125%
+15. Violence & Abuse + Sexual Assault = Yes AND poverty ≤ 200%
+16. Violence & Abuse + Sexual Assault = No AND poverty ≤ 125%
+17. Screening: Crime Victim = Yes
+18. Screening: Veterans = Yes (eligible types)
+19. Screening: Child Care = Yes
+20. Screening: Child Care = No AND poverty ≤ 125%
 
 ---
 

@@ -426,6 +426,23 @@
               </fieldset>
             </div>
 
+            <!-- Violence & Abuse Sub-question: Sexual Assault (Only for Violence & Abuse) -->
+            <div id="violence-sexual-assault-question" class="mb-6" style="display: none;">
+              <fieldset>
+                <legend class="text-lg font-semibold text-primary-800 mb-3">Does your issue involve sexual <span class="whitespace-nowrap">assault?<span class="text-red-600">*</span></span></legend>
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="violence_sexual_assault" value="yes" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">Yes</span>
+                  </label>
+                  <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                    <input type="radio" name="violence_sexual_assault" value="no" class="w-5 h-5 accent-primary-600">
+                    <span class="font-medium text-primary-800">No</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
             <div class="flex justify-end">
               <button type="button" class="btn btn-primary" id="step1-continue" disabled>
                 Continue
@@ -2232,6 +2249,10 @@
       const militaryGuardianshipQuestion = document.getElementById('military-guardianship-question');
       const militaryGuardianshipInputs = document.querySelectorAll('input[name="military_has_guardianship"]');
 
+      // Violence & Abuse sub-question elements
+      const violenceSexualAssaultQuestion = document.getElementById('violence-sexual-assault-question');
+      const violenceSexualAssaultInputs = document.querySelectorAll('input[name="violence_sexual_assault"]');
+
       // Function to check if Continue should be enabled
       function updateContinueButton() {
         const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
@@ -2306,6 +2327,10 @@
           } else {
             step1ContinueBtn.disabled = false;
           }
+        } else if (selectedLegalArea.value === 'violence') {
+          // Violence & Abuse: require sexual assault question to be answered
+          const violenceSexualAssaultSelected = document.querySelector('input[name="violence_sexual_assault"]:checked');
+          step1ContinueBtn.disabled = !violenceSexualAssaultSelected;
         } else {
           step1ContinueBtn.disabled = false;
         }
@@ -2483,6 +2508,23 @@
         }
       }
 
+      // Function to update Violence & Abuse sexual assault question visibility
+      function updateViolenceSexualAssaultVisibility() {
+        const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+
+        // Show sexual assault question only if Violence & Abuse is selected
+        if (selectedLegalArea && selectedLegalArea.value === 'violence') {
+          violenceSexualAssaultQuestion.style.display = 'block';
+          violenceSexualAssaultInputs.forEach(input => input.setAttribute('required', ''));
+        } else {
+          violenceSexualAssaultQuestion.style.display = 'none';
+          violenceSexualAssaultInputs.forEach(input => {
+            input.removeAttribute('required');
+            input.checked = false;
+          });
+        }
+      }
+
       if (legalAreaInputs.length > 0 && step1ContinueBtn) {
         legalAreaInputs.forEach(input => {
           input.addEventListener('change', function() {
@@ -2505,6 +2547,7 @@
             updateHousingSexualAssaultVisibility();
             updateFamilySafetyVisibility();
             updateMilitaryVeteranVisibility();
+            updateViolenceSexualAssaultVisibility();
             updateContinueButton();
           });
         });
@@ -2567,6 +2610,11 @@
 
         // Also listen for changes on Military guardianship question
         militaryGuardianshipInputs.forEach(input => {
+          input.addEventListener('change', updateContinueButton);
+        });
+
+        // Also listen for changes on Violence & Abuse sexual assault question
+        violenceSexualAssaultInputs.forEach(input => {
           input.addEventListener('change', updateContinueButton);
         });
       }
@@ -2867,42 +2915,52 @@
           // Hide Household Info step
           stepHouseholdInfo.style.display = 'none';
 
-          // Check if we came from Military & Benefits path (any path - all go through Household Info)
-          const militaryIsVeteranAnswerBack = document.querySelector('input[name="military_is_veteran"]:checked');
-          if (militaryIsVeteranAnswerBack) {
-            // All Military paths -> Go back to Step 1
+          // Check if we came from Violence & Abuse path
+          const violenceSexualAssaultAnswerBack = document.querySelector('input[name="violence_sexual_assault"]:checked');
+          if (violenceSexualAssaultAnswerBack) {
+            // Violence & Abuse -> Go back to Step 1
             step1.style.display = 'block';
             // Show urgent notification and Family Help Link card
             if (urgentNotification) urgentNotification.style.display = 'flex';
             if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
-          // Check if we came from Elder Law path
+          // Check if we came from Military & Benefits path (any path - all go through Household Info)
           } else {
-            const elderIsVeteranAnswer = document.querySelector('input[name="elder_is_veteran"]:checked');
-            if (elderIsVeteranAnswer) {
-              // Go back to Elder Law Veterans step
-              const stepElderVeterans = document.getElementById('step-elder-veterans');
-              if (stepElderVeterans) stepElderVeterans.style.display = 'block';
-            // Check if we came from Family Law path
+            const militaryIsVeteranAnswerBack = document.querySelector('input[name="military_is_veteran"]:checked');
+            if (militaryIsVeteranAnswerBack) {
+              // All Military paths -> Go back to Step 1
+              step1.style.display = 'block';
+              // Show urgent notification and Family Help Link card
+              if (urgentNotification) urgentNotification.style.display = 'flex';
+              if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+            // Check if we came from Elder Law path
             } else {
-              const familySafetyAnswer = document.querySelector('input[name="family_safety"]:checked');
-              const familyBestFitAnswer = document.querySelector('input[name="family_best_fit"]:checked');
-
-              if (familySafetyAnswer && familySafetyAnswer.value === 'yes') {
-                // Family Law safety = yes -> Go back to Step 1
-                step1.style.display = 'block';
-                // Show urgent notification and Family Help Link card
-                if (urgentNotification) urgentNotification.style.display = 'flex';
-                if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
-              } else if (familyBestFitAnswer) {
-                // Family Law safety = no, answered best fit -> Go back to Best Fit step
-                const stepFamilyBestFit = document.getElementById('step-family-best-fit');
-                if (stepFamilyBestFit) stepFamilyBestFit.style.display = 'block';
+              const elderIsVeteranAnswer = document.querySelector('input[name="elder_is_veteran"]:checked');
+              if (elderIsVeteranAnswer) {
+                // Go back to Elder Law Veterans step
+                const stepElderVeterans = document.getElementById('step-elder-veterans');
+                if (stepElderVeterans) stepElderVeterans.style.display = 'block';
+              // Check if we came from Family Law path
               } else {
-                // Default: Go back to Step 1
-                step1.style.display = 'block';
-                // Show urgent notification and Family Help Link card again
-                if (urgentNotification) urgentNotification.style.display = 'flex';
-                if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+                const familySafetyAnswer = document.querySelector('input[name="family_safety"]:checked');
+                const familyBestFitAnswer = document.querySelector('input[name="family_best_fit"]:checked');
+
+                if (familySafetyAnswer && familySafetyAnswer.value === 'yes') {
+                  // Family Law safety = yes -> Go back to Step 1
+                  step1.style.display = 'block';
+                  // Show urgent notification and Family Help Link card
+                  if (urgentNotification) urgentNotification.style.display = 'flex';
+                  if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+                } else if (familyBestFitAnswer) {
+                  // Family Law safety = no, answered best fit -> Go back to Best Fit step
+                  const stepFamilyBestFit = document.getElementById('step-family-best-fit');
+                  if (stepFamilyBestFit) stepFamilyBestFit.style.display = 'block';
+                } else {
+                  // Default: Go back to Step 1
+                  step1.style.display = 'block';
+                  // Show urgent notification and Family Help Link card again
+                  if (urgentNotification) urgentNotification.style.display = 'flex';
+                  if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+                }
               }
             }
           }
@@ -3014,6 +3072,37 @@
                 document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
                 return;
               }
+            }
+          }
+
+          // Check if we came from Violence & Abuse path
+          const violenceSexualAssaultAnswer = document.querySelector('input[name="violence_sexual_assault"]:checked');
+
+          if (violenceSexualAssaultAnswer) {
+            if (violenceSexualAssaultAnswer.value === 'yes') {
+              // Violence & Abuse + sexual assault = yes - uses 200% poverty threshold
+              if (calculatedPovertyPercent > 200) {
+                window.location.replace('not-eligible-resources.html');
+                return;
+              }
+              // Violence + sexual assault = yes + poverty ≤ 200% -> Contact Info directly
+              stepHouseholdInfo.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+              populateContactInfoIncomeValues();
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              return;
+            } else {
+              // Violence & Abuse + sexual assault = no - uses 125% poverty threshold
+              if (calculatedPovertyPercent > 125) {
+                window.location.replace('not-eligible-resources.html');
+                return;
+              }
+              // Violence + sexual assault = no + poverty ≤ 125% -> Contact Info directly
+              stepHouseholdInfo.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+              populateContactInfoIncomeValues();
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              return;
             }
           }
 
@@ -4235,6 +4324,33 @@
         });
       }
 
+      // =====================================================
+      // Violence & Abuse Flow
+      // =====================================================
+
+      // Step 1 Continue for Violence & Abuse
+      if (step1ContinueBtn) {
+        step1ContinueBtn.addEventListener('click', function(e) {
+          const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+          const violenceSexualAssaultSelected = document.querySelector('input[name="violence_sexual_assault"]:checked');
+
+          // If Violence & Abuse is selected
+          if (selectedLegalArea && selectedLegalArea.value === 'violence' && violenceSexualAssaultSelected) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Hide urgent notification and Family Help Link card
+            if (urgentNotification) urgentNotification.style.display = 'none';
+            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
+
+            // Both yes and no go to Household Info (different thresholds handled in Household Info Continue)
+            step1.style.display = 'none';
+            stepHouseholdInfo.style.display = 'block';
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
       // Handle Back button on Contact Info step - navigate back based on path
       if (contactBackBtn) {
         contactBackBtn.addEventListener('click', function(e) {
@@ -4266,8 +4382,15 @@
           const militaryIsVeteranAnswer = document.querySelector('input[name="military_is_veteran"]:checked');
           const militaryVeteranTypeAnswer = document.querySelector('input[name="military_veteran_type"]:checked');
 
-          // Check if came from Military & Benefits path first
-          if (militaryIsVeteranAnswer) {
+          // Violence & Abuse path answers
+          const violenceSexualAssaultAnswer = document.querySelector('input[name="violence_sexual_assault"]:checked');
+
+          // Check if came from Violence & Abuse path first
+          if (violenceSexualAssaultAnswer) {
+            // Violence & Abuse paths go through Household Info -> go back to Household Info
+            stepHouseholdInfo.style.display = 'block';
+          // Check if came from Military & Benefits path
+          } else if (militaryIsVeteranAnswer) {
             // All Military paths go through Household Info now -> go back to Household Info
             stepHouseholdInfo.style.display = 'block';
           // Check if came from Family Law path
