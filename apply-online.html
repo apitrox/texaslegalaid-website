@@ -1146,6 +1146,39 @@
             </div>
           </div>
 
+          <!-- Step: Housing Age 60+ Question (for Housing & Debt + Something else + is_veteran = no) -->
+          <div class="form-step" data-step="housing-age-60" id="step-housing-age-60" style="display: none;">
+            <fieldset>
+              <legend class="text-lg font-semibold text-primary-800 mb-3">Are you 60 years of age or <span class="whitespace-nowrap">older?<span class="text-red-600">*</span></span></legend>
+              <div class="flex flex-col gap-2">
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_age_60" value="yes" class="w-5 h-5 accent-primary-600" required>
+                  <span class="font-medium text-primary-800">Yes</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-200 hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-primary-50 cursor-pointer">
+                  <input type="radio" name="housing_age_60" value="no" class="w-5 h-5 accent-primary-600">
+                  <span class="font-medium text-primary-800">No</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="flex justify-between mt-8">
+              <button type="button" class="btn btn-outline" id="housing-age-60-back-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="housing-age-60-continue-btn" disabled>
+                Continue
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
           <!-- Step: Contact Info (for Public Benefits + Age No + Medicare No path - after Household Info) -->
           <div class="form-step" data-step="pb-contact-no-medicare" id="step-pb-contact-no-medicare" style="display: none;">
             <h2 class="text-xl font-bold text-primary-700 mb-4">Your Contact Information</h2>
@@ -2934,6 +2967,53 @@
         });
       }
 
+      // Housing Age 60+ step elements
+      const stepHousingAge60 = document.getElementById('step-housing-age-60');
+      const housingAge60BackBtn = document.getElementById('housing-age-60-back-btn');
+      const housingAge60ContinueBtn = document.getElementById('housing-age-60-continue-btn');
+      const housingAge60Inputs = document.querySelectorAll('input[name="housing_age_60"]');
+
+      // Enable Housing Age 60+ Continue button when a selection is made
+      housingAge60Inputs.forEach(input => {
+        input.addEventListener('change', function() {
+          housingAge60ContinueBtn.disabled = false;
+        });
+      });
+
+      // Housing Age 60+ Back Button
+      if (housingAge60BackBtn) {
+        housingAge60BackBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          stepHousingAge60.style.display = 'none';
+          stepHousingVeterans.style.display = 'block';
+
+          // Clear Housing Age 60 selection
+          clearRadioGroup('housing_age_60');
+          housingAge60ContinueBtn.disabled = true;
+
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Housing Age 60+ Continue Button
+      if (housingAge60ContinueBtn) {
+        housingAge60ContinueBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const housingAge60Selected = document.querySelector('input[name="housing_age_60"]:checked');
+          if (!housingAge60Selected) return;
+
+          stepHousingAge60.style.display = 'none';
+          if (housingAge60Selected.value === 'yes') {
+            // Age 60+ = yes -> Contact Info
+            stepContactInfo.style.display = 'block';
+          } else {
+            // Age 60+ = no -> not eligible
+            window.location.replace('not-eligible-resources.html');
+          }
+          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
       // Housing Veterans Continue Button
       if (housingVeteransContinueBtn) {
         housingVeteransContinueBtn.addEventListener('click', function(e) {
@@ -2941,8 +3021,18 @@
           const housingIsVeteranSelected = document.querySelector('input[name="housing_is_veteran"]:checked');
           if (!housingIsVeteranSelected) return;
 
+          // Check if housing_type is "something_else"
+          const housingTypeSelected = document.querySelector('input[name="housing_type"]:checked');
+
           if (housingIsVeteranSelected.value === 'no') {
-            // Not a veteran -> not eligible
+            // If housing_type = something_else and is_veteran = no -> go to Housing Age 60+ question
+            if (housingTypeSelected && housingTypeSelected.value === 'something_else') {
+              stepHousingVeterans.style.display = 'none';
+              stepHousingAge60.style.display = 'block';
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              return;
+            }
+            // Other housing types with is_veteran = no -> not eligible
             window.location.replace('not-eligible-resources.html');
             return;
           }
@@ -3001,6 +3091,7 @@
           const housingIsVeteranAnswer = document.querySelector('input[name="housing_is_veteran"]:checked');
           const housingTypeAnswer = document.querySelector('input[name="housing_type"]:checked');
           const housingSexualAssaultAnswer = document.querySelector('input[name="housing_sexual_assault"]:checked');
+          const housingAge60Answer = document.querySelector('input[name="housing_age_60"]:checked');
 
           // Check if came from Housing path (identity_theft or sexual assault = yes goes directly to contact info)
           if (housingTypeAnswer && housingTypeAnswer.value === 'identity_theft') {
@@ -3016,6 +3107,9 @@
             // Show urgent notification and Family Help Link card
             if (urgentNotification) urgentNotification.style.display = 'flex';
             if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+          } else if (housingAge60Answer) {
+            // Came from Housing Age 60+ (Housing + something_else + is_veteran = no + age_60 = yes)
+            if (stepHousingAge60) stepHousingAge60.style.display = 'block';
           } else if (housingIsVeteranAnswer) {
             // Came from Housing Veterans
             if (stepHousingVeterans) stepHousingVeterans.style.display = 'block';

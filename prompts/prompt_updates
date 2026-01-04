@@ -241,7 +241,7 @@ General Rules:
 
 For the `texaslegalaid-website` application website project make the following changes:
 -  See any attached image(s) or file(s) for reference.
-- On the `../apply-online.html` page, if the user selects "Housing & Debt" and second the user select Identity Theft and clicks Continue, take the user to the Contact Info page.
+- On the `../apply-online.html` page, if the user selects "Housing & Debt" and second the user selects Something else, third the user selects No to the veterans question, then take the user to the page asking if they are 60 or older (see attached image). If the user answers "Yes" to being 60 or older and Contineue, take the user to the Contact Info page because people 60 or older are assumed to qualify for legal aid due to their age, however, if the user answers "No" to being 60 or older take the user to the Not Eligible page.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
