@@ -3,7 +3,7 @@
  * Provides offline support and caching for the legal aid portal
  */
 
-const CACHE_NAME = 'mylegalaid-v1';
+const CACHE_NAME = 'mylegalaid-v2';
 const OFFLINE_URL = '/offline.html';
 
 // Assets to cache immediately on install
@@ -12,10 +12,8 @@ const PRECACHE_ASSETS = [
   '/index.html',
   '/apply-online.html',
   '/my-cases.html',
-  '/about.html',
   '/resources.html',
   '/offline.html',
-  '/css/custom.css',
   '/js/main.js',
   '/manifest.json',
   // Google Fonts - will be cached when fetched
