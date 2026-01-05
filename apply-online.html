@@ -2951,6 +2951,13 @@
                 // Go back to Elder Law Veterans step
                 const stepElderVeterans = document.getElementById('step-elder-veterans');
                 if (stepElderVeterans) stepElderVeterans.style.display = 'block';
+              // Check if we came from Criminal Record path
+              } else {
+                const crIsVeteranAnswer = document.querySelector('input[name="cr_is_veteran"]:checked');
+                if (crIsVeteranAnswer && crIsVeteranAnswer.value === 'yes') {
+                  // Go back to CR Veterans step
+                  const stepCrVeterans = document.getElementById('step-cr-veterans');
+                  if (stepCrVeterans) stepCrVeterans.style.display = 'block';
               // Check if we came from Family Law path
               } else {
                 const familySafetyAnswer = document.querySelector('input[name="family_safety"]:checked');
@@ -2974,6 +2981,7 @@
                     if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
                   }
                 }
+              }
               }
             }
           }
@@ -3136,6 +3144,40 @@
             populateContactInfoIncomeValues();
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
+          }
+
+          // Check if we came from Criminal Record Expungement path
+          const crIsVeteranAnswer = document.querySelector('input[name="cr_is_veteran"]:checked');
+          const crVeteranTypeAnswer = document.querySelector('input[name="cr_veteran_type"]:checked');
+
+          if (crIsVeteranAnswer && crIsVeteranAnswer.value === 'yes' && crVeteranTypeAnswer) {
+            const crVeteranType = crVeteranTypeAnswer.value;
+
+            if (crVeteranType === 'veteran' || crVeteranType === 'spouse' || crVeteranType === 'dependent_under_18') {
+              // CR veteran/spouse/dependent_under_18 - uses 200% poverty threshold
+              if (calculatedPovertyPercent > 200) {
+                window.location.replace('not-eligible-resources.html');
+                return;
+              }
+              // CR veteran/spouse/dependent_under_18 + poverty ≤ 200% -> Contact Info
+              stepHouseholdInfo.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+              populateContactInfoIncomeValues();
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              return;
+            } else if (crVeteranType === 'dependent_over_18') {
+              // CR dependent_over_18 with guardianship = yes - uses 125% poverty threshold
+              if (calculatedPovertyPercent > 125) {
+                window.location.replace('not-eligible-resources.html');
+                return;
+              }
+              // CR dependent_over_18 + guardianship yes + poverty ≤ 125% -> Contact Info
+              stepHouseholdInfo.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+              populateContactInfoIncomeValues();
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              return;
+            }
           }
 
           // Default path (shouldn't normally reach here) - uses 125% poverty threshold
@@ -3418,6 +3460,7 @@
       // =====================================================
       const stepDefenseAttorney = document.getElementById('step-defense-attorney');
       const stepCrVeterans = document.getElementById('step-cr-veterans');
+      const stepHouseholdInfo = document.getElementById('step-household-info');
       const defenseAttorneyBackBtn = document.getElementById('defense-attorney-back-btn');
       const defenseAttorneyContinueBtn = document.getElementById('defense-attorney-continue-btn');
       const crVeteransBackBtn = document.getElementById('cr-veterans-back-btn');
@@ -3605,11 +3648,10 @@
 
           const crVeteranType = crVeteranTypeSelected.value;
 
-          // First 3 options (veteran, spouse, dependent_under_18) -> Contact Info
+          // First 3 options (veteran, spouse, dependent_under_18) -> Household Info (200% threshold)
           if (crVeteranType === 'veteran' || crVeteranType === 'spouse' || crVeteranType === 'dependent_under_18') {
             stepCrVeterans.style.display = 'none';
-            stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
+            stepHouseholdInfo.style.display = 'block';
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
@@ -3621,8 +3663,8 @@
 
             stepCrVeterans.style.display = 'none';
             if (crGuardianshipSelected.value === 'yes') {
-              stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
+              // Guardianship = yes -> Household Info (125% threshold)
+              stepHouseholdInfo.style.display = 'block';
             } else {
               // No guardianship -> not eligible
               window.location.replace('not-eligible-resources.html');
@@ -4465,9 +4507,9 @@
           } else if (housingIsVeteranAnswer) {
             // Came from Housing Veterans
             if (stepHousingVeterans) stepHousingVeterans.style.display = 'block';
-          } else if (crIsVeteranAnswer) {
-            // Came from CR Veterans
-            if (stepCrVeterans) stepCrVeterans.style.display = 'block';
+          } else if (crIsVeteranAnswer && crIsVeteranAnswer.value === 'yes') {
+            // Came from CR Veterans via Household Info -> go back to Household Info
+            stepHouseholdInfo.style.display = 'block';
           } else if (childCareAnswer) {
             // Came from Child Care (either yes or no with poverty <= 125%)
             if (stepChildCare) stepChildCare.style.display = 'block';

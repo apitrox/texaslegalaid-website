@@ -113,14 +113,33 @@ Criminal Record Selected
 │       │       │       │
 │       │       │       ├─► CR Veteran Type (cr_veteran_type)
 │       │       │       │   │
-│       │       │       │   ├─► veteran ──────────────────► Contact Info ──► Thank You
-│       │       │       │   ├─► spouse ───────────────────► Contact Info ──► Thank You
-│       │       │       │   ├─► dependent_under_18 ───────► Contact Info ──► Thank You
+│       │       │       │   ├─► veteran ──────────────────► Household Info (200%)
+│       │       │       │   │                                │
+│       │       │       │   │                                ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+│       │       │       │   │                                │
+│       │       │       │   │                                └─► poverty > 200% ─► NOT ELIGIBLE
+│       │       │       │   │
+│       │       │       │   ├─► spouse ───────────────────► Household Info (200%)
+│       │       │       │   │                                │
+│       │       │       │   │                                ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+│       │       │       │   │                                │
+│       │       │       │   │                                └─► poverty > 200% ─► NOT ELIGIBLE
+│       │       │       │   │
+│       │       │       │   ├─► dependent_under_18 ───────► Household Info (200%)
+│       │       │       │   │                                │
+│       │       │       │   │                                ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+│       │       │       │   │                                │
+│       │       │       │   │                                └─► poverty > 200% ─► NOT ELIGIBLE
 │       │       │       │   │
 │       │       │       │   ├─► dependent_over_18
 │       │       │       │   │   │
 │       │       │       │   │   ├─► CR Guardianship (cr_has_guardianship)
-│       │       │       │   │   │   ├─► YES ──────────────► Contact Info ──► Thank You
+│       │       │       │   │   │   ├─► YES ──────────────► Household Info (125%)
+│       │       │       │   │   │   │                        │
+│       │       │       │   │   │   │                        ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│       │       │       │   │   │   │                        │
+│       │       │       │   │   │   │                        └─► poverty > 125% ─► NOT ELIGIBLE
+│       │       │       │   │   │   │
 │       │       │       │   │   │   └─► NO ───────────────► NOT ELIGIBLE
 │       │       │       │   │
 │       │       │       │   └─► other ────────────────────► NOT ELIGIBLE
@@ -385,6 +404,10 @@ The following legal areas proceed through standard form flow without specialized
 - Public Benefits: Age 60+ = Yes (125% threshold)
 - Public Benefits: Age 60+ = No, Medicare = No (125% threshold)
 - Public Benefits: Age 60+ = No, Medicare = Yes, Dispute = No (125% threshold)
+- Criminal Record: CR Veterans = Yes, Type = veteran (200% threshold)
+- Criminal Record: CR Veterans = Yes, Type = spouse (200% threshold)
+- Criminal Record: CR Veterans = Yes, Type = dependent_under_18 (200% threshold)
+- Criminal Record: CR Veterans = Yes, Type = dependent_over_18, Guardianship = Yes (125% threshold)
 - Elder Law: Deceased = Yes, Veterans = Yes (eligible types)
 - Family Law: Safety = Yes
 - Family Law: Safety = No, Best Fit = (any option)
@@ -476,6 +499,20 @@ From Violence & Abuse Path (Sexual Assault = Yes):
 
 
 From Violence & Abuse Path (Sexual Assault = No):
+│
+├─► poverty > 125% ──────────────────► NOT ELIGIBLE
+│
+└─► poverty ≤ 125% ──────────────────► Contact Info ──► Thank You
+
+
+From Criminal Record Path (CR Veterans = Yes, Type = veteran/spouse/dependent_under_18):
+│
+├─► poverty > 200% ──────────────────► NOT ELIGIBLE
+│
+└─► poverty ≤ 200% ──────────────────► Contact Info ──► Thank You
+
+
+From Criminal Record Path (CR Veterans = Yes, Type = dependent_over_18, Guardianship = Yes):
 │
 ├─► poverty > 125% ──────────────────► NOT ELIGIBLE
 │
@@ -585,7 +622,7 @@ Priority order for determining previous step:
 10. `housing_type` = early_termination AND `housing_sexual_assault` = yes → Step 1
 11. `housing_age_60` answered → Housing Age 60 step
 12. `housing_is_veteran` answered → Housing Veterans step
-13. `cr_is_veteran` answered → CR Veterans step
+13. `cr_is_veteran` = yes answered → Household Info (all CR paths now go through Household Info)
 14. `child_care` answered → Child Care step
 15. `is_veteran` = yes → Veterans step
 16. `crime_victim` = yes → Crime Victim step
@@ -600,6 +637,8 @@ Priority order for determining previous step:
 | Path | Initial Threshold | Secondary Threshold |
 |------|-------------------|---------------------|
 | Public Benefits → Household Info (all paths) | 125% | N/A |
+| Criminal Record → CR Veterans = Yes → veteran/spouse/dependent_under_18 → Household Info | 200% | N/A |
+| Criminal Record → CR Veterans = Yes → dependent_over_18 + Guardianship = Yes → Household Info | 125% | N/A |
 | Elder Law → Veterans → Household Info | 200% | N/A |
 | Family Law → Household Info | 125% | N/A |
 | Military & Benefits → Veterans = No → Household Info | 125% | N/A |
@@ -795,6 +834,8 @@ All paths leading to `not-eligible-resources.html`:
 | Criminal Record | CR Veterans = No |
 | Criminal Record | CR Veteran Type = Other |
 | Criminal Record | CR Guardianship = No |
+| Criminal Record | CR Veterans = Yes, veteran/spouse/dependent_under_18 AND Household poverty > 200% |
+| Criminal Record | CR Veterans = Yes, dependent_over_18 + Guardianship = Yes AND Household poverty > 125% |
 | Housing & Debt | Housing Veterans = No (except something_else/other_housing) |
 | Housing & Debt | Housing Veteran Type = Other |
 | Housing & Debt | Housing Guardianship = No |
@@ -823,20 +864,21 @@ Paths that go directly to Contact Info without additional screening:
 2. Housing + early_termination + sexual_assault = Yes
 3. Housing + Veterans = Yes (eligible types)
 4. Housing + Veterans = No + Age 60+ = Yes
-5. Criminal Record + Veterans = Yes (eligible types)
-6. Elder Law + Pension = Yes
-7. Elder Law + Pension = No, Violence = Yes
-8. Elder Law + Pension = No, Violence = No, Age 60+ = Yes
-9. Public Benefits + Age 60+ = Yes AND poverty ≤ 125%
-10. Public Benefits + Age 60+ = No + Medicare = No AND poverty ≤ 125%
-11. Public Benefits + Age 60+ = No + Medicare = Yes + Dispute = No AND poverty ≤ 125%
-12. Family Law + Safety = Yes AND poverty ≤ 125%
-13. Family Law + Safety = No + Best Fit AND poverty ≤ 125%
-14. Military & Benefits + Veterans = Yes, veteran/spouse AND poverty ≤ 200%
-15. Military & Benefits + Veterans = Yes, dependent AND poverty ≤ 125%
-16. Military & Benefits + Veterans = No AND poverty ≤ 125%
-17. Violence & Abuse + Sexual Assault = Yes AND poverty ≤ 200%
-18. Violence & Abuse + Sexual Assault = No AND poverty ≤ 125%
+5. Criminal Record + CR Veterans = Yes, veteran/spouse/dependent_under_18 AND poverty ≤ 200%
+6. Criminal Record + CR Veterans = Yes, dependent_over_18 + Guardianship = Yes AND poverty ≤ 125%
+7. Elder Law + Pension = Yes
+8. Elder Law + Pension = No, Violence = Yes
+9. Elder Law + Pension = No, Violence = No, Age 60+ = Yes
+10. Public Benefits + Age 60+ = Yes AND poverty ≤ 125%
+11. Public Benefits + Age 60+ = No + Medicare = No AND poverty ≤ 125%
+12. Public Benefits + Age 60+ = No + Medicare = Yes + Dispute = No AND poverty ≤ 125%
+13. Family Law + Safety = Yes AND poverty ≤ 125%
+14. Family Law + Safety = No + Best Fit AND poverty ≤ 125%
+15. Military & Benefits + Veterans = Yes, veteran/spouse AND poverty ≤ 200%
+16. Military & Benefits + Veterans = Yes, dependent AND poverty ≤ 125%
+17. Military & Benefits + Veterans = No AND poverty ≤ 125%
+18. Violence & Abuse + Sexual Assault = Yes AND poverty ≤ 200%
+19. Violence & Abuse + Sexual Assault = No AND poverty ≤ 125%
 
 ---
 
