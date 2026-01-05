@@ -51,25 +51,36 @@ Public Benefits Selected
 │
 ├─► Age 60+ Question (age_60_or_older)
 │   │
-│   ├─► YES ──────────────────────────► PB Contact Info (Age 60+) ──► Thank You
+│   ├─► YES ─────────────────────────────────► Household Info (125%)
+│   │                                           │
+│   │                                           ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│   │                                           │
+│   │                                           └─► poverty > 125% ─► NOT ELIGIBLE
 │   │
 │   └─► NO
 │       │
 │       ├─► Medicare Question (has_medicare)
 │       │   │
-│       │   ├─► NO ──────────────────► Household Info ──► [See Section 7]
+│       │   ├─► NO ──────────────────────────► Household Info (125%)
+│       │   │                                   │
+│       │   │                                   ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│       │   │                                   │
+│       │   │                                   └─► poverty > 125% ─► NOT ELIGIBLE
 │       │   │
 │       │   └─► YES
 │       │       │
 │       │       ├─► Medicare Dispute Question (medicare_dispute)
 │       │       │   │
-│       │       │   ├─► YES ─────────► NOT ELIGIBLE
+│       │       │   ├─► YES ─────────────────► NOT ELIGIBLE
 │       │       │   │
-│       │       │   └─► NO ──────────► Household Info ──► [See Section 7]
+│       │       │   └─► NO ──────────────────► Household Info (125%)
+│       │       │                               │
+│       │       │                               ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│       │       │                               │
+│       │       │                               └─► poverty > 125% ─► NOT ELIGIBLE
 ```
 
 **Abbreviations:**
-- PB = Public Benefits
 - NOT ELIGIBLE = Redirect to `not-eligible-resources.html`
 
 ---
@@ -371,8 +382,9 @@ The following legal areas proceed through standard form flow without specialized
 **Step ID:** `step-household-info`
 
 **Accessed From:**
-- Public Benefits: Age 60+ = No, Medicare = No
-- Public Benefits: Age 60+ = No, Medicare = Yes, Dispute = No
+- Public Benefits: Age 60+ = Yes (125% threshold)
+- Public Benefits: Age 60+ = No, Medicare = No (125% threshold)
+- Public Benefits: Age 60+ = No, Medicare = Yes, Dispute = No (125% threshold)
 - Elder Law: Deceased = Yes, Veterans = Yes (eligible types)
 - Family Law: Safety = Yes
 - Family Law: Safety = No, Best Fit = (any option)
@@ -414,11 +426,11 @@ Poverty Percent = (Annual Income / Federal Poverty Level) × 100
 **Decision Logic:**
 
 ```
-From Public Benefits Path:
+From Public Benefits Path (all sub-paths):
 │
-├─► poverty > 200% ──────────────────► NOT ELIGIBLE
+├─► poverty > 125% ──────────────────► NOT ELIGIBLE
 │
-└─► poverty ≤ 200% ──────────────────► Crime Victim Question ──► [See Section 10]
+└─► poverty ≤ 125% ──────────────────► Contact Info ──► Thank You
 
 
 From Elder Law Veterans Path:
@@ -542,7 +554,7 @@ applying for crime victims' compensation?"
 
 **Used by:** Most paths leading to application completion
 
-**Alternative Step:** `step-pb-contact` (for Public Benefits Age 60+ = Yes only)
+**Alternative Step:** `step-pb-contact` (legacy - no longer used)
 
 **Form Fields:**
 - `pb_nm_referral_source` - How did you find us? (required)
@@ -561,22 +573,23 @@ applying for crime victims' compensation?"
 
 **Back Button Navigation Logic:**
 Priority order for determining previous step:
-1. `violence_sexual_assault` answered → Household Info (all Violence paths go through Household Info)
-2. `military_is_veteran` answered → Household Info (all Military paths go through Household Info)
-3. `family_safety` answered → Household Info
-4. `elder_age_60` answered → Elder Age 60 step
-5. `elder_violence` = yes → Elder Pension step
-6. `elder_pension` = yes → Elder Pension step
-7. `elder_is_veteran` answered → Household Info
-8. `housing_type` = identity_theft → Step 1
-9. `housing_type` = early_termination AND `housing_sexual_assault` = yes → Step 1
-10. `housing_age_60` answered → Housing Age 60 step
-11. `housing_is_veteran` answered → Housing Veterans step
-12. `cr_is_veteran` answered → CR Veterans step
-13. `child_care` answered → Child Care step
-14. `is_veteran` = yes → Veterans step
-15. `crime_victim` = yes → Crime Victim step
-16. Default → Household Info
+1. `legal_area` = benefits AND `age_60_or_older` answered → Household Info (all Public Benefits paths go through Household Info)
+2. `violence_sexual_assault` answered → Household Info (all Violence paths go through Household Info)
+3. `military_is_veteran` answered → Household Info (all Military paths go through Household Info)
+4. `family_safety` answered → Household Info
+5. `elder_age_60` answered → Elder Age 60 step
+6. `elder_violence` = yes → Elder Pension step
+7. `elder_pension` = yes → Elder Pension step
+8. `elder_is_veteran` answered → Household Info
+9. `housing_type` = identity_theft → Step 1
+10. `housing_type` = early_termination AND `housing_sexual_assault` = yes → Step 1
+11. `housing_age_60` answered → Housing Age 60 step
+12. `housing_is_veteran` answered → Housing Veterans step
+13. `cr_is_veteran` answered → CR Veterans step
+14. `child_care` answered → Child Care step
+15. `is_veteran` = yes → Veterans step
+16. `crime_victim` = yes → Crime Victim step
+17. Default → Household Info
 
 **Submit Action:** Show Thank You page
 
@@ -586,7 +599,7 @@ Priority order for determining previous step:
 
 | Path | Initial Threshold | Secondary Threshold |
 |------|-------------------|---------------------|
-| Public Benefits → Household Info | 200% | 125% (Child Care = No) |
+| Public Benefits → Household Info (all paths) | 125% | N/A |
 | Elder Law → Veterans → Household Info | 200% | N/A |
 | Family Law → Household Info | 125% | N/A |
 | Military & Benefits → Veterans = No → Household Info | 125% | N/A |
@@ -776,8 +789,7 @@ All paths leading to `not-eligible-resources.html`:
 | Path | Condition |
 |------|-----------|
 | Public Benefits | Medicare Dispute = Yes |
-| Public Benefits | Household Info poverty > 200% |
-| Public Benefits | Child Care = No AND poverty > 125% |
+| Public Benefits | Household Info poverty > 125% |
 | Criminal Record | Defense Attorney = Yes |
 | Criminal Record | Texas Crime = No |
 | Criminal Record | CR Veterans = No |
@@ -815,18 +827,16 @@ Paths that go directly to Contact Info without additional screening:
 6. Elder Law + Pension = Yes
 7. Elder Law + Pension = No, Violence = Yes
 8. Elder Law + Pension = No, Violence = No, Age 60+ = Yes
-9. Public Benefits + Age 60+ = Yes
-10. Family Law + Safety = Yes AND poverty ≤ 125%
-11. Family Law + Safety = No + Best Fit AND poverty ≤ 125%
-12. Military & Benefits + Veterans = Yes, veteran/spouse AND poverty ≤ 200%
-13. Military & Benefits + Veterans = Yes, dependent AND poverty ≤ 125%
-14. Military & Benefits + Veterans = No AND poverty ≤ 125%
-15. Violence & Abuse + Sexual Assault = Yes AND poverty ≤ 200%
-16. Violence & Abuse + Sexual Assault = No AND poverty ≤ 125%
-17. Screening: Crime Victim = Yes
-18. Screening: Veterans = Yes (eligible types)
-19. Screening: Child Care = Yes
-20. Screening: Child Care = No AND poverty ≤ 125%
+9. Public Benefits + Age 60+ = Yes AND poverty ≤ 125%
+10. Public Benefits + Age 60+ = No + Medicare = No AND poverty ≤ 125%
+11. Public Benefits + Age 60+ = No + Medicare = Yes + Dispute = No AND poverty ≤ 125%
+12. Family Law + Safety = Yes AND poverty ≤ 125%
+13. Family Law + Safety = No + Best Fit AND poverty ≤ 125%
+14. Military & Benefits + Veterans = Yes, veteran/spouse AND poverty ≤ 200%
+15. Military & Benefits + Veterans = Yes, dependent AND poverty ≤ 125%
+16. Military & Benefits + Veterans = No AND poverty ≤ 125%
+17. Violence & Abuse + Sexual Assault = Yes AND poverty ≤ 200%
+18. Violence & Abuse + Sexual Assault = No AND poverty ≤ 125%
 
 ---
 

@@ -2633,20 +2633,22 @@
       const familyHelpLinkCard = document.getElementById('family-help-link-card');
 
       // Override Step 1 Continue for Public Benefits + Age 60+ = Yes path
+      // Now routes to Household Info instead of directly to Contact Info
       if (step1ContinueBtn) {
         step1ContinueBtn.addEventListener('click', function(e) {
           const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
           const ageSelected = document.querySelector('input[name="age_60_or_older"]:checked');
 
-          // If Public Benefits + Age 60+ = Yes, go to special Step 2
+          // If Public Benefits + Age 60+ = Yes, go to Household Info (125% threshold)
           if (selectedLegalArea && selectedLegalArea.value === 'benefits' &&
               ageSelected && ageSelected.value === 'yes') {
             e.preventDefault();
             e.stopPropagation();
 
-            // Hide Step 1, show Step 2 (pb-contact)
+            // Hide Step 1, show Household Info
             step1.style.display = 'none';
-            stepPbContact.style.display = 'block';
+            const stepHouseholdInfo = document.getElementById('step-household-info');
+            if (stepHouseholdInfo) stepHouseholdInfo.style.display = 'block';
 
             // Hide urgent notification and Family Help Link card
             if (urgentNotification) urgentNotification.style.display = 'none';
@@ -2659,7 +2661,7 @@
         });
       }
 
-      // Handle Submit Application button on Step 2
+      // Handle Submit Application button on Step 2 (pb-contact) - kept for legacy
       if (pbSubmitBtn) {
         pbSubmitBtn.addEventListener('click', function() {
           // Validate required fields
@@ -2689,7 +2691,7 @@
         });
       }
 
-      // Handle Back button on Step 2 (pb-contact)
+      // Handle Back button on Step 2 (pb-contact) - kept for legacy
       const pbBackBtn = stepPbContact?.querySelector('[data-step-prev]');
       if (pbBackBtn) {
         pbBackBtn.addEventListener('click', function(e) {
@@ -2915,16 +2917,26 @@
           // Hide Household Info step
           stepHouseholdInfo.style.display = 'none';
 
-          // Check if we came from Violence & Abuse path
-          const violenceSexualAssaultAnswerBack = document.querySelector('input[name="violence_sexual_assault"]:checked');
-          if (violenceSexualAssaultAnswerBack) {
-            // Violence & Abuse -> Go back to Step 1
+          // Check if we came from Public Benefits path
+          const publicBenefitsAgeAnswerBack = document.querySelector('input[name="age_60_or_older"]:checked');
+          const selectedLegalAreaBack = document.querySelector('input[name="legal_area"]:checked');
+          if (selectedLegalAreaBack && selectedLegalAreaBack.value === 'benefits' && publicBenefitsAgeAnswerBack) {
+            // Public Benefits -> Go back to Step 1
             step1.style.display = 'block';
             // Show urgent notification and Family Help Link card
             if (urgentNotification) urgentNotification.style.display = 'flex';
             if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
-          // Check if we came from Military & Benefits path (any path - all go through Household Info)
+          // Check if we came from Violence & Abuse path
           } else {
+            const violenceSexualAssaultAnswerBack = document.querySelector('input[name="violence_sexual_assault"]:checked');
+            if (violenceSexualAssaultAnswerBack) {
+              // Violence & Abuse -> Go back to Step 1
+              step1.style.display = 'block';
+              // Show urgent notification and Family Help Link card
+              if (urgentNotification) urgentNotification.style.display = 'flex';
+              if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+            // Check if we came from Military & Benefits path (any path - all go through Household Info)
+            } else {
             const militaryIsVeteranAnswerBack = document.querySelector('input[name="military_is_veteran"]:checked');
             if (militaryIsVeteranAnswerBack) {
               // All Military paths -> Go back to Step 1
@@ -2955,14 +2967,16 @@
                   const stepFamilyBestFit = document.getElementById('step-family-best-fit');
                   if (stepFamilyBestFit) stepFamilyBestFit.style.display = 'block';
                 } else {
-                  // Default: Go back to Step 1
-                  step1.style.display = 'block';
-                  // Show urgent notification and Family Help Link card again
-                  if (urgentNotification) urgentNotification.style.display = 'flex';
-                  if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+                    // Default: Go back to Step 1
+                    step1.style.display = 'block';
+                    // Show urgent notification and Family Help Link card again
+                    if (urgentNotification) urgentNotification.style.display = 'flex';
+                    if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+                  }
                 }
               }
             }
+          }
           }
 
           // Scroll to top
@@ -3106,24 +3120,34 @@
             }
           }
 
-          // Public Benefits path - uses 200% poverty threshold as well (then continues to screening)
-          // Check poverty level - if > 200%, redirect to not-eligible-resources
-          if (calculatedPovertyPercent > 200) {
-            // Redirect to not-eligible-resources.html and disable back button
+          // Check if we came from Public Benefits path (via age_60_or_older selection)
+          const publicBenefitsAgeAnswer = document.querySelector('input[name="age_60_or_older"]:checked');
+          const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+
+          if (selectedLegalArea && selectedLegalArea.value === 'benefits' && publicBenefitsAgeAnswer) {
+            // Public Benefits path - uses 125% poverty threshold, goes directly to Contact Info
+            if (calculatedPovertyPercent > 125) {
+              window.location.replace('not-eligible-resources.html');
+              return;
+            }
+            // Public Benefits + poverty ≤ 125% -> Contact Info directly
+            stepHouseholdInfo.style.display = 'none';
+            stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
+            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // Default path (shouldn't normally reach here) - uses 125% poverty threshold
+          if (calculatedPovertyPercent > 125) {
             window.location.replace('not-eligible-resources.html');
             return;
           }
 
-          // Hide all other steps
+          // Default -> Contact Info
           stepHouseholdInfo.style.display = 'none';
-          step1.style.display = 'none';
-          stepContactInfo.style.display = 'none';
-          const stepPbContact = document.getElementById('step-pb-contact');
-          if (stepPbContact) stepPbContact.style.display = 'none';
-
-          // Show Crime Victim question step
-          const stepCrimeVictim = document.getElementById('step-crime-victim');
-          if (stepCrimeVictim) stepCrimeVictim.style.display = 'block';
+          stepContactInfo.style.display = 'block';
+          populateContactInfoIncomeValues();
 
           // Scroll to top
           document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
@@ -4385,8 +4409,16 @@
           // Violence & Abuse path answers
           const violenceSexualAssaultAnswer = document.querySelector('input[name="violence_sexual_assault"]:checked');
 
-          // Check if came from Violence & Abuse path first
-          if (violenceSexualAssaultAnswer) {
+          // Public Benefits path answers
+          const publicBenefitsAgeAnswer = document.querySelector('input[name="age_60_or_older"]:checked');
+          const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
+
+          // Check if came from Public Benefits path first (now goes through Household Info)
+          if (selectedLegalArea && selectedLegalArea.value === 'benefits' && publicBenefitsAgeAnswer) {
+            // Public Benefits paths go through Household Info -> go back to Household Info
+            stepHouseholdInfo.style.display = 'block';
+          // Check if came from Violence & Abuse path
+          } else if (violenceSexualAssaultAnswer) {
             // Violence & Abuse paths go through Household Info -> go back to Household Info
             stepHouseholdInfo.style.display = 'block';
           // Check if came from Military & Benefits path
