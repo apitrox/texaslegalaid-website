@@ -216,12 +216,17 @@ General Rules:
 
 For the `texaslegalaid-website` application website project make the following changes:
 -  See any attached image(s) or file(s) for reference.
-- On the `../apply-online.html` page, Household Information page, insert another line/link under HHS Poverty Guidelines that reads "TAJF 2025 Financial Income Guidelines" and links to `https://teajf.org/grants/docs/2024/2025%20TAJF%20REV%20Income%20Guideline%20chart%202025.pdf
+- On the `../apply-online.html` page, Household Information page, in the blue informational area, insert another line above "Annual household income: " for "Household size: "
+- On the `../apply-online.html` page, Household Information page, insert another entry field below "What is your household income?" with the prompt "What year is this information for?*" and having a dropdown of years from the current year (default) to year 2021, and a tooltip that reads "Select the year for which the information you provided above (size and income) is for, which should be the latest year of information that is available to you."
+- On the `../apply-online.html` page, Household Information page, in the blue informational area, insert another line below "Annual household income: " for "Year: " and this being the year the user selected.
+- Whenever calling the Poverty level API, the year that is provided is to be the year of the information specified by the user.
+- Also update the equivalent blue informational area on the Contact Info page that contains Household Information to match the changes make to the blue informational area on the Household Information page. The blue informational area is to be [the same] on all Household Information pages and is to be the same on all Contact Info pages.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
 - Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
 - Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of any change, make any appropriate updates to `../prompts/general-application-page-flow.md` so that `../prompts/general-application-page-flow.md` is current with the page flow.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - All changes must comply with the specifications contained in `../prompts/application-specifications`.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
@@ -235,6 +240,7 @@ General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
 - Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
 - Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of any change, make any appropriate updates to `../prompts/general-application-page-flow.md` so that `../prompts/general-application-page-flow.md` is current with the page flow.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - All changes must comply with the specifications contained in `../prompts/application-specifications`.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
@@ -253,6 +259,7 @@ General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
 - Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
 - Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of any change, make any appropriate updates to `../prompts/general-application-page-flow.md` so that `../prompts/general-application-page-flow.md` is current with the page flow.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - All changes must comply with the specifications contained in `../prompts/application-specifications`.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
@@ -265,6 +272,40 @@ General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
 - Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
 - Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of any change, make any appropriate updates to `../prompts/general-application-page-flow.md` so that `../prompts/general-application-page-flow.md` is current with the page flow.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- All changes must comply with the specifications contained in `../prompts/application-specifications`.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `texaslegalaid-website` application website project make the following changes:
+-  See any attached image(s) or file(s) for reference.
+- On the `../apply-online.html` intake application, on all Household Information pages and on all Contact Info pages, update the link label from "TAJF 2025 Financial Income Guidelines" to "TAJF 2025 Income Eligibility Guidelines [2024 | 2023 | 2022]". For the Year 2024 use this link `https://www.teajf.org/grants/docs/2024/2024%20TAJF%20REV%20Income%20Guideline%20chart.pdf`. For the year 2023 use this link `https://fvps.org/wp-content/uploads/2023/03/2023-TAJF-Grant-Eligibility-Income-Guideline.pdf`. For the year 2022 use this link `https://www.tajf.org/grants/docs/2022/2022%20TAJF%20Household%20Income%20Guidelines.pdf`.
+---
+General Rules:
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of any change, make any appropriate updates to `../prompts/general-application-page-flow.md` so that `../prompts/general-application-page-flow.md` is current with the page flow.
+- As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
+- All changes must comply with the specifications contained in `../prompts/application-specifications`.
+- Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
+
+
+For the `texaslegalaid-website` application website project make the following changes:
+-  See any attached image(s) or file(s) for reference.
+- On the `../apply-online.html` intake application, for the Housing & Debt, make the following changes:
+- If the user selects identity_theft, next take the user to the Household Informaton page and if the user's Poverty level is at or below 125% take them to the Contact Info page, else if above 125% take them to the Not Eligible page. 
+- If the user selects Early Termination and then "Yes" to sexual assault question, next take the user to the Household Informaton page and if the user's Poverty level is at or below 187.5% take them to the Contact Info page, else if above 187.5% take them to the Not Eligible page.
+- If the user gets to the Housing Age 60+ question, and responds "Yes" that they are 60+, next take the user to the Household Informaton page and if the user's Poverty level is at or below 125% take them to the Contact Info page, else if above 125% take them to the Not Eligible page. 
+- If the user gets to the housing_veteran_type question, and responds and responds with either veteran, spouse or dependent_under_18, next take the user to the Household Informaton page and if the user's Poverty level is at or below 200% take them to the Contact Info page, else if above 200% take them to the Not Eligible page. 
+- If the user selects that they are a dependent_over_18 and guardianship is "Yes", then then before directing the user to the Contact Info page display the Household Informaton page and if the user's Poverty level is at or below 125% take them to the Contact Info page, else if above 125% take them to the Not Eligible page. 
+---
+General Rules:
+- Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
+- Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
+- Use multiple agents to execute large implementation plans that are too long for one agent.
+- As part of any change, make any appropriate updates to `../prompts/general-application-page-flow.md` so that `../prompts/general-application-page-flow.md` is current with the page flow.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - All changes must comply with the specifications contained in `../prompts/application-specifications`.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
