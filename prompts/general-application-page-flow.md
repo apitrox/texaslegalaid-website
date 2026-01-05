@@ -259,17 +259,36 @@ Elder Veterans Question (elder_is_veteran)
     │
     ├─► Elder Veteran Type (elder_veteran_type)
     │   │
-    │   ├─► veteran ──────────────────► Household Info (200%) ──► Contact Info ──► Thank You
-    │   ├─► spouse ───────────────────► Household Info (200%) ──► Contact Info ──► Thank You
-    │   ├─► dependent_under_18 ───────► Household Info (200%) ──► Contact Info ──► Thank You
+    │   ├─► veteran ────────────────────────────────────► Household Info (200%)
+    │   │                                                  │
+    │   │                                                  ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+    │   │                                                  │
+    │   │                                                  └─► poverty > 200% ─► NOT ELIGIBLE
+    │   │
+    │   ├─► spouse ─────────────────────────────────────► Household Info (200%)
+    │   │                                                  │
+    │   │                                                  ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+    │   │                                                  │
+    │   │                                                  └─► poverty > 200% ─► NOT ELIGIBLE
+    │   │
+    │   ├─► dependent_under_18 ─────────────────────────► Household Info (200%)
+    │   │                                                  │
+    │   │                                                  ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+    │   │                                                  │
+    │   │                                                  └─► poverty > 200% ─► NOT ELIGIBLE
     │   │
     │   ├─► dependent_over_18
     │   │   │
     │   │   ├─► Elder Guardianship (elder_has_guardianship)
-    │   │   │   ├─► YES ──────────────► Household Info (200%) ──► Contact Info ──► Thank You
-    │   │   │   └─► NO ───────────────► NOT ELIGIBLE
+    │   │   │   ├─► YES ────────────────────────────────► Household Info (200%)
+    │   │   │   │                                          │
+    │   │   │   │                                          ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+    │   │   │   │                                          │
+    │   │   │   │                                          └─► poverty > 200% ─► NOT ELIGIBLE
+    │   │   │   │
+    │   │   │   └─► NO ─────────────────────────────────► NOT ELIGIBLE
     │   │
-    │   └─► other ────────────────────► NOT ELIGIBLE
+    │   └─► other ──────────────────────────────────────► NOT ELIGIBLE
 
 
 Elder Pension Question (elder_pension)
@@ -446,7 +465,10 @@ The following legal areas proceed through standard form flow without specialized
 - Housing & Debt: Housing Veterans = Yes, Type = spouse (200% threshold)
 - Housing & Debt: Housing Veterans = Yes, Type = dependent_under_18 (200% threshold)
 - Housing & Debt: Housing Veterans = Yes, Type = dependent_over_18, Guardianship = Yes (125% threshold)
-- Elder Law: Deceased = Yes, Veterans = Yes (eligible types)
+- Elder Law: Deceased = Yes, Veterans = Yes, Type = veteran (200% threshold)
+- Elder Law: Deceased = Yes, Veterans = Yes, Type = spouse (200% threshold)
+- Elder Law: Deceased = Yes, Veterans = Yes, Type = dependent_under_18 (200% threshold)
+- Elder Law: Deceased = Yes, Veterans = Yes, Type = dependent_over_18, Guardianship = Yes (200% threshold)
 - Family Law: Safety = Yes
 - Family Law: Safety = No, Best Fit = (any option)
 - Military & Benefits: Veterans = No
@@ -949,19 +971,21 @@ Paths that go directly to Contact Info without additional screening:
 5. Housing + Veterans = No + Age 60+ = Yes AND poverty ≤ 125%
 6. Criminal Record + CR Veterans = Yes, veteran/spouse/dependent_under_18 AND poverty ≤ 200%
 7. Criminal Record + CR Veterans = Yes, dependent_over_18 + Guardianship = Yes AND poverty ≤ 125%
-8. Elder Law + Pension = Yes
-9. Elder Law + Pension = No, Violence = Yes
-10. Elder Law + Pension = No, Violence = No, Age 60+ = Yes
-11. Public Benefits + Age 60+ = Yes AND poverty ≤ 125%
-12. Public Benefits + Age 60+ = No + Medicare = No AND poverty ≤ 125%
-13. Public Benefits + Age 60+ = No + Medicare = Yes + Dispute = No AND poverty ≤ 125%
-14. Family Law + Safety = Yes AND poverty ≤ 125%
-15. Family Law + Safety = No + Best Fit AND poverty ≤ 125%
-16. Military & Benefits + Veterans = Yes, veteran/spouse AND poverty ≤ 200%
-17. Military & Benefits + Veterans = Yes, dependent AND poverty ≤ 125%
-18. Military & Benefits + Veterans = No AND poverty ≤ 125%
-19. Violence & Abuse + Sexual Assault = Yes AND poverty ≤ 200%
-20. Violence & Abuse + Sexual Assault = No AND poverty ≤ 125%
+8. Elder Law + Deceased = Yes, Veterans = Yes, veteran/spouse/dependent_under_18 AND poverty ≤ 200%
+9. Elder Law + Deceased = Yes, Veterans = Yes, dependent_over_18 + Guardianship = Yes AND poverty ≤ 200%
+10. Elder Law + Pension = Yes
+11. Elder Law + Pension = No, Violence = Yes
+12. Elder Law + Pension = No, Violence = No, Age 60+ = Yes
+13. Public Benefits + Age 60+ = Yes AND poverty ≤ 125%
+14. Public Benefits + Age 60+ = No + Medicare = No AND poverty ≤ 125%
+15. Public Benefits + Age 60+ = No + Medicare = Yes + Dispute = No AND poverty ≤ 125%
+16. Family Law + Safety = Yes AND poverty ≤ 125%
+17. Family Law + Safety = No + Best Fit AND poverty ≤ 125%
+18. Military & Benefits + Veterans = Yes, veteran/spouse AND poverty ≤ 200%
+19. Military & Benefits + Veterans = Yes, dependent AND poverty ≤ 125%
+20. Military & Benefits + Veterans = No AND poverty ≤ 125%
+21. Violence & Abuse + Sexual Assault = Yes AND poverty ≤ 200%
+22. Violence & Abuse + Sexual Assault = No AND poverty ≤ 125%
 
 ---
 
