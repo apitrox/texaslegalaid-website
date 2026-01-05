@@ -280,11 +280,11 @@ Elder Veterans Question (elder_is_veteran)
     │   ├─► dependent_over_18
     │   │   │
     │   │   ├─► Elder Guardianship (elder_has_guardianship)
-    │   │   │   ├─► YES ────────────────────────────────► Household Info (200%)
+    │   │   │   ├─► YES ────────────────────────────────► Household Info (125%)
     │   │   │   │                                          │
-    │   │   │   │                                          ├─► poverty ≤ 200% ─► Contact Info ─► Thank You
+    │   │   │   │                                          ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
     │   │   │   │                                          │
-    │   │   │   │                                          └─► poverty > 200% ─► NOT ELIGIBLE
+    │   │   │   │                                          └─► poverty > 125% ─► NOT ELIGIBLE
     │   │   │   │
     │   │   │   └─► NO ─────────────────────────────────► NOT ELIGIBLE
     │   │
@@ -480,7 +480,7 @@ The following legal areas proceed through standard form flow without specialized
 - Elder Law: Deceased = Yes, Veterans = Yes, Type = veteran (200% threshold)
 - Elder Law: Deceased = Yes, Veterans = Yes, Type = spouse (200% threshold)
 - Elder Law: Deceased = Yes, Veterans = Yes, Type = dependent_under_18 (200% threshold)
-- Elder Law: Deceased = Yes, Veterans = Yes, Type = dependent_over_18, Guardianship = Yes (200% threshold)
+- Elder Law: Deceased = Yes, Veterans = Yes, Type = dependent_over_18, Guardianship = Yes (125% threshold)
 - Family Law: Safety = Yes
 - Family Law: Safety = No, Best Fit = (any option)
 - Military & Benefits: Veterans = No
@@ -751,7 +751,8 @@ Priority order for determining previous step:
 | Housing & Debt → Housing Veterans = No + Age 60+ = Yes → Household Info | 125% | N/A |
 | Housing & Debt → Housing Veterans = Yes → veteran/spouse/dependent_under_18 → Household Info | 200% | N/A |
 | Housing & Debt → Housing Veterans = Yes → dependent_over_18 + Guardianship = Yes → Household Info | 125% | N/A |
-| Elder Law → Deceased = Yes → Veterans → Household Info | 200% | N/A |
+| Elder Law → Deceased = Yes → Veterans = Yes → veteran/spouse/dependent_under_18 → Household Info | 200% | N/A |
+| Elder Law → Deceased = Yes → Veterans = Yes → dependent_over_18 + Guardianship = Yes → Household Info | 125% | N/A |
 | Elder Law → Deceased = No → Pension/Violence/Age60+ = Yes → Household Info | 125% | N/A |
 | Family Law → Household Info | 125% | N/A |
 | Military & Benefits → Veterans = No → Household Info | 125% | N/A |
@@ -960,7 +961,8 @@ All paths leading to `not-eligible-resources.html`:
 | Elder Law | Deceased = Yes, Veterans = No |
 | Elder Law | Deceased = Yes, Veteran Type = Other |
 | Elder Law | Deceased = Yes, Guardianship = No |
-| Elder Law | Deceased = Yes, Household poverty > 200% |
+| Elder Law | Deceased = Yes, veteran/spouse/dependent_under_18 AND Household poverty > 200% |
+| Elder Law | Deceased = Yes, dependent_over_18 + Guardianship = Yes AND Household poverty > 125% |
 | Elder Law | Deceased = No, Pension = No, Violence = No, Age 60+ = No |
 | Family Law | Household Info poverty > 125% |
 | Military & Benefits | Veteran Type = Other |
@@ -985,10 +987,10 @@ Paths that go directly to Contact Info without additional screening:
 6. Criminal Record + CR Veterans = Yes, veteran/spouse/dependent_under_18 AND poverty ≤ 200%
 7. Criminal Record + CR Veterans = Yes, dependent_over_18 + Guardianship = Yes AND poverty ≤ 125%
 8. Elder Law + Deceased = Yes, Veterans = Yes, veteran/spouse/dependent_under_18 AND poverty ≤ 200%
-9. Elder Law + Deceased = Yes, Veterans = Yes, dependent_over_18 + Guardianship = Yes AND poverty ≤ 200%
-10. Elder Law + Pension = Yes
-11. Elder Law + Pension = No, Violence = Yes
-12. Elder Law + Pension = No, Violence = No, Age 60+ = Yes
+9. Elder Law + Deceased = Yes, Veterans = Yes, dependent_over_18 + Guardianship = Yes AND poverty ≤ 125%
+10. Elder Law + Pension = Yes AND poverty ≤ 125%
+11. Elder Law + Pension = No, Violence = Yes AND poverty ≤ 125%
+12. Elder Law + Pension = No, Violence = No, Age 60+ = Yes AND poverty ≤ 125%
 13. Public Benefits + Age 60+ = Yes AND poverty ≤ 125%
 14. Public Benefits + Age 60+ = No + Medicare = No AND poverty ≤ 125%
 15. Public Benefits + Age 60+ = No + Medicare = Yes + Dispute = No AND poverty ≤ 125%

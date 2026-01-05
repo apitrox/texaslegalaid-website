@@ -3058,14 +3058,27 @@
           const elderIsVeteranAnswer = document.querySelector('input[name="elder_is_veteran"]:checked');
 
           if (elderIsVeteranAnswer) {
-            // Elder Law Veterans path - uses 200% poverty threshold
-            if (calculatedPovertyPercent > 200) {
-              // Redirect to not-eligible-resources.html and disable back button
-              window.location.replace('not-eligible-resources.html');
-              return;
+            // Check veteran type to determine poverty threshold
+            const elderVeteranTypeAnswer = document.querySelector('input[name="elder_veteran_type"]:checked');
+            const elderGuardianshipAnswer = document.querySelector('input[name="elder_has_guardianship"]:checked');
+
+            // dependent_over_18 with guardianship uses 125% threshold
+            if (elderVeteranTypeAnswer && elderVeteranTypeAnswer.value === 'dependent_over_18' &&
+                elderGuardianshipAnswer && elderGuardianshipAnswer.value === 'yes') {
+              // Elder Law Veterans dependent_over_18 + guardianship - uses 125% poverty threshold
+              if (calculatedPovertyPercent > 125) {
+                window.location.replace('not-eligible-resources.html');
+                return;
+              }
+            } else {
+              // Elder Law Veterans (veteran/spouse/dependent_under_18) - uses 200% poverty threshold
+              if (calculatedPovertyPercent > 200) {
+                window.location.replace('not-eligible-resources.html');
+                return;
+              }
             }
 
-            // Elder Law Veterans + poverty ≤ 200% -> Contact Info directly
+            // Elder Law Veterans + passed poverty check -> Contact Info directly
             stepHouseholdInfo.style.display = 'none';
             stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
