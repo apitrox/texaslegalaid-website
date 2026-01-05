@@ -280,13 +280,12 @@ General Rules:
 
 For the `texaslegalaid-website` application website project make the following changes:
 -  See any attached image(s) or file(s) for reference.
-- On the `../apply-online.html` intake application, on all Household Information pages and on all Contact Info pages, update the link label from "TAJF 2025 Financial Income Guidelines" to "TAJF 2025 Income Eligibility Guidelines [2024 | 2023 | 2022]". For the Year 2024 use this link `https://www.teajf.org/grants/docs/2024/2024%20TAJF%20REV%20Income%20Guideline%20chart.pdf`. For the year 2023 use this link `https://fvps.org/wp-content/uploads/2023/03/2023-TAJF-Grant-Eligibility-Income-Guideline.pdf`. For the year 2022 use this link `https://www.tajf.org/grants/docs/2022/2022%20TAJF%20Household%20Income%20Guidelines.pdf`.
+- create a new page `legal-aid-laws.html` using `legal-aid-laws.pdf` as the source. The title of the new page will be "Texas Legal Aid – Statutes, Rules, Eligibility". This new page will organize the source information as groups of cards, similar to the `resources.html` page. Each card will have title and a few words description. For information sources that are multiple years, one card will represent the multiple years and clicking the card will pop up the years and allow the user to select a year. All information sources will be included on the new page. The only links to this new page will be an item in the footer under Quick Links titled "Legal Aid Laws" and a category on the site-map page called Legal Aid Laws with a link to each of the cards.
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
 - Before making any changes, create an implementation plan and then execute the plan. Do not ask me to review or approve the plan, just proceed with the plan.
 - Use multiple agents to execute large implementation plans that are too long for one agent.
-- As part of any change, make any appropriate updates to `../prompts/general-application-page-flow.md` so that `../prompts/general-application-page-flow.md` is current with the page flow.
 - As part of the changes, always update sitemap.xml and all other objects related to SEO that may be impacted with the changes.
 - All changes must comply with the specifications contained in `../prompts/application-specifications`.
 - Pull from GitHub before making any code changes. Commit and Push to GitHub after finishing code changes. Work directly on the `main` branch.
