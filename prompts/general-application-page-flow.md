@@ -450,11 +450,15 @@ Violence & Abuse Selected
 
 ## 9. Other Legal Areas
 
-The following legal areas proceed through standard form flow without specialized branching:
-
-| Legal Area | Flow |
-|------------|------|
-| Other | Step 1 → Standard multi-step form |
+```
+Other Selected
+│
+└─► Household Info (125%)
+    │
+    ├─► poverty ≤ 125% ─────────────────► Contact Info ─► Thank You
+    │
+    └─► poverty > 125% ─────────────────► NOT ELIGIBLE
+```
 
 ---
 
@@ -489,6 +493,7 @@ The following legal areas proceed through standard form flow without specialized
 - Military & Benefits: Veterans = Yes, Type = dependent_over_18, Guardianship = Yes
 - Violence & Abuse: Sexual Assault = Yes (200% threshold)
 - Violence & Abuse: Sexual Assault = No (125% threshold)
+- Other: (125% threshold)
 
 **Form Fields:**
 - `household_size` - Number of persons (1-20)
@@ -760,6 +765,7 @@ Priority order for determining previous step:
 | Military & Benefits → Veterans = Yes → dependent → Household Info | 125% | N/A |
 | Violence & Abuse → Sexual Assault = Yes → Household Info | 200% | N/A |
 | Violence & Abuse → Sexual Assault = No → Household Info | 125% | N/A |
+| Other → Household Info | 125% | N/A |
 | All Other Paths | N/A | N/A |
 
 ---
@@ -972,6 +978,7 @@ All paths leading to `not-eligible-resources.html`:
 | Military & Benefits | Veterans = Yes, dependent AND Household poverty > 125% |
 | Violence & Abuse | Sexual Assault = Yes AND Household poverty > 200% |
 | Violence & Abuse | Sexual Assault = No AND Household poverty > 125% |
+| Other | Household poverty > 125% |
 
 ---
 
@@ -1001,6 +1008,7 @@ Paths that go directly to Contact Info without additional screening:
 20. Military & Benefits + Veterans = No AND poverty ≤ 125%
 21. Violence & Abuse + Sexual Assault = Yes AND poverty ≤ 200%
 22. Violence & Abuse + Sexual Assault = No AND poverty ≤ 125%
+23. Other AND poverty ≤ 125%
 
 ---
 
