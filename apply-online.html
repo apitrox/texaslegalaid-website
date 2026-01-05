@@ -2655,7 +2655,7 @@
             if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
 
             // Scroll to top of form
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
           }
           // Otherwise, let the default step navigation handle it
         });
@@ -2687,7 +2687,7 @@
           stepThankYou.style.display = 'block';
 
           // Scroll to top
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -2707,7 +2707,7 @@
           if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
 
           // Scroll to top
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
     });
@@ -2904,7 +2904,7 @@
             if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
 
             // Scroll to top of form
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
@@ -3021,7 +3021,7 @@
           }
 
           // Scroll to top
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3058,7 +3058,7 @@
             stepHouseholdInfo.style.display = 'none';
             stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -3077,7 +3077,7 @@
             stepHouseholdInfo.style.display = 'none';
             stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -3096,7 +3096,7 @@
               stepHouseholdInfo.style.display = 'none';
               stepContactInfo.style.display = 'block';
               populateContactInfoIncomeValues();
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             } else if (militaryIsVeteranAnswer.value === 'yes' && militaryVeteranTypeAnswer) {
               // Military & Benefits veteran path - check veteran type for threshold
@@ -3112,7 +3112,7 @@
                 stepHouseholdInfo.style.display = 'none';
                 stepContactInfo.style.display = 'block';
                 populateContactInfoIncomeValues();
-                document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+                document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
                 return;
               } else if (veteranType === 'dependent_under_18' || veteranType === 'dependent_over_18') {
                 // Dependents - uses 125% poverty threshold
@@ -3124,7 +3124,7 @@
                 stepHouseholdInfo.style.display = 'none';
                 stepContactInfo.style.display = 'block';
                 populateContactInfoIncomeValues();
-                document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+                document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
                 return;
               }
             }
@@ -3144,7 +3144,7 @@
               stepHouseholdInfo.style.display = 'none';
               stepContactInfo.style.display = 'block';
               populateContactInfoIncomeValues();
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             } else {
               // Violence & Abuse + sexual assault = no - uses 125% poverty threshold
@@ -3156,7 +3156,7 @@
               stepHouseholdInfo.style.display = 'none';
               stepContactInfo.style.display = 'block';
               populateContactInfoIncomeValues();
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             }
           }
@@ -3175,7 +3175,7 @@
             stepHouseholdInfo.style.display = 'none';
             stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -3196,7 +3196,7 @@
               stepHouseholdInfo.style.display = 'none';
               stepContactInfo.style.display = 'block';
               populateContactInfoIncomeValues();
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             } else if (crVeteranType === 'dependent_over_18') {
               // CR dependent_over_18 with guardianship = yes - uses 125% poverty threshold
@@ -3208,7 +3208,7 @@
               stepHouseholdInfo.style.display = 'none';
               stepContactInfo.style.display = 'block';
               populateContactInfoIncomeValues();
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             }
           }
@@ -3231,7 +3231,7 @@
               stepHouseholdInfo.style.display = 'none';
               stepContactInfo.style.display = 'block';
               populateContactInfoIncomeValues();
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             }
 
@@ -3245,7 +3245,7 @@
               stepHouseholdInfo.style.display = 'none';
               stepContactInfo.style.display = 'block';
               populateContactInfoIncomeValues();
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             }
 
@@ -3259,7 +3259,7 @@
               stepHouseholdInfo.style.display = 'none';
               stepContactInfo.style.display = 'block';
               populateContactInfoIncomeValues();
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             }
 
@@ -3277,7 +3277,7 @@
                 stepHouseholdInfo.style.display = 'none';
                 stepContactInfo.style.display = 'block';
                 populateContactInfoIncomeValues();
-                document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+                document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
                 return;
               } else if (housingVeteranType === 'dependent_over_18') {
                 // Housing dependent_over_18 with guardianship = yes - uses 125% poverty threshold
@@ -3289,7 +3289,7 @@
                 stepHouseholdInfo.style.display = 'none';
                 stepContactInfo.style.display = 'block';
                 populateContactInfoIncomeValues();
-                document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+                document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
                 return;
               }
             }
@@ -3307,7 +3307,7 @@
           populateContactInfoIncomeValues();
 
           // Scroll to top
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3423,7 +3423,7 @@
           e.preventDefault();
           if (stepCrimeVictim) stepCrimeVictim.style.display = 'none';
           stepHouseholdInfo.style.display = 'block';
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3444,7 +3444,7 @@
             // Go to Veterans question
             if (stepVeterans) stepVeterans.style.display = 'block';
           }
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3463,7 +3463,7 @@
 
           if (stepVeterans) stepVeterans.style.display = 'none';
           if (stepCrimeVictim) stepCrimeVictim.style.display = 'block';
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3478,7 +3478,7 @@
             // Go to Child Care question
             if (stepVeterans) stepVeterans.style.display = 'none';
             if (stepChildCare) stepChildCare.style.display = 'block';
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -3493,7 +3493,7 @@
             if (stepVeterans) stepVeterans.style.display = 'none';
             stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -3512,7 +3512,7 @@
               if (stepVeterans) stepVeterans.style.display = 'none';
               if (stepChildCare) stepChildCare.style.display = 'block';
             }
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -3520,7 +3520,7 @@
           if (veteranType === 'other') {
             if (stepVeterans) stepVeterans.style.display = 'none';
             if (stepChildCare) stepChildCare.style.display = 'block';
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
         });
@@ -3537,7 +3537,7 @@
 
           if (stepChildCare) stepChildCare.style.display = 'none';
           if (stepVeterans) stepVeterans.style.display = 'block';
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3554,14 +3554,14 @@
             // Go to Contact Info
             stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
           } else {
             // Child care = no: check poverty percent
             // If poverty <= 125%, go to Contact Info; otherwise redirect to not-eligible-resources
             if (calculatedPovertyPercent !== null && calculatedPovertyPercent <= 125) {
               stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             } else {
               // Redirect to not-eligible-resources.html and disable back button
               window.location.replace('not-eligible-resources.html');
@@ -3601,7 +3601,7 @@
             if (urgentNotification) urgentNotification.style.display = 'none';
             if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
 
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
@@ -3649,7 +3649,7 @@
           texasCrimeQuestion.style.display = 'none';
           defenseAttorneyContinueBtn.disabled = true;
 
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3679,7 +3679,7 @@
           // Texas crime = yes -> go to CR Veterans question
           stepDefenseAttorney.style.display = 'none';
           stepCrVeterans.style.display = 'block';
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3740,7 +3740,7 @@
           crGuardianshipQuestion.style.display = 'none';
           crVeteransContinueBtn.disabled = true;
 
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3767,7 +3767,7 @@
           if (crVeteranType === 'veteran' || crVeteranType === 'spouse' || crVeteranType === 'dependent_under_18') {
             stepCrVeterans.style.display = 'none';
             stepHouseholdInfo.style.display = 'block';
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -3784,7 +3784,7 @@
               // No guardianship -> not eligible
               window.location.replace('not-eligible-resources.html');
             }
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -3827,7 +3827,7 @@
               if (urgentNotification) urgentNotification.style.display = 'none';
               if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
 
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             }
 
@@ -3842,7 +3842,7 @@
                 if (urgentNotification) urgentNotification.style.display = 'none';
                 if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
 
-                document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+                document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
                 return;
               }
             }
@@ -3855,7 +3855,7 @@
             if (urgentNotification) urgentNotification.style.display = 'none';
             if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
 
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
@@ -3921,7 +3921,7 @@
           housingGuardianshipQuestion.style.display = 'none';
           housingVeteransContinueBtn.disabled = true;
 
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3949,7 +3949,7 @@
           clearRadioGroup('housing_age_60');
           housingAge60ContinueBtn.disabled = true;
 
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3968,7 +3968,7 @@
             // Age 60+ = no -> not eligible
             window.location.replace('not-eligible-resources.html');
           }
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -3987,7 +3987,7 @@
             if (housingTypeSelected && (housingTypeSelected.value === 'something_else' || housingTypeSelected.value === 'other_housing')) {
               stepHousingVeterans.style.display = 'none';
               stepHousingAge60.style.display = 'block';
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             }
             // Other housing types with is_veteran = no -> not eligible
@@ -4005,7 +4005,7 @@
           if (housingVeteranType === 'veteran' || housingVeteranType === 'spouse' || housingVeteranType === 'dependent_under_18') {
             stepHousingVeterans.style.display = 'none';
             stepHouseholdInfo.style.display = 'block';
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -4022,7 +4022,7 @@
               // No guardianship -> not eligible
               window.location.replace('not-eligible-resources.html');
             }
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -4080,7 +4080,7 @@
             if (urgentNotification) urgentNotification.style.display = 'none';
             if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
 
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
@@ -4107,7 +4107,7 @@
           clearRadioGroup('elder_deceased');
           elderDeceasedContinueBtn.disabled = true;
 
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -4126,7 +4126,7 @@
             // Deceased = no -> Elder Pension question
             stepElderPension.style.display = 'block';
           }
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -4185,7 +4185,7 @@
           elderGuardianshipQuestion.style.display = 'none';
           elderVeteransContinueBtn.disabled = true;
 
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -4212,7 +4212,7 @@
           if (elderVeteranType === 'veteran' || elderVeteranType === 'spouse' || elderVeteranType === 'dependent_under_18') {
             stepElderVeterans.style.display = 'none';
             stepHouseholdInfo.style.display = 'block';
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -4229,7 +4229,7 @@
               // Guardianship = no -> not eligible
               window.location.replace('not-eligible-resources.html');
             }
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -4277,7 +4277,7 @@
           elderViolenceQuestion.style.display = 'none';
           elderPensionContinueBtn.disabled = true;
 
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -4293,7 +4293,7 @@
             stepElderPension.style.display = 'none';
             stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
 
@@ -4311,7 +4311,7 @@
             stepElderPension.style.display = 'none';
             stepElderAge60.style.display = 'block';
           }
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -4333,7 +4333,7 @@
           clearRadioGroup('elder_age_60');
           elderAge60ContinueBtn.disabled = true;
 
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -4353,7 +4353,7 @@
             // Age 60+ = no -> not eligible
             window.location.replace('not-eligible-resources.html');
           }
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -4390,7 +4390,7 @@
               stepFamilyBestFit.style.display = 'block';
             }
 
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
@@ -4417,7 +4417,7 @@
           clearRadioGroup('family_best_fit');
           familyBestFitContinueBtn.disabled = true;
 
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -4431,7 +4431,7 @@
           // Both options go to Household Info (125% threshold)
           stepFamilyBestFit.style.display = 'none';
           stepHouseholdInfo.style.display = 'block';
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -4458,7 +4458,7 @@
               // Veteran = no -> Household Info (125% threshold)
               step1.style.display = 'none';
               stepHouseholdInfo.style.display = 'block';
-              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
             }
 
@@ -4496,7 +4496,7 @@
               stepHouseholdInfo.style.display = 'block';
             }
 
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
@@ -4523,7 +4523,7 @@
             // Both yes and no go to Household Info (different thresholds handled in Household Info Continue)
             step1.style.display = 'none';
             stepHouseholdInfo.style.display = 'block';
-            document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
@@ -4630,7 +4630,7 @@
           }
 
           // Scroll to top
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
 
@@ -4671,7 +4671,7 @@
           stepThankYou.style.display = 'block';
 
           // Scroll to top
-          document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+          document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
         });
       }
     });
