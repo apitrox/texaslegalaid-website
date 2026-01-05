@@ -1,7 +1,7 @@
 # Texas Legal Aid - Online Application Page Flow
 
 **File:** `apply-online.html`
-**Last Updated:** 2026-01-04
+**Last Updated:** 2026-01-05
 
 This document provides a complete flow chart of all logic conditions in the online application. Questions and page names are abbreviated for readability but remain consistent throughout.
 
@@ -294,21 +294,33 @@ Elder Veterans Question (elder_is_veteran)
 Elder Pension Question (elder_pension)
 "Does your issue involve a pension or 401(k)?"
 │
-├─► YES ──────────────────────────────────────────────────► Contact Info ──► Thank You
+├─► YES ──────────────────────────────────────────────────► Household Info (125%)
+│                                                            │
+│                                                            ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+│                                                            │
+│                                                            └─► poverty > 125% ─► NOT ELIGIBLE
 │
 └─► NO
     │
     ├─► Elder Violence Question (elder_violence)
     │   "Have you experienced physical violence or abuse?"
     │   │
-    │   ├─► YES ──────────────────────────────────────────► Contact Info ──► Thank You
+    │   ├─► YES ──────────────────────────────────────────► Household Info (125%)
+    │   │                                                    │
+    │   │                                                    ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+    │   │                                                    │
+    │   │                                                    └─► poverty > 125% ─► NOT ELIGIBLE
     │   │
     │   └─► NO
     │       │
     │       ├─► Elder Age 60+ Question (elder_age_60)
     │       │   "Are you 60 years of age or older?"
     │       │   │
-    │       │   ├─► YES ──────────────────────────────────► Contact Info ──► Thank You
+    │       │   ├─► YES ──────────────────────────────────► Household Info (125%)
+    │       │   │                                            │
+    │       │   │                                            ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
+    │       │   │                                            │
+    │       │   │                                            └─► poverty > 125% ─► NOT ELIGIBLE
     │       │   │
     │       │   └─► NO ───────────────────────────────────► NOT ELIGIBLE
 ```
@@ -739,7 +751,8 @@ Priority order for determining previous step:
 | Housing & Debt → Housing Veterans = No + Age 60+ = Yes → Household Info | 125% | N/A |
 | Housing & Debt → Housing Veterans = Yes → veteran/spouse/dependent_under_18 → Household Info | 200% | N/A |
 | Housing & Debt → Housing Veterans = Yes → dependent_over_18 + Guardianship = Yes → Household Info | 125% | N/A |
-| Elder Law → Veterans → Household Info | 200% | N/A |
+| Elder Law → Deceased = Yes → Veterans → Household Info | 200% | N/A |
+| Elder Law → Deceased = No → Pension/Violence/Age60+ = Yes → Household Info | 125% | N/A |
 | Family Law → Household Info | 125% | N/A |
 | Military & Benefits → Veterans = No → Household Info | 125% | N/A |
 | Military & Benefits → Veterans = Yes → veteran/spouse → Household Info | 200% | N/A |

@@ -2944,13 +2944,25 @@
               // Show urgent notification and Family Help Link card
               if (urgentNotification) urgentNotification.style.display = 'flex';
               if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
-            // Check if we came from Elder Law path
+            // Check if we came from Elder Law Veterans path
             } else {
               const elderIsVeteranAnswer = document.querySelector('input[name="elder_is_veteran"]:checked');
+              const elderPensionAnswerBack = document.querySelector('input[name="elder_pension"]:checked');
+              const elderViolenceAnswerBack = document.querySelector('input[name="elder_violence"]:checked');
+              const elderAge60AnswerBack = document.querySelector('input[name="elder_age_60"]:checked');
+
               if (elderIsVeteranAnswer) {
                 // Go back to Elder Law Veterans step
                 const stepElderVeterans = document.getElementById('step-elder-veterans');
                 if (stepElderVeterans) stepElderVeterans.style.display = 'block';
+              } else if (elderAge60AnswerBack) {
+                // Came from Elder Age 60+ -> Go back to Elder Age 60+ step
+                const stepElderAge60 = document.getElementById('step-elder-age-60');
+                if (stepElderAge60) stepElderAge60.style.display = 'block';
+              } else if (elderPensionAnswerBack || elderViolenceAnswerBack) {
+                // Came from Elder Pension/Violence -> Go back to Elder Pension step
+                const stepElderPension = document.getElementById('step-elder-pension');
+                if (stepElderPension) stepElderPension.style.display = 'block';
               // Check if we came from Criminal Record path
               } else {
                 const crIsVeteranAnswer = document.querySelector('input[name="cr_is_veteran"]:checked');
@@ -3015,7 +3027,7 @@
                 }
               }
             }
-          }
+            }
           }
           }
 
@@ -3042,18 +3054,39 @@
           // Store poverty percent in a global variable for form submission
           window.calculatedPovertyPercent = calculatedPovertyPercent;
 
-          // Check if we came from Elder Law path (via elder_is_veteran selection)
+          // Check if we came from Elder Law Veterans path (via elder_is_veteran selection)
           const elderIsVeteranAnswer = document.querySelector('input[name="elder_is_veteran"]:checked');
 
           if (elderIsVeteranAnswer) {
-            // Elder Law path - uses 200% poverty threshold
+            // Elder Law Veterans path - uses 200% poverty threshold
             if (calculatedPovertyPercent > 200) {
               // Redirect to not-eligible-resources.html and disable back button
               window.location.replace('not-eligible-resources.html');
               return;
             }
 
-            // Elder Law + poverty ≤ 200% -> Contact Info directly
+            // Elder Law Veterans + poverty ≤ 200% -> Contact Info directly
+            stepHouseholdInfo.style.display = 'none';
+            stepContactInfo.style.display = 'block';
+            populateContactInfoIncomeValues();
+            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
+            return;
+          }
+
+          // Check if we came from Elder Law non-deceased path (Pension, Violence, or Age60)
+          const elderPensionAnswer = document.querySelector('input[name="elder_pension"]:checked');
+          const elderViolenceAnswer = document.querySelector('input[name="elder_violence"]:checked');
+          const elderAge60Answer = document.querySelector('input[name="elder_age_60"]:checked');
+
+          if (elderPensionAnswer || elderViolenceAnswer || elderAge60Answer) {
+            // Elder Law non-deceased path - uses 125% poverty threshold
+            if (calculatedPovertyPercent > 125) {
+              // Redirect to not-eligible-resources.html and disable back button
+              window.location.replace('not-eligible-resources.html');
+              return;
+            }
+
+            // Elder Law non-deceased + poverty ≤ 125% -> Contact Info directly
             stepHouseholdInfo.style.display = 'none';
             stepContactInfo.style.display = 'block';
             populateContactInfoIncomeValues();
@@ -4288,10 +4321,9 @@
           if (!elderPensionSelected) return;
 
           if (elderPensionSelected.value === 'yes') {
-            // Pension = yes -> Contact Info
+            // Pension = yes -> Household Info (125% threshold)
             stepElderPension.style.display = 'none';
-            stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
+            stepHouseholdInfo.style.display = 'block';
             document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
@@ -4301,10 +4333,9 @@
           if (!elderViolenceSelected) return;
 
           if (elderViolenceSelected.value === 'yes') {
-            // Violence = yes -> Contact Info
+            // Violence = yes -> Household Info (125% threshold)
             stepElderPension.style.display = 'none';
-            stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
+            stepHouseholdInfo.style.display = 'block';
           } else {
             // Violence = no -> Elder Age 60+ question
             stepElderPension.style.display = 'none';
@@ -4345,9 +4376,8 @@
 
           stepElderAge60.style.display = 'none';
           if (elderAge60Selected.value === 'yes') {
-            // Age 60+ = yes -> Contact Info
-            stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
+            // Age 60+ = yes -> Household Info (125% threshold)
+            stepHouseholdInfo.style.display = 'block';
           } else {
             // Age 60+ = no -> not eligible
             window.location.replace('not-eligible-resources.html');
