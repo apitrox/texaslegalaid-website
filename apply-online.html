@@ -2974,12 +2974,45 @@
                   const stepFamilyBestFit = document.getElementById('step-family-best-fit');
                   if (stepFamilyBestFit) stepFamilyBestFit.style.display = 'block';
                 } else {
+                  // Check if we came from Housing paths
+                  const housingTypeAnswer = document.querySelector('input[name="housing_type"]:checked');
+                  const housingSexualAssaultAnswer = document.querySelector('input[name="housing_sexual_assault"]:checked');
+                  const housingIsVeteranAnswer = document.querySelector('input[name="housing_is_veteran"]:checked');
+                  const housingAge60Answer = document.querySelector('input[name="housing_age_60"]:checked');
+
+                  if (housingTypeAnswer) {
+                    if (housingTypeAnswer.value === 'identity_theft') {
+                      // Housing identity_theft -> Go back to Step 1
+                      step1.style.display = 'block';
+                      if (urgentNotification) urgentNotification.style.display = 'flex';
+                      if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+                    } else if (housingTypeAnswer.value === 'early_termination' && housingSexualAssaultAnswer && housingSexualAssaultAnswer.value === 'yes') {
+                      // Housing early_termination + sexual assault = yes -> Go back to Step 1
+                      step1.style.display = 'block';
+                      if (urgentNotification) urgentNotification.style.display = 'flex';
+                      if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+                    } else if (housingAge60Answer) {
+                      // Housing Age 60+ -> Go back to Housing Age 60+ step
+                      const stepHousingAge60 = document.getElementById('step-housing-age-60');
+                      if (stepHousingAge60) stepHousingAge60.style.display = 'block';
+                    } else if (housingIsVeteranAnswer && housingIsVeteranAnswer.value === 'yes') {
+                      // Housing Veterans -> Go back to Housing Veterans step
+                      const stepHousingVeterans = document.getElementById('step-housing-veterans');
+                      if (stepHousingVeterans) stepHousingVeterans.style.display = 'block';
+                    } else {
+                      // Default: Go back to Step 1
+                      step1.style.display = 'block';
+                      if (urgentNotification) urgentNotification.style.display = 'flex';
+                      if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+                    }
+                  } else {
                     // Default: Go back to Step 1
                     step1.style.display = 'block';
                     // Show urgent notification and Family Help Link card again
                     if (urgentNotification) urgentNotification.style.display = 'flex';
                     if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
                   }
+                }
                 }
               }
               }
@@ -3177,6 +3210,88 @@
               populateContactInfoIncomeValues();
               document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
               return;
+            }
+          }
+
+          // Check if we came from Housing & Debt path
+          const housingTypeAnswer = document.querySelector('input[name="housing_type"]:checked');
+          const housingSexualAssaultAnswer = document.querySelector('input[name="housing_sexual_assault"]:checked');
+          const housingIsVeteranAnswer = document.querySelector('input[name="housing_is_veteran"]:checked');
+          const housingVeteranTypeAnswer = document.querySelector('input[name="housing_veteran_type"]:checked');
+          const housingAge60Answer = document.querySelector('input[name="housing_age_60"]:checked');
+
+          if (housingTypeAnswer) {
+            // Housing + identity_theft - uses 125% poverty threshold
+            if (housingTypeAnswer.value === 'identity_theft') {
+              if (calculatedPovertyPercent > 125) {
+                window.location.replace('not-eligible-resources.html');
+                return;
+              }
+              // Housing identity_theft + poverty ≤ 125% -> Contact Info
+              stepHouseholdInfo.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+              populateContactInfoIncomeValues();
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              return;
+            }
+
+            // Housing + early_termination + sexual assault = yes - uses 187.5% poverty threshold
+            if (housingTypeAnswer.value === 'early_termination' && housingSexualAssaultAnswer && housingSexualAssaultAnswer.value === 'yes') {
+              if (calculatedPovertyPercent > 187.5) {
+                window.location.replace('not-eligible-resources.html');
+                return;
+              }
+              // Housing early_termination + sexual assault + poverty ≤ 187.5% -> Contact Info
+              stepHouseholdInfo.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+              populateContactInfoIncomeValues();
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              return;
+            }
+
+            // Housing + Age 60+ = yes - uses 125% poverty threshold
+            if (housingAge60Answer && housingAge60Answer.value === 'yes') {
+              if (calculatedPovertyPercent > 125) {
+                window.location.replace('not-eligible-resources.html');
+                return;
+              }
+              // Housing Age 60+ + poverty ≤ 125% -> Contact Info
+              stepHouseholdInfo.style.display = 'none';
+              stepContactInfo.style.display = 'block';
+              populateContactInfoIncomeValues();
+              document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+              return;
+            }
+
+            // Housing + Veterans = yes - check veteran type for threshold
+            if (housingIsVeteranAnswer && housingIsVeteranAnswer.value === 'yes' && housingVeteranTypeAnswer) {
+              const housingVeteranType = housingVeteranTypeAnswer.value;
+
+              if (housingVeteranType === 'veteran' || housingVeteranType === 'spouse' || housingVeteranType === 'dependent_under_18') {
+                // Housing veteran/spouse/dependent_under_18 - uses 200% poverty threshold
+                if (calculatedPovertyPercent > 200) {
+                  window.location.replace('not-eligible-resources.html');
+                  return;
+                }
+                // Housing veteran/spouse/dependent_under_18 + poverty ≤ 200% -> Contact Info
+                stepHouseholdInfo.style.display = 'none';
+                stepContactInfo.style.display = 'block';
+                populateContactInfoIncomeValues();
+                document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+                return;
+              } else if (housingVeteranType === 'dependent_over_18') {
+                // Housing dependent_over_18 with guardianship = yes - uses 125% poverty threshold
+                if (calculatedPovertyPercent > 125) {
+                  window.location.replace('not-eligible-resources.html');
+                  return;
+                }
+                // Housing dependent_over_18 + guardianship yes + poverty ≤ 125% -> Contact Info
+                stepHouseholdInfo.style.display = 'none';
+                stepContactInfo.style.display = 'block';
+                populateContactInfoIncomeValues();
+                document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
+                return;
+              }
             }
           }
 
@@ -3703,11 +3818,10 @@
             const housingTypeSelected = document.querySelector('input[name="housing_type"]:checked');
             if (!housingTypeSelected) return;
 
-            // If identity_theft, go directly to Contact Info
+            // If identity_theft, go to Household Info (125% threshold)
             if (housingTypeSelected.value === 'identity_theft') {
               step1.style.display = 'none';
-              stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
+              stepHouseholdInfo.style.display = 'block';
 
               // Hide urgent notification and Family Help Link card
               if (urgentNotification) urgentNotification.style.display = 'none';
@@ -3717,13 +3831,12 @@
               return;
             }
 
-            // If early_termination + sexual_assault = yes, go directly to Contact Info
+            // If early_termination + sexual_assault = yes, go to Household Info (187.5% threshold)
             if (housingTypeSelected.value === 'early_termination') {
               const sexualAssaultSelected = document.querySelector('input[name="housing_sexual_assault"]:checked');
               if (sexualAssaultSelected && sexualAssaultSelected.value === 'yes') {
                 step1.style.display = 'none';
-                stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
+                stepHouseholdInfo.style.display = 'block';
 
                 // Hide urgent notification and Family Help Link card
                 if (urgentNotification) urgentNotification.style.display = 'none';
@@ -3849,9 +3962,8 @@
 
           stepHousingAge60.style.display = 'none';
           if (housingAge60Selected.value === 'yes') {
-            // Age 60+ = yes -> Contact Info
-            stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
+            // Age 60+ = yes -> Household Info (125% threshold)
+            stepHouseholdInfo.style.display = 'block';
           } else {
             // Age 60+ = no -> not eligible
             window.location.replace('not-eligible-resources.html');
@@ -3889,11 +4001,10 @@
 
           const housingVeteranType = housingVeteranTypeSelected.value;
 
-          // First 3 options (veteran, spouse, dependent_under_18) -> Contact Info
+          // First 3 options (veteran, spouse, dependent_under_18) -> Household Info (200% threshold)
           if (housingVeteranType === 'veteran' || housingVeteranType === 'spouse' || housingVeteranType === 'dependent_under_18') {
             stepHousingVeterans.style.display = 'none';
-            stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
+            stepHouseholdInfo.style.display = 'block';
             document.querySelector('.intake-form').scrollIntoView({ behavior: 'smooth' });
             return;
           }
@@ -3905,8 +4016,8 @@
 
             stepHousingVeterans.style.display = 'none';
             if (housingGuardianshipSelected.value === 'yes') {
-              stepContactInfo.style.display = 'block';
-            populateContactInfoIncomeValues();
+              // Guardianship = yes -> Household Info (125% threshold)
+              stepHouseholdInfo.style.display = 'block';
             } else {
               // No guardianship -> not eligible
               window.location.replace('not-eligible-resources.html');
@@ -4487,26 +4598,20 @@
           } else if (elderIsVeteranAnswer) {
             // Came from Elder Law Veterans path via Household Info
             stepHouseholdInfo.style.display = 'block';
-          // Check if came from Housing path (identity_theft or sexual assault = yes goes directly to contact info)
+          // Check if came from Housing paths (all Housing paths now go through Household Info)
           } else if (housingTypeAnswer && housingTypeAnswer.value === 'identity_theft') {
-            // Came directly from Step 1 (Housing + identity_theft)
-            step1.style.display = 'block';
-            // Show urgent notification and Family Help Link card
-            if (urgentNotification) urgentNotification.style.display = 'flex';
-            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
+            // Housing identity_theft -> go back to Household Info
+            stepHouseholdInfo.style.display = 'block';
           } else if (housingTypeAnswer && housingTypeAnswer.value === 'early_termination' &&
               housingSexualAssaultAnswer && housingSexualAssaultAnswer.value === 'yes') {
-            // Came directly from Step 1 (Housing + early_termination + sexual assault = yes)
-            step1.style.display = 'block';
-            // Show urgent notification and Family Help Link card
-            if (urgentNotification) urgentNotification.style.display = 'flex';
-            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'block';
-          } else if (housingAge60Answer) {
-            // Came from Housing Age 60+ (Housing + something_else + is_veteran = no + age_60 = yes)
-            if (stepHousingAge60) stepHousingAge60.style.display = 'block';
-          } else if (housingIsVeteranAnswer) {
-            // Came from Housing Veterans
-            if (stepHousingVeterans) stepHousingVeterans.style.display = 'block';
+            // Housing early_termination + sexual assault = yes -> go back to Household Info
+            stepHouseholdInfo.style.display = 'block';
+          } else if (housingAge60Answer && housingAge60Answer.value === 'yes') {
+            // Housing Age 60+ = yes -> go back to Household Info
+            stepHouseholdInfo.style.display = 'block';
+          } else if (housingIsVeteranAnswer && housingIsVeteranAnswer.value === 'yes') {
+            // Housing Veterans = yes -> go back to Household Info
+            stepHouseholdInfo.style.display = 'block';
           } else if (crIsVeteranAnswer && crIsVeteranAnswer.value === 'yes') {
             // Came from CR Veterans via Household Info -> go back to Household Info
             stepHouseholdInfo.style.display = 'block';
