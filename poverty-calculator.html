@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Primary Meta Tags -->
+  <title>Poverty Level Calculator | Texas Legal Aid</title>
+  <meta name="title" content="Poverty Level Calculator | Texas Legal Aid">
+  <meta name="description"
+    content="Calculate the poverty level of any household based on Health and Human Services poverty guidelines. Determine eligibility for legal aid services.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://texaslegalaid.org/poverty-calculator.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://texaslegalaid.org/poverty-calculator.html">
+  <meta property="og:title" content="Poverty Level Calculator | Texas Legal Aid">
+  <meta property="og:description"
+    content="Calculate the poverty level of any household based on Health and Human Services poverty guidelines.">
+  <meta property="og:image" content="https://texaslegalaid.org/images/og-image.png">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2D5A7B">
+  <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/TLA_Favicon_Solid_White.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#E8F2F8',
+              100: '#D0E4F2',
+              200: '#B8D4E8',
+              300: '#9DB4C7',
+              400: '#778DA9',
+              500: '#415A77',
+              600: '#2D5A7B',
+              700: '#1B263B',
+              800: '#0D1B2A',
+            },
+            secondary: {
+              100: '#FDF8E8',
+              200: '#F5E4B8',
+              300: '#EBD095',
+              400: '#E0BC74',
+              500: '#D4A853',
+            },
+          },
+          fontFamily: {
+            display: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+            body: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body class="font-body text-gray-800 bg-white">
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+      <div class="flex items-center justify-between">
+        <button class="nav-toggle lg:hidden" type="button" aria-expanded="false" aria-controls="nav-menu"
+          aria-label="Toggle navigation">
+          <span class="nav-toggle-icon" aria-hidden="true"></span>
+        </button>
+
+        <div id="nav-menu" class="nav-menu flex-col lg:flex-row items-center gap-4 lg:gap-8">
+          <!-- Phone Number moved to left of Home link -->
+          <a href="tel:+15129942800"
+            class="nav-link flex items-center gap-2 text-xl lg:text-2xl font-bold text-primary-700 hover:text-primary-900 border-b-0"
+            aria-label="Text or Call us at 512-994-2800">
+            <svg class="w-6 h-6 stroke-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <svg class="w-6 h-6 stroke-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            512-994-2800
+          </a>
+
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="apply-online.html" class="nav-link">Apply Online</a>
+          <a href="my-cases.html" class="nav-link">My Cases</a>
+          <a href="resources.html" class="nav-link">Resources</a>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="portal/index.html"
+            class="btn btn-outline text-white border-white hover:bg-white hover:text-primary-700">Provider Portal</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <!-- Page Header -->
+    <section class="hero hero-bg-eviction py-12">
+      <div class="container">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Poverty Level Calculator</h1>
+        <p class="text-lg opacity-90 max-w-2xl">Calculate the poverty level of any household based on Health and Human Services poverty guidelines.</p>
+      </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="section">
+      <div class="container max-w-2xl">
+        <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+          <div class="form-group">
+            <label for="household_size" class="form-label form-label-required">
+              How many persons are in your household?
+              <span class="help-icon" aria-label="Help">?<span class="tooltip">This is the total number of people, adults and children, who live in your household.</span></span>
+            </label>
+            <select id="household_size" name="household_size" class="form-control form-select" required>
+              <option value="">Select household size...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="household_income" class="form-label form-label-required">
+              What is your household income?
+              <span class="help-icon" aria-label="Help">?<span class="tooltip">This is the total income of all people who live in your household. This is total gross income, before deducting any taxes, withholdings, etc. You may specify the amount as a weekly, monthly or yearly amount.</span></span>
+            </label>
+            <div class="flex gap-3">
+              <div class="relative flex-1">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                <input type="number" id="household_income" name="household_income" class="form-control pl-7"
+                  min="0" max="400000" step="1" placeholder="0">
+              </div>
+              <select id="income_frequency" name="income_frequency" class="form-control form-select w-auto">
+                <option value="weekly">Weekly</option>
+                <option value="monthly" selected>Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="income_year" class="form-label form-label-required">
+              What year is this information for?
+              <span class="help-icon" aria-label="Help">?<span class="tooltip">Select the year for which the information you provided above (size and income) is for, which should be the latest year of information that is available to you.</span></span>
+            </label>
+            <select id="income_year" name="income_year" class="form-control form-select">
+              <!-- Options populated dynamically via JavaScript -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <div class="p-4 bg-primary-50 rounded-lg border border-primary-200">
+              <p class="text-base text-primary-800 mb-1">
+                Household size: <span id="household-size-display" class="font-semibold">--</span>
+              </p>
+              <p class="text-base text-primary-800 mb-1">
+                Annual household income: <span id="annual-income-display" class="font-semibold">--</span>
+              </p>
+              <p class="text-base text-primary-800 mb-1">
+                Year: <span id="income-year-display" class="font-semibold">--</span>
+              </p>
+              <p class="text-lg text-primary-800 mb-2">
+                Poverty percent: <span id="poverty-percent-display" class="font-semibold">--</span>
+              </p>
+              <a href="https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 class="text-sm text-primary-600 hover:text-primary-800 underline block">
+                HHS Poverty Guidelines
+              </a>
+              <span class="text-sm">
+                <a href="https://teajf.org/grants/docs/2024/2025%20TAJF%20REV%20Income%20Guideline%20chart%202025.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-primary-600 hover:text-primary-800 underline">TAJF Income Eligibility Guidelines</a>
+                [<a href="https://teajf.org/grants/docs/2024/2025%20TAJF%20REV%20Income%20Guideline%20chart%202025.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-primary-600 hover:text-primary-800 underline">2025</a> |
+                <a href="https://www.teajf.org/grants/docs/2024/2024%20TAJF%20REV%20Income%20Guideline%20chart.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-primary-600 hover:text-primary-800 underline">2024</a> |
+                <a href="https://www.teajf.org/grants/docs/2023/2023%20-%20TAJF%20Grants%20Household%20Income%20Eligibility%20Chart.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-primary-600 hover:text-primary-800 underline">2023</a> |
+                <a href="https://www.tajf.org/grants/docs/2022/2022%20TAJF%20Income%20Guideline%20chart.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-primary-600 hover:text-primary-800 underline">2022</a>]
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="flex flex-col md:flex-row gap-8 items-start">
+        <!-- Left Column: Logo -->
+        <div class="flex-shrink-0">
+          <img src="images/TLA_Logo_Seal.jpg" alt="Texas Legal Aid" width="170" height="170" class="rounded-full">
+        </div>
+
+        <!-- Middle Column: Text Content -->
+        <div class="flex-1 text-base opacity-90">
+          <p class="mb-4">Connecting those in need with free legal services. We are committed to the vision that all Texans, regardless of income, will have equal access to the civil justice system. This site is intended for the benefit of Texans who need legal aid assistance.</p>
+          <p class="mb-4">This site is for general informational purposes only. The information on this site is not legal advice and should not be used in place of legal advice. Consult a lawyer for legal advice.</p>
+          <p class="mb-4">This site is not a government-funded or government-operated site.</p>
+          <nav class="flex flex-wrap gap-4 mb-4 justify-center">
+            <a href="privacy-policy.html" class="hover:opacity-80">Privacy Policy</a>  |
+            <a href="terms-of-use.html" class="hover:opacity-80">Terms of Use</a>  |
+            <a href="site-map.html" class="hover:opacity-80">Site Map</a>
+          </nav>
+          <p class="text-center">Copyright &copy; <span id="copyright-year"></span> Texas Legal Aid. All rights reserved.</p>
+        </div>
+
+        <!-- Right Column: Quick Links -->
+        <div class="flex-shrink-0">
+          <h3 class="text-white font-semibold mb-4">Quick Links</h3>
+          <nav class="footer-nav flex-col">
+            <a href="index.html">Home</a>
+            <a href="apply-online.html">Apply Online</a>
+            <a href="my-cases.html">My Cases</a>
+            <a href="resources.html">Resources</a>
+            <a href="legal-aid-laws.html">Legal Aid Laws</a>
+            <a href="portal/index.html">Provider Portal</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Dynamic Copyright Year -->
+  <script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Poverty Calculator JavaScript -->
+  <script>
+    // DOM elements
+    const householdSizeSelect = document.getElementById('household_size');
+    const householdIncomeInput = document.getElementById('household_income');
+    const incomeFrequencySelect = document.getElementById('income_frequency');
+    const incomeYearSelect = document.getElementById('income_year');
+    const povertyPercentDisplay = document.getElementById('poverty-percent-display');
+    const annualIncomeDisplay = document.getElementById('annual-income-display');
+    const householdSizeDisplay = document.getElementById('household-size-display');
+    const incomeYearDisplay = document.getElementById('income-year-display');
+
+    // Populate year dropdown (current year down to 2021)
+    function populateYearDropdown() {
+      if (!incomeYearSelect) return;
+      const currentYear = new Date().getFullYear();
+      incomeYearSelect.innerHTML = '';
+      for (let year = currentYear; year >= 2021; year--) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        if (year === currentYear) option.selected = true;
+        incomeYearSelect.appendChild(option);
+      }
+    }
+    populateYearDropdown();
+
+    // Fetch poverty guidelines from HHS API
+    async function fetchPovertyGuideline(year, householdSize) {
+      try {
+        const response = await fetch(`https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines/api/${year}/US/${householdSize}`);
+        if (response.ok) {
+          const data = await response.json();
+          // The API returns the annual poverty guideline
+          // We need to convert to monthly by dividing by 12
+          if (data && data.data && data.data.income) {
+            return data.data.income / 12;
+          }
+        }
+        return null;
+      } catch (error) {
+        console.log(`Error fetching poverty guideline for year ${year}:`, error);
+        return null;
+      }
+    }
+
+    // Calculate poverty percent
+    async function calculatePovertyPercent() {
+      const householdSize = parseInt(householdSizeSelect.value);
+      const incomeValue = parseFloat(householdIncomeInput.value);
+      const frequency = incomeFrequencySelect ? incomeFrequencySelect.value : 'monthly';
+      const selectedYear = incomeYearSelect ? parseInt(incomeYearSelect.value) : new Date().getFullYear();
+
+      // Update household size display
+      if (householdSizeDisplay) {
+        householdSizeDisplay.textContent = householdSize ? householdSize : '--';
+      }
+
+      // Update year display
+      if (incomeYearDisplay) {
+        incomeYearDisplay.textContent = selectedYear ? selectedYear : '--';
+      }
+
+      if (!householdSize || isNaN(incomeValue)) {
+        povertyPercentDisplay.textContent = '--';
+        if (annualIncomeDisplay) annualIncomeDisplay.textContent = '--';
+        return;
+      }
+
+      // Convert income to annual based on frequency
+      let annualIncome;
+      if (frequency === 'weekly') {
+        annualIncome = incomeValue * 52;
+      } else if (frequency === 'monthly') {
+        annualIncome = incomeValue * 12;
+      } else {
+        // yearly
+        annualIncome = incomeValue;
+      }
+
+      // Display annual income
+      if (annualIncomeDisplay) {
+        annualIncomeDisplay.textContent = '$' + Math.round(annualIncome).toLocaleString();
+      }
+
+      // Use the user-selected year for the poverty guideline API call
+      let annualPovertyLevel = await fetchPovertyGuideline(selectedYear, householdSize);
+
+      if (!annualPovertyLevel) {
+        // Try previous year if selected year not available
+        annualPovertyLevel = await fetchPovertyGuideline(selectedYear - 1, householdSize);
+      }
+
+      // Note: fetchPovertyGuideline returns monthly value (divided by 12), so multiply back
+      if (annualPovertyLevel) {
+        annualPovertyLevel = annualPovertyLevel * 12;
+      }
+
+      if (annualPovertyLevel) {
+        // Calculate poverty percent: (annual income / annual poverty level) * 100
+        const calculatedPovertyPercent = Math.round((annualIncome / annualPovertyLevel) * 100);
+        povertyPercentDisplay.textContent = calculatedPovertyPercent + '%';
+      } else {
+        // Fallback to 2024 federal poverty guidelines for 48 contiguous states
+        const fallbackPovertyLevels = {
+          1: 15060, 2: 20440, 3: 25820, 4: 31200, 5: 36580,
+          6: 41960, 7: 47340, 8: 52720
+        };
+        // For households > 8, add $5,380 per additional person
+        let fallbackAnnualLevel;
+        if (householdSize <= 8) {
+          fallbackAnnualLevel = fallbackPovertyLevels[householdSize];
+        } else {
+          fallbackAnnualLevel = fallbackPovertyLevels[8] + (householdSize - 8) * 5380;
+        }
+        const calculatedPovertyPercent = Math.round((annualIncome / fallbackAnnualLevel) * 100);
+        povertyPercentDisplay.textContent = calculatedPovertyPercent + '%';
+      }
+    }
+
+    // Listen for changes to household size, income, frequency, and year
+    if (householdSizeSelect) {
+      householdSizeSelect.addEventListener('change', calculatePovertyPercent);
+    }
+    if (householdIncomeInput) {
+      householdIncomeInput.addEventListener('input', calculatePovertyPercent);
+    }
+    if (incomeFrequencySelect) {
+      incomeFrequencySelect.addEventListener('change', calculatePovertyPercent);
+    }
+    if (incomeYearSelect) {
+      incomeYearSelect.addEventListener('change', calculatePovertyPercent);
+    }
+  </script>
+
+  <!-- Main JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+
+</html>
