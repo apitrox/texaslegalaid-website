@@ -279,8 +279,7 @@ General Rules:
 
 
 For the `texaslegalaid-website` application website project make the following changes:
--  See any attached image(s) or file(s) for reference.
-- create a new page `legal-aid-laws.html` using `legal-aid-laws.pdf` as the source. The title of the new page will be "Texas Legal Aid – Statutes, Rules, Eligibility". This new page will organize the source information as groups of cards, similar to the `resources.html` page. Each card will have title and a few words description. For information sources that are multiple years, one card will represent the multiple years and clicking the card will pop up the years and allow the user to select a year. All information sources will be included on the new page. The only links to this new page will be an item in the footer under Quick Links titled "Legal Aid Laws" and a category on the site-map page called Legal Aid Laws with a link to each of the cards.
+- create a new card on the `/legal-aid-laws.html` page in the Resources section linked to `https://www.texasbar.com/AM/Template.cfm?Section=articles&Template=/CM/HTMLDisplay.cfm&ContentID=56925`. With the titled "The State of Access to Justice in Texas" and description "While much has been accomplished, much remains to be done. by Hankinson & Reasoner"
 ---
 General Rules:
 - Before making any changes, ask me any clarifying questions you may have. Give me multiple-choice options for answers whenever possible. If you do not know something that you need, ask me even if during your updates.
