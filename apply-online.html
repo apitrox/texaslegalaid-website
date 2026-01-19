@@ -270,7 +270,7 @@
               </fieldset>
             </div>
 
-            <!-- Medicare Question (Only for Public Benefits + Age "No") -->
+            <!-- Medicare Question (Deprecated - Age 60+ = No now redirects to Not Eligible Resources) -->
             <div id="medicare-question" class="mb-6" style="display: none;">
               <fieldset>
                 <legend class="text-lg font-semibold text-primary-800 mb-3">Do you have health insurance through <span class="whitespace-nowrap">Medicare?<span class="text-red-600">*</span></span></legend>
@@ -287,7 +287,7 @@
               </fieldset>
             </div>
 
-            <!-- Medicare Dispute Question (Only for Public Benefits + Age "No" + Medicare "Yes") -->
+            <!-- Medicare Dispute Question (Deprecated - Age 60+ = No now redirects to Not Eligible Resources) -->
             <div id="medicare-dispute-question" class="mb-6" style="display: none;">
               <fieldset>
                 <legend class="text-lg font-semibold text-primary-800 mb-3">Does your issue involve a dispute involving <span class="whitespace-nowrap">Medicare?<span class="text-red-600">*</span></span></legend>
@@ -2301,23 +2301,9 @@
             step1ContinueBtn.disabled = true;
             return;
           }
-          // If age is "No", also require Medicare question to be answered
-          if (ageSelected.value === 'no') {
-            const medicareSelected = document.querySelector('input[name="has_medicare"]:checked');
-            if (!medicareSelected) {
-              step1ContinueBtn.disabled = true;
-              return;
-            }
-            // If Medicare is "Yes", also require Medicare dispute question to be answered
-            if (medicareSelected.value === 'yes') {
-              const disputeSelected = document.querySelector('input[name="medicare_dispute"]:checked');
-              step1ContinueBtn.disabled = !disputeSelected;
-            } else {
-              step1ContinueBtn.disabled = false;
-            }
-          } else {
-            step1ContinueBtn.disabled = false;
-          }
+          // If age is "No", enable continue button (will redirect to Not Eligible Resources)
+          // If age is "Yes", enable continue button (will go to Household Info)
+          step1ContinueBtn.disabled = false;
         } else if (selectedLegalArea.value === 'housing') {
           // Housing & Debt: require housing type to be selected
           const housingTypeSelected = document.querySelector('input[name="housing_type"]:checked');
@@ -2371,41 +2357,24 @@
 
       // Function to update Medicare question visibility
       function updateMedicareVisibility() {
-        const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
-        const ageSelected = document.querySelector('input[name="age_60_or_older"]:checked');
-
-        // Show Medicare question only if Public Benefits is selected AND age is "No"
-        if (selectedLegalArea && selectedLegalArea.value === 'benefits' && ageSelected && ageSelected.value === 'no') {
-          medicareQuestion.style.display = 'block';
-          medicareInputs.forEach(input => input.setAttribute('required', ''));
-        } else {
-          medicareQuestion.style.display = 'none';
-          medicareInputs.forEach(input => {
-            input.removeAttribute('required');
-            input.checked = false;
-          });
-        }
+        // Medicare question is no longer shown - Age 60+ = No now redirects to Not Eligible Resources
+        // Always hide Medicare question
+        medicareQuestion.style.display = 'none';
+        medicareInputs.forEach(input => {
+          input.removeAttribute('required');
+          input.checked = false;
+        });
       }
 
       // Function to update Medicare dispute question visibility
       function updateMedicareDisputeVisibility() {
-        const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
-        const ageSelected = document.querySelector('input[name="age_60_or_older"]:checked');
-        const medicareSelected = document.querySelector('input[name="has_medicare"]:checked');
-
-        // Show Medicare dispute question only if Public Benefits + Age "No" + Medicare "Yes"
-        if (selectedLegalArea && selectedLegalArea.value === 'benefits' &&
-            ageSelected && ageSelected.value === 'no' &&
-            medicareSelected && medicareSelected.value === 'yes') {
-          medicareDisputeQuestion.style.display = 'block';
-          medicareDisputeInputs.forEach(input => input.setAttribute('required', ''));
-        } else {
-          medicareDisputeQuestion.style.display = 'none';
-          medicareDisputeInputs.forEach(input => {
-            input.removeAttribute('required');
-            input.checked = false;
-          });
-        }
+        // Medicare dispute question is no longer shown - Age 60+ = No now redirects to Not Eligible Resources
+        // Always hide Medicare dispute question
+        medicareDisputeQuestion.style.display = 'none';
+        medicareDisputeInputs.forEach(input => {
+          input.removeAttribute('required');
+          input.checked = false;
+        });
       }
 
       // Function to update Housing type question visibility
@@ -2690,6 +2659,15 @@
             // Scroll to top of form
             document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
           }
+          // If Public Benefits + Age 60+ = No, redirect to Not Eligible Resources
+          else if (selectedLegalArea && selectedLegalArea.value === 'benefits' &&
+              ageSelected && ageSelected.value === 'no') {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Redirect to Not Eligible Resources page and disable back button
+            window.location.replace('not-eligible-resources.html');
+          }
           // Otherwise, let the default step navigation handle it
         });
       }
@@ -2898,49 +2876,9 @@
         incomeYearSelect.addEventListener('change', calculatePovertyPercent);
       }
 
-      // Override Step 1 Continue for Public Benefits paths that go to Household Info
-      if (step1ContinueBtn) {
-        step1ContinueBtn.addEventListener('click', function(e) {
-          const selectedLegalArea = document.querySelector('input[name="legal_area"]:checked');
-          const ageSelected = document.querySelector('input[name="age_60_or_older"]:checked');
-          const medicareSelected = document.querySelector('input[name="has_medicare"]:checked');
-          const medicareDisputeSelected = document.querySelector('input[name="medicare_dispute"]:checked');
-
-          // Check if this is a Public Benefits path that should go to Household Info:
-          // Path 1: Public Benefits + Age 60+ = No + Medicare = No
-          // Path 2: Public Benefits + Age 60+ = No + Medicare = Yes + Medicare Dispute = No
-          const isPublicBenefits = selectedLegalArea && selectedLegalArea.value === 'benefits';
-          const isAgeNo = ageSelected && ageSelected.value === 'no';
-          const isMedicareNo = medicareSelected && medicareSelected.value === 'no';
-          const isMedicareYesDisputeNo = medicareSelected && medicareSelected.value === 'yes' &&
-                                          medicareDisputeSelected && medicareDisputeSelected.value === 'no';
-
-          if (isPublicBenefits && isAgeNo && (isMedicareNo || isMedicareYesDisputeNo)) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            // Hide Step 1 and any other steps that might be showing
-            step1.style.display = 'none';
-
-            // Explicitly hide the Age 60+ Contact Info step (step-pb-contact) to prevent overlap
-            const stepPbContact = document.getElementById('step-pb-contact');
-            if (stepPbContact) stepPbContact.style.display = 'none';
-
-            // Hide the No Medicare Contact Info step as well
-            if (stepContactInfo) stepContactInfo.style.display = 'none';
-
-            // Show Household Info step
-            stepHouseholdInfo.style.display = 'block';
-
-            // Hide urgent notification and Family Help Link card
-            if (urgentNotification) urgentNotification.style.display = 'none';
-            if (familyHelpLinkCard) familyHelpLinkCard.style.display = 'none';
-
-            // Scroll to top of form
-            document.querySelector('#intake-form').scrollIntoView({ behavior: 'smooth' });
-          }
-        });
-      }
+      // Note: Public Benefits + Age 60+ = No now redirects to Not Eligible Resources
+      // (handled in the Public Benefits Age 60+ Flow Script above)
+      // The Medicare paths are no longer used.
 
       // Handle Back button on Household Info step
       if (householdBackBtn) {
