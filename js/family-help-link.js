@@ -295,6 +295,18 @@
       }
     } else if (currentStep === '2b') {
       // From "Who needs help" page (now includes screening questions)
+
+      // Check eligibility for youth applicants
+      if (formData.applicant_type === 'myself' &&
+          formData.foster_care === 'no' &&
+          formData.cps_involved === 'no' &&
+          formData.violence_victim === 'no' &&
+          formData.health_condition === 'no') {
+        // Youth with no qualifying risk factors - redirect to resources
+        window.location.href = 'not-eligible-resources.html';
+        return null;
+      }
+
       return '4'; // Go directly to legal issue category
     } else if (currentStep === '3') {
       // From screening questions (Step 3 is now deprecated but kept for backward compatibility)

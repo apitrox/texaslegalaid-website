@@ -236,13 +236,32 @@ The screening questions container (`id="screening-questions-container"`) is hidd
 
 ### 4.3 Step 2b Navigation
 
+**Eligibility Check:**
+Youth applicants (applicant_type = "myself") who answer "No" to all screening questions are automatically redirected to the Not Eligible Resources page instead of continuing to legal issue selection.
+
+**Ineligibility Criteria (Youth Only):**
+- Applicant Type = "Myself" (youth/young adult under 26)
+- Foster care experience = "No"
+- CPS involvement = "No"
+- Violence victim = "No"
+- Health condition/disability = "No"
+
+When all above conditions are met, the user is redirected to `not-eligible-resources.html`.
+
+**Normal Navigation:**
 ```
 Step 2b: Who Needs Help & Screening
 │
 ├─► Back ──────────────► Step 1 (Welcome)
 │
-└─► Next ──────────────► Step 4 (Legal Issue Category)
-    (requires applicant type AND all screening questions answered)
+└─► Next:
+    │
+    ├─► IF applicant_type = "myself" AND
+    │   all screening questions = "no"
+    │   ────────────────────────► not-eligible-resources.html (INELIGIBLE)
+    │
+    └─► OTHERWISE ───────────► Step 4 (Legal Issue Category)
+        (requires applicant type AND all screening questions answered)
 ```
 
 ---
@@ -441,6 +460,28 @@ Step 6: Thank You Confirmation
                   │
                   ▼
    ┌──────────────────────────────────┐
+   │     ELIGIBILITY CHECK            │
+   │  (Youth applicants only)         │
+   └──────────────┬───────────────────┘
+                  │
+          ┌───────┴────────┐
+          │                │
+          │                ▼
+          │     ┌─────────────────────┐
+          │     │ IF applicant_type = │
+          │     │ "myself" AND all    │
+          │     │ screening = "no"    │
+          │     └──────────┬──────────┘
+          │                │
+          │                ▼
+          │     ┌─────────────────────┐
+          │     │  NOT ELIGIBLE       │
+          │     │  RESOURCES PAGE     │
+          │     │  (End of flow)      │
+          │     └─────────────────────┘
+          │
+          ▼
+   ┌──────────────────────────────────┐
    │        STEP 4 - LEGAL ISSUE      │
    │          CATEGORY                │
    │   (Select from 10 categories)    │
@@ -614,6 +655,7 @@ The form dynamically updates question labels based on the selected applicant typ
 - Form validation for required fields
 - Screen reader accessibility announcements
 - Responsive design for mobile devices
+- Eligibility check for youth applicants (redirects to Not Eligible Resources when youth answer "no" to all screening questions)
 
 **Pending Features:**
 - Backend API integration for form submission
