@@ -46,6 +46,12 @@
       showResourcesBtn.addEventListener('click', handleShowResources);
     }
 
+    // Submit button
+    const submitBtn = document.getElementById('fhl-submit-btn');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', handleSubmit);
+    }
+
     // Listen for applicant type changes to show screening questions and update labels
     const applicantTypeInputs = form.querySelectorAll('input[name="applicant_type"]');
     applicantTypeInputs.forEach(input => {
@@ -120,6 +126,56 @@
 
     // In a future implementation, this would show resources or redirect
     alert('Resource display functionality will be implemented in a future update.\n\nYou selected:\n' + selectedTopics.join('\n'));
+  }
+
+  /**
+   * Handle Submit button click
+   */
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+
+    // Validate required fields in contact info step
+    const referralSource = form.querySelector('#fhl_referral_source');
+    const firstName = form.querySelector('#fhl_first_name');
+    const lastName = form.querySelector('#fhl_last_name');
+
+    let isValid = true;
+
+    if (!referralSource.value) {
+      isValid = false;
+      referralSource.classList.add('border-red-500');
+      setTimeout(() => referralSource.classList.remove('border-red-500'), 3000);
+    }
+
+    if (!firstName.value.trim()) {
+      isValid = false;
+      firstName.classList.add('border-red-500');
+      setTimeout(() => firstName.classList.remove('border-red-500'), 3000);
+    }
+
+    if (!lastName.value.trim()) {
+      isValid = false;
+      lastName.classList.add('border-red-500');
+      setTimeout(() => lastName.classList.remove('border-red-500'), 3000);
+    }
+
+    if (!isValid) {
+      alert('Please fill in all required fields before submitting.');
+      return;
+    }
+
+    // Save contact info data
+    saveStepData(currentStepElement);
+
+    // In a production environment, this would submit to a backend API
+    // For now, we'll just show the thank you page
+    console.log('Form submitted with data:', formData);
+
+    // Show thank you page
+    currentStep = 'thank-you';
+    showStep('thank-you');
   }
 
   /**
@@ -243,6 +299,9 @@
     } else if (currentStep === '3') {
       // From screening questions (Step 3 is now deprecated but kept for backward compatibility)
       return '4'; // Go to legal issue category
+    } else if (currentStep === '4') {
+      // From Legal Issue Category
+      return '5'; // Go to Contact Information
     }
 
     return null;
@@ -257,7 +316,9 @@
     } else if (currentStep === '3') {
       return '2b'; // Back to who needs help
     } else if (currentStep === '4') {
-      return '3'; // Back to screening questions
+      return '2b'; // Back to who needs help (skip deprecated Step 3)
+    } else if (currentStep === '5') {
+      return '4'; // Back to legal issue category
     }
 
     return null;
@@ -318,7 +379,9 @@
       '2a': 2,
       '2b': 2,
       '3': 3,
-      '4': 4
+      '4': 3,
+      '5': 4,
+      'thank-you': 5
     };
 
     const progressNumber = stepMapping[stepNumber] || 1;
@@ -340,11 +403,13 @@
    */
   function announceStep(stepNumber) {
     const stepNames = {
-      '1': 'Step 1 of 4: Welcome',
-      '2a': 'Step 2 of 4: Self-Help Resources',
-      '2b': 'Step 2 of 4: Eligibility',
-      '3': 'Step 3 of 4: Screening Questions',
-      '4': 'Step 4 of 4: Legal Issue Category'
+      '1': 'Step 1 of 5: Welcome',
+      '2a': 'Step 2 of 5: Self-Help Resources',
+      '2b': 'Step 2 of 5: Eligibility',
+      '3': 'Step 3 of 5: Screening Questions',
+      '4': 'Step 3 of 5: Legal Issue Category',
+      '5': 'Step 4 of 5: Contact Information',
+      'thank-you': 'Application Submitted Successfully'
     };
 
     if (stepAnnouncement) {

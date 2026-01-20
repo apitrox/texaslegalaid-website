@@ -15,12 +15,14 @@ This document provides a complete flow chart of all logic conditions in the Texa
 4. [Step 2b - Who Needs Help & Screening](#4-step-2b---who-needs-help--screening)
 5. [Step 3 - Screening Questions (Deprecated)](#5-step-3---screening-questions-deprecated)
 6. [Step 4 - Legal Issue Category](#6-step-4---legal-issue-category)
-7. [Complete Flow Diagram](#7-complete-flow-diagram)
-8. [Radio Button Reference](#8-radio-button-reference)
-9. [Self-Help Topics Reference](#9-self-help-topics-reference)
-10. [Dynamic Label Updates](#10-dynamic-label-updates)
-11. [Family Helpline Information](#11-family-helpline-information)
-12. [Current Implementation Status](#12-current-implementation-status)
+7. [Step 5 - Contact Information](#7-step-5---contact-information)
+8. [Step 6 - Thank You Confirmation](#8-step-6---thank-you-confirmation)
+9. [Complete Flow Diagram](#9-complete-flow-diagram)
+10. [Radio Button Reference](#10-radio-button-reference)
+11. [Self-Help Topics Reference](#11-self-help-topics-reference)
+12. [Dynamic Label Updates](#12-dynamic-label-updates)
+13. [Family Helpline Information](#13-family-helpline-information)
+14. [Current Implementation Status](#14-current-implementation-status)
 
 ---
 
@@ -37,11 +39,12 @@ The Texas Family Help Link is a specialized intake portal designed to connect ch
 - Family Helpline integration for CPS-related issues
 - Self-help resources for users who don't agree to terms
 - Dynamic label updates based on applicant type (youth vs. caregiver)
+- Complete intake flow with contact information collection and submission
 
 **Current Status:**
-- Steps 1-4 are implemented
-- Step 4 (Legal Issue Category) is the final step with a disabled Continue button
-- No contact information collection or thank you page currently exists
+- Steps 1-6 are fully implemented
+- Complete application flow from Welcome to Thank You confirmation
+- Form submission is currently client-side only (backend integration pending)
 
 ---
 
@@ -252,13 +255,6 @@ Step 2b: Who Needs Help & Screening
 
 This step previously served as a separate screening questions page but has been deprecated in favor of embedding the screening questions directly into Step 2b. The step still exists in the HTML and JavaScript but is no longer part of the active user flow.
 
-**Historical Content:**
-- Displayed selected applicant type (read-only)
-- Same screening questions as now shown in Step 2b
-- Parent question for caregivers
-- Foster care, CPS involvement, violence/abuse, and health condition questions
-- Family Helpline info box (always shown, not conditional)
-
 **Navigation (if accessed):**
 ```
 Step 3: Screening Questions [DEPRECATED]
@@ -268,19 +264,13 @@ Step 3: Screening Questions [DEPRECATED]
 └─► Next ──────────────► Step 4 (Legal Issue Category)
 ```
 
-**Implementation Notes:**
-- JavaScript function `updateStep3Display()` handles this deprecated step
-- Progress indicator maps this to "Step 3 of 4"
-- Question labels update dynamically based on saved `applicant_type` value
-- In normal flow, users skip directly from Step 2b to Step 4
-
 ---
 
 ## 6. Step 4 - Legal Issue Category
 
 **Step ID:** `data-step="4"`
 
-**Displayed When:** User completes Step 2b screening questions (or deprecated Step 3)
+**Displayed When:** User completes Step 2b screening questions
 
 **Content:**
 - Instruction to choose the category that best describes the legal issue
@@ -303,27 +293,99 @@ Step 3: Screening Questions [DEPRECATED]
 | `none` | None of the above |
 
 **Actions:**
-- Back button → Returns to Step 3 (Screening Questions - deprecated)
-- Continue button → DISABLED with text "Continue (Coming Soon)"
+- Back button → Returns to Step 2b (Who Needs Help & Screening)
+- Continue button → Proceeds to Step 5 (Contact Information)
 
 ```
 Step 4: Legal Issue Category
 │
-├─► Back ──────────────► Step 3 (Screening Questions - Deprecated)
+├─► Back ──────────────► Step 2b (Who Needs Help & Screening)
 │
-└─► Continue ──────────► DISABLED (Coming Soon)
-                         No further steps currently implemented
+└─► Continue ──────────► Step 5 (Contact Information)
 ```
-
-**Implementation Status:**
-This is currently the final step in the application flow. The Continue button is disabled and displays "Continue (Coming Soon)" text. Future implementation will likely include:
-- Contact information collection
-- Application submission
-- Thank you / confirmation page
 
 ---
 
-## 7. Complete Flow Diagram
+## 7. Step 5 - Contact Information
+
+**Step ID:** `data-step="5"`
+
+**Displayed When:** User completes Step 4 (Legal Issue Category)
+
+**Content:**
+- Request for contact information to follow up on the legal issue
+- Referral source dropdown
+- Name fields (first, middle, last, suffix)
+- Email field (optional)
+- Phone field (optional)
+- County of residence dropdown (optional)
+- Legal problem description textarea (optional)
+
+**Form Fields:**
+
+| Field Name | Type | Required | Description |
+|------------|------|----------|-------------|
+| `fhl_referral_source` | select | Yes | How did you find out about Texas Legal Aid? |
+| `fhl_first_name` | text | Yes | First name |
+| `fhl_middle_name` | text | No | Middle name |
+| `fhl_last_name` | text | Yes | Last name |
+| `fhl_suffix` | text | No | Suffix (Jr., Sr., etc.) |
+| `fhl_email` | email | No | Email address |
+| `fhl_phone` | tel | No | Phone number |
+| `fhl_county` | select | No | County of residence in Texas |
+| `fhl_legal_problem` | textarea | No | Description of legal situation |
+
+**Referral Source Options:**
+- Internet Search
+- Social Media
+- Friend or Family
+- Another Legal Aid Organization
+- Court or Legal System
+- Community Organization
+- School or Educational Institution
+- Healthcare Provider
+- CPS or Child Welfare Agency
+- Referred by an attorney, doctor, counselor, or other professional
+- Other
+
+**Navigation:**
+```
+Step 5: Contact Information
+│
+├─► Back ──────────────► Step 4 (Legal Issue Category)
+│
+└─► Submit Application ─► Step 6 (Thank You Confirmation)
+    (requires referral source, first name, and last name)
+```
+
+---
+
+## 8. Step 6 - Thank You Confirmation
+
+**Step ID:** `data-step="thank-you"`
+
+**Displayed When:** User successfully submits the application from Step 5
+
+**Content:**
+- Success message confirming application submission
+- Information about what happens next:
+  - Application will be reviewed by a legal aid provider
+  - If eligible, contact within a few business days
+  - Check email and phone for updates
+- Return to Home button
+
+**Navigation:**
+```
+Step 6: Thank You Confirmation
+│
+└─► Return to Home ────► index.html
+```
+
+**Note:** This is the final step in the application flow. There are no back navigation options from this step.
+
+---
+
+## 9. Complete Flow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -382,21 +444,31 @@ This is currently the final step in the application flow. The Continue button is
    │        STEP 4 - LEGAL ISSUE      │
    │          CATEGORY                │
    │   (Select from 10 categories)    │
-   │                                  │
-   │   Continue Button: DISABLED      │
-   │   "Continue (Coming Soon)"       │
-   └──────────────────────────────────┘
+   └──────────────┬───────────────────┘
                   │
                   ▼
-          [ End of Form ]
-      (Future steps not yet implemented)
+   ┌──────────────────────────────────┐
+   │     STEP 5 - CONTACT INFO        │
+   │  - Referral source (required)    │
+   │  - Name (required)               │
+   │  - Email (optional)              │
+   │  - Phone (optional)              │
+   │  - County (optional)             │
+   │  - Problem description (optional)│
+   └──────────────┬───────────────────┘
+                  │
+                  ▼
+   ┌──────────────────────────────────┐
+   │      STEP 6 - THANK YOU          │
+   │    Application Submitted         │
+   │                                  │
+   │   "Return to Home" button        │
+   └──────────────────────────────────┘
 ```
-
-**Note:** Step 3 (Screening Questions) is deprecated and not shown in the normal flow. Users proceed directly from Step 2b to Step 4.
 
 ---
 
-## 8. Radio Button Reference
+## 10. Radio Button Reference
 
 ### Step 1: Welcome & Terms
 | Name | Values |
@@ -427,9 +499,22 @@ This is currently the final step in the application flow. The Continue button is
 |------|--------|
 | `legal_category` | consumer, education, employment, family, health, housing, income, individual-rights, juvenile, none |
 
+### Step 5: Contact Information
+| Name | Type | Required |
+|------|------|----------|
+| `fhl_referral_source` | select | Yes |
+| `fhl_first_name` | text | Yes |
+| `fhl_middle_name` | text | No |
+| `fhl_last_name` | text | Yes |
+| `fhl_suffix` | text | No |
+| `fhl_email` | email | No |
+| `fhl_phone` | tel | No |
+| `fhl_county` | select | No |
+| `fhl_legal_problem` | textarea | No |
+
 ---
 
-## 9. Self-Help Topics Reference
+## 11. Self-Help Topics Reference
 
 **Field Name:** `self_help_topics`
 **Input Type:** Multi-select (`<select multiple>`)
@@ -452,7 +537,7 @@ This is currently the final step in the application flow. The Continue button is
 
 ---
 
-## 10. Dynamic Label Updates
+## 12. Dynamic Label Updates
 
 The form dynamically updates question labels based on the selected applicant type to provide contextually appropriate wording.
 
@@ -482,7 +567,7 @@ The form dynamically updates question labels based on the selected applicant typ
 
 ---
 
-## 11. Family Helpline Information
+## 13. Family Helpline Information
 
 **Element ID:** `family-helpline-box`
 **Displayed When:** `cps_involved = "yes"` in Step 2b
@@ -511,7 +596,7 @@ The form dynamically updates question labels based on the selected applicant typ
 
 ---
 
-## 12. Current Implementation Status
+## 14. Current Implementation Status
 
 | Step | Status | Notes |
 |------|--------|-------|
@@ -519,36 +604,40 @@ The form dynamically updates question labels based on the selected applicant typ
 | Step 2a - Self-Help Resources | ⚠️ Partially Implemented | Active but "Show Resources" is placeholder functionality |
 | Step 2b - Who Needs Help & Screening | ✅ Fully Implemented | Includes dynamic screening questions and CPS helpline integration |
 | Step 3 - Screening Questions | ⚠️ Deprecated | Kept for backward compatibility, not used in normal flow |
-| Step 4 - Legal Issue Category | ⚠️ Partially Implemented | Displayed but Continue button disabled; no further steps exist |
+| Step 4 - Legal Issue Category | ✅ Fully Implemented | Displays all 10 legal issue categories |
+| Step 5 - Contact Information | ✅ Fully Implemented | Collects user contact information |
+| Step 6 - Thank You | ✅ Fully Implemented | Displays confirmation and next steps |
 
-**Missing Components:**
+**Completed Features:**
+- Full application flow from Welcome to Thank You
 - Contact information collection
-- Form submission logic
-- Thank you / confirmation page
-- Resource display functionality for Step 2a
-- Next step after legal category selection
+- Form validation for required fields
+- Screen reader accessibility announcements
+- Responsive design for mobile devices
 
-**Future Enhancements:**
-- Implement contact information step
-- Add form submission to backend system
-- Create thank you page with next steps information
-- Implement actual resource display for self-help topics
-- Enable Continue button on Step 4 and add subsequent steps
+**Pending Features:**
+- Backend API integration for form submission
+- Resource display functionality for Step 2a self-help topics
+- Email confirmation to applicants
+- Integration with legal aid provider systems
 
 ---
 
 **Progress Indicator:** The form uses a progress tracking system that maps steps to numbered progression:
 - Step 1 → Progress 1
 - Steps 2a & 2b → Progress 2
-- Step 3 → Progress 3
-- Step 4 → Progress 4
+- Steps 3 & 4 → Progress 3
+- Step 5 → Progress 4
+- Step 6 (Thank You) → Progress 5
 
 **Screen Reader Support:** Step announcements are provided for accessibility:
-- Step 1: "Step 1 of 4: Welcome"
-- Step 2a: "Step 2 of 4: Self-Help Resources"
-- Step 2b: "Step 2 of 4: Eligibility"
-- Step 3: "Step 3 of 4: Screening Questions"
-- Step 4: "Step 4 of 4: Legal Issue Category"
+- Step 1: "Step 1 of 5: Welcome"
+- Step 2a: "Step 2 of 5: Self-Help Resources"
+- Step 2b: "Step 2 of 5: Eligibility"
+- Step 3: "Step 3 of 5: Screening Questions"
+- Step 4: "Step 3 of 5: Legal Issue Category"
+- Step 5: "Step 4 of 5: Contact Information"
+- Step 6: "Application Submitted Successfully"
 
 ---
 

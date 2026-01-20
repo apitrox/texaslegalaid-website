@@ -655,12 +655,414 @@
                 </svg>
                 Back
               </button>
-              <button type="button" class="btn btn-primary" disabled>
-                Continue (Coming Soon)
+              <button type="button" class="btn btn-primary" data-step-next>
+                Continue
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </button>
+            </div>
+          </div>
+
+          <!-- Step 5: Contact Information -->
+          <div class="form-step" data-step="5" style="display: none;">
+            <button type="button" class="text-primary-700 hover:text-primary-900 mb-6 flex items-center gap-2" data-step-back>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Contact Information</h2>
+            <p class="text-lg mb-6">Please provide your contact information so we can follow up with you about your legal issue.</p>
+
+            <div class="form-group mb-4">
+              <label for="fhl_referral_source" class="form-label text-lg font-semibold text-primary-700">How did you find out about Texas Legal Aid? (required)</label>
+              <select id="fhl_referral_source" name="fhl_referral_source" class="form-control form-select" required>
+                <option value="">Select an option...</option>
+                <option value="internet">Internet Search</option>
+                <option value="social_media">Social Media</option>
+                <option value="friend_family">Friend or Family</option>
+                <option value="legal_aid">Another Legal Aid Organization</option>
+                <option value="court">Court or Legal System</option>
+                <option value="community">Community Organization</option>
+                <option value="school">School or Educational Institution</option>
+                <option value="healthcare">Healthcare Provider</option>
+                <option value="cps">CPS or Child Welfare Agency</option>
+                <option value="referred_professional">Referred by an attorney, doctor, counselor, or other professional</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group mb-4">
+              <label class="form-label text-lg font-semibold text-primary-700">Your Name (required)</label>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div>
+                  <input type="text" id="fhl_first_name" name="fhl_first_name" class="form-control" required
+                    autocomplete="given-name" placeholder="First Name">
+                  <span class="text-xs text-gray-500">First Name</span>
+                </div>
+                <div>
+                  <input type="text" id="fhl_middle_name" name="fhl_middle_name" class="form-control"
+                    placeholder="Middle">
+                  <span class="text-xs text-gray-500">Middle (optional)</span>
+                </div>
+                <div>
+                  <input type="text" id="fhl_last_name" name="fhl_last_name" class="form-control" required
+                    autocomplete="family-name" placeholder="Last Name">
+                  <span class="text-xs text-gray-500">Last Name</span>
+                </div>
+                <div>
+                  <input type="text" id="fhl_suffix" name="fhl_suffix" class="form-control"
+                    placeholder="Suffix">
+                  <span class="text-xs text-gray-500">Suffix (optional)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="fhl_email" class="form-label text-lg font-semibold text-primary-700">Email</label>
+              <input type="email" id="fhl_email" name="fhl_email" class="form-control" autocomplete="email"
+                placeholder="you@example.com">
+              <p class="form-text text-xs text-gray-500 mt-1">Optional - We may use this to send you information about your application.</p>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="fhl_phone" class="form-label text-lg font-semibold text-primary-700">Phone</label>
+              <input type="tel" id="fhl_phone" name="fhl_phone" class="form-control" autocomplete="tel"
+                placeholder="(512) 555-1234">
+              <p class="form-text text-xs text-gray-500 mt-1">Optional - We may use this to contact you about your application.</p>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="fhl_county" class="form-label text-lg font-semibold text-primary-700">County of Residence</label>
+              <select id="fhl_county" name="fhl_county" class="form-control form-select">
+                <option value="">Select your county...</option>
+                <option value="anderson">Anderson County</option>
+                <option value="andrews">Andrews County</option>
+                <option value="angelina">Angelina County</option>
+                <option value="aransas">Aransas County</option>
+                <option value="archer">Archer County</option>
+                <option value="armstrong">Armstrong County</option>
+                <option value="atascosa">Atascosa County</option>
+                <option value="austin">Austin County</option>
+                <option value="bailey">Bailey County</option>
+                <option value="bandera">Bandera County</option>
+                <option value="bastrop">Bastrop County</option>
+                <option value="baylor">Baylor County</option>
+                <option value="bee">Bee County</option>
+                <option value="bell">Bell County</option>
+                <option value="bexar">Bexar County</option>
+                <option value="blanco">Blanco County</option>
+                <option value="borden">Borden County</option>
+                <option value="bosque">Bosque County</option>
+                <option value="bowie">Bowie County</option>
+                <option value="brazoria">Brazoria County</option>
+                <option value="brazos">Brazos County</option>
+                <option value="brewster">Brewster County</option>
+                <option value="briscoe">Briscoe County</option>
+                <option value="brooks">Brooks County</option>
+                <option value="brown">Brown County</option>
+                <option value="burleson">Burleson County</option>
+                <option value="burnet">Burnet County</option>
+                <option value="caldwell">Caldwell County</option>
+                <option value="calhoun">Calhoun County</option>
+                <option value="callahan">Callahan County</option>
+                <option value="cameron">Cameron County</option>
+                <option value="camp">Camp County</option>
+                <option value="carson">Carson County</option>
+                <option value="cass">Cass County</option>
+                <option value="castro">Castro County</option>
+                <option value="chambers">Chambers County</option>
+                <option value="cherokee">Cherokee County</option>
+                <option value="childress">Childress County</option>
+                <option value="clay">Clay County</option>
+                <option value="cochran">Cochran County</option>
+                <option value="coke">Coke County</option>
+                <option value="coleman">Coleman County</option>
+                <option value="collin">Collin County</option>
+                <option value="collingsworth">Collingsworth County</option>
+                <option value="colorado">Colorado County</option>
+                <option value="comal">Comal County</option>
+                <option value="comanche">Comanche County</option>
+                <option value="concho">Concho County</option>
+                <option value="cooke">Cooke County</option>
+                <option value="coryell">Coryell County</option>
+                <option value="cottle">Cottle County</option>
+                <option value="crane">Crane County</option>
+                <option value="crockett">Crockett County</option>
+                <option value="crosby">Crosby County</option>
+                <option value="culberson">Culberson County</option>
+                <option value="dallam">Dallam County</option>
+                <option value="dallas">Dallas County</option>
+                <option value="dawson">Dawson County</option>
+                <option value="deaf-smith">Deaf Smith County</option>
+                <option value="delta">Delta County</option>
+                <option value="denton">Denton County</option>
+                <option value="dewitt">DeWitt County</option>
+                <option value="dickens">Dickens County</option>
+                <option value="dimmit">Dimmit County</option>
+                <option value="donley">Donley County</option>
+                <option value="duval">Duval County</option>
+                <option value="eastland">Eastland County</option>
+                <option value="ector">Ector County</option>
+                <option value="edwards">Edwards County</option>
+                <option value="el-paso">El Paso County</option>
+                <option value="ellis">Ellis County</option>
+                <option value="erath">Erath County</option>
+                <option value="falls">Falls County</option>
+                <option value="fannin">Fannin County</option>
+                <option value="fayette">Fayette County</option>
+                <option value="fisher">Fisher County</option>
+                <option value="floyd">Floyd County</option>
+                <option value="foard">Foard County</option>
+                <option value="fort-bend">Fort Bend County</option>
+                <option value="franklin">Franklin County</option>
+                <option value="freestone">Freestone County</option>
+                <option value="frio">Frio County</option>
+                <option value="gaines">Gaines County</option>
+                <option value="galveston">Galveston County</option>
+                <option value="garza">Garza County</option>
+                <option value="gillespie">Gillespie County</option>
+                <option value="glasscock">Glasscock County</option>
+                <option value="goliad">Goliad County</option>
+                <option value="gonzales">Gonzales County</option>
+                <option value="gray">Gray County</option>
+                <option value="grayson">Grayson County</option>
+                <option value="gregg">Gregg County</option>
+                <option value="grimes">Grimes County</option>
+                <option value="guadalupe">Guadalupe County</option>
+                <option value="hale">Hale County</option>
+                <option value="hall">Hall County</option>
+                <option value="hamilton">Hamilton County</option>
+                <option value="hansford">Hansford County</option>
+                <option value="hardeman">Hardeman County</option>
+                <option value="hardin">Hardin County</option>
+                <option value="harris">Harris County</option>
+                <option value="harrison">Harrison County</option>
+                <option value="hartley">Hartley County</option>
+                <option value="haskell">Haskell County</option>
+                <option value="hays">Hays County</option>
+                <option value="hemphill">Hemphill County</option>
+                <option value="henderson">Henderson County</option>
+                <option value="hidalgo">Hidalgo County</option>
+                <option value="hill">Hill County</option>
+                <option value="hockley">Hockley County</option>
+                <option value="hood">Hood County</option>
+                <option value="hopkins">Hopkins County</option>
+                <option value="houston">Houston County</option>
+                <option value="howard">Howard County</option>
+                <option value="hudspeth">Hudspeth County</option>
+                <option value="hunt">Hunt County</option>
+                <option value="hutchinson">Hutchinson County</option>
+                <option value="irion">Irion County</option>
+                <option value="jack">Jack County</option>
+                <option value="jackson">Jackson County</option>
+                <option value="jasper">Jasper County</option>
+                <option value="jeff-davis">Jeff Davis County</option>
+                <option value="jefferson">Jefferson County</option>
+                <option value="jim-hogg">Jim Hogg County</option>
+                <option value="jim-wells">Jim Wells County</option>
+                <option value="johnson">Johnson County</option>
+                <option value="jones">Jones County</option>
+                <option value="karnes">Karnes County</option>
+                <option value="kaufman">Kaufman County</option>
+                <option value="kendall">Kendall County</option>
+                <option value="kenedy">Kenedy County</option>
+                <option value="kent">Kent County</option>
+                <option value="kerr">Kerr County</option>
+                <option value="kimble">Kimble County</option>
+                <option value="king">King County</option>
+                <option value="kinney">Kinney County</option>
+                <option value="kleberg">Kleberg County</option>
+                <option value="knox">Knox County</option>
+                <option value="lamar">Lamar County</option>
+                <option value="lamb">Lamb County</option>
+                <option value="lampasas">Lampasas County</option>
+                <option value="la-salle">La Salle County</option>
+                <option value="lavaca">Lavaca County</option>
+                <option value="lee">Lee County</option>
+                <option value="leon">Leon County</option>
+                <option value="liberty">Liberty County</option>
+                <option value="limestone">Limestone County</option>
+                <option value="lipscomb">Lipscomb County</option>
+                <option value="live-oak">Live Oak County</option>
+                <option value="llano">Llano County</option>
+                <option value="loving">Loving County</option>
+                <option value="lubbock">Lubbock County</option>
+                <option value="lynn">Lynn County</option>
+                <option value="madison">Madison County</option>
+                <option value="marion">Marion County</option>
+                <option value="martin">Martin County</option>
+                <option value="mason">Mason County</option>
+                <option value="matagorda">Matagorda County</option>
+                <option value="maverick">Maverick County</option>
+                <option value="mcculloch">McCulloch County</option>
+                <option value="mclennan">McLennan County</option>
+                <option value="mcmullen">McMullen County</option>
+                <option value="medina">Medina County</option>
+                <option value="menard">Menard County</option>
+                <option value="midland">Midland County</option>
+                <option value="milam">Milam County</option>
+                <option value="mills">Mills County</option>
+                <option value="mitchell">Mitchell County</option>
+                <option value="montague">Montague County</option>
+                <option value="montgomery">Montgomery County</option>
+                <option value="moore">Moore County</option>
+                <option value="morris">Morris County</option>
+                <option value="motley">Motley County</option>
+                <option value="nacogdoches">Nacogdoches County</option>
+                <option value="navarro">Navarro County</option>
+                <option value="newton">Newton County</option>
+                <option value="nolan">Nolan County</option>
+                <option value="nueces">Nueces County</option>
+                <option value="ochiltree">Ochiltree County</option>
+                <option value="oldham">Oldham County</option>
+                <option value="orange">Orange County</option>
+                <option value="palo-pinto">Palo Pinto County</option>
+                <option value="panola">Panola County</option>
+                <option value="parker">Parker County</option>
+                <option value="parmer">Parmer County</option>
+                <option value="pecos">Pecos County</option>
+                <option value="polk">Polk County</option>
+                <option value="potter">Potter County</option>
+                <option value="presidio">Presidio County</option>
+                <option value="rains">Rains County</option>
+                <option value="randall">Randall County</option>
+                <option value="reagan">Reagan County</option>
+                <option value="real">Real County</option>
+                <option value="red-river">Red River County</option>
+                <option value="reeves">Reeves County</option>
+                <option value="refugio">Refugio County</option>
+                <option value="roberts">Roberts County</option>
+                <option value="robertson">Robertson County</option>
+                <option value="rockwall">Rockwall County</option>
+                <option value="runnels">Runnels County</option>
+                <option value="rusk">Rusk County</option>
+                <option value="sabine">Sabine County</option>
+                <option value="san-augustine">San Augustine County</option>
+                <option value="san-jacinto">San Jacinto County</option>
+                <option value="san-patricio">San Patricio County</option>
+                <option value="san-saba">San Saba County</option>
+                <option value="schleicher">Schleicher County</option>
+                <option value="scurry">Scurry County</option>
+                <option value="shackelford">Shackelford County</option>
+                <option value="shelby">Shelby County</option>
+                <option value="sherman">Sherman County</option>
+                <option value="smith">Smith County</option>
+                <option value="somervell">Somervell County</option>
+                <option value="starr">Starr County</option>
+                <option value="stephens">Stephens County</option>
+                <option value="sterling">Sterling County</option>
+                <option value="stonewall">Stonewall County</option>
+                <option value="sutton">Sutton County</option>
+                <option value="swisher">Swisher County</option>
+                <option value="tarrant">Tarrant County</option>
+                <option value="taylor">Taylor County</option>
+                <option value="terrell">Terrell County</option>
+                <option value="terry">Terry County</option>
+                <option value="throckmorton">Throckmorton County</option>
+                <option value="titus">Titus County</option>
+                <option value="tom-green">Tom Green County</option>
+                <option value="travis">Travis County</option>
+                <option value="trinity">Trinity County</option>
+                <option value="tyler">Tyler County</option>
+                <option value="upshur">Upshur County</option>
+                <option value="upton">Upton County</option>
+                <option value="uvalde">Uvalde County</option>
+                <option value="val-verde">Val Verde County</option>
+                <option value="van-zandt">Van Zandt County</option>
+                <option value="victoria">Victoria County</option>
+                <option value="walker">Walker County</option>
+                <option value="waller">Waller County</option>
+                <option value="ward">Ward County</option>
+                <option value="washington">Washington County</option>
+                <option value="webb">Webb County</option>
+                <option value="wharton">Wharton County</option>
+                <option value="wheeler">Wheeler County</option>
+                <option value="wichita">Wichita County</option>
+                <option value="wilbarger">Wilbarger County</option>
+                <option value="willacy">Willacy County</option>
+                <option value="williamson">Williamson County</option>
+                <option value="wilson">Wilson County</option>
+                <option value="winkler">Winkler County</option>
+                <option value="wise">Wise County</option>
+                <option value="wood">Wood County</option>
+                <option value="yoakum">Yoakum County</option>
+                <option value="young">Young County</option>
+                <option value="zapata">Zapata County</option>
+                <option value="zavala">Zavala County</option>
+              </select>
+              <p class="form-text text-xs text-gray-500 mt-1 uppercase">Optional - If we can't help with your particular type of case, we can look for another free program that can help you based on your county of residence.</p>
+            </div>
+
+            <div class="form-group mb-6">
+              <label for="fhl_legal_problem" class="form-label text-lg font-semibold text-primary-700">Tell us more about your legal situation.</label>
+              <textarea id="fhl_legal_problem" name="fhl_legal_problem" class="form-control" rows="5"
+                placeholder="Please describe your situation and how we can help..."></textarea>
+              <p class="form-text text-xs text-gray-500 mt-1">Optional - This helps us better understand your needs.</p>
+            </div>
+
+            <div class="flex justify-between">
+              <button type="button" class="btn btn-outline" data-step-back>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" id="fhl-submit-btn">
+                Submit Application
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 6: Thank You Confirmation -->
+          <div class="form-step" data-step="thank-you" style="display: none;">
+            <div class="text-center py-8">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-700 rounded-full mb-6">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-primary-800 mb-4">Thank You!</h2>
+              <p class="text-gray-600 text-lg mb-4">Your application has been submitted successfully.</p>
+              <p class="text-gray-600 mb-6">A legal aid organization will review your application and contact you if they can assist with your legal issue.</p>
+
+              <div class="bg-secondary-100 rounded-lg p-6 text-left max-w-md mx-auto">
+                <h3 class="font-semibold text-primary-700 mb-3">What happens next?</h3>
+                <ul class="text-gray-700 space-y-2">
+                  <li class="flex items-start gap-2">
+                    <svg class="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+                    </svg>
+                    <span>Your application will be reviewed by a legal aid provider</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <svg class="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+                    </svg>
+                    <span>If eligible, you will be contacted within a few business days</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <svg class="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+                    </svg>
+                    <span>Check your email and phone for updates</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-8">
+                <a href="index.html" class="btn btn-primary">
+                  Return to Home
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
 
