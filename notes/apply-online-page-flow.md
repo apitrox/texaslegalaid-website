@@ -1,7 +1,7 @@
 # Texas Legal Aid - Online Application Page Flow
 
 **File:** `apply-online.html`
-**Last Updated:** 2026-01-05
+**Last Updated:** 2026-01-19
 
 This document provides a complete flow chart of all logic conditions in the online application. Questions and page names are abbreviated for readability but remain consistent throughout.
 
@@ -57,31 +57,13 @@ Public Benefits Selected
 │   │                                           │
 │   │                                           └─► poverty > 125% ─► NOT ELIGIBLE
 │   │
-│   └─► NO
-│       │
-│       ├─► Medicare Question (has_medicare)
-│       │   │
-│       │   ├─► NO ──────────────────────────► Household Info (125%)
-│       │   │                                   │
-│       │   │                                   ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
-│       │   │                                   │
-│       │   │                                   └─► poverty > 125% ─► NOT ELIGIBLE
-│       │   │
-│       │   └─► YES
-│       │       │
-│       │       ├─► Medicare Dispute Question (medicare_dispute)
-│       │       │   │
-│       │       │   ├─► YES ─────────────────► NOT ELIGIBLE
-│       │       │   │
-│       │       │   └─► NO ──────────────────► Household Info (125%)
-│       │       │                               │
-│       │       │                               ├─► poverty ≤ 125% ─► Contact Info ─► Thank You
-│       │       │                               │
-│       │       │                               └─► poverty > 125% ─► NOT ELIGIBLE
+│   └─► NO ──────────────────────────────────► NOT ELIGIBLE
 ```
 
 **Abbreviations:**
 - NOT ELIGIBLE = Redirect to `not-eligible-resources.html`
+
+**Note:** The Medicare and Medicare Dispute questions have been deprecated. Users who answer "No" to the Age 60+ question are now immediately redirected to the Not Eligible Resources page.
 
 ---
 
@@ -468,8 +450,6 @@ Other Selected
 
 **Accessed From:**
 - Public Benefits: Age 60+ = Yes (125% threshold)
-- Public Benefits: Age 60+ = No, Medicare = No (125% threshold)
-- Public Benefits: Age 60+ = No, Medicare = Yes, Dispute = No (125% threshold)
 - Criminal Record: CR Veterans = Yes, Type = veteran (200% threshold)
 - Criminal Record: CR Veterans = Yes, Type = spouse (200% threshold)
 - Criminal Record: CR Veterans = Yes, Type = dependent_under_18 (200% threshold)
@@ -748,7 +728,7 @@ Priority order for determining previous step:
 
 | Path | Initial Threshold | Secondary Threshold |
 |------|-------------------|---------------------|
-| Public Benefits → Household Info (all paths) | 125% | N/A |
+| Public Benefits → Age 60+ = Yes → Household Info | 125% | N/A |
 | Criminal Record → CR Veterans = Yes → veteran/spouse/dependent_under_18 → Household Info | 200% | N/A |
 | Criminal Record → CR Veterans = Yes → dependent_over_18 + Guardianship = Yes → Household Info | 125% | N/A |
 | Housing & Debt → identity_theft → Household Info | 125% | N/A |
@@ -777,8 +757,8 @@ Priority order for determining previous step:
 |------|--------|
 | `legal_area` | benefits, criminal-record, housing, elder-law, family, military, violence, other |
 | `age_60_or_older` | yes, no |
-| `has_medicare` | yes, no |
-| `medicare_dispute` | yes, no |
+| ~~`has_medicare`~~ | ~~yes, no~~ *(Deprecated - No longer shown)* |
+| ~~`medicare_dispute`~~ | ~~yes, no~~ *(Deprecated - No longer shown)* |
 | `housing_type` | identity_theft, early_termination, other_housing, something_else |
 | `housing_sexual_assault` | yes, no |
 | `family_safety` | yes, no |
@@ -947,7 +927,7 @@ All paths leading to `not-eligible-resources.html`:
 
 | Path | Condition |
 |------|-----------|
-| Public Benefits | Medicare Dispute = Yes |
+| Public Benefits | Age 60+ = No |
 | Public Benefits | Household Info poverty > 125% |
 | Criminal Record | Defense Attorney = Yes |
 | Criminal Record | Texas Crime = No |
@@ -999,16 +979,14 @@ Paths that go directly to Contact Info without additional screening:
 11. Elder Law + Pension = No, Violence = Yes AND poverty ≤ 125%
 12. Elder Law + Pension = No, Violence = No, Age 60+ = Yes AND poverty ≤ 125%
 13. Public Benefits + Age 60+ = Yes AND poverty ≤ 125%
-14. Public Benefits + Age 60+ = No + Medicare = No AND poverty ≤ 125%
-15. Public Benefits + Age 60+ = No + Medicare = Yes + Dispute = No AND poverty ≤ 125%
-16. Family Law + Safety = Yes AND poverty ≤ 125%
-17. Family Law + Safety = No + Best Fit AND poverty ≤ 125%
-18. Military & Benefits + Veterans = Yes, veteran/spouse AND poverty ≤ 200%
-19. Military & Benefits + Veterans = Yes, dependent AND poverty ≤ 125%
-20. Military & Benefits + Veterans = No AND poverty ≤ 125%
-21. Violence & Abuse + Sexual Assault = Yes AND poverty ≤ 200%
-22. Violence & Abuse + Sexual Assault = No AND poverty ≤ 125%
-23. Other AND poverty ≤ 125%
+14. Family Law + Safety = Yes AND poverty ≤ 125%
+15. Family Law + Safety = No + Best Fit AND poverty ≤ 125%
+16. Military & Benefits + Veterans = Yes, veteran/spouse AND poverty ≤ 200%
+17. Military & Benefits + Veterans = Yes, dependent AND poverty ≤ 125%
+18. Military & Benefits + Veterans = No AND poverty ≤ 125%
+19. Violence & Abuse + Sexual Assault = Yes AND poverty ≤ 200%
+20. Violence & Abuse + Sexual Assault = No AND poverty ≤ 125%
+21. Other AND poverty ≤ 125%
 
 ---
 
