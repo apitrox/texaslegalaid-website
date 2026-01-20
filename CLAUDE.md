@@ -10,15 +10,6 @@ This is `texaslegalaid-website`, a mobile-first, AMP-compatible legal aid intake
 
 ---
 
-## GitHub
-
-- The git repository for this project `texaslegalaid-website` is at `https://github.com/apitrox/texaslegalaid-website`.
-- Pull from GitHub before making any code changes. 
-- Commit and Push to GitHub after finishing code changes. 
-- Work directly on the `main` branch.
-
----
-
 ## Application Specifications
 
 `../notes/application-specifications.md` - contains specifications that are to be followed whenever making updates to this application website. When prompted, before making any updates read and understand and then when making updates follow the application specifications. All changes must comply with the specifications contained in `../notes/application-specifications`. 
@@ -28,6 +19,15 @@ This is `texaslegalaid-website`, a mobile-first, AMP-compatible legal aid intake
 ## Permissions
 
 `..\.claude\settings.json` - contains Claude Code permissions for file operations, load these permissions at the beginning of each conversation for use throughout the conversation. 
+
+---
+
+## GitHub
+
+- The git repository for this project `texaslegalaid-website` is at `https://github.com/apitrox/texaslegalaid-website`.
+- Pull from GitHub before making any code changes. 
+- Commit and Push to GitHub after finishing code changes. 
+- Work directly on the `main` branch.
 
 ---
 
