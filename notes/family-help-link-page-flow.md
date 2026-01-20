@@ -15,14 +15,19 @@ This document provides a complete flow chart of all logic conditions in the Texa
 4. [Step 2b - Who Needs Help & Screening](#4-step-2b---who-needs-help--screening)
 5. [Step 3 - Screening Questions (Deprecated)](#5-step-3---screening-questions-deprecated)
 6. [Step 4 - Legal Issue Category](#6-step-4---legal-issue-category)
-7. [Step 5 - Contact Information](#7-step-5---contact-information)
-8. [Step 6 - Thank You Confirmation](#8-step-6---thank-you-confirmation)
-9. [Complete Flow Diagram](#9-complete-flow-diagram)
-10. [Radio Button Reference](#10-radio-button-reference)
-11. [Self-Help Topics Reference](#11-self-help-topics-reference)
-12. [Dynamic Label Updates](#12-dynamic-label-updates)
-13. [Family Helpline Information](#13-family-helpline-information)
-14. [Current Implementation Status](#14-current-implementation-status)
+7. [Step 5 - Your Name](#7-step-5---your-name)
+8. [Step 6 - Family Members](#8-step-6---family-members)
+9. [Step 7 - Opposing Parties](#9-step-7---opposing-parties)
+10. [Step 8 - County](#10-step-8---county)
+11. [Step 9 - Household Income](#11-step-9---household-income)
+12. [Step 10 - Contact Information](#12-step-10---contact-information)
+13. [Step 11 - No Matching Organizations](#13-step-11---no-matching-organizations)
+14. [Complete Flow Diagram](#14-complete-flow-diagram)
+15. [Radio Button Reference](#15-radio-button-reference)
+16. [Self-Help Topics Reference](#16-self-help-topics-reference)
+17. [Dynamic Label Updates](#17-dynamic-label-updates)
+18. [Family Helpline Information](#18-family-helpline-information)
+19. [Current Implementation Status](#19-current-implementation-status)
 
 ---
 
@@ -39,12 +44,15 @@ The Texas Family Help Link is a specialized intake portal designed to connect ch
 - Family Helpline integration for CPS-related issues
 - Self-help resources for users who don't agree to terms
 - Dynamic label updates based on applicant type (youth vs. caregiver)
-- Complete intake flow with contact information collection and submission
+- Complete intake flow with detailed applicant information collection matching Texas Law Help
+- Dynamic add/remove functionality for family members, opposing parties, and income sources
+- Comprehensive demographic and household information collection
 
 **Current Status:**
-- Steps 1-6 are fully implemented
-- Complete application flow from Welcome to Thank You confirmation
+- Steps 1-11 are fully implemented
+- Complete application flow from Welcome to No Matching Organizations page
 - Form submission is currently client-side only (backend integration pending)
+- Application has been significantly updated to match the Texas Law Help flow
 
 ---
 
@@ -313,98 +321,408 @@ Step 3: Screening Questions [DEPRECATED]
 
 **Actions:**
 - Back button → Returns to Step 2b (Who Needs Help & Screening)
-- Continue button → Proceeds to Step 5 (Contact Information)
+- Continue button → Proceeds to Step 5 (Your Name)
 
 ```
 Step 4: Legal Issue Category
 │
 ├─► Back ──────────────► Step 2b (Who Needs Help & Screening)
 │
-└─► Continue ──────────► Step 5 (Contact Information)
+└─► Continue ──────────► Step 5 (Your Name)
 ```
 
 ---
 
-## 7. Step 5 - Contact Information
+## 7. Step 5 - Your Name
 
 **Step ID:** `data-step="5"`
 
 **Displayed When:** User completes Step 4 (Legal Issue Category)
 
 **Content:**
-- Request for contact information to follow up on the legal issue
-- Referral source dropdown
-- Name fields (first, middle, last, suffix)
-- Email field (optional)
-- Phone field (optional)
-- County of residence dropdown (optional)
-- Legal problem description textarea (optional)
+- Success message: "Good news! It looks like we may be able to refer you to a legal aid organization."
+- Instruction to enter name with note that family members can be added on the next step
+- Collects applicant's personal information including demographics
 
 **Form Fields:**
 
 | Field Name | Type | Required | Description |
 |------------|------|----------|-------------|
-| `fhl_referral_source` | select | Yes | How did you find out about Texas Legal Aid? |
-| `fhl_first_name` | text | Yes | First name |
-| `fhl_middle_name` | text | No | Middle name |
-| `fhl_last_name` | text | Yes | Last name |
-| `fhl_suffix` | text | No | Suffix (Jr., Sr., etc.) |
-| `fhl_email` | email | No | Email address |
-| `fhl_phone` | tel | No | Phone number |
-| `fhl_county` | select | No | County of residence in Texas |
-| `fhl_legal_problem` | textarea | No | Description of legal situation |
+| `applicant_first_name` | text | Yes | First name |
+| `applicant_middle_name` | text | No | Middle name |
+| `applicant_last_name` | text | Yes | Last name |
+| `applicant_suffix` | text | No | Suffix (Jr., Sr., III, etc.) |
+| `applicant_dob` | date | Yes | Date of Birth |
+| `applicant_gender` | radio | No | Gender (optional with "prefer not to answer") |
+| `applicant_race` | radio | No | Race/Ethnicity (optional with "prefer not to answer") |
 
-**Referral Source Options:**
-- Internet Search
-- Social Media
-- Friend or Family
-- Another Legal Aid Organization
-- Court or Legal System
-- Community Organization
-- School or Educational Institution
-- Healthcare Provider
-- CPS or Child Welfare Agency
-- Referred by an attorney, doctor, counselor, or other professional
+**Gender Options:**
+- Female
+- Male
+- Non-Binary
+- Transgender
 - Other
+- I prefer not to answer
+
+**Race/Ethnicity Options:**
+- Asian or Pacific Islander
+- Black (Not Hispanic)
+- Hispanic
+- Multi-Racial
+- Native American
+- White (Not Hispanic)
+- Other
+- I prefer not to answer
 
 **Navigation:**
 ```
-Step 5: Contact Information
+Step 5: Your Name
 │
 ├─► Back ──────────────► Step 4 (Legal Issue Category)
 │
-└─► Submit Application ─► Step 6 (Thank You Confirmation)
-    (requires referral source, first name, and last name)
+└─► Next ──────────────► Step 6 (Family Members)
+    (requires first name, last name, and date of birth)
 ```
+
+**Implementation Notes:**
+- Gender and race/ethnicity fields are optional with "prefer not to answer" options
+- Date of birth is required
+- This step matches the Texas Law Help intake flow
 
 ---
 
-## 8. Step 6 - Thank You Confirmation
+## 8. Step 6 - Family Members
 
-**Step ID:** `data-step="thank-you"`
+**Step ID:** `data-step="6"`
 
-**Displayed When:** User successfully submits the application from Step 5
+**Displayed When:** User completes Step 5 (Your Name)
 
 **Content:**
-- Success message confirming application submission
-- Information about what happens next:
-  - Application will be reviewed by a legal aid provider
-  - If eligible, contact within a few business days
-  - Check email and phone for updates
-- Return to Home button
+- Instructions on how to add family members
+- Guidance to add the first child involved, then additional children, parents, or caretakers
+- Dynamic add/remove interface for family members
+
+**Instructions:**
+1. Click "+ New Family Member" and enter the first child involved
+2. Click "+ Save Family Member" and then "+ New Family Member" again to continue adding additional children, other parents, or caretakers
+3. Once all family members are added, click Next
+4. If you don't know a person's date of birth, leave it blank
+
+**Family Member Form Fields:**
+
+| Field Name | Type | Required | Description |
+|------------|------|----------|-------------|
+| `fm_first_name` | text | No | First name |
+| `fm_last_name` | text | No | Last name |
+| `fm_dob` | date | No | Date of Birth (optional) |
+| `fm_relationship` | radio | No | Relationship type |
+
+**Relationship Type Options:**
+- Child
+- Parent of the child(ren) involved
+- Another adult who lives in the child's home, none of the above relationships
+
+**Dynamic Functionality:**
+- Container: `#family-members-list` - displays added family members
+- Add button: `#add-family-member-btn` - shows the family member form
+- Form: `#family-member-form` - hidden by default
+- Save button: `#save-family-member-btn` - saves and adds to list
+- Remove button: `#remove-family-member-btn` - removes current family member from form
 
 **Navigation:**
 ```
-Step 6: Thank You Confirmation
+Step 6: Family Members
 │
-└─► Return to Home ────► index.html
+├─► Back ──────────────► Step 5 (Your Name)
+│
+└─► Next ──────────────► Step 7 (Opposing Parties)
 ```
 
-**Note:** This is the final step in the application flow. There are no back navigation options from this step.
+**Implementation Notes:**
+- Family members are optional (can proceed without adding any)
+- Uses dynamic add/remove functionality
+- All fields within the family member form are optional
+- Matches Texas Law Help flow for collecting family member information
 
 ---
 
-## 9. Complete Flow Diagram
+## 9. Step 7 - Opposing Parties
+
+**Step ID:** `data-step="7"`
+
+**Displayed When:** User completes Step 6 (Family Members)
+
+**Content:**
+- Explanation of "opposing party" concept
+- Information about conflict of interest checks
+- Guidance to enter other parents or persons with legal custody rights not already listed
+
+**Question:** "Is anyone else involved in this case?"
+
+**Opposing Party Form Fields:**
+
+| Field Name | Type | Required | Description |
+|------------|------|----------|-------------|
+| `op_type` | radio | No | Individual or Organization/Business |
+| `op_first_name` | text | No | First name |
+| `op_middle_name` | text | No | Middle name |
+| `op_last_name` | text | No | Last name |
+| `op_dob` | date | No | Date of Birth |
+| `op_relationship` | radio | No | Relationship type |
+
+**Opposing Party Type Options:**
+- Individual
+- Organization/Business
+
+**Relationship Type Options:**
+- Landlord
+- Legal Guardian or Conservator
+- Other Family Member
+- Parent
+- Spouse
+- Unknown
+- Work/Business Acquaintance
+
+**Dynamic Functionality:**
+- Container: `#opposing-parties-list` - displays added opposing parties
+- Add button: `#add-opposing-party-btn` - shows the opposing party form
+- Form: `#opposing-party-form` - hidden by default
+- Save button: `#save-opposing-party-btn` - saves and adds to list
+- Remove button: `#remove-opposing-party-btn` - removes current party from form
+
+**Navigation:**
+```
+Step 7: Opposing Parties
+│
+├─► Back ──────────────► Step 6 (Family Members)
+│
+└─► Next ──────────────► Step 8 (County)
+```
+
+**Implementation Notes:**
+- Opposing parties are optional (can proceed without adding any)
+- Uses dynamic add/remove functionality
+- All fields within the opposing party form are optional
+- Before attorneys can represent, they must ensure no conflict of interest with opposing parties
+
+---
+
+## 10. Step 8 - County
+
+**Step ID:** `data-step="8"`
+
+**Displayed When:** User completes Step 7 (Opposing Parties)
+
+**Content:**
+- Explanation that location helps determine which legal aid organization can assist
+- Dropdown selects for both residence county and dispute county
+
+**Form Fields:**
+
+| Field Name | Type | Required | Description |
+|------------|------|----------|-------------|
+| `county_residence` | select | Yes | County of residence |
+| `county_dispute` | select | No | County where legal dispute is occurring |
+
+**County Options:**
+Complete list of all 254 Texas counties in alphabetical order, including:
+- Anderson County
+- Andrews County
+- Angelina County
+- [... all Texas counties ...]
+- Zavala County
+
+**Navigation:**
+```
+Step 8: County
+│
+├─► Back ──────────────► Step 7 (Opposing Parties)
+│
+└─► Next ──────────────► Step 9 (Household Income)
+    (requires residence county selection)
+```
+
+**Implementation Notes:**
+- Residence county is required
+- Dispute county is optional
+- Both dropdowns contain all 254 Texas counties
+- Helps route applicant to appropriate legal aid organization by geographic service area
+
+---
+
+## 11. Step 9 - Household Income
+
+**Step ID:** `data-step="9"`
+
+**Displayed When:** User completes Step 8 (County)
+
+**Content:**
+- Explanation of household income questions for determining legal aid qualification
+- Instructions to consider all income sources for everyone in the household
+- Dynamic add/remove interface for income sources
+
+**Form Fields:**
+
+| Field Name | Type | Required | Description |
+|------------|------|----------|-------------|
+| `household_under_18` | number | Yes | Number of people under 18 in household |
+| `household_18_over` | number | Yes | Number of people 18 and over in household |
+| `income_change` | radio | Yes | Whether income is likely to change significantly |
+| `has_income` | radio | Yes | Whether household has any income |
+
+**Income Source Form Fields:**
+
+| Field Name | Type | Required | Description |
+|------------|------|----------|-------------|
+| `income_type` | select | No | Type of income source |
+| `income_frequency` | radio | No | How often income is received |
+| `income_family_member` | radio | No | Which family member receives the income |
+| `income_amount` | number | No | Amount of income |
+| `income_note` | textarea | No | Optional notes about income source |
+
+**Income Type Options:**
+- Employment Income
+- Self-Employment Income
+- Social Security
+- SSI (Supplemental Security Income)
+- Disability Benefits
+- Unemployment Benefits
+- Veterans Benefits
+- Pension/Retirement
+- Child Support
+- Alimony/Spousal Support
+- TANF (Temporary Assistance for Needy Families)
+- SNAP/Food Stamps
+- Rental Income
+- Investment Income
+- Other
+
+**Income Frequency Options:**
+- Weekly
+- Biweekly
+- Semi-Monthly
+- Monthly
+- Quarterly
+- Annually
+
+**Dynamic Functionality:**
+- Container: `#income-list` - displays added income sources
+- Add button: `#add-income-btn` - shows the income form
+- Form: `#income-form` - hidden by default
+- Family member list: `#income-family-member-list` - populated dynamically from Step 6 family members
+- Save button: `#save-income-btn` - saves and adds to list
+- Remove button: `#remove-income-btn` - removes current income from form
+
+**Navigation:**
+```
+Step 9: Household Income
+│
+├─► Back ──────────────► Step 8 (County)
+│
+└─► Next ──────────────► Step 10 (Contact Information)
+    (requires household size and income change answer)
+```
+
+**Implementation Notes:**
+- Household size (both under 18 and 18+) is required
+- Income change question is required
+- Has income question is required
+- Adding specific income sources is optional
+- Income sources can be assigned to specific family members added in Step 6
+- Uses dynamic add/remove functionality matching Texas Law Help flow
+
+---
+
+## 12. Step 10 - Contact Information
+
+**Step ID:** `data-step="10"`
+
+**Displayed When:** User completes Step 9 (Household Income)
+
+**Content:**
+- Message: "We're almost done! To finalize the application, we'll need a few more details about you."
+- Simple contact information collection (phone and email only)
+
+**Form Fields:**
+
+| Field Name | Type | Required | Description |
+|------------|------|----------|-------------|
+| `contact_phone` | tel | No | Phone number |
+| `contact_email` | email | No | Email address |
+
+**Actions:**
+- Back button → Returns to Step 9 (Household Income)
+- Submit Application button → Submits form and proceeds to Step 11
+
+**Navigation:**
+```
+Step 10: Contact Information
+│
+├─► Back ──────────────► Step 9 (Household Income)
+│
+└─► Submit Application ─► Step 11 (No Matching Organizations)
+```
+
+**Implementation Notes:**
+- Both phone and email are optional fields
+- This is the final data collection step
+- Simplified from previous version - only collects phone and email
+- Submit button has ID `#fhl-submit-btn`
+
+---
+
+## 13. Step 11 - No Matching Organizations
+
+**Step ID:** `data-step="thank-you"`
+
+**Displayed When:** User submits the application from Step 10
+
+**Content:**
+- Message: "You have not yet submitted your application to any organization."
+- Instructions to go back and click "Refer me here" on an organization
+- Alternative option to see self-help resources instead
+- Collapsible section showing "No matching referral organizations found"
+- Information box with immediate legal help resources
+
+**Key Messages:**
+- You have not yet submitted your application to any organization
+- Click Back to return and select "Refer me here" on an organization
+- Or click Next to see self-help resources instead
+
+**Alternative Organizations Section:**
+- Expandable details section
+- Shows "No matching referral organizations found"
+- Message: "There are no alternative legal aid organizations that match your specific situation at this time."
+- Directs to self-help resources or Texas Legal Services Center at 1-800-622-2520
+
+**Immediate Help Resources:**
+- Call Texas Legal Services Center at 1-800-622-2520
+- Visit TexasLawHelp.org for free legal information and resources
+- Contact local county bar association for lawyer referral services
+
+**Actions:**
+- Back button → Returns to Step 10
+- Next button → Links to `not-eligible-resources.html` for self-help resources
+
+**Navigation:**
+```
+Step 11: No Matching Organizations
+│
+├─► Back ──────────────► Step 10 (Contact Information)
+│
+└─► Next ──────────────► not-eligible-resources.html (Self-Help Resources)
+```
+
+**Implementation Notes:**
+- This replaces the previous "Thank You" confirmation page
+- Current implementation shows "no matching organizations" message
+- In future implementation, this would show actual matched organizations
+- Provides alternative pathways: go back to select organization or proceed to self-help resources
+- Includes helpful contact information for immediate legal assistance
+
+---
+
+## 14. Complete Flow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -489,27 +807,72 @@ Step 6: Thank You Confirmation
                   │
                   ▼
    ┌──────────────────────────────────┐
-   │     STEP 5 - CONTACT INFO        │
-   │  - Referral source (required)    │
-   │  - Name (required)               │
-   │  - Email (optional)              │
-   │  - Phone (optional)              │
-   │  - County (optional)             │
-   │  - Problem description (optional)│
+   │      STEP 5 - YOUR NAME          │
+   │  - First, Middle, Last, Suffix   │
+   │  - Date of Birth (required)      │
+   │  - Gender (optional)             │
+   │  - Race/Ethnicity (optional)     │
    └──────────────┬───────────────────┘
                   │
                   ▼
    ┌──────────────────────────────────┐
-   │      STEP 6 - THANK YOU          │
-   │    Application Submitted         │
-   │                                  │
-   │   "Return to Home" button        │
+   │    STEP 6 - FAMILY MEMBERS       │
+   │  Dynamic add/remove interface    │
+   │  - First, Last name              │
+   │  - Date of Birth (optional)      │
+   │  - Relationship type             │
+   └──────────────┬───────────────────┘
+                  │
+                  ▼
+   ┌──────────────────────────────────┐
+   │    STEP 7 - OPPOSING PARTIES     │
+   │  Dynamic add/remove interface    │
+   │  - Party type (Individual/Org)   │
+   │  - Name fields                   │
+   │  - DOB, Relationship             │
+   └──────────────┬───────────────────┘
+                  │
+                  ▼
+   ┌──────────────────────────────────┐
+   │        STEP 8 - COUNTY           │
+   │  - Residence county (required)   │
+   │  - Dispute county (optional)     │
+   │  (All 254 Texas counties)        │
+   └──────────────┬───────────────────┘
+                  │
+                  ▼
+   ┌──────────────────────────────────┐
+   │    STEP 9 - HOUSEHOLD INCOME     │
+   │  - Household size (required)     │
+   │  - Income change (required)      │
+   │  - Has income (required)         │
+   │  Dynamic add/remove for income:  │
+   │    - Type, Frequency, Amount     │
+   │    - Family member assignment    │
+   └──────────────┬───────────────────┘
+                  │
+                  ▼
+   ┌──────────────────────────────────┐
+   │    STEP 10 - CONTACT INFO        │
+   │  - Phone (optional)              │
+   │  - Email (optional)              │
+   └──────────────┬───────────────────┘
+                  │
+                  ▼
+   ┌──────────────────────────────────┐
+   │  STEP 11 - NO MATCHING ORGS      │
+   │  "You have not yet submitted     │
+   │   your application"              │
+   │  - Go back to select org         │
+   │  - Or proceed to self-help       │
+   │  - Contact info for immediate    │
+   │    legal assistance              │
    └──────────────────────────────────┘
 ```
 
 ---
 
-## 10. Radio Button Reference
+## 15. Radio Button Reference
 
 ### Step 1: Welcome & Terms
 | Name | Values |
@@ -540,22 +903,33 @@ Step 6: Thank You Confirmation
 |------|--------|
 | `legal_category` | consumer, education, employment, family, health, housing, income, individual-rights, juvenile, none |
 
-### Step 5: Contact Information
-| Name | Type | Required |
-|------|------|----------|
-| `fhl_referral_source` | select | Yes |
-| `fhl_first_name` | text | Yes |
-| `fhl_middle_name` | text | No |
-| `fhl_last_name` | text | Yes |
-| `fhl_suffix` | text | No |
-| `fhl_email` | email | No |
-| `fhl_phone` | tel | No |
-| `fhl_county` | select | No |
-| `fhl_legal_problem` | textarea | No |
+### Step 5: Your Name
+| Name | Values | Required |
+|------|--------|----------|
+| `applicant_gender` | female, male, non-binary, transgender, other, prefer-not-to-answer | No |
+| `applicant_race` | asian-pacific-islander, black-not-hispanic, hispanic, multi-racial, native-american, white-not-hispanic, other, prefer-not-to-answer | No |
+
+### Step 6: Family Members
+| Name | Values |
+|------|--------|
+| `fm_relationship` | child, parent, other |
+
+### Step 7: Opposing Parties
+| Name | Values |
+|------|--------|
+| `op_type` | individual, organization |
+| `op_relationship` | landlord, guardian-conservator, other-family, parent, spouse, unknown, work-business |
+
+### Step 9: Household Income
+| Name | Values | Required |
+|------|--------|----------|
+| `income_change` | yes, no | Yes |
+| `has_income` | yes, no | Yes |
+| `income_frequency` | weekly, biweekly, semi-monthly, monthly, quarterly, annually | No (within income form) |
 
 ---
 
-## 11. Self-Help Topics Reference
+## 16. Self-Help Topics Reference
 
 **Field Name:** `self_help_topics`
 **Input Type:** Multi-select (`<select multiple>`)
@@ -578,7 +952,7 @@ Step 6: Thank You Confirmation
 
 ---
 
-## 12. Dynamic Label Updates
+## 17. Dynamic Label Updates
 
 The form dynamically updates question labels based on the selected applicant type to provide contextually appropriate wording.
 
@@ -608,7 +982,7 @@ The form dynamically updates question labels based on the selected applicant typ
 
 ---
 
-## 13. Family Helpline Information
+## 18. Family Helpline Information
 
 **Element ID:** `family-helpline-box`
 **Displayed When:** `cps_involved = "yes"` in Step 2b
@@ -637,7 +1011,7 @@ The form dynamically updates question labels based on the selected applicant typ
 
 ---
 
-## 14. Current Implementation Status
+## 19. Current Implementation Status
 
 | Step | Status | Notes |
 |------|--------|-------|
@@ -646,19 +1020,34 @@ The form dynamically updates question labels based on the selected applicant typ
 | Step 2b - Who Needs Help & Screening | ✅ Fully Implemented | Includes dynamic screening questions and CPS helpline integration |
 | Step 3 - Screening Questions | ⚠️ Deprecated | Kept for backward compatibility, not used in normal flow |
 | Step 4 - Legal Issue Category | ✅ Fully Implemented | Displays all 10 legal issue categories |
-| Step 5 - Contact Information | ✅ Fully Implemented | Collects user contact information |
-| Step 6 - Thank You | ✅ Fully Implemented | Displays confirmation and next steps |
+| Step 5 - Your Name | ✅ Fully Implemented | Collects name, DOB, gender, race/ethnicity (NEW) |
+| Step 6 - Family Members | ✅ Fully Implemented | Dynamic add/remove of family members (NEW) |
+| Step 7 - Opposing Parties | ✅ Fully Implemented | Dynamic add/remove of opposing parties (NEW) |
+| Step 8 - County | ✅ Fully Implemented | Residence and dispute county (NEW) |
+| Step 9 - Household Income | ✅ Fully Implemented | Household size and dynamic income sources (NEW) |
+| Step 10 - Contact Information | ✅ Fully Implemented | Phone and email only (UPDATED - simplified) |
+| Step 11 - No Matching Organizations | ✅ Fully Implemented | Shows no matching orgs message (UPDATED from Thank You) |
 
 **Completed Features:**
-- Full application flow from Welcome to Thank You
-- Contact information collection
+- Full application flow from Welcome to No Matching Organizations (Steps 1-11)
+- Complete Texas Law Help matching flow implementation
+- Detailed applicant information collection (Step 5)
+- Dynamic family member management (Step 6)
+- Dynamic opposing party management (Step 7)
+- County selection for routing (Step 8)
+- Comprehensive household income collection (Step 9)
+- Simplified contact information (Step 10)
+- No matching organizations page with alternative resources (Step 11)
 - Form validation for required fields
 - Screen reader accessibility announcements
 - Responsive design for mobile devices
 - Eligibility check for youth applicants (redirects to Not Eligible Resources when youth answer "no" to all screening questions)
+- Gender and race/ethnicity fields with "prefer not to answer" options
+- Dynamic add/remove functionality for family members, opposing parties, and income sources
 
 **Pending Features:**
 - Backend API integration for form submission
+- Actual organization matching and display functionality
 - Resource display functionality for Step 2a self-help topics
 - Email confirmation to applicants
 - Integration with legal aid provider systems
@@ -669,8 +1058,8 @@ The form dynamically updates question labels based on the selected applicant typ
 - Step 1 → Progress 1
 - Steps 2a & 2b → Progress 2
 - Steps 3 & 4 → Progress 3
-- Step 5 → Progress 4
-- Step 6 (Thank You) → Progress 5
+- Steps 5, 6, 7, 8, 9, 10 → Progress 4
+- Step 11 (No Matching Organizations) → Progress 5
 
 **Screen Reader Support:** Step announcements are provided for accessibility:
 - Step 1: "Step 1 of 5: Welcome"
@@ -678,8 +1067,13 @@ The form dynamically updates question labels based on the selected applicant typ
 - Step 2b: "Step 2 of 5: Eligibility"
 - Step 3: "Step 3 of 5: Screening Questions"
 - Step 4: "Step 3 of 5: Legal Issue Category"
-- Step 5: "Step 4 of 5: Contact Information"
-- Step 6: "Application Submitted Successfully"
+- Step 5: "Step 4 of 5: Your Name"
+- Step 6: "Step 4 of 5: Family Members"
+- Step 7: "Step 4 of 5: Opposing Parties"
+- Step 8: "Step 4 of 5: County Information"
+- Step 9: "Step 4 of 5: Household Income"
+- Step 10: "Step 4 of 5: Contact Information"
+- Step 11: "Application Submitted - No Matching Organizations Found"
 
 ---
 

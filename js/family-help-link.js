@@ -21,6 +21,9 @@
    */
   function init() {
     attachEventListeners();
+    setupFamilyMembersManagement();
+    setupOpposingPartiesManagement();
+    setupIncomeManagement();
     showStep(1);
   }
 
@@ -128,55 +131,6 @@
     alert('Resource display functionality will be implemented in a future update.\n\nYou selected:\n' + selectedTopics.join('\n'));
   }
 
-  /**
-   * Handle Submit button click
-   */
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
-
-    // Validate required fields in contact info step
-    const referralSource = form.querySelector('#fhl_referral_source');
-    const firstName = form.querySelector('#fhl_first_name');
-    const lastName = form.querySelector('#fhl_last_name');
-
-    let isValid = true;
-
-    if (!referralSource.value) {
-      isValid = false;
-      referralSource.classList.add('border-red-500');
-      setTimeout(() => referralSource.classList.remove('border-red-500'), 3000);
-    }
-
-    if (!firstName.value.trim()) {
-      isValid = false;
-      firstName.classList.add('border-red-500');
-      setTimeout(() => firstName.classList.remove('border-red-500'), 3000);
-    }
-
-    if (!lastName.value.trim()) {
-      isValid = false;
-      lastName.classList.add('border-red-500');
-      setTimeout(() => lastName.classList.remove('border-red-500'), 3000);
-    }
-
-    if (!isValid) {
-      alert('Please fill in all required fields before submitting.');
-      return;
-    }
-
-    // Save contact info data
-    saveStepData(currentStepElement);
-
-    // In a production environment, this would submit to a backend API
-    // For now, we'll just show the thank you page
-    console.log('Form submitted with data:', formData);
-
-    // Show thank you page
-    currentStep = 'thank-you';
-    showStep('thank-you');
-  }
 
   /**
    * Validate current step
@@ -313,7 +267,25 @@
       return '4'; // Go to legal issue category
     } else if (currentStep === '4') {
       // From Legal Issue Category
-      return '5'; // Go to Contact Information
+      return '5'; // Go to Your Name
+    } else if (currentStep === '5') {
+      // From Your Name
+      return '6'; // Go to Family Members
+    } else if (currentStep === '6') {
+      // From Family Members
+      return '7'; // Go to Opposing Parties
+    } else if (currentStep === '7') {
+      // From Opposing Parties
+      return '8'; // Go to County
+    } else if (currentStep === '8') {
+      // From County
+      return '9'; // Go to Household Income
+    } else if (currentStep === '9') {
+      // From Household Income
+      return '10'; // Go to Contact Information
+    } else if (currentStep === '10') {
+      // From Contact Information
+      return 'thank-you'; // Go to No Matching Organizations page
     }
 
     return null;
@@ -331,6 +303,18 @@
       return '2b'; // Back to who needs help (skip deprecated Step 3)
     } else if (currentStep === '5') {
       return '4'; // Back to legal issue category
+    } else if (currentStep === '6') {
+      return '5'; // Back to your name
+    } else if (currentStep === '7') {
+      return '6'; // Back to family members
+    } else if (currentStep === '8') {
+      return '7'; // Back to opposing parties
+    } else if (currentStep === '9') {
+      return '8'; // Back to county
+    } else if (currentStep === '10') {
+      return '9'; // Back to household income
+    } else if (currentStep === 'thank-you') {
+      return '10'; // Back to contact information
     }
 
     return null;
@@ -393,6 +377,11 @@
       '3': 3,
       '4': 3,
       '5': 4,
+      '6': 4,
+      '7': 4,
+      '8': 4,
+      '9': 4,
+      '10': 4,
       'thank-you': 5
     };
 
@@ -420,8 +409,13 @@
       '2b': 'Step 2 of 5: Eligibility',
       '3': 'Step 3 of 5: Screening Questions',
       '4': 'Step 3 of 5: Legal Issue Category',
-      '5': 'Step 4 of 5: Contact Information',
-      'thank-you': 'Application Submitted Successfully'
+      '5': 'Step 4 of 5: Your Name',
+      '6': 'Step 4 of 5: Family Members',
+      '7': 'Step 4 of 5: Opposing Parties',
+      '8': 'Step 4 of 5: County',
+      '9': 'Step 4 of 5: Household Income',
+      '10': 'Step 4 of 5: Contact Information',
+      'thank-you': 'No Matching Organizations Found'
     };
 
     if (stepAnnouncement) {
@@ -593,6 +587,352 @@
         helplineBox.style.display = 'none';
       }
     }
+  }
+
+  /**
+   * Family Members Management
+   */
+  let familyMembers = [];
+  let currentFamilyMemberIndex = -1;
+
+  function setupFamilyMembersManagement() {
+    const addBtn = document.getElementById('add-family-member-btn');
+    const saveBtn = document.getElementById('save-family-member-btn');
+    const removeBtn = document.getElementById('remove-family-member-btn');
+    const familyMemberForm = document.getElementById('family-member-form');
+
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        currentFamilyMemberIndex = -1;
+        clearFamilyMemberForm();
+        familyMemberForm.style.display = 'block';
+      });
+    }
+
+    if (saveBtn) {
+      saveBtn.addEventListener('click', saveFamilyMember);
+    }
+
+    if (removeBtn) {
+      removeBtn.addEventListener('click', () => {
+        familyMemberForm.style.display = 'none';
+        currentFamilyMemberIndex = -1;
+        clearFamilyMemberForm();
+      });
+    }
+  }
+
+  function saveFamilyMember() {
+    const firstName = document.getElementById('fm_first_name').value.trim();
+    const lastName = document.getElementById('fm_last_name').value.trim();
+    const dob = document.getElementById('fm_dob').value;
+    const relationship = document.querySelector('input[name="fm_relationship"]:checked')?.value;
+
+    if (!firstName || !lastName || !relationship) {
+      alert('Please fill in the required fields (First Name, Last Name, and Relationship Type).');
+      return;
+    }
+
+    const member = { firstName, lastName, dob, relationship };
+
+    if (currentFamilyMemberIndex >= 0) {
+      familyMembers[currentFamilyMemberIndex] = member;
+    } else {
+      familyMembers.push(member);
+    }
+
+    renderFamilyMembersList();
+    document.getElementById('family-member-form').style.display = 'none';
+    clearFamilyMemberForm();
+    currentFamilyMemberIndex = -1;
+    formData.family_members = familyMembers;
+  }
+
+  function renderFamilyMembersList() {
+    const list = document.getElementById('family-members-list');
+    if (!list) return;
+
+    list.innerHTML = familyMembers.map((member, index) => `
+      <div class="bg-white border border-gray-200 rounded-lg p-4 flex justify-between items-center">
+        <div>
+          <p class="font-semibold text-primary-700">${member.firstName} ${member.lastName} ${member.dob ? '(' + member.dob + ')' : ''}</p>
+          <p class="text-sm text-gray-600">Relationship: ${member.relationship}</p>
+        </div>
+        <button type="button" class="text-primary-600 hover:text-primary-800 text-sm font-semibold" onclick="editFamilyMember(${index})">
+          Edit
+        </button>
+      </div>
+    `).join('');
+  }
+
+  window.editFamilyMember = function(index) {
+    currentFamilyMemberIndex = index;
+    const member = familyMembers[index];
+    document.getElementById('fm_first_name').value = member.firstName;
+    document.getElementById('fm_last_name').value = member.lastName;
+    document.getElementById('fm_dob').value = member.dob || '';
+    const relationshipRadio = document.querySelector(`input[name="fm_relationship"][value="${member.relationship}"]`);
+    if (relationshipRadio) relationshipRadio.checked = true;
+    document.getElementById('family-member-form').style.display = 'block';
+  };
+
+  function clearFamilyMemberForm() {
+    document.getElementById('fm_first_name').value = '';
+    document.getElementById('fm_last_name').value = '';
+    document.getElementById('fm_dob').value = '';
+    const relationshipRadios = document.querySelectorAll('input[name="fm_relationship"]');
+    relationshipRadios.forEach(radio => radio.checked = false);
+  }
+
+  /**
+   * Opposing Parties Management
+   */
+  let opposingParties = [];
+  let currentOpposingPartyIndex = -1;
+
+  function setupOpposingPartiesManagement() {
+    const addBtn = document.getElementById('add-opposing-party-btn');
+    const saveBtn = document.getElementById('save-opposing-party-btn');
+    const removeBtn = document.getElementById('remove-opposing-party-btn');
+    const opposingPartyForm = document.getElementById('opposing-party-form');
+
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        currentOpposingPartyIndex = -1;
+        clearOpposingPartyForm();
+        opposingPartyForm.style.display = 'block';
+      });
+    }
+
+    if (saveBtn) {
+      saveBtn.addEventListener('click', saveOpposingParty);
+    }
+
+    if (removeBtn) {
+      removeBtn.addEventListener('click', () => {
+        opposingPartyForm.style.display = 'none';
+        currentOpposingPartyIndex = -1;
+        clearOpposingPartyForm();
+      });
+    }
+  }
+
+  function saveOpposingParty() {
+    const type = document.querySelector('input[name="op_type"]:checked')?.value;
+    const firstName = document.getElementById('op_first_name').value.trim();
+    const middleName = document.getElementById('op_middle_name').value.trim();
+    const lastName = document.getElementById('op_last_name').value.trim();
+    const dob = document.getElementById('op_dob').value;
+    const relationship = document.querySelector('input[name="op_relationship"]:checked')?.value;
+
+    if (!type || !firstName || !lastName || !relationship) {
+      alert('Please fill in the required fields (Party Type, First Name, Last Name, and Relationship Type).');
+      return;
+    }
+
+    const party = { type, firstName, middleName, lastName, dob, relationship };
+
+    if (currentOpposingPartyIndex >= 0) {
+      opposingParties[currentOpposingPartyIndex] = party;
+    } else {
+      opposingParties.push(party);
+    }
+
+    renderOpposingPartiesList();
+    document.getElementById('opposing-party-form').style.display = 'none';
+    clearOpposingPartyForm();
+    currentOpposingPartyIndex = -1;
+    formData.opposing_parties = opposingParties;
+  }
+
+  function renderOpposingPartiesList() {
+    const list = document.getElementById('opposing-parties-list');
+    if (!list) return;
+
+    list.innerHTML = opposingParties.map((party, index) => `
+      <div class="bg-white border border-gray-200 rounded-lg p-4 flex justify-between items-center">
+        <div>
+          <p class="font-semibold text-primary-700">${party.firstName} ${party.middleName} ${party.lastName} ${party.dob ? '(' + party.dob + ')' : ''}</p>
+          <p class="text-sm text-gray-600">Type: ${party.type} | Relationship: ${party.relationship}</p>
+        </div>
+        <button type="button" class="text-primary-600 hover:text-primary-800 text-sm font-semibold" onclick="editOpposingParty(${index})">
+          Edit
+        </button>
+      </div>
+    `).join('');
+  }
+
+  window.editOpposingParty = function(index) {
+    currentOpposingPartyIndex = index;
+    const party = opposingParties[index];
+    const typeRadio = document.querySelector(`input[name="op_type"][value="${party.type}"]`);
+    if (typeRadio) typeRadio.checked = true;
+    document.getElementById('op_first_name').value = party.firstName;
+    document.getElementById('op_middle_name').value = party.middleName || '';
+    document.getElementById('op_last_name').value = party.lastName;
+    document.getElementById('op_dob').value = party.dob || '';
+    const relationshipRadio = document.querySelector(`input[name="op_relationship"][value="${party.relationship}"]`);
+    if (relationshipRadio) relationshipRadio.checked = true;
+    document.getElementById('opposing-party-form').style.display = 'block';
+  };
+
+  function clearOpposingPartyForm() {
+    const typeRadios = document.querySelectorAll('input[name="op_type"]');
+    typeRadios.forEach(radio => radio.checked = false);
+    document.getElementById('op_first_name').value = '';
+    document.getElementById('op_middle_name').value = '';
+    document.getElementById('op_last_name').value = '';
+    document.getElementById('op_dob').value = '';
+    const relationshipRadios = document.querySelectorAll('input[name="op_relationship"]');
+    relationshipRadios.forEach(radio => radio.checked = false);
+  }
+
+  /**
+   * Income Management
+   */
+  let incomeSources = [];
+  let currentIncomeIndex = -1;
+
+  function setupIncomeManagement() {
+    const addBtn = document.getElementById('add-income-btn');
+    const saveBtn = document.getElementById('save-income-btn');
+    const removeBtn = document.getElementById('remove-income-btn');
+    const incomeForm = document.getElementById('income-form');
+
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        currentIncomeIndex = -1;
+        clearIncomeForm();
+        populateFamilyMemberSelect();
+        incomeForm.style.display = 'block';
+      });
+    }
+
+    if (saveBtn) {
+      saveBtn.addEventListener('click', saveIncome);
+    }
+
+    if (removeBtn) {
+      removeBtn.addEventListener('click', () => {
+        incomeForm.style.display = 'none';
+        currentIncomeIndex = -1;
+        clearIncomeForm();
+      });
+    }
+  }
+
+  function populateFamilyMemberSelect() {
+    const list = document.getElementById('income-family-member-list');
+    if (!list) return;
+
+    const applicantName = `${formData.applicant_first_name || 'Applicant'} ${formData.applicant_last_name || ''}`.trim();
+
+    let html = `
+      <label class="flex items-center gap-3 p-3 border border-gray-200 rounded hover:border-primary-500 cursor-pointer">
+        <input type="radio" name="income_family_member" value="applicant" class="form-radio text-primary-600">
+        <span class="text-base">${applicantName}</span>
+      </label>
+    `;
+
+    familyMembers.forEach((member, index) => {
+      html += `
+        <label class="flex items-center gap-3 p-3 border border-gray-200 rounded hover:border-primary-500 cursor-pointer">
+          <input type="radio" name="income_family_member" value="fm_${index}" class="form-radio text-primary-600">
+          <span class="text-base">${member.firstName} ${member.lastName}</span>
+        </label>
+      `;
+    });
+
+    list.innerHTML = html;
+  }
+
+  function saveIncome() {
+    const type = document.getElementById('income_type').value;
+    const frequency = document.querySelector('input[name="income_frequency"]:checked')?.value;
+    const familyMember = document.querySelector('input[name="income_family_member"]:checked')?.value;
+    const amount = document.getElementById('income_amount').value;
+    const note = document.getElementById('income_note').value.trim();
+
+    if (!type || !frequency || !familyMember || !amount) {
+      alert('Please fill in the required fields (Income Type, Frequency, Family Member, and Amount).');
+      return;
+    }
+
+    const income = { type, frequency, familyMember, amount: parseFloat(amount), note };
+
+    if (currentIncomeIndex >= 0) {
+      incomeSources[currentIncomeIndex] = income;
+    } else {
+      incomeSources.push(income);
+    }
+
+    renderIncomeList();
+    document.getElementById('income-form').style.display = 'none';
+    clearIncomeForm();
+    currentIncomeIndex = -1;
+    formData.income_sources = incomeSources;
+  }
+
+  function renderIncomeList() {
+    const list = document.getElementById('income-list');
+    if (!list) return;
+
+    list.innerHTML = incomeSources.map((income, index) => `
+      <div class="bg-white border border-gray-200 rounded-lg p-4 flex justify-between items-center">
+        <div>
+          <p class="font-semibold text-primary-700">${income.type} - $${income.amount.toFixed(2)} (${income.frequency})</p>
+          <p class="text-sm text-gray-600">Family Member: ${income.familyMember}</p>
+          ${income.note ? `<p class="text-sm text-gray-500 italic">${income.note}</p>` : ''}
+        </div>
+        <button type="button" class="text-primary-600 hover:text-primary-800 text-sm font-semibold" onclick="editIncome(${index})">
+          Edit
+        </button>
+      </div>
+    `).join('');
+  }
+
+  window.editIncome = function(index) {
+    currentIncomeIndex = index;
+    const income = incomeSources[index];
+    document.getElementById('income_type').value = income.type;
+    const frequencyRadio = document.querySelector(`input[name="income_frequency"][value="${income.frequency}"]`);
+    if (frequencyRadio) frequencyRadio.checked = true;
+    populateFamilyMemberSelect();
+    setTimeout(() => {
+      const memberRadio = document.querySelector(`input[name="income_family_member"][value="${income.familyMember}"]`);
+      if (memberRadio) memberRadio.checked = true;
+    }, 100);
+    document.getElementById('income_amount').value = income.amount;
+    document.getElementById('income_note').value = income.note || '';
+    document.getElementById('income-form').style.display = 'block';
+  };
+
+  function clearIncomeForm() {
+    document.getElementById('income_type').value = '';
+    const frequencyRadios = document.querySelectorAll('input[name="income_frequency"]');
+    frequencyRadios.forEach(radio => radio.checked = false);
+    const memberRadios = document.querySelectorAll('input[name="income_family_member"]');
+    memberRadios.forEach(radio => radio.checked = false);
+    document.getElementById('income_amount').value = '';
+    document.getElementById('income_note').value = '';
+  }
+
+  /**
+   * Handle Submit button click (from Step 10)
+   */
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    // Save final data
+    const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+    saveStepData(currentStepElement);
+
+    // In a production environment, this would submit to a backend API
+    console.log('Form submitted with data:', formData);
+
+    // Show no matching organizations page
+    currentStep = 'thank-you';
+    showStep('thank-you');
   }
 
   // Initialize form when DOM is ready
