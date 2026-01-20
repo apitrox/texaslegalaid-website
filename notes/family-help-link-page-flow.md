@@ -1,7 +1,7 @@
 # Texas Legal Aid - Family Help Link Page Flow
 
 **File:** `family-help-link.html`
-**Last Updated:** 2026-01-19
+**Last Updated:** 2026-01-20
 
 This document provides a complete flow chart of all logic conditions in the Texas Family Help Link intake form. Questions and page names are abbreviated for readability but remain consistent throughout.
 
@@ -13,15 +13,14 @@ This document provides a complete flow chart of all logic conditions in the Texa
 2. [Step 1 - Welcome & Terms Agreement](#2-step-1---welcome--terms-agreement)
 3. [Step 2a - Self-Help Resources](#3-step-2a---self-help-resources)
 4. [Step 2b - Who Needs Help & Screening](#4-step-2b---who-needs-help--screening)
-5. [Step 4 - Legal Issue Category](#5-step-4---legal-issue-category)
-6. [Step 5 - Contact Information](#6-step-5---contact-information)
-7. [Step 6 - Thank You](#7-step-6---thank-you)
-8. [Complete Flow Diagram](#8-complete-flow-diagram)
-9. [Radio Button Reference](#9-radio-button-reference)
-10. [Self-Help Topics Reference](#10-self-help-topics-reference)
-11. [Dynamic Label Updates](#11-dynamic-label-updates)
-12. [Family Helpline Information](#12-family-helpline-information)
-13. [Current Implementation Status](#13-current-implementation-status)
+5. [Step 3 - Screening Questions (Deprecated)](#5-step-3---screening-questions-deprecated)
+6. [Step 4 - Legal Issue Category](#6-step-4---legal-issue-category)
+7. [Complete Flow Diagram](#7-complete-flow-diagram)
+8. [Radio Button Reference](#8-radio-button-reference)
+9. [Self-Help Topics Reference](#9-self-help-topics-reference)
+10. [Dynamic Label Updates](#10-dynamic-label-updates)
+11. [Family Helpline Information](#11-family-helpline-information)
+12. [Current Implementation Status](#12-current-implementation-status)
 
 ---
 
@@ -39,6 +38,11 @@ The Texas Family Help Link is a specialized intake portal designed to connect ch
 - Self-help resources for users who don't agree to terms
 - Dynamic label updates based on applicant type (youth vs. caregiver)
 
+**Current Status:**
+- Steps 1-4 are implemented
+- Step 4 (Legal Issue Category) is the final step with a disabled Continue button
+- No contact information collection or thank you page currently exists
+
 ---
 
 ## 2. Step 1 - Welcome & Terms Agreement
@@ -55,15 +59,18 @@ The Texas Family Help Link is a specialized intake portal designed to connect ch
 | Value | Label | Next Step |
 |-------|-------|-----------|
 | `yes` | Yes | Step 2b (Who Needs Help & Screening) |
-| `no` | No | Not Eligible Resources Page (not-eligible-resources.html) |
+| `no` | No | Step 2a (Self-Help Resources) |
 
 ```
 Step 1: Welcome & Terms
 │
 ├─► terms_agreement = "yes" ────► Step 2b (Who Needs Help & Screening)
 │
-└─► terms_agreement = "no" ─────► Not Eligible Resources Page (exits form)
+└─► terms_agreement = "no" ─────► Step 2a (Self-Help Resources)
 ```
+
+**Actions:**
+- Next button → Validates selection and navigates based on answer
 
 ---
 
@@ -71,7 +78,7 @@ Step 1: Welcome & Terms
 
 **Step ID:** `data-step="2a"`
 
-**Displayed When:** ~~User selects "No" to terms agreement~~ **DEPRECATED** - Users who select "No" are now redirected to [not-eligible-resources.html](../not-eligible-resources.html)
+**Displayed When:** User selects "No" to terms agreement in Step 1
 
 **Content:**
 - Message asking user to select topics they want to learn about
@@ -99,15 +106,19 @@ Step 1: Welcome & Terms
 
 **Actions:**
 - Back button → Returns to Step 1
-- Show Resources button → Displays selected resource topics (placeholder functionality)
+- Show Resources button → Displays alert with selected topics (placeholder functionality)
 
 ```
 Step 2a: Self-Help Resources
 │
 ├─► Back ──────────────► Step 1 (Welcome)
 │
-└─► Show Resources ────► Display resources for selected topics
+└─► Show Resources ────► Alert displaying selected topics
+                         (Placeholder - full functionality not yet implemented)
 ```
+
+**Implementation Note:**
+The Show Resources functionality is currently a placeholder that displays an alert. In a future implementation, this will redirect to or display actual resources based on selected topics.
 
 ---
 
@@ -115,7 +126,7 @@ Step 2a: Self-Help Resources
 
 **Step ID:** `data-step="2b"`
 
-**Displayed When:** User selects "Yes" to terms agreement
+**Displayed When:** User selects "Yes" to terms agreement in Step 1
 
 This step combines the applicant type selection with screening questions. The screening questions appear dynamically after an applicant type is selected.
 
@@ -152,7 +163,7 @@ Applicant Type Selection
 
 ### 4.2 Screening Questions
 
-The screening questions container (`id="screening-questions-container"`) is hidden by default and displayed once an applicant type is selected.
+The screening questions container (`id="screening-questions-container"`) is hidden by default and displayed once an applicant type is selected. The form scrolls smoothly to the screening questions when they appear.
 
 #### 4.2.1 Parent Question (Caregivers Only)
 
@@ -167,6 +178,8 @@ The screening questions container (`id="screening-questions-container"`) is hidd
 | `no` | No |
 
 #### 4.2.2 Foster Care Experience
+
+**Label ID:** `foster-care-label-step2`
 
 **Question (Youth):** "Have you had any experience in foster care? (required)"
 **Question (Caregiver):** "Have you or the child in your care had any experience in foster care? (required)"
@@ -186,13 +199,17 @@ The screening questions container (`id="screening-questions-container"`) is hidd
 | `no` | No | Hides Family Helpline info box |
 
 **Family Helpline Info Box (shown when CPS = Yes):**
-- Phone: 844-888-5565
-- Hours: Monday - Friday, 9:00 AM - 6:00 PM
+- **Element ID:** `family-helpline-box`
+- **Phone:** 844-888-5565
+- **Hours:** Monday - Friday, 9:00 AM - 6:00 PM
 - Provides free legal information about CPS issues
 - All calls are anonymous
 - Cannot provide court representation
+- Referrals will not be made through Family Help Link for privacy protection
 
 #### 4.2.4 Violence/Abuse
+
+**Label ID:** `violence-label-step2`
 
 **Question (Youth):** "Have you been the victim of family violence, child abuse, or sexual violence? (required)"
 **Question (Caregiver):** "Have you or a child in your care been the victim of family violence, child abuse, or sexual violence? (required)"
@@ -203,6 +220,8 @@ The screening questions container (`id="screening-questions-container"`) is hidd
 | `no` | No |
 
 #### 4.2.5 Health Condition/Disability
+
+**Label ID:** `health-label-step2`
 
 **Question (Youth):** "Do you have a mental or physical health condition or disability? (required)"
 **Question (Caregiver):** "Does the child have a mental or physical health condition or disability? (required)"
@@ -220,21 +239,53 @@ Step 2b: Who Needs Help & Screening
 ├─► Back ──────────────► Step 1 (Welcome)
 │
 └─► Next ──────────────► Step 4 (Legal Issue Category)
-    (requires all screening questions answered)
+    (requires applicant type AND all screening questions answered)
 ```
 
 ---
 
-## 5. Step 4 - Legal Issue Category
+## 5. Step 3 - Screening Questions (Deprecated)
+
+**Step ID:** `data-step="3"`
+
+**Status:** DEPRECATED - Kept for backward compatibility only
+
+This step previously served as a separate screening questions page but has been deprecated in favor of embedding the screening questions directly into Step 2b. The step still exists in the HTML and JavaScript but is no longer part of the active user flow.
+
+**Historical Content:**
+- Displayed selected applicant type (read-only)
+- Same screening questions as now shown in Step 2b
+- Parent question for caregivers
+- Foster care, CPS involvement, violence/abuse, and health condition questions
+- Family Helpline info box (always shown, not conditional)
+
+**Navigation (if accessed):**
+```
+Step 3: Screening Questions [DEPRECATED]
+│
+├─► Back ──────────────► Step 2b (Who Needs Help)
+│
+└─► Next ──────────────► Step 4 (Legal Issue Category)
+```
+
+**Implementation Notes:**
+- JavaScript function `updateStep3Display()` handles this deprecated step
+- Progress indicator maps this to "Step 3 of 4"
+- Question labels update dynamically based on saved `applicant_type` value
+- In normal flow, users skip directly from Step 2b to Step 4
+
+---
+
+## 6. Step 4 - Legal Issue Category
 
 **Step ID:** `data-step="4"`
 
-**Displayed When:** User completes Step 2b screening questions
+**Displayed When:** User completes Step 2b screening questions (or deprecated Step 3)
 
 **Content:**
 - Instruction to choose the category that best describes the legal issue
 - Note to pick the most important issue if multiple apply
-- Guidance to go back and try a different category if specific issue isn't found
+- Guidance to go back and try a different category if specific issue isn't found on next page
 
 **Question:** "Legal Problem Category"
 
@@ -252,78 +303,27 @@ Step 2b: Who Needs Help & Screening
 | `none` | None of the above |
 
 **Actions:**
-- Back button → Returns to Step 2b (Who Needs Help & Screening)
-- Continue button → Proceeds to Step 5 (Contact Information)
+- Back button → Returns to Step 3 (Screening Questions - deprecated)
+- Continue button → DISABLED with text "Continue (Coming Soon)"
 
 ```
 Step 4: Legal Issue Category
 │
-├─► Back ──────────────► Step 2b (Who Needs Help & Screening)
+├─► Back ──────────────► Step 3 (Screening Questions - Deprecated)
 │
-└─► Continue ──────────► Step 5 (Contact Information)
+└─► Continue ──────────► DISABLED (Coming Soon)
+                         No further steps currently implemented
 ```
+
+**Implementation Status:**
+This is currently the final step in the application flow. The Continue button is disabled and displays "Continue (Coming Soon)" text. Future implementation will likely include:
+- Contact information collection
+- Application submission
+- Thank you / confirmation page
 
 ---
 
-## 6. Step 5 - Contact Information
-
-**Step ID:** `data-step="5"`
-
-**Displayed When:** User completes Step 4 (Legal Issue Category selection)
-
-**Content:**
-- Explanation that this information will be used to connect them with legal resources
-- Contact information form
-
-**Form Fields:**
-| Field | Name | Type | Required |
-|-------|------|------|----------|
-| First Name | `first_name` | text | Yes |
-| Last Name | `last_name` | text | Yes |
-| Email Address | `email` | email | Yes |
-| Phone Number | `phone` | tel | Yes |
-| Zip Code | `zip_code` | text (5 digits) | Yes |
-| Description | `description` | textarea | No |
-
-**Actions:**
-- Back button → Returns to Step 4 (Legal Issue Category)
-- Submit Application button → Validates form and proceeds to Step 6 (Thank You)
-
-```
-Step 5: Contact Information
-│
-├─► Back ──────────────► Step 4 (Legal Issue Category)
-│
-└─► Submit ────────────► Step 6 (Thank You)
-```
-
----
-
-## 7. Step 6 - Thank You
-
-**Step ID:** `data-step="6"`
-
-**Displayed When:** User successfully submits contact information in Step 5
-
-**Content:**
-- Success message with checkmark icon
-- Confirmation that application was submitted
-- Information about next steps (legal aid provider will contact within 2-3 business days)
-- Family Helpline contact information for immediate assistance
-- Return to Home button
-
-**Actions:**
-- Return to Home button → Redirects to `index.html`
-
-```
-Step 6: Thank You
-│
-└─► Return to Home ────► index.html
-```
-
----
-
-## 8. Complete Flow Diagram
+## 7. Complete Flow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -333,18 +333,19 @@ Step 6: Thank You
                                         │
                          ┌──────────────┴──────────────┐
                          │                             │
-                    YES  ▼                        NO   ▼
-              ┌─────────────────┐            ┌─────────────────────┐
-              │    STEP 2b      │            │  NOT ELIGIBLE       │
-              │  Who Needs Help │            │  RESOURCES PAGE     │
-              │  & Screening    │            │  (Exit Form)        │
-              └────────┬────────┘            └─────────────────────┘
-                       │
-                       │
-                       │
-                       │
-                       │
-                       │
+                    YES  ▼                         NO  ▼
+              ┌─────────────────┐            ┌─────────────────┐
+              │    STEP 2b      │            │    STEP 2a      │
+              │  Who Needs Help │            │  Self-Help      │
+              │  & Screening    │            │  Resources      │
+              └────────┬────────┘            └────────┬────────┘
+                       │                              │
+                       │                              ▼
+                       │                     ┌─────────────────┐
+                       │                     │ Select Topics & │
+                       │                     │ Show Resources  │
+                       │                     │  (Placeholder)  │
+                       │                     └─────────────────┘
                        ▼
         ┌──────────────────────────────────┐
         │     APPLICANT TYPE SELECTION     │
@@ -381,24 +382,21 @@ Step 6: Thank You
    │        STEP 4 - LEGAL ISSUE      │
    │          CATEGORY                │
    │   (Select from 10 categories)    │
-   └──────────────┬───────────────────┘
-                  │
-                  ▼
-   ┌──────────────────────────────────┐
-   │    STEP 5 - CONTACT INFO         │
-   │   (Name, Email, Phone, Zip)      │
-   └──────────────┬───────────────────┘
-                  │
-                  ▼
-   ┌──────────────────────────────────┐
-   │      STEP 6 - THANK YOU          │
-   │   Application Submitted          │
+   │                                  │
+   │   Continue Button: DISABLED      │
+   │   "Continue (Coming Soon)"       │
    └──────────────────────────────────┘
+                  │
+                  ▼
+          [ End of Form ]
+      (Future steps not yet implemented)
 ```
+
+**Note:** Step 3 (Screening Questions) is deprecated and not shown in the normal flow. Users proceed directly from Step 2b to Step 4.
 
 ---
 
-## 9. Radio Button Reference
+## 8. Radio Button Reference
 
 ### Step 1: Welcome & Terms
 | Name | Values |
@@ -415,27 +413,27 @@ Step 6: Thank You
 | `violence_victim` | yes, no | After applicant_type selected |
 | `health_condition` | yes, no | After applicant_type selected |
 
+### Step 3: Screening Questions (Deprecated)
+| Name | Values | Condition |
+|------|--------|-----------|
+| `is_parent` | yes, no | Only if applicant_type = caregiver |
+| `foster_care` | yes, no | Always shown (if step is accessed) |
+| `cps_involved` | yes, no | Always shown (if step is accessed) |
+| `violence_victim` | yes, no | Always shown (if step is accessed) |
+| `health_condition` | yes, no | Always shown (if step is accessed) |
+
 ### Step 4: Legal Issue Category
 | Name | Values |
 |------|--------|
 | `legal_category` | consumer, education, employment, family, health, housing, income, individual-rights, juvenile, none |
 
-### Step 5: Contact Information
-| Name | Type |
-|------|------|
-| `first_name` | text |
-| `last_name` | text |
-| `email` | email |
-| `phone` | tel |
-| `zip_code` | text (5 digits) |
-| `description` | textarea (optional) |
-
 ---
 
-## 10. Self-Help Topics Reference
+## 9. Self-Help Topics Reference
 
 **Field Name:** `self_help_topics`
 **Input Type:** Multi-select (`<select multiple>`)
+**Used In:** Step 2a
 
 | Value | Display Label |
 |-------|--------------|
@@ -454,56 +452,103 @@ Step 6: Thank You
 
 ---
 
-## 11. Dynamic Label Updates
+## 10. Dynamic Label Updates
 
-The form dynamically updates question labels based on the selected applicant type:
+The form dynamically updates question labels based on the selected applicant type to provide contextually appropriate wording.
 
 ### Youth/Young Adult (applicant_type = "myself")
-| Question | Label |
-|----------|-------|
-| Foster Care | "Have you had any experience in foster care?" |
-| Violence | "Have you been the victim of family violence, child abuse, or sexual violence?" |
-| Health | "Do you have a mental or physical health condition or disability?" |
+| Question | Label | Element ID |
+|----------|-------|------------|
+| Foster Care (Step 2b) | "Have you had any experience in foster care?" | foster-care-label-step2 |
+| Violence (Step 2b) | "Have you been the victim of family violence, child abuse, or sexual violence?" | violence-label-step2 |
+| Health (Step 2b) | "Do you have a mental or physical health condition or disability?" | health-label-step2 |
+| Foster Care (Step 3) | "Have you had any experience in foster care?" | foster-care-label |
+| Violence (Step 3) | "Have you been the victim of family violence, child abuse, or sexual violence?" | violence-label |
+| Health (Step 3) | "Do you have a mental or physical health condition or disability?" | health-label |
 
 ### Caregiver (applicant_type = "caregiver")
-| Question | Label |
-|----------|-------|
-| Foster Care | "Have you or the child in your care had any experience in foster care?" |
-| Violence | "Have you or a child in your care been the victim of family violence, child abuse, or sexual violence?" |
-| Health | "Does the child have a mental or physical health condition or disability?" |
+| Question | Label | Element ID |
+|----------|-------|------------|
+| Foster Care (Step 2b) | "Have you or the child in your care had any experience in foster care?" | foster-care-label-step2 |
+| Violence (Step 2b) | "Have you or a child in your care been the victim of family violence, child abuse, or sexual violence?" | violence-label-step2 |
+| Health (Step 2b) | "Does the child have a mental or physical health condition or disability?" | health-label-step2 |
+| Foster Care (Step 3) | "Have you or the child in your care had any experience in foster care?" | foster-care-label |
+| Violence (Step 3) | "Have you or a child in your care been the victim of family violence, child abuse, or sexual violence?" | violence-label |
+| Health (Step 3) | "Does the child have a mental or physical health condition or disability?" | health-label |
+
+**JavaScript Functions:**
+- `updateScreeningLabelsStep2()` - Updates labels in Step 2b
+- `updateScreeningLabels()` - Updates labels in Step 3 (deprecated)
 
 ---
 
-## 12. Family Helpline Information
+## 11. Family Helpline Information
 
-**Displayed When:** `cps_involved = "yes"`
+**Element ID:** `family-helpline-box`
+**Displayed When:** `cps_involved = "yes"` in Step 2b
+**Display Logic:** Controlled by `toggleFamilyHelpline()` JavaScript function
 
-**Phone:** 844-888-5565
-**Hours:** Monday - Friday, 9:00 AM - 6:00 PM
+**Contact Information:**
+- **Phone:** 844-888-5565
+- **Hours:** Monday - Friday, 9:00 AM - 6:00 PM
 
 **Services:**
 - Speak with an experienced child welfare attorney about CPS issues in Texas
 - Free legal information
 - Resources and referrals
 - All calls are anonymous
+- Helps callers understand their rights and legal options
 
 **Limitations:**
 - Cannot represent clients in court
 - Referrals will not be made through Family Help Link for privacy protection
+- Callers directed to call the helpline directly instead
+
+**User Experience:**
+- Info box appears smoothly when user selects "Yes" for CPS involvement
+- Page scrolls to show the helpline box
+- Info box is hidden if user changes answer to "No"
 
 ---
 
-## 13. Current Implementation Status
+## 12. Current Implementation Status
 
-| Step | Status |
-|------|--------|
-| Step 1 - Welcome & Terms | Fully Implemented (redirects to not-eligible-resources.html when "No" is selected) |
-| Step 2a - Self-Help Resources | Deprecated (users who select "No" are redirected to not-eligible-resources.html) |
-| Step 2b - Who Needs Help & Screening | Fully Implemented |
-| Step 3 - Screening Questions | Deprecated (kept for backward compatibility) |
-| Step 4 - Legal Issue Category | Fully Implemented |
-| Step 5 - Contact Information | Fully Implemented |
-| Step 6 - Thank You | Fully Implemented |
+| Step | Status | Notes |
+|------|--------|-------|
+| Step 1 - Welcome & Terms | ✅ Fully Implemented | Routes to Step 2a or Step 2b based on answer |
+| Step 2a - Self-Help Resources | ⚠️ Partially Implemented | Active but "Show Resources" is placeholder functionality |
+| Step 2b - Who Needs Help & Screening | ✅ Fully Implemented | Includes dynamic screening questions and CPS helpline integration |
+| Step 3 - Screening Questions | ⚠️ Deprecated | Kept for backward compatibility, not used in normal flow |
+| Step 4 - Legal Issue Category | ⚠️ Partially Implemented | Displayed but Continue button disabled; no further steps exist |
+
+**Missing Components:**
+- Contact information collection
+- Form submission logic
+- Thank you / confirmation page
+- Resource display functionality for Step 2a
+- Next step after legal category selection
+
+**Future Enhancements:**
+- Implement contact information step
+- Add form submission to backend system
+- Create thank you page with next steps information
+- Implement actual resource display for self-help topics
+- Enable Continue button on Step 4 and add subsequent steps
+
+---
+
+**Progress Indicator:** The form uses a progress tracking system that maps steps to numbered progression:
+- Step 1 → Progress 1
+- Steps 2a & 2b → Progress 2
+- Step 3 → Progress 3
+- Step 4 → Progress 4
+
+**Screen Reader Support:** Step announcements are provided for accessibility:
+- Step 1: "Step 1 of 4: Welcome"
+- Step 2a: "Step 2 of 4: Self-Help Resources"
+- Step 2b: "Step 2 of 4: Eligibility"
+- Step 3: "Step 3 of 4: Screening Questions"
+- Step 4: "Step 4 of 4: Legal Issue Category"
 
 ---
 
