@@ -63,7 +63,15 @@
       "Bash(del \"C:\\\\Users\\\\bobla\\\\VisualStudioProjects\\\\rename-files\\\\tmpclaude-timestamps.ps1\")",
       "Bash(Select-Object CreationTime, LastWriteTime, LastAccessTime)",
       "Bash(Format-List)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(git pull:*)",
+      "WebFetch(domain:texaslawhelp.org)",
+      "WebSearch",
+      "Bash(dir:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(cp:*)"
     ]
   }
 }
