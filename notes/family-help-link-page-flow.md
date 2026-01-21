@@ -1,7 +1,7 @@
 # Texas Legal Aid - Family Help Link Page Flow
 
 **File:** `family-help-link.html`
-**Last Updated:** 2026-01-20
+**Last Updated:** 2026-01-21
 
 This document provides a complete flow chart of all logic conditions in the Texas Family Help Link intake form. Questions and page names are abbreviated for readability but remain consistent throughout.
 
@@ -11,23 +11,24 @@ This document provides a complete flow chart of all logic conditions in the Texa
 
 1. [Overview](#1-overview)
 2. [Step 1 - Welcome & Terms Agreement](#2-step-1---welcome--terms-agreement)
-3. [Step 2a - Self-Help Resources](#3-step-2a---self-help-resources)
-4. [Step 2b - Who Needs Help & Screening](#4-step-2b---who-needs-help--screening)
-5. [Step 3 - Screening Questions (Deprecated)](#5-step-3---screening-questions-deprecated)
-6. [Step 4 - Legal Issue Category](#6-step-4---legal-issue-category)
-7. [Step 5 - Your Name](#7-step-5---your-name)
-8. [Step 6 - Family Members](#8-step-6---family-members)
-9. [Step 7 - Opposing Parties](#9-step-7---opposing-parties)
-10. [Step 8 - County](#10-step-8---county)
-11. [Step 9 - Household Income](#11-step-9---household-income)
-12. [Step 10 - Contact Information](#12-step-10---contact-information)
-13. [Step 11 - No Matching Organizations](#13-step-11---no-matching-organizations)
-14. [Complete Flow Diagram](#14-complete-flow-diagram)
-15. [Radio Button Reference](#15-radio-button-reference)
-16. [Self-Help Topics Reference](#16-self-help-topics-reference)
-17. [Dynamic Label Updates](#17-dynamic-label-updates)
-18. [Family Helpline Information](#18-family-helpline-information)
-19. [Current Implementation Status](#19-current-implementation-status)
+3. [Step 2a - Self-Help Topic Selection](#3-step-2a---self-help-topic-selection)
+4. [Step 2a-resources - Self-Help Resources Display](#4-step-2a-resources---self-help-resources-display)
+5. [Step 2b - Who Needs Help & Screening](#5-step-2b---who-needs-help--screening)
+6. [Step 3 - Screening Questions (Deprecated)](#6-step-3---screening-questions-deprecated)
+7. [Step 4 - Legal Issue Category](#7-step-4---legal-issue-category)
+8. [Step 5 - Your Name](#8-step-5---your-name)
+9. [Step 6 - Family Members](#9-step-6---family-members)
+10. [Step 7 - Opposing Parties](#10-step-7---opposing-parties)
+11. [Step 8 - County](#11-step-8---county)
+12. [Step 9 - Household Income](#12-step-9---household-income)
+13. [Step 10 - Contact Information](#13-step-10---contact-information)
+14. [Step 11 - No Matching Organizations](#14-step-11---no-matching-organizations)
+15. [Complete Flow Diagram](#15-complete-flow-diagram)
+16. [Radio Button Reference](#16-radio-button-reference)
+17. [Self-Help Topics Reference](#17-self-help-topics-reference)
+18. [Dynamic Label Updates](#18-dynamic-label-updates)
+19. [Family Helpline Information](#19-family-helpline-information)
+20. [Current Implementation Status](#20-current-implementation-status)
 
 ---
 
@@ -85,7 +86,7 @@ Step 1: Welcome & Terms
 
 ---
 
-## 3. Step 2a - Self-Help Resources
+## 3. Step 2a - Self-Help Topic Selection
 
 **Step ID:** `data-step="2a"`
 
@@ -117,23 +118,71 @@ Step 1: Welcome & Terms
 
 **Actions:**
 - Back button → Returns to Step 1
-- Show Resources button → Displays alert with selected topics (placeholder functionality)
+- Next button → Navigates to Step 2a-resources (Self-Help Resources Display)
 
 ```
-Step 2a: Self-Help Resources
+Step 2a: Self-Help Topic Selection
 │
 ├─► Back ──────────────► Step 1 (Welcome)
 │
-└─► Show Resources ────► Alert displaying selected topics
-                         (Placeholder - full functionality not yet implemented)
+└─► Next ──────────────► Step 2a-resources (Self-Help Resources Display)
+    (requires at least one topic selected)
 ```
-
-**Implementation Note:**
-The Show Resources functionality is currently a placeholder that displays an alert. In a future implementation, this will redirect to or display actual resources based on selected topics.
 
 ---
 
-## 4. Step 2b - Who Needs Help & Screening
+## 4. Step 2a-resources - Self-Help Resources Display
+
+**Step ID:** `data-step="2a-resources"`
+
+**Displayed When:** User clicks "Next" after selecting topics in Step 2a
+
+**Content:**
+- Displays resources for each selected topic
+- Resources are loaded from `data/family-help-link-resources.json`
+- Each topic section includes:
+  - Topic title
+  - Articles and Toolkits (links to educational content)
+  - Resources (links to external organizations and services)
+
+**Data Source:** `data/family-help-link-resources.json`
+
+**Resource Categories:**
+Each topic may contain two types of links:
+1. **Articles and Toolkits**: Educational content, guides, and how-to resources
+2. **Resources**: Links to organizations, government services, and external help
+
+**Available Topics with Resources:**
+
+| Topic Key | Title | Articles | Resources |
+|-----------|-------|----------|-----------|
+| `changing-childs-name` | Changing a Child's Name | 1 | 0 |
+| `child-abuse-neglect-cps` | Child Safety/Abuse/Neglect | 6 | 2 |
+| `child-support` | Child Support | 6 | 4 |
+| `community-resources` | Community Resources for Families (Non-Legal) | 0 | 4 |
+| `custody-visitation-adoption` | Custody, Visitation, and Adoption | 4 | 3 |
+| `education-special-education` | Education and Special Education Issues | 6 | 2 |
+| `government-benefits-ssi` | Government Benefits and SSI | 4 | 2 |
+| `identification-documents` | Identification Documents for a Child | 2 | 0 |
+| `immigration-issues` | Immigration Issues for Children | 3 | 1 |
+| `kinship-caregivers` | Kinship Caregivers (Non-Parents Raising Children) | 7 | 2 |
+| `medical-mental-health` | Medical Care and Mental Health for Children | 4 | 4 |
+| `parents-rights-paternity` | Parents Rights and Paternity (Fatherhood) | 6 | 0 |
+
+**Actions:**
+- Back button → Returns to Step 2a (Self-Help Topic Selection)
+
+```
+Step 2a-resources: Self-Help Resources Display
+│
+└─► Back ──────────────► Step 2a (Self-Help Topic Selection)
+```
+
+**Note:** This is a terminal step for users who selected "No" to terms agreement. Users can go back to select different topics but cannot proceed to the application form from this path.
+
+---
+
+## 5. Step 2b - Who Needs Help & Screening
 
 **Step ID:** `data-step="2b"`
 
@@ -1011,26 +1060,28 @@ The form dynamically updates question labels based on the selected applicant typ
 
 ---
 
-## 19. Current Implementation Status
+## 20. Current Implementation Status
 
 | Step | Status | Notes |
 |------|--------|-------|
 | Step 1 - Welcome & Terms | ✅ Fully Implemented | Routes to Step 2a or Step 2b based on answer |
-| Step 2a - Self-Help Resources | ⚠️ Partially Implemented | Active but "Show Resources" is placeholder functionality |
+| Step 2a - Self-Help Topic Selection | ✅ Fully Implemented | Multi-select dropdown for 12 topics |
+| Step 2a-resources - Self-Help Resources | ✅ Fully Implemented | Displays resources dynamically from JSON data |
 | Step 2b - Who Needs Help & Screening | ✅ Fully Implemented | Includes dynamic screening questions and CPS helpline integration |
 | Step 3 - Screening Questions | ⚠️ Deprecated | Kept for backward compatibility, not used in normal flow |
 | Step 4 - Legal Issue Category | ✅ Fully Implemented | Displays all 10 legal issue categories |
-| Step 5 - Your Name | ✅ Fully Implemented | Collects name, DOB, gender, race/ethnicity (NEW) |
-| Step 6 - Family Members | ✅ Fully Implemented | Dynamic add/remove of family members (NEW) |
-| Step 7 - Opposing Parties | ✅ Fully Implemented | Dynamic add/remove of opposing parties (NEW) |
-| Step 8 - County | ✅ Fully Implemented | Residence and dispute county (NEW) |
-| Step 9 - Household Income | ✅ Fully Implemented | Household size and dynamic income sources (NEW) |
-| Step 10 - Contact Information | ✅ Fully Implemented | Phone and email only (UPDATED - simplified) |
-| Step 11 - No Matching Organizations | ✅ Fully Implemented | Shows no matching orgs message (UPDATED from Thank You) |
+| Step 5 - Your Name | ✅ Fully Implemented | Collects name, DOB, gender, race/ethnicity |
+| Step 6 - Family Members | ✅ Fully Implemented | Dynamic add/remove of family members |
+| Step 7 - Opposing Parties | ✅ Fully Implemented | Dynamic add/remove of opposing parties |
+| Step 8 - County | ✅ Fully Implemented | Residence and dispute county |
+| Step 9 - Household Income | ✅ Fully Implemented | Household size and dynamic income sources |
+| Step 10 - Contact Information | ✅ Fully Implemented | Phone and email only |
+| Step 11 - No Matching Organizations | ✅ Fully Implemented | Shows no matching orgs message |
 
 **Completed Features:**
 - Full application flow from Welcome to No Matching Organizations (Steps 1-11)
 - Complete Texas Law Help matching flow implementation
+- **Self-Help Resources display with 12 topic categories loaded from JSON** (NEW)
 - Detailed applicant information collection (Step 5)
 - Dynamic family member management (Step 6)
 - Dynamic opposing party management (Step 7)
@@ -1042,6 +1093,11 @@ The form dynamically updates question labels based on the selected applicant typ
 - Screen reader accessibility announcements
 - Responsive design for mobile devices
 - Eligibility check for youth applicants (redirects to Not Eligible Resources when youth answer "no" to all screening questions)
+
+**Resource Data:**
+- Self-help resources are stored in `data/family-help-link-resources.json`
+- Resources include Articles and Toolkits plus external Resources for each topic
+- 12 topic categories with links to Texas Law Help, government agencies, and other organizations
 - Gender and race/ethnicity fields with "prefer not to answer" options
 - Dynamic add/remove functionality for family members, opposing parties, and income sources
 

@@ -238,10 +238,36 @@
                 Back
               </button>
               <button type="button" class="btn btn-primary" data-show-resources>
-                Show Resources
+                Next
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2a-resources: Self-Help Resources Display -->
+          <div class="form-step" data-step="2a-resources" style="display: none;">
+            <button type="button" class="text-primary-700 hover:text-primary-900 mb-6 flex items-center gap-2" data-step-back>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Self Help Resources</h2>
+
+            <!-- Resources container - will be populated by JavaScript -->
+            <div id="self-help-resources-container" class="space-y-8 mb-6">
+              <!-- Resources will be dynamically inserted here -->
+            </div>
+
+            <div class="flex justify-start">
+              <button type="button" class="btn btn-outline" data-step-back>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
               </button>
             </div>
           </div>

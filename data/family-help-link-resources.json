@@ -1,0 +1,505 @@
+{
+  "resources": {
+    "changing-childs-name": {
+      "title": "Changing a Child's Name",
+      "articles": [
+        {
+          "text": "I want to change my child's name.",
+          "url": "https://texaslawhelp.org/guide/i-want-to-change-my-childs-name",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": []
+    },
+    "child-abuse-neglect-cps": {
+      "title": "Child Safety/Abuse/Neglect",
+      "articles": [
+        {
+          "text": "I want to learn how to protect a child from abuse and neglect. [YouTube]",
+          "url": "https://www.youtube.com/watch?v=HTptbWq88OE",
+          "source": "YouTube"
+        },
+        {
+          "text": "I want to learn about safe visitation with the other parent when there are no court orders for custody.",
+          "url": "https://texaslawhelp.org/article/safe-child-visitation-without-court-orders",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand safe visitation with the other parent when I do have orders for custody and visitation.",
+          "url": "https://texaslawhelp.org/article/court-ordered-visitation-and-child-safety",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn about temporary restraining orders to protect a child in an emergency.",
+          "url": "https://texaslawhelp.org/article/tros-temporary-injunctions-and-temporary-orders-in-child-custody-emergencies",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn more about protective orders.",
+          "url": "https://texaslawhelp.org/protection-from-violence-or-abuse/protective-orders",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn how a 16 or 17 year old can become emancipated from their parents.",
+          "url": "https://texaslawhelp.org/article/emancipation-of-minors",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": [
+        {
+          "text": "Child Advocacy Centers of Texas: services for children who have been victims of abuse, violence, and victimization",
+          "url": "https://cactx.org/",
+          "source": "CACTX"
+        },
+        {
+          "text": "Legal Aid for Survivors of Sexual Assault: speak with an attorney about legal issues related to sexual abuse of a child or adult",
+          "url": "https://lassatexas.org/",
+          "source": "LASSA Texas"
+        }
+      ]
+    },
+    "cps-issues": {
+      "title": "CPS Issues",
+      "articles": [
+        {
+          "text": "I want to understand how to deal with CPS (Child Protective Services) in Texas. [YouTube]",
+          "url": "https://www.youtube.com/watch?v=elwBZ1_0PPI",
+          "source": "YouTube"
+        },
+        {
+          "text": "I want to learn more about the CPS (Child Protective Services) process in Texas.",
+          "url": "https://texaslawhelp.org/cps",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn when I can get a free attorney in a CPS case.",
+          "url": "https://texaslawhelp.org/article/the-parent-attorney-your-right-to-a-lawyer-when-dealing-with-child-protective-services",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": [
+        {
+          "text": "The Family Helpline: speak with an attorney about CPS questions for free",
+          "url": "https://www.tlsc.org/family",
+          "source": "TLSC"
+        },
+        {
+          "text": "Parent Resource Guide: a guide written for parents who have had their child legally removed by CPS in Texas",
+          "url": "https://texaschildrenscommission.gov/media/2zrd0zxl/parent-resource-guide-2020-online.pdf",
+          "source": "Texas Children's Commission"
+        },
+        {
+          "text": "DFPS Statewide Intake: make a report about child abuse or child neglect in Texas.",
+          "url": "https://www.dfps.texas.gov/About_DFPS/Statewide_Intake/default.asp",
+          "source": "DFPS"
+        },
+        {
+          "text": "Texas Foster Youth Justice Project: legal information and representation for current and former foster youth",
+          "url": "https://texasfosteryouth.org/legal-resources/legal-resources-for-youth/being-in-foster-care/",
+          "source": "Texas Foster Youth"
+        }
+      ]
+    },
+    "child-support": {
+      "title": "Child Support",
+      "articles": [
+        {
+          "text": "I want to learn about child support and how it is set up in Texas.",
+          "url": "https://texaslawhelp.org/article/child-support-in-texas",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand how to change (or modify) a child support order.",
+          "url": "https://texaslawhelp.org/article/changing-a-child-support-order",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand how to enforce (make the other parent pay) court-ordered child support.",
+          "url": "https://texaslawhelp.org/article/enforcing-your-child-support-orders-on-your-own",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand how paternity (fatherhood) is established in child support court.",
+          "url": "https://texaslawhelp.org/article/establishing-paternity-in-iv-d-court",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "How did I end up in Title IV-D (Child Support) court?",
+          "url": "https://texaslawhelp.org/article/whyyoureinchildsupportivdcourt",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "What can I expect in Title IV-D (Child Support) court?",
+          "url": "https://texaslawhelp.org/article/whattoexpectinchildsupportivdcourt",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": [
+        {
+          "text": "Office of the Attorney General Child Support Division: Apply for Services",
+          "url": "https://www.texasattorneygeneral.gov/child-support/get-started",
+          "source": "Texas Attorney General"
+        },
+        {
+          "text": "Office of the Attorney General: How Child Support Works",
+          "url": "https://www.texasattorneygeneral.gov/child-support/get-started/how-child-support-works",
+          "source": "Texas Attorney General"
+        },
+        {
+          "text": "Office of the Attorney General: Child Support Enforcement",
+          "url": "https://www.texasattorneygeneral.gov/child-support/child-support-enforcement",
+          "source": "Texas Attorney General"
+        },
+        {
+          "text": "GetChildSupportSafely.org: Helping family violence survivors determine if and how they can pursue child support safely",
+          "url": "https://www.getchildsupportsafely.org/",
+          "source": "GetChildSupportSafely.org"
+        }
+      ]
+    },
+    "community-resources": {
+      "title": "Community Resources for Families (Non-Legal)",
+      "articles": [],
+      "resources": [
+        {
+          "text": "Family Support Services through Texas Health and Human Services: find local programs",
+          "url": "https://fss.hhs.texas.gov/Programs_Available_In_Your_County/default.asp",
+          "source": "Texas HHS"
+        },
+        {
+          "text": "www.GetParentingTips.com: find articles, videos, and local resources funded through Texas Health and Human Services",
+          "url": "https://www.getparentingtips.com/",
+          "source": "GetParentingTips.com"
+        },
+        {
+          "text": "2-1-1 Texas: find resources for food, health, housing, and more",
+          "url": "https://www.211texas.org/",
+          "source": "211 Texas"
+        },
+        {
+          "text": "www.FindHelp.org: find free or reduced-cost resources like food, housing, financial assistance, health care, and more",
+          "url": "https://www.findhelp.org/",
+          "source": "FindHelp.org"
+        }
+      ]
+    },
+    "custody-visitation-adoption": {
+      "title": "Custody, Visitation, and Adoption",
+      "articles": [
+        {
+          "text": "I want to understand how custody works in Texas.",
+          "url": "https://texaslawhelp.org/article/conservatorship-custody-basics-video",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand how to modify (change) my order for custody, visitation, or child support.",
+          "url": "https://texaslawhelp.org/guide/i-need-to-change-a-custody-visitation-or-support-order-modification",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand how to enforce my visitation rights (make the other parent follow the order).",
+          "url": "https://texaslawhelp.org/guide/i-want-to-file-a-motion-to-enforce-visitation",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn about adoption in Texas.",
+          "url": "https://texaslawhelp.org/article/texas-adoption-law",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": [
+        {
+          "text": "Parenting Order Legal Line: talk to an attorney about enforcing your visitation rights",
+          "url": "https://www.txaccess.org/",
+          "source": "TX Access"
+        },
+        {
+          "text": "Office of the Attorney General Parenting Time Schedule: get help understanding the Standard Possession Order for visitation",
+          "url": "https://www.texasattorneygeneral.gov/child-support/families-and-parenting/parenting-time-overview/parenting-time-schedule",
+          "source": "Texas Attorney General"
+        },
+        {
+          "text": "My Sticker Calendar: help your child track their visitation time with each parent",
+          "url": "https://www.texasattorneygeneral.gov/child-support/families-and-parenting/my-sticker-calendar",
+          "source": "Texas Attorney General"
+        }
+      ]
+    },
+    "education-special-education": {
+      "title": "Education and Special Education Issues",
+      "articles": [
+        {
+          "text": "I want to learn about a parent's rights to be involved in their child's education.",
+          "url": "https://texaslawhelp.org/article/parents-rights-to-participate-in-their-childrens-education",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand how to modify (change) my order for custody, visitation, or child support.",
+          "url": "https://texaslawhelp.org/guide/i-need-to-change-a-custody-visitation-or-support-order-modification",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I am a non-parent who needs to enroll a child in school.",
+          "url": "https://texaslawhelp.org/article/authorization-for-nonparent-care-of-a-child",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn about the educational rights of children who are homeless or in a temporary living situation.",
+          "url": "https://texaslawhelp.org/article/education-of-homeless-students-information-and-answers",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn about the special education laws that help students with disabilities receive a free, appropriate public education.",
+          "url": "https://texaslawhelp.org/article/special-education-in-texas-information-for-parents-and-students",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn about the rights of a child who has been sexually assaulted, harassed, or discriminated against at school.",
+          "url": "https://texaslawhelp.org/article/sexual-assault-harassment-and-discrimination-at-school",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": [
+        {
+          "text": "Disability Rights Texas: Resources from the Education Team",
+          "url": "https://disabilityrightstx.org/en/category/education/",
+          "source": "Disability Rights Texas"
+        },
+        {
+          "text": "Texas Education Agency: Special Education Family Resources",
+          "url": "https://tea.texas.gov/academics/special-student-populations/special-education/sped-family-resources-0",
+          "source": "TEA"
+        }
+      ]
+    },
+    "government-benefits-ssi": {
+      "title": "Government Benefits and SSI",
+      "articles": [
+        {
+          "text": "I want to understand what government benefits are available in Texas.",
+          "url": "https://texaslawhelp.org/article/public-benefits",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn about Medicaid denials or reduction of benefits.",
+          "url": "https://texaslawhelp.org/article/dealing-with-denials-or-reductions-medicaid-services",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I am a non-parent who needs to apply for government benefits for a child in my care.",
+          "url": "https://texaslawhelp.org/article/authorization-for-nonparent-care-of-a-child",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn about SSI (Supplemental Security Income) for children with disabilities.",
+          "url": "https://texaslawhelp.org/article/what-you-need-to-know-about-supplemental-security-income-ssi",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": [
+        {
+          "text": "Your Texas Benefits: apply online for Food Stamps, Medicaid, CHIP, TANF, or WIC",
+          "url": "https://www.yourtexasbenefits.com/Learn/Home",
+          "source": "Your Texas Benefits"
+        },
+        {
+          "text": "Social Security Administration: apply online and check application status for SSI and other Social Security benefits.",
+          "url": "https://www.ssa.gov/",
+          "source": "SSA"
+        }
+      ]
+    },
+    "identification-documents": {
+      "title": "Identification Documents for a Child",
+      "articles": [
+        {
+          "text": "I need to replace lost identification documents.",
+          "url": "https://texaslawhelp.org/article/replacing-lost-documents",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I am a non-parent caregiver who needs identification documents for a child.",
+          "url": "https://texaslawhelp.org/article/authorization-for-nonparent-care-of-a-child",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": []
+    },
+    "immigration-issues": {
+      "title": "Immigration Issues for Children",
+      "articles": [
+        {
+          "text": "I want to learn about visas for children who have been victims of abuse, neglect, and abandonment (Special Immigration Juvenile Visas).",
+          "url": "https://texaslawhelp.org/article/basic-information-about-the-special-immigrant-juvenile-visa",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn about the law that protects immigrants who came to the United States as children (DACA or Deferred Action for Childhood Arrivals).",
+          "url": "https://texaslawhelp.org/article/what-is-daca",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand an immigrant's right to an education.",
+          "url": "https://texaslawhelp.org/guide/what-rights-do-immigrants-have-to-an-education",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": [
+        {
+          "text": "Texas State Law Library: Legal Assistance Guide for Immigration Law",
+          "url": "https://guides.sll.texas.gov/immigration-law/legal-assistance",
+          "source": "Texas State Law Library"
+        }
+      ]
+    },
+    "kinship-caregivers": {
+      "title": "Kinship Caregivers (Non-Parents Raising Children)",
+      "articles": [
+        {
+          "text": "I am a non-parent caring for a child and I want to learn about how I can make decisions for the child. [YouTube]",
+          "url": "https://www.youtube.com/watch?v=j4V--cWiVbY",
+          "source": "YouTube"
+        },
+        {
+          "text": "I want to understand how a parent can give me permission to care for and make decisions (school, medicate, etc.) about a child.",
+          "url": "https://texaslawhelp.org/article/authorizationfornonparentcareofachild",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand how a non-parent can consent to medical treatment for a child.",
+          "url": "https://texaslawhelp.org/article/consent-to-medical-treatment-by-a-non-parent",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I need custody of a child; I am not the child's parent.",
+          "url": "https://texaslawhelp.org/guide/i-need-a-custody-order-i-am-not-the-childs-parent-sapcr",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn how to make decisions for a child without filing for custody, and I cannot locate the parent.",
+          "url": "https://texaslawhelp.org/guide/temporaryauthorizationforcareofminorchildtexasfamilycode35",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand my rights and what benefits are available if I am caring for a child in the custody of CPS.",
+          "url": "https://www.dfps.texas.gov/I_Am/kinship.asp",
+          "source": "DFPS"
+        },
+        {
+          "text": "I want to understand how to become a party (intervene) in a lawsuit that was filed by CPS.",
+          "url": "https://texaslawhelp.org/guide/i-want-to-intervene-in-a-cps-case-where-cps-has-temporary-managing-conservatorship-of-a-child",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": [
+        {
+          "text": "Texas Kincare Primer: information for kinship caregivers to successfully support themselves and their families",
+          "url": "https://texaslawhelp.org/article/texas-kincare-primer",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "Texas Grandparents Raising Grandchildren: access to resources, information, and support for grandparents raising their grandchildren",
+          "url": "https://www.txgrg.com/",
+          "source": "TX GRG"
+        }
+      ]
+    },
+    "medical-mental-health": {
+      "title": "Medical Care and Mental Health for Children",
+      "articles": [
+        {
+          "text": "I want to learn more about health insurance and government healthcare programs.",
+          "url": "https://texaslawhelp.org/article/your-health-care-coverage-information-on-health-insurance",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand how to handle a denial of benefits through Medicaid.",
+          "url": "https://texaslawhelp.org/article/dealing-with-denials-or-reductions-medicaid-services",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn how a non-parent can consent to medical care for a child.",
+          "url": "https://texaslawhelp.org/article/consent-to-medical-treatment-by-a-non-parent",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to understand what medical decisions pregnant and parenting minors can make for themselves and their children.",
+          "url": "https://texaslawhelp.org/article/pregnant-and-parenting-minors-and-health-care",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": [
+        {
+          "text": "Find your local Mental Health Authority through Texas Health and Human Services: access mental health and behavioral health services for children",
+          "url": "https://www.hhs.texas.gov/services/mental-health-substance-use/mental-health-substance-use-resources/find-your-local-mental-health-or-behavioral-health-authority",
+          "source": "Texas HHS"
+        },
+        {
+          "text": "Texas Youth Helpline: provides free, confidential services to youth and other family members of youth in crisis",
+          "url": "https://www.dfps.texas.gov/youth-helpline/",
+          "source": "DFPS"
+        },
+        {
+          "text": "Disability Rights Texas: Understanding Medicaid for People with Disabilities",
+          "url": "https://disabilityrightstx.org/en/handout/understanding-medicaid-video-series/",
+          "source": "Disability Rights Texas"
+        },
+        {
+          "text": "Foster Youth Justice Project: Medicaid benefits for former foster youth",
+          "url": "https://texasfosteryouth.org/legal-resources/legal-resources-for-youth/medical-issues-health-insurance/",
+          "source": "Texas Foster Youth"
+        }
+      ]
+    },
+    "parents-rights-paternity": {
+      "title": "Parents Rights and Paternity (Fatherhood)",
+      "articles": [
+        {
+          "text": "I want to understand the rights of parents in Texas. [YouTube]",
+          "url": "https://www.youtube.com/watch?v=MSTm5FwWgls&t=1s",
+          "source": "YouTube"
+        },
+        {
+          "text": "I want to understand my rights as a parent when there are no orders for custody.",
+          "url": "https://texaslawhelp.org/article/parents-rights-when-no-custody-orders-exist",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn more about termination of parental rights.",
+          "url": "https://texaslawhelp.org/article/terminating-parental-rights-answers-to-frequently-asked-questions",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn more about reinstatement of parental rights after they are terminated by CPS.",
+          "url": "https://texaslawhelp.org/article/reinstatement-of-parental-rights",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to get an order saying I am the father of a child (paternity order).",
+          "url": "https://texaslawhelp.org/guide/i-need-a-paternity-order",
+          "source": "Texas Law Help"
+        },
+        {
+          "text": "I want to learn more about an Acknowledgement of Paternity (fatherhood) or Denial of Paternity (fatherhood).",
+          "url": "https://texaslawhelp.org/article/acknowledgment-of-paternity-and-denial-of-paternity",
+          "source": "Texas Law Help"
+        }
+      ],
+      "resources": []
+    }
+  },
+  "topicMapping": {
+    "custody-visitation-adoption": "custody-visitation-adoption",
+    "changing-childs-name": "changing-childs-name",
+    "child-abuse-neglect-cps": "child-abuse-neglect-cps",
+    "child-support": "child-support",
+    "community-resources": "community-resources",
+    "education-special-education": "education-special-education",
+    "government-benefits-ssi": "government-benefits-ssi",
+    "identification-documents": "identification-documents",
+    "immigration-issues": "immigration-issues",
+    "kinship-caregivers": "kinship-caregivers",
+    "medical-mental-health": "medical-mental-health",
+    "parents-rights-paternity": "parents-rights-paternity"
+  }
+}

@@ -127,8 +127,122 @@
     // Store selected topics
     formData.self_help_topics = selectedTopics;
 
-    // In a future implementation, this would show resources or redirect
-    alert('Resource display functionality will be implemented in a future update.\n\nYou selected:\n' + selectedTopics.join('\n'));
+    // Load and display resources, then navigate to resources step
+    loadAndDisplayResources(selectedTopics);
+    currentStep = '2a-resources';
+    showStep('2a-resources');
+  }
+
+  /**
+   * Load resources from JSON and display them
+   */
+  function loadAndDisplayResources(selectedTopics) {
+    const container = document.getElementById('self-help-resources-container');
+    if (!container) return;
+
+    // Clear previous content
+    container.innerHTML = '';
+
+    // Fetch resources data
+    fetch('data/family-help-link-resources.json')
+      .then(response => response.json())
+      .then(data => {
+        const resources = data.resources;
+
+        selectedTopics.forEach(topicKey => {
+          const topicData = resources[topicKey];
+          if (!topicData) return;
+
+          const topicSection = document.createElement('div');
+          topicSection.className = 'mb-8';
+
+          // Topic title
+          const title = document.createElement('h3');
+          title.className = 'text-xl font-bold text-primary-700 mb-4 pb-2 border-b-2 border-primary-200';
+          title.textContent = topicData.title;
+          topicSection.appendChild(title);
+
+          // Articles and Toolkits section
+          if (topicData.articles && topicData.articles.length > 0) {
+            const articlesSection = document.createElement('div');
+            articlesSection.className = 'mb-4';
+
+            const articlesTitle = document.createElement('h4');
+            articlesTitle.className = 'text-lg font-semibold text-gray-800 mb-3';
+            articlesTitle.textContent = 'Articles and Toolkits';
+            articlesSection.appendChild(articlesTitle);
+
+            const articlesList = document.createElement('ul');
+            articlesList.className = 'space-y-2';
+
+            topicData.articles.forEach(article => {
+              const li = document.createElement('li');
+              li.className = 'flex items-start gap-2';
+
+              const bullet = document.createElement('span');
+              bullet.className = 'text-primary-600 mt-1';
+              bullet.innerHTML = '&#8226;';
+
+              const link = document.createElement('a');
+              link.href = article.url;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              link.className = 'text-primary-600 hover:text-primary-800 hover:underline';
+              link.textContent = article.text;
+
+              li.appendChild(bullet);
+              li.appendChild(link);
+              articlesList.appendChild(li);
+            });
+
+            articlesSection.appendChild(articlesList);
+            topicSection.appendChild(articlesSection);
+          }
+
+          // Resources section
+          if (topicData.resources && topicData.resources.length > 0) {
+            const resourcesSection = document.createElement('div');
+            resourcesSection.className = 'mb-4';
+
+            const resourcesTitle = document.createElement('h4');
+            resourcesTitle.className = 'text-lg font-semibold text-gray-800 mb-3';
+            resourcesTitle.textContent = 'Resources';
+            resourcesSection.appendChild(resourcesTitle);
+
+            const resourcesList = document.createElement('ul');
+            resourcesList.className = 'space-y-2';
+
+            topicData.resources.forEach(resource => {
+              const li = document.createElement('li');
+              li.className = 'flex items-start gap-2';
+
+              const bullet = document.createElement('span');
+              bullet.className = 'text-primary-600 mt-1';
+              bullet.innerHTML = '&#8226;';
+
+              const link = document.createElement('a');
+              link.href = resource.url;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              link.className = 'text-primary-600 hover:text-primary-800 hover:underline';
+              link.textContent = resource.text;
+
+              li.appendChild(bullet);
+              li.appendChild(link);
+              resourcesList.appendChild(li);
+            });
+
+            resourcesSection.appendChild(resourcesList);
+            topicSection.appendChild(resourcesSection);
+          }
+
+          container.appendChild(topicSection);
+        });
+      })
+      .catch(error => {
+        console.error('Error loading resources:', error);
+        container.innerHTML = '<p class="text-red-600">Error loading resources. Please try again.</p>';
+      });
   }
 
 
@@ -297,6 +411,8 @@
   function determinePreviousStep() {
     if (currentStep === '2a' || currentStep === '2b') {
       return 1; // Back to welcome
+    } else if (currentStep === '2a-resources') {
+      return '2a'; // Back to self-help topic selection
     } else if (currentStep === '3') {
       return '2b'; // Back to who needs help
     } else if (currentStep === '4') {
@@ -373,6 +489,7 @@
     const stepMapping = {
       '1': 1,
       '2a': 2,
+      '2a-resources': 2,
       '2b': 2,
       '3': 3,
       '4': 3,
@@ -405,7 +522,8 @@
   function announceStep(stepNumber) {
     const stepNames = {
       '1': 'Step 1 of 5: Welcome',
-      '2a': 'Step 2 of 5: Self-Help Resources',
+      '2a': 'Step 2 of 5: Self-Help Topic Selection',
+      '2a-resources': 'Step 2 of 5: Self-Help Resources',
       '2b': 'Step 2 of 5: Eligibility',
       '3': 'Step 3 of 5: Screening Questions',
       '4': 'Step 3 of 5: Legal Issue Category',
