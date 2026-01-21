@@ -370,15 +370,184 @@ Step 3: Screening Questions [DEPRECATED]
 
 **Actions:**
 - Back button → Returns to Step 2b (Who Needs Help & Screening)
-- Continue button → Proceeds to Step 5 (Your Name)
+- Continue button → If "family" selected, proceeds to Step 4a (Family Sub-Problems); otherwise proceeds to Step 5 (Your Name)
 
 ```
 Step 4: Legal Issue Category
 │
 ├─► Back ──────────────► Step 2b (Who Needs Help & Screening)
 │
-└─► Continue ──────────► Step 5 (Your Name)
+└─► Continue:
+    │
+    ├─► IF legal_category = "family" ────► Step 4a (Family Sub-Problems)
+    │
+    └─► OTHERWISE ─────────────────────► Step 5 (Your Name)
 ```
+
+---
+
+## 6a. Step 4a - Family Sub-Problems
+
+**Step ID:** `data-step="4a"`
+
+**Displayed When:** User selects "FAMILY" category in Step 4
+
+**Content:**
+- Message: "Great! Here is a list of common family legal problems we can help with."
+- Instruction to select the one that most closely describes their situation
+
+**Question:** "Legal Problem"
+
+| Value | Label |
+|-------|-------|
+| `adoption` | I have questions about adoption |
+| `name-change` | I have questions about changing a child's name or gender markers |
+| `custody-visitation` | I have questions about child custody and visitation |
+| `cps-foster` | I have questions about Child Protective Services (CPS) involvement, child abuse, or foster youth rights |
+| `child-support` | I have questions about child support |
+| `divorce` | I have questions about divorce |
+| `paternity` | I have questions about paternity (fatherhood) |
+| `termination` | I have questions about termination of parental rights |
+| `guardianship` | I need help setting up or ending a guardianship to support decision-making for an adult |
+| `none` | None of the above apply to my situation |
+
+**Actions:**
+- Back button → Returns to Step 4 (Legal Issue Category)
+- Next button → If "cps-foster" selected, proceeds to Step 4b (CPS Narrowing); otherwise proceeds to Step 5 (Your Name)
+
+```
+Step 4a: Family Sub-Problems
+│
+├─► Back ──────────────► Step 4 (Legal Issue Category)
+│
+└─► Next:
+    │
+    ├─► IF family_problem = "cps-foster" ────► Step 4b (CPS Narrowing)
+    │
+    └─► OTHERWISE ───────────────────────────► Step 5 (Your Name)
+```
+
+---
+
+## 6b. Step 4b - CPS Narrowing
+
+**Step ID:** `data-step="4b"`
+
+**Displayed When:** User selects "CPS involvement, child abuse, or foster youth rights" in Step 4a
+
+**Content:**
+- Title: "Let's Narrow Down The Legal Issue"
+- Message explaining user indicated situation involves foster care, CPS, and/or domestic violence
+- Instruction to select specific issue or "None of the above" to look at other possible legal issues
+- Family Helpline information box (always displayed)
+- Message that referrals cannot be made through portal for CPS issues
+
+**Question:** "Legal Problem Code Descriptive"
+
+| Value | Label |
+|-------|-------|
+| `cps-case` | I have questions about a Child Protective Services (CPS) case |
+| `family-violence` | I have questions about a child who has been a victim of family violence or child abuse |
+| `sexual-assault-stranger` | I have questions about a child who has been a victim of sexual assault, stalking or trafficking by a stranger or acquaintance |
+| `sexual-assault-family` | I have questions about a child who has been the victim of sexual assault by a family member |
+| `foster-benefits` | I have questions about foster youth benefits (college tuition waiver, ETV program, Medicaid) |
+| `cps-records` | I have questions about requesting CPS records for a child who was in foster care |
+| `none` | None of the above apply to my situation |
+
+**Family Helpline Info Box (always displayed):**
+- **Phone:** 844-888-5565
+- **Hours:** Monday - Friday, 9:00 AM - 6:00 PM
+- Provides free legal information about CPS issues
+- All calls are anonymous
+- Cannot provide court representation
+- Referrals will not be made through Family Help Link for privacy protection
+
+**Actions:**
+- Back button → Returns to Step 4a (Family Sub-Problems)
+- Next button → Proceeds to Step 4c (Self-Help Resources for CPS)
+
+```
+Step 4b: CPS Narrowing
+│
+├─► Back ──────────────► Step 4a (Family Sub-Problems)
+│
+└─► Next ──────────────► Step 4c (Self-Help Resources for CPS)
+```
+
+**Note:** CPS-related issues cannot be referred through the portal. Users are directed to call the Family Helpline and/or view self-help resources.
+
+---
+
+## 6c. Step 4c - Self-Help Resources for CPS
+
+**Step ID:** `data-step="4c"`
+
+**Displayed When:** User clicks "Next" from Step 4b (CPS Narrowing)
+
+**Content:**
+- Title: "Self-Help Resources"
+- Message asking user to select topics they want to learn about
+- Multi-select dropdown with self-help topic options (same as Step 2a)
+
+**Question:** "Please select which topics you would like resources on"
+
+**Input Type:** Multi-select (`<select multiple>`)
+
+**Available Topics:**
+| Value | Label |
+|-------|-------|
+| `child-abuse-neglect-cps` | Child Abuse, Child Neglect, and Child Protective Services (CPS) Issues |
+| `custody-visitation-adoption` | Custody, Visitation, and Adoption |
+| `changing-childs-name` | Changing a Child's Name |
+| `community-resources` | Community Resources for Families (Non-Legal) |
+| `child-support` | Child Support |
+| `education-special-education` | Education and Special Education Issues |
+| `government-benefits-ssi` | Government Benefits and SSI |
+| `identification-documents` | Identification Documents for a Child |
+| `immigration-issues` | Immigration Issues for Children |
+| `kinship-caregivers` | Kinship Caregivers (Non-Parents Raising Children) |
+| `medical-mental-health` | Medical Care and Mental Health for Children |
+| `parents-rights-paternity` | Parents Rights and Paternity (Fatherhood) |
+
+**Actions:**
+- Back button → Returns to Step 4b (CPS Narrowing)
+- Next button → Navigates to Step 4c-resources (Self-Help Resources Display)
+
+```
+Step 4c: Self-Help Resources for CPS
+│
+├─► Back ──────────────► Step 4b (CPS Narrowing)
+│
+└─► Next ──────────────► Step 4c-resources (Self-Help Resources Display)
+    (requires at least one topic selected)
+```
+
+---
+
+## 6d. Step 4c-resources - Self-Help Resources Display (CPS Path)
+
+**Step ID:** `data-step="4c-resources"`
+
+**Displayed When:** User clicks "Next" after selecting topics in Step 4c
+
+**Content:**
+- Displays resources for each selected topic
+- Resources are loaded from `data/family-help-link-resources.json`
+- Each topic section includes:
+  - Topic title
+  - Articles and Toolkits (links to educational content)
+  - Resources (links to external organizations and services)
+
+**Actions:**
+- Back button → Returns to Step 4c (Self-Help Topic Selection)
+
+```
+Step 4c-resources: Self-Help Resources Display
+│
+└─► Back ──────────────► Step 4c (Self-Help Topic Selection)
+```
+
+**Note:** This is a terminal step for the CPS path. Users can go back to select different topics but the application flow ends here for CPS-related issues.
 
 ---
 
@@ -386,7 +555,7 @@ Step 4: Legal Issue Category
 
 **Step ID:** `data-step="5"`
 
-**Displayed When:** User completes Step 4 (Legal Issue Category)
+**Displayed When:** User completes Step 4 (non-family category) or Step 4a (non-CPS family issue)
 
 **Content:**
 - Success message: "Good news! It looks like we may be able to refer you to a legal aid organization."
@@ -854,7 +1023,46 @@ Step 11: No Matching Organizations
    │   (Select from 10 categories)    │
    └──────────────┬───────────────────┘
                   │
-                  ▼
+          ┌───────┴────────┐
+          │                │
+     FAMILY            OTHER CATEGORIES
+          │                │
+          ▼                │
+   ┌──────────────────┐    │
+   │  STEP 4a - FAMILY│    │
+   │   SUB-PROBLEMS   │    │
+   │  (10 options)    │    │
+   └────────┬─────────┘    │
+            │              │
+    ┌───────┴──────┐       │
+    │              │       │
+ CPS/FOSTER    OTHER       │
+    │              │       │
+    ▼              │       │
+┌────────────────┐ │       │
+│ STEP 4b - CPS  │ │       │
+│   NARROWING    │ │       │
+│ (7 options +   │ │       │
+│ Family Helpline│ │       │
+└───────┬────────┘ │       │
+        │          │       │
+        ▼          │       │
+┌────────────────┐ │       │
+│  STEP 4c -     │ │       │
+│ SELF-HELP      │ │       │
+│ RESOURCES      │ │       │
+│ (Topic Select) │ │       │
+└───────┬────────┘ │       │
+        │          │       │
+        ▼          │       │
+┌────────────────┐ │       │
+│STEP 4c-RESOURCES│       │
+│ Display Links  │ │       │
+│ (END OF CPS    │ │       │
+│  PATH)         │ │       │
+└────────────────┘ │       │
+                   │       │
+                   ▼       ▼
    ┌──────────────────────────────────┐
    │      STEP 5 - YOUR NAME          │
    │  - First, Middle, Last, Suffix   │
@@ -951,6 +1159,16 @@ Step 11: No Matching Organizations
 | Name | Values |
 |------|--------|
 | `legal_category` | consumer, education, employment, family, health, housing, income, individual-rights, juvenile, none |
+
+### Step 4a: Family Sub-Problems
+| Name | Values |
+|------|--------|
+| `family_problem` | adoption, name-change, custody-visitation, cps-foster, child-support, divorce, paternity, termination, guardianship, none |
+
+### Step 4b: CPS Narrowing
+| Name | Values |
+|------|--------|
+| `cps_problem` | cps-case, family-violence, sexual-assault-stranger, sexual-assault-family, foster-benefits, cps-records, none |
 
 ### Step 5: Your Name
 | Name | Values | Required |
@@ -1069,7 +1287,11 @@ The form dynamically updates question labels based on the selected applicant typ
 | Step 2a-resources - Self-Help Resources | ✅ Fully Implemented | Displays resources dynamically from JSON data |
 | Step 2b - Who Needs Help & Screening | ✅ Fully Implemented | Includes dynamic screening questions and CPS helpline integration |
 | Step 3 - Screening Questions | ⚠️ Deprecated | Kept for backward compatibility, not used in normal flow |
-| Step 4 - Legal Issue Category | ✅ Fully Implemented | Displays all 10 legal issue categories |
+| Step 4 - Legal Issue Category | ✅ Fully Implemented | Displays all 10 legal issue categories, routes to 4a for family |
+| Step 4a - Family Sub-Problems | ✅ Fully Implemented | 10 specific family legal problems, routes to 4b for CPS |
+| Step 4b - CPS Narrowing | ✅ Fully Implemented | 7 CPS-specific issues with Family Helpline, routes to 4c |
+| Step 4c - Self-Help Resources (CPS) | ✅ Fully Implemented | Topic selection for CPS path users |
+| Step 4c-resources - Resources Display | ✅ Fully Implemented | Terminal step for CPS path, displays selected resources |
 | Step 5 - Your Name | ✅ Fully Implemented | Collects name, DOB, gender, race/ethnicity |
 | Step 6 - Family Members | ✅ Fully Implemented | Dynamic add/remove of family members |
 | Step 7 - Opposing Parties | ✅ Fully Implemented | Dynamic add/remove of opposing parties |
@@ -1081,7 +1303,9 @@ The form dynamically updates question labels based on the selected applicant typ
 **Completed Features:**
 - Full application flow from Welcome to No Matching Organizations (Steps 1-11)
 - Complete Texas Law Help matching flow implementation
-- **Self-Help Resources display with 12 topic categories loaded from JSON** (NEW)
+- **Family category sub-problems selection (Step 4a)** - Matches Texas Law Help flow
+- **CPS narrowing with Family Helpline redirect to self-help (Steps 4b-4c)** - Matches Texas Law Help flow
+- Self-Help Resources display with 12 topic categories loaded from JSON
 - Detailed applicant information collection (Step 5)
 - Dynamic family member management (Step 6)
 - Dynamic opposing party management (Step 7)

@@ -49,6 +49,12 @@
       showResourcesBtn.addEventListener('click', handleShowResources);
     }
 
+    // Show CPS resources button
+    const showCpsResourcesBtn = form.querySelector('[data-show-cps-resources]');
+    if (showCpsResourcesBtn) {
+      showCpsResourcesBtn.addEventListener('click', handleShowCpsResources);
+    }
+
     // Submit button
     const submitBtn = document.getElementById('fhl-submit-btn');
     if (submitBtn) {
@@ -131,6 +137,141 @@
     loadAndDisplayResources(selectedTopics);
     currentStep = '2a-resources';
     showStep('2a-resources');
+  }
+
+  /**
+   * Handle Show CPS Resources button click
+   */
+  function handleShowCpsResources(e) {
+    e.preventDefault();
+
+    const selectedTopics = Array.from(form.querySelectorAll('#cps_self_help_topics option:checked'))
+      .map(option => option.value);
+
+    if (selectedTopics.length === 0) {
+      alert('Please select at least one topic to view resources.');
+      return;
+    }
+
+    // Store selected topics
+    formData.cps_self_help_topics = selectedTopics;
+
+    // Load and display resources for CPS path
+    loadAndDisplayCpsResources(selectedTopics);
+    currentStep = '4c-resources';
+    showStep('4c-resources');
+  }
+
+  /**
+   * Load resources from JSON and display them for CPS path
+   */
+  function loadAndDisplayCpsResources(selectedTopics) {
+    const container = document.getElementById('cps-self-help-resources-container');
+    if (!container) return;
+
+    // Clear previous content
+    container.innerHTML = '';
+
+    // Fetch resources data
+    fetch('data/family-help-link-resources.json')
+      .then(response => response.json())
+      .then(data => {
+        const resources = data.resources;
+
+        selectedTopics.forEach(topicKey => {
+          const topicData = resources[topicKey];
+          if (!topicData) return;
+
+          const topicSection = document.createElement('div');
+          topicSection.className = 'mb-8';
+
+          // Topic title
+          const title = document.createElement('h3');
+          title.className = 'text-xl font-bold text-primary-700 mb-4 pb-2 border-b-2 border-primary-200';
+          title.textContent = topicData.title;
+          topicSection.appendChild(title);
+
+          // Articles and Toolkits section
+          if (topicData.articles && topicData.articles.length > 0) {
+            const articlesSection = document.createElement('div');
+            articlesSection.className = 'mb-4';
+
+            const articlesTitle = document.createElement('h4');
+            articlesTitle.className = 'text-lg font-semibold text-gray-800 mb-3';
+            articlesTitle.textContent = 'Articles and Toolkits';
+            articlesSection.appendChild(articlesTitle);
+
+            const articlesList = document.createElement('ul');
+            articlesList.className = 'space-y-2';
+
+            topicData.articles.forEach(article => {
+              const li = document.createElement('li');
+              li.className = 'flex items-start gap-2';
+
+              const bullet = document.createElement('span');
+              bullet.className = 'text-primary-600 mt-1';
+              bullet.innerHTML = '&#8226;';
+
+              const link = document.createElement('a');
+              link.href = article.url;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              link.className = 'text-primary-600 hover:text-primary-800 hover:underline';
+              link.textContent = article.text;
+
+              li.appendChild(bullet);
+              li.appendChild(link);
+              articlesList.appendChild(li);
+            });
+
+            articlesSection.appendChild(articlesList);
+            topicSection.appendChild(articlesSection);
+          }
+
+          // Resources section
+          if (topicData.resources && topicData.resources.length > 0) {
+            const resourcesSection = document.createElement('div');
+            resourcesSection.className = 'mb-4';
+
+            const resourcesTitle = document.createElement('h4');
+            resourcesTitle.className = 'text-lg font-semibold text-gray-800 mb-3';
+            resourcesTitle.textContent = 'Resources';
+            resourcesSection.appendChild(resourcesTitle);
+
+            const resourcesList = document.createElement('ul');
+            resourcesList.className = 'space-y-2';
+
+            topicData.resources.forEach(resource => {
+              const li = document.createElement('li');
+              li.className = 'flex items-start gap-2';
+
+              const bullet = document.createElement('span');
+              bullet.className = 'text-primary-600 mt-1';
+              bullet.innerHTML = '&#8226;';
+
+              const link = document.createElement('a');
+              link.href = resource.url;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              link.className = 'text-primary-600 hover:text-primary-800 hover:underline';
+              link.textContent = resource.text;
+
+              li.appendChild(bullet);
+              li.appendChild(link);
+              resourcesList.appendChild(li);
+            });
+
+            resourcesSection.appendChild(resourcesList);
+            topicSection.appendChild(resourcesSection);
+          }
+
+          container.appendChild(topicSection);
+        });
+      })
+      .catch(error => {
+        console.error('Error loading resources:', error);
+        container.innerHTML = '<p class="text-red-600">Error loading resources. Please try again.</p>';
+      });
   }
 
   /**
@@ -381,7 +522,27 @@
       return '4'; // Go to legal issue category
     } else if (currentStep === '4') {
       // From Legal Issue Category
-      return '5'; // Go to Your Name
+      const legalCategory = formData.legal_category;
+      if (legalCategory === 'family') {
+        return '4a'; // Go to Family sub-problems
+      }
+      return '5'; // Go to Your Name for non-family categories
+    } else if (currentStep === '4a') {
+      // From Family sub-problems
+      const familyProblem = formData.family_problem;
+      if (familyProblem === 'cps-foster') {
+        return '4b'; // Go to CPS narrowing
+      }
+      return '5'; // Go to Your Name for other family problems
+    } else if (currentStep === '4b') {
+      // From CPS narrowing - always go to self-help resources
+      return '4c'; // Go to self-help topic selection for CPS
+    } else if (currentStep === '4c') {
+      // Handled by handleShowCpsResources
+      return '4c-resources';
+    } else if (currentStep === '4c-resources') {
+      // Terminal step for CPS path
+      return null;
     } else if (currentStep === '5') {
       // From Your Name
       return '6'; // Go to Family Members
@@ -417,7 +578,19 @@
       return '2b'; // Back to who needs help
     } else if (currentStep === '4') {
       return '2b'; // Back to who needs help (skip deprecated Step 3)
+    } else if (currentStep === '4a') {
+      return '4'; // Back to legal issue category
+    } else if (currentStep === '4b') {
+      return '4a'; // Back to family sub-problems
+    } else if (currentStep === '4c') {
+      return '4b'; // Back to CPS narrowing
+    } else if (currentStep === '4c-resources') {
+      return '4c'; // Back to CPS self-help topic selection
     } else if (currentStep === '5') {
+      // Check if we came from family sub-problems path
+      if (formData.legal_category === 'family' && formData.family_problem && formData.family_problem !== 'cps-foster') {
+        return '4a'; // Back to family sub-problems
+      }
       return '4'; // Back to legal issue category
     } else if (currentStep === '6') {
       return '5'; // Back to your name
@@ -493,6 +666,10 @@
       '2b': 2,
       '3': 3,
       '4': 3,
+      '4a': 3,
+      '4b': 3,
+      '4c': 3,
+      '4c-resources': 3,
       '5': 4,
       '6': 4,
       '7': 4,
@@ -527,6 +704,10 @@
       '2b': 'Step 2 of 5: Eligibility',
       '3': 'Step 3 of 5: Screening Questions',
       '4': 'Step 3 of 5: Legal Issue Category',
+      '4a': 'Step 3 of 5: Family Legal Problems',
+      '4b': 'Step 3 of 5: CPS Legal Issues',
+      '4c': 'Step 3 of 5: Self-Help Topic Selection',
+      '4c-resources': 'Step 3 of 5: Self-Help Resources',
       '5': 'Step 4 of 5: Your Name',
       '6': 'Step 4 of 5: Family Members',
       '7': 'Step 4 of 5: Opposing Parties',

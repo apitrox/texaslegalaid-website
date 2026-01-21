@@ -690,6 +690,274 @@
             </div>
           </div>
 
+          <!-- Step 4a: Family Sub-Problems (shown when "family" is selected in Step 4) -->
+          <div class="form-step" data-step="4a" style="display: none;">
+            <button type="button" class="text-primary-700 hover:text-primary-900 mb-6 flex items-center gap-2" data-step-back>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+
+            <div class="mb-6 space-y-4">
+              <p class="text-lg">Great! Here is a list of common <strong>family</strong> legal problems we can help with.</p>
+              <p class="text-lg">Please select the one that most closely describes your situation.</p>
+            </div>
+
+            <div class="bg-secondary-100 rounded-lg p-6 mb-6">
+              <label class="block text-lg font-semibold text-primary-700 mb-4">Legal Problem</label>
+
+              <div class="space-y-3">
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="family_problem" value="adoption" class="w-5 h-5 accent-primary-600" required>
+                  <span class="ml-3 text-base">I have questions about adoption</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="family_problem" value="name-change" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about changing a child's name or gender markers</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="family_problem" value="custody-visitation" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about child custody and visitation</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="family_problem" value="cps-foster" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about Child Protective Services (CPS) involvement, child abuse, or foster youth rights</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="family_problem" value="child-support" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about child support</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="family_problem" value="divorce" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about divorce</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="family_problem" value="paternity" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about paternity (fatherhood)</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="family_problem" value="termination" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about termination of parental rights</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="family_problem" value="guardianship" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I need help setting up or ending a guardianship to support decision-making for an adult</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="family_problem" value="none" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">None of the above apply to my situation</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="flex justify-between">
+              <button type="button" class="btn btn-outline" data-step-back>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" data-step-next>
+                Next
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 4b: CPS Narrowing (shown when "cps-foster" is selected in Step 4a) -->
+          <div class="form-step" data-step="4b" style="display: none;">
+            <button type="button" class="text-primary-700 hover:text-primary-900 mb-6 flex items-center gap-2" data-step-back>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Let's Narrow Down The Legal Issue</h2>
+
+            <div class="mb-6 space-y-4">
+              <p class="text-lg">You previously indicated that your situation involves foster care, CPS, and/or domestic violence. Do any of the following describe the issue you are seeking help with?</p>
+              <p class="text-lg font-semibold">If none of these apply, please select "None of the above" and click NEXT to look at other possible legal issues.</p>
+            </div>
+
+            <div class="bg-secondary-100 rounded-lg p-6 mb-6">
+              <label class="block text-lg font-semibold text-primary-700 mb-4">Legal Problem Code Descriptive</label>
+
+              <div class="space-y-3">
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="cps_problem" value="cps-case" class="w-5 h-5 accent-primary-600" required>
+                  <span class="ml-3 text-base">I have questions about a Child Protective Services (CPS) case</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="cps_problem" value="family-violence" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about a child who has been a victim of family violence or child abuse</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="cps_problem" value="sexual-assault-stranger" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about a child who has been a victim of sexual assault, stalking or trafficking by a stranger or acquaintance</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="cps_problem" value="sexual-assault-family" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about a child who has been the victim of sexual assault by a family member</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="cps_problem" value="foster-benefits" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about foster youth benefits (college tuition waiver, ETV program, Medicaid)</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="cps_problem" value="cps-records" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">I have questions about requesting CPS records for a child who was in foster care</span>
+                </label>
+
+                <label
+                  class="block p-4 border-2 rounded-lg cursor-pointer hover:border-primary-300 has-[:checked]:border-primary-600 has-[:checked]:bg-white transition-all">
+                  <input type="radio" name="cps_problem" value="none" class="w-5 h-5 accent-primary-600">
+                  <span class="ml-3 text-base">None of the above apply to my situation</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Family Helpline Info Box for CPS issues -->
+            <div class="alert alert-info mb-6">
+              <svg class="alert-icon" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clip-rule="evenodd" />
+              </svg>
+              <div class="alert-content">
+                <p class="alert-title font-bold text-lg">Family Helpline</p>
+                <p class="mb-2">Speak with an experienced child welfare attorney about Child Protective Services (CPS) issues in Texas. Our attorneys will make sure you know your rights and understand your legal options.</p>
+                <p class="mb-2">All calls are anonymous. To protect your identity, referrals will not be made through Family Help Link. <strong>Instead, call the Family Helpline directly at <a href="tel:8448885565" class="font-bold underline">844-888-5565</a>.</strong></p>
+                <p class="mb-2"><strong>Hours:</strong> Monday - Friday, 9:00 AM - 6:00 PM</p>
+                <p class="text-sm">The Family Helpline provides free legal information and can connect you with resources and referrals. However, the Family Helpline cannot represent you in court.</p>
+              </div>
+            </div>
+
+            <p class="text-lg font-semibold text-primary-700 mb-6">We will not be able to refer you to a legal aid organization directly through this portal for CPS issues. You can exit now, or click NEXT to view self-help resources.</p>
+
+            <div class="flex justify-between">
+              <button type="button" class="btn btn-outline" data-step-back>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" data-step-next>
+                Next
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 4c: Self-Help Resources for CPS (shown after Step 4b) -->
+          <div class="form-step" data-step="4c" style="display: none;">
+            <button type="button" class="text-primary-700 hover:text-primary-900 mb-6 flex items-center gap-2" data-step-back>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Self-Help Resources</h2>
+
+            <p class="text-lg mb-6">Please select which topics below you are interested in learning more about.</p>
+
+            <div class="form-group mb-6">
+              <label for="cps_self_help_topics" class="form-label text-lg font-semibold text-primary-700">Please select which topics you would like resources on</label>
+              <select id="cps_self_help_topics" name="cps_self_help_topics" class="form-control form-select" multiple size="10">
+                <option value="child-abuse-neglect-cps">Child Abuse, Child Neglect, and Child Protective Services (CPS) Issues</option>
+                <option value="custody-visitation-adoption">Custody, Visitation, and Adoption</option>
+                <option value="changing-childs-name">Changing a Child's Name</option>
+                <option value="community-resources">Community Resources for Families (Non-Legal)</option>
+                <option value="child-support">Child Support</option>
+                <option value="education-special-education">Education and Special Education Issues</option>
+                <option value="government-benefits-ssi">Government Benefits and SSI</option>
+                <option value="identification-documents">Identification Documents for a Child</option>
+                <option value="immigration-issues">Immigration Issues for Children</option>
+                <option value="kinship-caregivers">Kinship Caregivers (Non-Parents Raising Children)</option>
+                <option value="medical-mental-health">Medical Care and Mental Health for Children</option>
+                <option value="parents-rights-paternity">Parents Rights and Paternity (Fatherhood)</option>
+              </select>
+              <p class="form-text">Hold Ctrl (Windows) or Command (Mac) to select multiple topics</p>
+            </div>
+
+            <div class="flex justify-between">
+              <button type="button" class="btn btn-outline" data-step-back>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+              <button type="button" class="btn btn-primary" data-show-cps-resources>
+                Next
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 4c-resources: Self-Help Resources Display for CPS path -->
+          <div class="form-step" data-step="4c-resources" style="display: none;">
+            <button type="button" class="text-primary-700 hover:text-primary-900 mb-6 flex items-center gap-2" data-step-back>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Self Help Resources</h2>
+
+            <!-- Resources container - will be populated by JavaScript -->
+            <div id="cps-self-help-resources-container" class="space-y-8 mb-6">
+              <!-- Resources will be dynamically inserted here -->
+            </div>
+
+            <div class="flex justify-start">
+              <button type="button" class="btn btn-outline" data-step-back>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+                Back
+              </button>
+            </div>
+          </div>
+
           <!-- Step 5: Your Name -->
           <div class="form-step" data-step="5" style="display: none;">
             <button type="button" class="text-primary-700 hover:text-primary-900 mb-6 flex items-center gap-2" data-step-back>
