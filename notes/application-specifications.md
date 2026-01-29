@@ -29,6 +29,7 @@ TexasLegalAid democratizes access to justice by:
 - Thumb-zone optimization for primary actions
 - Swipe gestures for navigation where appropriate
 - Progressive Web App (PWA) capabilities for offline access and home screen installation
+- WCAG 2.1 AA compliant
 
 ### Framework & Styling
 - **Tailwind CSS** for utility-first responsive design
