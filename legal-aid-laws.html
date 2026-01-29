@@ -255,7 +255,7 @@
             </article>
           </a>
           <!-- Financial Eligibility Requirements - Expandable -->
-          <article class="card expandable-card" id="card-tajf-financial-eligibility" onclick="toggleCard(this)">
+          <article class="card expandable-card" id="card-tajf-financial-eligibility" role="button" tabindex="0" aria-expanded="false" onclick="toggleCard(this)" onkeydown="handleCardKeydown(event, this)">
             <div class="flex justify-between items-start">
               <div>
                 <h3 class="card-title">TAJF Financial Eligibility Requirements</h3>
@@ -276,7 +276,7 @@
             <span class="text-primary-600 font-semibold text-sm mt-2 inline-block">Click to select year →</span>
           </article>
           <!-- Income Eligibility Table - Expandable -->
-          <article class="card expandable-card" id="card-tajf-income-eligibility" onclick="toggleCard(this)">
+          <article class="card expandable-card" id="card-tajf-income-eligibility" role="button" tabindex="0" aria-expanded="false" onclick="toggleCard(this)" onkeydown="handleCardKeydown(event, this)">
             <div class="flex justify-between items-start">
               <div>
                 <h3 class="card-title">TAJF Income Eligibility Table</h3>
@@ -297,7 +297,7 @@
             <span class="text-primary-600 font-semibold text-sm mt-2 inline-block">Click to select year →</span>
           </article>
           <!-- Grants Administration Primer - Expandable -->
-          <article class="card expandable-card" id="card-tajf-grants-primer" onclick="toggleCard(this)">
+          <article class="card expandable-card" id="card-tajf-grants-primer" role="button" tabindex="0" aria-expanded="false" onclick="toggleCard(this)" onkeydown="handleCardKeydown(event, this)">
             <div class="flex justify-between items-start">
               <div>
                 <h3 class="card-title">TAJF Grants Administration Primer Memo</h3>
@@ -508,6 +508,15 @@
   <script>
     function toggleCard(card) {
       card.classList.toggle('expanded');
+      var isExpanded = card.classList.contains('expanded');
+      card.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    }
+
+    function handleCardKeydown(event, card) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleCard(card);
+      }
     }
   </script>
 

@@ -175,11 +175,11 @@ main .section:not(.hero):not(.cta-section) .text-gray-700 {
   /* Semantic Colors */
   --color-success: #2E7D32;
   --color-success-bg: #E8F5E9;
-  --color-warning: #F57C00;
+  --color-warning: #B45309; /* WCAG 2.1 AA: 4.59:1 contrast on warning-bg */
   --color-warning-bg: #FFF3E0;
   --color-error: #C62828;
   --color-error-bg: #FFEBEE;
-  --color-info: #0288D1;
+  --color-info: #01579B; /* WCAG 2.1 AA: 6.57:1 contrast on info-bg */
   --color-info-bg: #E1F5FE;
 
   /* Neutral Colors */
@@ -187,7 +187,7 @@ main .section:not(.hero):not(.cta-section) .text-gray-700 {
   --color-gray-800: #333333;
   --color-gray-700: #4A4A4A;
   --color-gray-600: #666666;
-  --color-gray-500: #808080;
+  --color-gray-500: #767676; /* WCAG 2.1 AA: 4.54:1 contrast on white */
   --color-gray-400: #A0A0A0;
   --color-gray-300: #C0C0C0;
   --color-gray-200: #E0E0E0;
@@ -532,8 +532,8 @@ a:focus {
 }
 
 .carousel-dot {
-  width: 12px;
-  height: 12px;
+  width: 24px;
+  height: 24px;
   border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.4);
   border: 2px solid rgba(255, 255, 255, 0.6);
@@ -692,8 +692,13 @@ a:focus {
   transition: all var(--transition-fast);
 }
 
-.btn:focus {
+.btn:focus:not(:focus-visible) {
   outline: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary-700);
+  outline-offset: 2px;
   box-shadow: 0 0 0 3px rgba(45, 90, 123, 0.3);
 }
 
